@@ -1,4 +1,4 @@
-package fr.univ_rouen.hansa.GameBoard;
+package fr.univ_rouen.hansa.GameBoard.Player.Escritoire;
 
 import java.util.List;
 
