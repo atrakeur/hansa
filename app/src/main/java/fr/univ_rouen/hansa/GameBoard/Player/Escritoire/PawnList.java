@@ -1,8 +1,11 @@
 package fr.univ_rouen.hansa.GameBoard.Player.Escritoire;
 
+<<<<<<< HEAD
 import com.google.common.collect.Lists;
 
 import java.util.Iterator;
+=======
+>>>>>>> 93cb23c... feature(player): add implementation of escritoire
 import java.util.List;
 
 import fr.univ_rouen.hansa.GameBoard.Pawns.Merchant;
@@ -10,6 +13,7 @@ import fr.univ_rouen.hansa.GameBoard.Pawns.Pawn;
 import fr.univ_rouen.hansa.GameBoard.Pawns.Trader;
 
 public class PawnList implements IPawnList {
+<<<<<<< HEAD
     List<Trader> traders;
     List<Merchant> merchants;
 
@@ -65,5 +69,23 @@ public class PawnList implements IPawnList {
         }
 
         return rTraders;
+=======
+    @Override
+    public void addPawns(List<Pawn> pawns) {
+        //TODO
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<Merchant> getMerchants(int merchants) throws IllegalStateException {
+        //TODO
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<Trader> getTraders(int traders) throws IllegalStateException {
+        //TODO
+        throw new UnsupportedOperationException();
+>>>>>>> 93cb23c... feature(player): add implementation of escritoire
     }
 }
