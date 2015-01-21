@@ -1,23 +1,21 @@
 package fr.univ_rouen.hansa.gameboard.player.escritoire;
 
-import com.google.common.collect.Lists;
-
 import java.util.List;
 
-import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusMarker;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
 
 
 public interface IEscritoire {
     public static final int INIT_CLAVIS_URBIS = 4;
-    public static final int INIT_ACTIONES = 4;
+    public static final int INIT_ACTIONES = 5;
     public static final int INIT_PRIVILEGIUM = 3;
     public static final int INIT_LIBER_SOPHIA = 3;
     public static final int INIT_BURSA = 3;
 
-    public List<BonusMarker> getTinPlateContent();
-    public List<BonusMarker> getUnusedBonusMarker();
-    public List<BonusMarker> getUsedBonusMarker();
+    public List<IBonusMarker> getTinPlateContent();
+    public List<IBonusMarker> getUnusedBonusMarker();
+    public List<IBonusMarker> getUsedBonusMarker();
     public int bonusMarkerCount();
     public int clavisUrbisLevel();
     public int actionesLevel();

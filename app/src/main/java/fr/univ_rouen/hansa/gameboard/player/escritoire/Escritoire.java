@@ -5,7 +5,7 @@ import com.google.common.collect.Lists;
 import java.util.List;
 
 import fr.univ_rouen.hansa.exceptions.NotEnoughSupplyException;
-import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusMarker;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.pawns.Trader;
@@ -16,8 +16,8 @@ public class Escritoire implements IEscritoire {
     private List<Trader> privilegium;
     private List<Merchant> liberSophia;
     private List<Trader> bursa;
-    private List<BonusMarker> tinPlate;
-    private List<BonusMarker> bonusMarkers;
+    private List<IBonusMarker> tinPlate;
+    private List<IBonusMarker> bonusMarkers;
 
     private IPawnList stock;
     private IPawnList reserve;
@@ -56,17 +56,17 @@ public class Escritoire implements IEscritoire {
     }
 
     @Override
-    public List<BonusMarker> getTinPlateContent() {
+    public List<IBonusMarker> getTinPlateContent() {
+        return tinPlate;
+    }
+
+    @Override
+    public List<IBonusMarker> getUnusedBonusMarker() {
         return null;
     }
 
     @Override
-    public List<BonusMarker> getUnusedBonusMarker() {
-        return null;
-    }
-
-    @Override
-    public List<BonusMarker> getUsedBonusMarker() {
+    public List<IBonusMarker> getUsedBonusMarker() {
         return null;
     }
 
@@ -93,10 +93,6 @@ public class Escritoire implements IEscritoire {
     @Override
     public int actionesLevel() {
         int listSize = actiones.size();
-
-        if (listSize % 2 == 0) {
-            listSize--;
-        }
 
         if (listSize == 0) {
             return 5;
