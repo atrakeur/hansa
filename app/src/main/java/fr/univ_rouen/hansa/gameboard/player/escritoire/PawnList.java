@@ -5,6 +5,8 @@ import com.google.common.collect.Lists;
 import java.util.Iterator;
 import java.util.List;
 
+import fr.univ_rouen.hansa.exceptions.InvalidPionException;
+import fr.univ_rouen.hansa.exceptions.NotEnoughSupplyException;
 import fr.univ_rouen.hansa.gameboard.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.pawns.Trader;
@@ -26,15 +28,15 @@ public class PawnList implements IPawnList {
             } else if (pawn instanceof Merchant) {
                 merchants.add((Merchant) pawn);
             } else {
-                //FIXME add exceptions
+                throw new InvalidPionException("Excpects Traders or Merchants");
             }
         }
     }
 
     @Override
-    public List<Merchant> getMerchants(int merchantCount) throws IllegalStateException {
+    public List<Merchant> getMerchants(int merchantCount) {
         if (merchants.size() >= merchantCount) {
-            throw new IllegalStateException(); //FIXME add exception
+            throw new NotEnoughSupplyException();
         }
 
         List<Merchant> rMerchant = Lists.newArrayList();
@@ -50,9 +52,9 @@ public class PawnList implements IPawnList {
     }
 
     @Override
-    public List<Trader> getTraders(int traderCount) throws IllegalStateException {
+    public List<Trader> getTraders(int traderCount) {
         if (merchants.size() >= traderCount) {
-            throw new IllegalStateException();  //FIXME add exception
+            throw new NotEnoughSupplyException();
         }
 
         List<Trader> rTraders = Lists.newArrayList();
