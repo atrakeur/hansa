@@ -5,6 +5,7 @@
 Thumbs.db
 .DS_Store
 /build
+/app/app.iml
 
 *.apk
 *.ap_
