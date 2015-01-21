@@ -1,6 +1,6 @@
 package fr.univ_rouen.hansa.exceptions;
 
-public class GameException extends Exception {
+public class GameException extends RuntimeException {
 
     public GameException()
     {

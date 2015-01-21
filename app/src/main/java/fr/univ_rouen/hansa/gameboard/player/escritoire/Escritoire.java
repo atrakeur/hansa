@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 
 import java.util.List;
 
+import fr.univ_rouen.hansa.exceptions.NotEnoughSupplyException;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusMarker;
 import fr.univ_rouen.hansa.gameboard.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
@@ -167,8 +168,8 @@ public class Escritoire implements IEscritoire {
             pawns.addAll(stock.getTraders(traders));
 
             reserve.addPawns(pawns);
-        } catch (IllegalStateException e) {
-            stock.addPawns(pawns); //FIXME use game exeptions
+        } catch (NotEnoughSupplyException e) {
+            stock.addPawns(pawns);
 
             throw e;
         }
@@ -194,9 +195,9 @@ public class Escritoire implements IEscritoire {
         reserve.addPawns(pawns);
     }
 
-    private Pawn increasePower(List<? extends Pawn> pawns) { //FIXME use game exeptions
+    private Pawn increasePower(List<? extends Pawn> pawns) {
         if (pawns.size() <= 0) {
-            throw new IllegalStateException("Power already increase at is max.");
+            throw new NotEnoughSupplyException("Power already increase at is max.");
         }
 
         return pawns.remove(pawns.size() - 1);
