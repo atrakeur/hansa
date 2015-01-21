@@ -18,7 +18,9 @@
         </activity>
         <activity
             android:name=".activity.GameActivity"
-            android:label="@string/title_activity_game_board" >
+            android:label="@string/title_activity_game_board"
+
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
