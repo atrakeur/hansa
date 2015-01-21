@@ -8,6 +8,6 @@ import fr.univ_rouen.hansa.GameBoard.Pawns.Trader;
 
 public interface IPawnList {
     public void addPawns(List<Pawn> pawns);
-    public Merchant getMerchants(int merchants);
-    public Trader getTraders(int traders);
+    public List<Merchant> getMerchants(int merchants) throws IllegalStateException;
+    public List<Trader> getTraders(int traders) throws IllegalStateException;
 }
