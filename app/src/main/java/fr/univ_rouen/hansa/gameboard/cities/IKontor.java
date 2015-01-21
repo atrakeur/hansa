@@ -6,8 +6,8 @@ import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
 public interface IKontor<E extends Pawn> {
 
     boolean isEmpty();
-    public void setPawn(E pawn);
-    public void pushPawn(E pawn);
+    public void pullPawn(E pawn);
+    public E pushPawn();
     Privillegium getPrivillegium();
 
 }
