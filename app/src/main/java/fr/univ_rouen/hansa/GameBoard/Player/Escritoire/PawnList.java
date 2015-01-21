@@ -1,11 +1,17 @@
 package fr.univ_rouen.hansa.GameBoard.Player.Escritoire;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.common.collect.Lists;
 
 import java.util.Iterator;
 =======
 >>>>>>> 93cb23c... feature(player): add implementation of escritoire
+=======
+import com.google.common.collect.Lists;
+
+import java.util.Iterator;
+>>>>>>> 7f70b7d... feature(plateau): add implementation of IPawnList
 import java.util.List;
 
 import fr.univ_rouen.hansa.GameBoard.Pawns.Merchant;
@@ -14,6 +20,9 @@ import fr.univ_rouen.hansa.GameBoard.Pawns.Trader;
 
 public class PawnList implements IPawnList {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7f70b7d... feature(plateau): add implementation of IPawnList
     List<Trader> traders;
     List<Merchant> merchants;
 
@@ -22,6 +31,7 @@ public class PawnList implements IPawnList {
         merchants = Lists.newArrayList();
     }
 
+<<<<<<< HEAD
     @Override
     public void addPawns(List<Pawn> pawns) {
         for (Pawn pawn : pawns) {
@@ -70,22 +80,61 @@ public class PawnList implements IPawnList {
 
         return rTraders;
 =======
+=======
+>>>>>>> 7f70b7d... feature(plateau): add implementation of IPawnList
     @Override
     public void addPawns(List<Pawn> pawns) {
-        //TODO
-        throw new UnsupportedOperationException();
+        for (Pawn pawn : pawns) {
+            if (pawn instanceof Trader) {
+                traders.add((Trader) pawn);
+            } else if (pawn instanceof Merchant) {
+                merchants.add((Merchant) pawn);
+            } else {
+                //FIXME add exceptions
+            }
+        }
     }
 
     @Override
-    public List<Merchant> getMerchants(int merchants) throws IllegalStateException {
-        //TODO
-        throw new UnsupportedOperationException();
+    public List<Merchant> getMerchants(int merchantCount) throws IllegalStateException {
+        if (merchants.size() >= merchantCount) {
+            throw new IllegalStateException(); //FIXME add exception
+        }
+
+        List<Merchant> rMerchant = Lists.newArrayList();
+
+        Iterator<Merchant> merchantIterator = merchants.iterator();
+
+        while (merchantIterator.hasNext() && rMerchant.size() >= merchantCount) {
+            rMerchant.add(merchantIterator.next());
+            merchantIterator.remove();
+        }
+
+        return rMerchant;
     }
 
     @Override
+<<<<<<< HEAD
     public List<Trader> getTraders(int traders) throws IllegalStateException {
         //TODO
         throw new UnsupportedOperationException();
 >>>>>>> 93cb23c... feature(player): add implementation of escritoire
+=======
+    public List<Trader> getTraders(int traderCount) throws IllegalStateException {
+        if (merchants.size() >= traderCount) {
+            throw new IllegalStateException();  //FIXME add exception
+        }
+
+        List<Trader> rTraders = Lists.newArrayList();
+
+        Iterator<Trader> traderIterator = traders.iterator();
+
+        while (traderIterator.hasNext() && rTraders.size() >= traderCount) {
+            rTraders.add(traderIterator.next());
+            traderIterator.remove();
+        }
+
+        return rTraders;
+>>>>>>> 7f70b7d... feature(plateau): add implementation of IPawnList
     }
 }
