@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Hansa</string>
+    <string name="app_name">Hansa Teutonica</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_game_board">Hansa Teutonica</string>
 
+    <!--ACCESSIBILITY-->
+    <string name="gameboard">Plateau de Jeu</string>
+    <string name="button_cancel">Boutton Annuler</string>
+    <string name="button_bursa">Boutton Bursa</string>
+    <string name="button_bonus_marker">Boutton Jeton Bonus</string>
+    <string name="button_submit">Boutton Valider</string>
+    <string name="button_pause">Boutto Pause</string>
 
 </resources>
