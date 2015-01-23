@@ -1,11 +1,9 @@
 package fr.univ_rouen.hansa.gameboard.player.escritoire;
 
-import com.google.common.collect.Lists;
-
 import java.util.List;
 
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusMarker;
-import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 
 
 public interface IEscritoire {
