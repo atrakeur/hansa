@@ -18,7 +18,7 @@ public class Kontor<E extends Pawn> implements IKontor<E>{
     //les méthodes
     public boolean isEmpty() {
         if(pawn==null) return true;
-        else return true;
+        else return false;
     }
 
 
@@ -37,7 +37,7 @@ public class Kontor<E extends Pawn> implements IKontor<E>{
     //commandes
     public void pullPawn(E p) {
         if( p==null) throw new IllegalArgumentException();
-        if(pawn!=null) throw new  IllegalArgumentException();
+        if(!this.isEmpty()) throw new  IllegalArgumentException();
         pawn = p;
     }
 
