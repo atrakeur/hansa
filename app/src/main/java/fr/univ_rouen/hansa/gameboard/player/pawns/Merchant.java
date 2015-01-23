@@ -1,4 +1,4 @@
-package fr.univ_rouen.hansa.gameboard.pawns;
+package fr.univ_rouen.hansa.gameboard.player.pawns;
 
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 
