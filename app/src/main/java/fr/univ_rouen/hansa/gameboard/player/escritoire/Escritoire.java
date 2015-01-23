@@ -112,7 +112,7 @@ public class Escritoire implements IEscritoire {
 
     @Override
     public int liberSophiaLevel() {
-        return 5 - privilegium.size();
+        return 5 - liberSophia.size();
     }
 
     @Override
