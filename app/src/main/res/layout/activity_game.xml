@@ -7,7 +7,7 @@
 
     <ImageView
         android:id="@+id/gameboard"
-        android:layout_weight="1"
+        android:layout_weight="8"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:scaleType="fitXY"
@@ -17,7 +17,8 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:layout_width="0dp"
         android:layout_height="match_parent">
 
 
@@ -27,16 +28,11 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_launcher"
+            android:src="@drawable/annuler"
             android:contentDescription="@string/button_cancel"
 
-            android:background="#FFFFFF"
+            android:background="#000000"
             android:onClick="toasty"/>
-
-        <Space
-            android:layout_width="@dimen/space_between_button"
-            android:layout_height="@dimen/space_between_button" />
-
 
         <ImageButton
             android:id="@+id/button_bursa"
@@ -44,32 +40,23 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_launcher"
+            android:src="@drawable/bursa"
             android:contentDescription="@string/button_bursa"
 
-            android:background="#FFFFFF"
+            android:background="#000000"
             android:onClick="toasty" />
-
-        <Space
-            android:layout_width="@dimen/space_between_button"
-            android:layout_height="@dimen/space_between_button" />
-
         <ImageButton
             android:id="@+id/button_bonus_marker"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_launcher"
+            android:src="@drawable/jb"
             android:contentDescription="@string/button_bonus_marker"
 
             android:onClick="toasty"
             android:background="#000000"
             />
-
-        <Space
-            android:layout_width="@dimen/space_between_button"
-            android:layout_height="@dimen/space_between_button" />
 
         <ImageButton
             android:id="@+id/button_submit"
@@ -77,16 +64,12 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_launcher"
+            android:src="@drawable/valider"
             android:contentDescription="@string/button_submit"
 
-            android:background="#FFFFFF"
+            android:background="#000000"
             android:onClick="toasty"
             />
-
-        <Space
-            android:layout_width="@dimen/space_between_button"
-            android:layout_height="@dimen/space_between_button" />
 
         <ImageButton
             android:id="@+id/button_pause"
@@ -94,10 +77,10 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_launcher"
+            android:src="@drawable/pause"
             android:contentDescription="@string/button_pause"
 
-            android:background="#FFFFFF"
+            android:background="#000000"
             android:onClick="toasty"
             />
 
