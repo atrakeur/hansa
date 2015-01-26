@@ -1,11 +1,11 @@
-package fr.univ_rouen.hansa.gameboard.player;
+package fr.univ_rouen.hansa.gameboard.board;
 
 import com.google.common.collect.Lists;
 
 import java.util.List;
 
+import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
-import fr.univ_rouen.hansa.gameboard.routes.RouteBoard;
 
 public class PlayersBoard extends RouteBoard {
 

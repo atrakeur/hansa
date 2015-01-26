@@ -1,12 +1,13 @@
-package fr.univ_rouen.hansa.gameboard.routes;
+package fr.univ_rouen.hansa.gameboard.board;
 
 import com.google.common.collect.Lists;
 
 import java.util.Collections;
 import java.util.List;
 
-import fr.univ_rouen.hansa.gameboard.cities.CitiesBoard;
+import fr.univ_rouen.hansa.gameboard.board.CitiesBoard;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
+import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 
 public abstract class RouteBoard extends CitiesBoard {
 
@@ -17,7 +18,7 @@ public abstract class RouteBoard extends CitiesBoard {
         routes = Lists.newArrayList();
     }
 
-    public void addRoute(IRoute route)
+    protected void addRoute(IRoute route)
     {
         List<ICity> cities = route.getCities();
         if (cities.size() != 2 || getRoute(cities.get(0), cities.get(1)) != null)
