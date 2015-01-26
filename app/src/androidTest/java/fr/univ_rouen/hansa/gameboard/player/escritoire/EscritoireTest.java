@@ -5,15 +5,17 @@ import android.test.ApplicationTestCase;
 
 import junit.framework.TestCase;
 
+import java.util.List;
+
+import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
+
 public class EscritoireTest extends ApplicationTestCase<Application> {
-    //TODO Pas de test sur les BonusMarker
-    //TODO Pas de test sur stock et reserve
     public EscritoireTest() {
         super(Application.class);
     }
 
     public void testClavisUrbis() throws Exception {
-        Escritoire escritoire = new Escritoire();
+        Escritoire escritoire = new Escritoire(1);
 
         assertEquals(escritoire.clavisUrbisLevel(), 1);
 
@@ -37,7 +39,7 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
     }
 
     public void testActiones() throws Exception {
-        Escritoire escritoire = new Escritoire();
+        Escritoire escritoire = new Escritoire(1);
 
         assertEquals(escritoire.actionesLevel(), 2);
 
@@ -64,7 +66,7 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
     }
 
     public void testPrivilegium() throws Exception {
-        Escritoire escritoire = new Escritoire();
+        Escritoire escritoire = new Escritoire(1);
 
         assertEquals(escritoire.privilegiumLevel(), 1);
 
@@ -85,7 +87,7 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
     }
 
     public void testLiberSophia() throws Exception {
-        Escritoire escritoire = new Escritoire();
+        Escritoire escritoire = new Escritoire(1);
 
         assertEquals(escritoire.liberSophiaLevel(), 2);
 
@@ -106,7 +108,7 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
     }
 
     public void testBursa() throws Exception {
-        Escritoire escritoire = new Escritoire();
+        Escritoire escritoire = new Escritoire(1);
 
         assertEquals(escritoire.bursaLevel(), 3);
 
@@ -124,5 +126,34 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
             fail("Missing exception");
         } catch (Exception e){
         }
+    }
+
+    public void testStockAndSupply() throws Exception {
+        Escritoire escritoire;
+        List<Pawn> supplyPawns;
+
+        escritoire = new Escritoire(1);
+        assertTrue(escritoire.moveStockToSupply(6, 0));
+
+        try {
+            escritoire.moveStockToSupply(1, 0);
+            fail("Missing exception");
+        } catch (Exception e){
+        }
+
+        supplyPawns = escritoire.getFromSupply(11, 1);
+        assertTrue(supplyPawns.size() == 12);
+
+        escritoire = new Escritoire(5);
+        assertTrue(escritoire.moveStockToSupply(2, 0));
+
+        try {
+            escritoire.moveStockToSupply(1, 0);
+            fail("Missing exception");
+        } catch (Exception e){
+        }
+
+        supplyPawns = escritoire.getFromSupply(11, 1);
+        assertTrue(supplyPawns.size() == 12);
     }
 }

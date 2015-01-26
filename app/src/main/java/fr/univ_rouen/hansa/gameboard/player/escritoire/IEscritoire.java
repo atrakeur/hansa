@@ -12,6 +12,8 @@ public interface IEscritoire {
     public static final int INIT_PRIVILEGIUM = 3;
     public static final int INIT_LIBER_SOPHIA = 3;
     public static final int INIT_BURSA = 3;
+    public static final int INIT_STOCK = 7;
+    public static final int INIT_SUPPLY = 4;
 
     public List<IBonusMarker> getTinPlateContent();
     public List<IBonusMarker> getUnusedBonusMarker();
@@ -27,7 +29,8 @@ public interface IEscritoire {
     public Pawn increasePrivilegium();
     public Pawn increaseLiberSophia();
     public Pawn increaseBursa();
-    public boolean moveStockToReserve(int merchants, int traders);
+    public boolean moveStockToSupply(int merchants, int traders);
+    public List<Pawn> getFromSupply(int merchants, int traders);
     public void addToStock(List<Pawn> pawns);
-    public void addToReserve(List<Pawn> pawns);
+    public void addToSupply(List<Pawn> pawns);
 }

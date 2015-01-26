@@ -35,7 +35,7 @@ public class PawnList implements IPawnList {
 
     @Override
     public List<Merchant> getMerchants(int merchantCount) {
-        if (merchants.size() >= merchantCount) {
+        if (merchants.size() < merchantCount) {
             throw new NotEnoughSupplyException();
         }
 
@@ -43,7 +43,7 @@ public class PawnList implements IPawnList {
 
         Iterator<Merchant> merchantIterator = merchants.iterator();
 
-        while (merchantIterator.hasNext() && rMerchant.size() >= merchantCount) {
+        while (merchantIterator.hasNext() && rMerchant.size() <= merchantCount) {
             rMerchant.add(merchantIterator.next());
             merchantIterator.remove();
         }
@@ -53,7 +53,7 @@ public class PawnList implements IPawnList {
 
     @Override
     public List<Trader> getTraders(int traderCount) {
-        if (merchants.size() >= traderCount) {
+        if (traders.size() < traderCount) {
             throw new NotEnoughSupplyException();
         }
 
@@ -61,7 +61,7 @@ public class PawnList implements IPawnList {
 
         Iterator<Trader> traderIterator = traders.iterator();
 
-        while (traderIterator.hasNext() && rTraders.size() >= traderCount) {
+        while (traderIterator.hasNext() && rTraders.size() <= traderCount) {
             rTraders.add(traderIterator.next());
             traderIterator.remove();
         }

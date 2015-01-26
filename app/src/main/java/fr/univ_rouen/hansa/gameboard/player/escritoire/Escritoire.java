@@ -11,18 +11,18 @@ import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.pawns.Trader;
 
 public class Escritoire implements IEscritoire {
-    private List<Trader> clavisUrbis;
-    private List<Trader> actiones;
-    private List<Trader> privilegium;
-    private List<Merchant> liberSophia;
-    private List<Trader> bursa;
+    private List<Merchant> clavisUrbis;
+    private List<Merchant> actiones;
+    private List<Merchant> privilegium;
+    private List<Trader> liberSophia;
+    private List<Merchant> bursa;
     private List<IBonusMarker> tinPlate;
     private List<IBonusMarker> bonusMarkers;
 
     private IPawnList stock;
-    private IPawnList reserve;
+    private IPawnList supply;
 
-    public Escritoire() {
+    public Escritoire(int startingPlace) {
         clavisUrbis = Lists.newArrayList();
         actiones = Lists.newArrayList();
         privilegium = Lists.newArrayList();
@@ -32,27 +32,44 @@ public class Escritoire implements IEscritoire {
         bonusMarkers = Lists.newArrayList();
 
         stock = new PawnList();
-        reserve = new PawnList();
+        supply = new PawnList();
+
+        List<Pawn> initStock = Lists.newArrayList();
+        List<Pawn> initSupply = Lists.newArrayList();
 
         for (int i = 0; i < INIT_CLAVIS_URBIS; i++) {
-            clavisUrbis.add(new Trader());
+            clavisUrbis.add(new Merchant());
         }
 
         for (int i = 0; i < INIT_ACTIONES; i++) {
-            actiones.add(new Trader());
+            actiones.add(new Merchant());
         }
 
         for (int i = 0; i < INIT_PRIVILEGIUM; i++) {
-            privilegium.add(new Trader());
+            privilegium.add(new Merchant());
         }
 
         for (int i = 0; i < INIT_LIBER_SOPHIA; i++) {
-            liberSophia.add(new Merchant());
+            liberSophia.add(new Trader());
         }
 
         for (int i = 0; i < INIT_BURSA; i++) {
-            bursa.add(new Trader());
+            bursa.add(new Merchant());
         }
+
+        for (int i = 0; i < INIT_STOCK - startingPlace; i++) {
+            initStock.add(new Merchant());
+        }
+
+        stock.addPawns(initStock);
+
+        for (int i = 0; i < INIT_SUPPLY + startingPlace; i++) {
+            initSupply.add(new Merchant());
+        }
+
+        initSupply.add(new Trader());
+
+        supply.addPawns(initSupply);
     }
 
     @Override
@@ -156,14 +173,14 @@ public class Escritoire implements IEscritoire {
     }
 
     @Override
-    public boolean moveStockToReserve(int merchants, int traders) {
+    public boolean moveStockToSupply(int merchants, int traders) {
         List<Pawn> pawns = Lists.newArrayList();
 
         try {
             pawns.addAll(stock.getMerchants(merchants));
             pawns.addAll(stock.getTraders(traders));
 
-            reserve.addPawns(pawns);
+            supply.addPawns(pawns);
         } catch (NotEnoughSupplyException e) {
             stock.addPawns(pawns);
 
@@ -171,6 +188,22 @@ public class Escritoire implements IEscritoire {
         }
 
         return true;
+    }
+
+    @Override
+    public List<Pawn> getFromSupply(int merchants, int traders) {
+        List<Pawn> pawns = Lists.newArrayList();
+
+        try {
+            pawns.addAll(supply.getMerchants(merchants));
+            pawns.addAll(supply.getTraders(traders));
+        } catch (NotEnoughSupplyException e) {
+            supply.addPawns(pawns);
+
+            throw e;
+        }
+
+        return pawns;
     }
 
     @Override
@@ -183,12 +216,12 @@ public class Escritoire implements IEscritoire {
     }
 
     @Override
-    public void addToReserve(List<Pawn> pawns) {
+    public void addToSupply(List<Pawn> pawns) {
         if (pawns == null) {
             throw new IllegalArgumentException();
         }
 
-        reserve.addPawns(pawns);
+        supply.addPawns(pawns);
     }
 
     private Pawn increasePower(List<? extends Pawn> pawns) {
