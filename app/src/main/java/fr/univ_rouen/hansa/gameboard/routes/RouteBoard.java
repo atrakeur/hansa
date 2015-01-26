@@ -17,6 +17,17 @@ public abstract class RouteBoard extends CitiesBoard {
         routes = Lists.newArrayList();
     }
 
+    public void addRoute(IRoute route)
+    {
+        List<ICity> cities = route.getCities();
+        if (cities.size() != 2 || getRoute(cities.get(0), cities.get(1)) != null)
+        {
+            throw new IllegalArgumentException("addRoute need a route that link two cities together.");
+        }
+
+        routes.add(route);
+    }
+
     public List<IRoute> getRoutes() {
         return Collections.unmodifiableList(routes);
     }
