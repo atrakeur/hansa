@@ -9,5 +9,5 @@ public interface IKontor<E extends Pawn> {
     public void pullPawn(E pawn);
     public E pushPawn();
     Privillegium getPrivillegium();
-    
+
 }
