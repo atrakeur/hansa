@@ -9,7 +9,7 @@ public class City implements ICity {
     private List<IKontor> kontors;
     private Power power;
 
-    public City(Power pow, List ks) {
+    public City(Power pow, List<IKontor> ks) {
         if (ks == null) {
             throw new IllegalArgumentException();
         }
