@@ -1,20 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$" external.system.id="GRADLE" type="JAVA_MODULE" version="4">
-  <component name="FacetManager">
-    <facet type="java-gradle" name="Java-Gradle">
-      <configuration>
-        <option name="BUILD_FOLDER_PATH" value="$MODULE_DIR$/build" />
-      </configuration>
-    </facet>
-  </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
-    <exclude-output />
-    <content url="file://$MODULE_DIR$">
-      <excludeFolder url="file://$MODULE_DIR$/.gradle" />
-      <excludeFolder url="file://$MODULE_DIR$/build" />
-    </content>
-    <orderEntry type="inheritedJdk" />
-    <orderEntry type="sourceFolder" forTests="false" />
-  </component>
-</module>
-
+<?xml version="1.0" encoding="UTF-8"?> 
+2 <module external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$" external.system.id="GRADLE" type="JAVA_MODULE" version="4"> 
+3   <component name="FacetManager"> 
+4     <facet type="java-gradle" name="Java-Gradle"> 
+5       <configuration> 
+6         <option name="BUILD_FOLDER_PATH" value="$MODULE_DIR$/build" /> 
+7       </configuration> 
+8     </facet> 
+9   </component> 
+10   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_6" inherit-compiler-output="false"> 
+11     <output url="file://$MODULE_DIR$/build/classes/main" /> 
+12     <output-test url="file://$MODULE_DIR$/build/classes/test" /> 
+13     <exclude-output /> 
+14     <content url="file://$MODULE_DIR$"> 
+15       <excludeFolder url="file://$MODULE_DIR$/.gradle" /> 
+16     </content> 
+17     <orderEntry type="inheritedJdk" /> 
+18     <orderEntry type="sourceFolder" forTests="false" /> 
+19   </component> 
+20 </module> 
