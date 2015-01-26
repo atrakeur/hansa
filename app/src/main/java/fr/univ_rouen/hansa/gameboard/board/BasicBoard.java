@@ -1,4 +1,4 @@
-package fr.univ_rouen.hansa.gameboard;
+package fr.univ_rouen.hansa.gameboard.board;
 
 public abstract class BasicBoard {
 
