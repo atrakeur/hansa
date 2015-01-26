@@ -6,4 +6,5 @@ public enum Privillegium {
     Orange,
     Pink,
     Black
+    
 }
