@@ -1,7 +1,5 @@
 package fr.univ_rouen.hansa.gameboard.cities;
 
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class City implements ICity {
@@ -21,6 +19,7 @@ public class City implements ICity {
         if (i < 0 || i > kontors.size()) {
             throw new IllegalArgumentException();
         }
+
         return kontors.get(i);
     }
 
@@ -33,7 +32,9 @@ public class City implements ICity {
             if (k.isEmpty()) {
                 return false;
             }
+
         }
+
         return true;
     }
 }
