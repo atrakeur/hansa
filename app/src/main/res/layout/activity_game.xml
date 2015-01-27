@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context="fr.univ_rouen.hansa.activity.GameActivity" >
 
-    <ImageView
+   <!-- <ImageView
         android:id="@+id/gameboard"
         android:layout_weight="8"
         android:layout_width="0dp"
@@ -14,6 +14,12 @@
         android:src="@drawable/plateau23"
         android:contentDescription="@string/gameboard"
         />
+-->
+    <SurfaceView
+        android:id="@+id/dynamic_ui"
+        android:layout_weight="8"
+        android:layout_width="0dp"
+        android:layout_height="match_parent" />
 
     <LinearLayout
         android:orientation="vertical"
