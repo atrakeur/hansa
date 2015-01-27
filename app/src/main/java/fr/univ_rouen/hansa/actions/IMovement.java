@@ -10,6 +10,13 @@ public interface IMovement {
     public boolean isDone();
 
     /**
+     * return the action type done by the movement
+     *
+     * @return Actions done represent by Actions enum
+     */
+    public Actions getActionDone();
+
+    /**
      * Do the movement in the gameboard model
      *
      * @pre isDone == false
