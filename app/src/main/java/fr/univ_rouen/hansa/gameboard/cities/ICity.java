@@ -4,8 +4,9 @@ import java.util.List;
 
 public interface ICity {
 
-    IKontor getKontor(int i);
-    List<IKontor> getKontors();
-    boolean isCompletedCity();
+    public IKontor getKontor(int i);
+    public List<IKontor> getKontors();
+    public Power getPower();
+    public boolean isCompletedCity();
 
 }

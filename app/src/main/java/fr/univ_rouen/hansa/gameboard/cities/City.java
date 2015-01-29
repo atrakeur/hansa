@@ -28,6 +28,10 @@ public class City implements ICity {
         return kontors;
     }
 
+    public Power getPower() {
+        return power;
+    }
+
     public boolean isCompletedCity() {
         for (IKontor k : kontors) {
             if (k.isEmpty()) {

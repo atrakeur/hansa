@@ -2,6 +2,7 @@ package fr.univ_rouen.hansa.actions;
 
 import junit.framework.TestCase;
 
+import fr.univ_rouen.hansa.actions.movement.LiberSophia;
 import fr.univ_rouen.hansa.gameboard.pawns.Trader;
 import fr.univ_rouen.hansa.gameboard.routes.Village;
 

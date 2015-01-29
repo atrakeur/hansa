@@ -9,6 +9,7 @@ import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
 public interface IRoute {
 
     public IVillage getVillage(int i);
+    public List<IVillage> getVillages();
     public List<ICity> getCities();
     public boolean isTradeRoute();
     public IBonusMarker getBonusMarker();

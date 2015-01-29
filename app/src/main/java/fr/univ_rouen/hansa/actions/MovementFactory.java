@@ -1,7 +1,7 @@
 package fr.univ_rouen.hansa.actions;
 
+import fr.univ_rouen.hansa.actions.movement.IMovement;
 import fr.univ_rouen.hansa.exceptions.GameException;
-import fr.univ_rouen.hansa.view.ClickableArea;
 import fr.univ_rouen.hansa.view.IClickableArea;
 
 public class MovementFactory {

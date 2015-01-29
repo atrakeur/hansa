@@ -1,4 +1,6 @@
-package fr.univ_rouen.hansa.actions;
+package fr.univ_rouen.hansa.actions.movement;
+
+import fr.univ_rouen.hansa.actions.Actions;
 
 public class MovePawnStoR implements IMovement {
     @Override

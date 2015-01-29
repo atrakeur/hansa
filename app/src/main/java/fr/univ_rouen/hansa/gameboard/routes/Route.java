@@ -23,6 +23,10 @@ public class Route implements IRoute {
         bonusMarker = b;
     }
 
+    public List<IVillage> getVillages() {
+        return villages;
+    }
+
     public IVillage getVillage(int i) {
         if (i < 0 || i > villages.size()) {
             throw new IllegalArgumentException();

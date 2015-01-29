@@ -1,6 +1,8 @@
-package fr.univ_rouen.hansa.actions;
+package fr.univ_rouen.hansa.actions.movement;
 
-public class KeepRoute implements IMovement {
+import fr.univ_rouen.hansa.actions.Actions;
+
+public class PlayBonus implements IMovement {
     @Override
     public boolean isDone() {
         return false;

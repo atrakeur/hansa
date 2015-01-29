@@ -1,5 +1,6 @@
-package fr.univ_rouen.hansa.actions;
+package fr.univ_rouen.hansa.actions.movement;
 
+import fr.univ_rouen.hansa.actions.Actions;
 import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 
