@@ -59,7 +59,7 @@ public class Route implements IRoute {
         List<Pawn> l = new ArrayList<Pawn>();
         for (IVillage v : villages) {
             if (!v.isEmpty()) {
-                l.add(v.pushPawn());
+                l.add(v.pullPawn());
             }
         }
 

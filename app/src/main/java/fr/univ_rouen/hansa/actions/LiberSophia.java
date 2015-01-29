@@ -7,7 +7,7 @@ public class LiberSophia implements IMovement {
     private final IVillage source;
     private final IVillage destination;
 
-    private final boolean actionDone;
+    private boolean actionDone;
 
     public LiberSophia(IVillage source, IVillage destination) {
         this.source = source;
@@ -37,6 +37,8 @@ public class LiberSophia implements IMovement {
         }
 
         destination.pushPawn(source.pullPawn());
+
+        actionDone = true;
     }
 
     @Override
@@ -50,5 +52,7 @@ public class LiberSophia implements IMovement {
         }
 
         source.pushPawn(destination.pullPawn());
+
+        actionDone = false;
     }
 }

@@ -5,16 +5,7 @@ import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 
 public class Village implements IVillage {
 
-    private final int id;
     private Pawn pawn;
-
-    public Village(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
 
     @Override
     public boolean isEmpty() {

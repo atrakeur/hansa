@@ -4,22 +4,16 @@ import java.util.List;
 
 public class City implements ICity {
 
-    private final int id;
     private final Power power;
     private final List<IKontor> kontors;
 
-    public City(int id, Power power, List<IKontor> kontors) {
+    public City(Power power, List<IKontor> kontors) {
         if (kontors == null) {
             throw new IllegalArgumentException();
         }
 
-        this.id = id;
         this.power = power;
         this.kontors = kontors;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public IKontor getKontor(int i) {
