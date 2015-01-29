@@ -22,19 +22,23 @@ public class Village implements IVillage {
     }
 
     @Override
-    public void setPawn(Pawn pawn) {
+    public void pushPawn(Pawn pawn) {
         if (!isEmpty()) {
-            //TODO change that!
-            throw new RuntimeException("Village allready taken");
+            throw new IllegalStateException("Village already taken");
         }
 
         this.pawn = pawn;
     }
 
     @Override
-    public Pawn pushPawn() {
+    public Pawn pullPawn() {
+        if (isEmpty()) {
+            throw new IllegalStateException("Village has no pawn");
+        }
+
         Pawn pawn = this.pawn;
         this.pawn = null;
+
         return pawn;
     }
 }

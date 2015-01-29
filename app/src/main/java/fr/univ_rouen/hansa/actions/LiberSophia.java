@@ -1,23 +1,54 @@
 package fr.univ_rouen.hansa.actions;
 
+import fr.univ_rouen.hansa.exceptions.GameException;
+import fr.univ_rouen.hansa.gameboard.routes.IVillage;
+
 public class LiberSophia implements IMovement {
+    private final IVillage source;
+    private final IVillage destination;
+
+    private final boolean actionDone;
+
+    public LiberSophia(IVillage source, IVillage destination) {
+        this.source = source;
+        this.destination = destination;
+
+        actionDone = false;
+    }
+
     @Override
     public boolean isDone() {
-        return false;
+        return actionDone;
     }
 
     @Override
     public Actions getActionDone() {
-        return null;
+        return Actions.liberSophia;
     }
 
     @Override
     public void doMovement() {
+        if (!destination.isEmpty()) {
+            throw new GameException("Village destination is not empty");
+        }
 
+        if (source.isEmpty()) {
+            throw new GameException("Village source is empty");
+        }
+
+        destination.pushPawn(source.pullPawn());
     }
 
     @Override
     public void doRollback() {
+        if (destination.isEmpty()) {
+            throw new GameException("Village destination is empty");
+        }
 
+        if (!source.isEmpty()) {
+            throw new GameException("Village source is not empty");
+        }
+
+        source.pushPawn(destination.pullPawn());
     }
 }
