@@ -3,7 +3,7 @@ package fr.univ_rouen.hansa.gameboard.player.escritoire;
 import java.util.List;
 
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
-import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 
 
 public interface IEscritoire {

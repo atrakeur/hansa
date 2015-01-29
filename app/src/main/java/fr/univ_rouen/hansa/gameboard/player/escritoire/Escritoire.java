@@ -6,9 +6,9 @@ import java.util.List;
 
 import fr.univ_rouen.hansa.exceptions.NotEnoughSupplyException;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
-import fr.univ_rouen.hansa.gameboard.pawns.Merchant;
-import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
-import fr.univ_rouen.hansa.gameboard.pawns.Trader;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 
 public class Escritoire implements IEscritoire {
     private List<Merchant> clavisUrbis;
