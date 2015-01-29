@@ -15,7 +15,8 @@ public class BitmapResourceRepository {
 
     private int destWidth;
     private int destHeigth;
-    private float scale;
+    private float scaleWidth;
+    private float scaleHeigth;
 
     private String referenceResource = "background";
     private HashMap<String, Bitmap> resources;
@@ -88,12 +89,13 @@ public class BitmapResourceRepository {
         //Calculate scale factor according to reference
         destWidth = width;
         destHeigth = height;
-        scale = (float) reference.getHeight() / (float) height;
+        scaleWidth = (float) reference.getWidth() / (float) width;
+        scaleHeigth = (float) reference.getHeight() / (float) height;
 
         for (Map.Entry<String, Bitmap> entry : resources.entrySet()) {
             //calculate resource size
-            int newWidth = getScaledWidth(entry.getValue().getWidth());
-            int newHeight = getScaledHeight(entry.getValue().getHeight());
+            int newWidth = getImageScaledWidth(entry.getValue().getWidth());
+            int newHeight = getImageScaledHeight(entry.getValue().getHeight());
 
             //remove old scaledResource and create new
             scaledResources.remove(entry.getKey());
@@ -117,12 +119,20 @@ public class BitmapResourceRepository {
         return scaledResources.get(key);
     }
 
-    public int getScaledWidth(int width) {
-        return Math.round(width / scale);
+    public int getImageScaledWidth(int width) {
+        return Math.round(width / scaleWidth);
     }
 
-    public int getScaledHeight(int height) {
-        return Math.round(height / scale);
+    public int getImageScaledHeight(int height) {
+        return Math.round(height / scaleHeigth);
+    }
+
+    public int getPercentToScreenWidth(float percent) {
+        return (int)(destWidth * percent / 100f);
+    }
+
+    public int getPercentToScreenHeight(float percent) {
+        return (int)(destHeigth * percent / 100f);
     }
 
 }

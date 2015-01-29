@@ -28,10 +28,18 @@ public class GameBoardView extends SurfaceView {
         Paint paint = new Paint();
         paint.setColor(Color.RED);
         canvas.drawRect(
-                resources.getScaledWidth(0),
-                resources.getScaledHeight(0),
-                resources.getScaledWidth(100),
-                resources.getScaledHeight(50),
+                resources.getPercentToScreenWidth(0),
+                resources.getPercentToScreenHeight(0),
+                resources.getPercentToScreenWidth(10),
+                resources.getPercentToScreenHeight(10),
+                paint);
+
+        paint.setColor(Color.GREEN);
+        canvas.drawRect(
+                resources.getPercentToScreenWidth(49f),
+                resources.getPercentToScreenHeight(49f),
+                resources.getPercentToScreenWidth(51f),
+                resources.getPercentToScreenHeight(51f),
                 paint);
     }
 

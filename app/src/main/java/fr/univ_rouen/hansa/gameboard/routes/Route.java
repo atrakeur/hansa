@@ -1,11 +1,12 @@
 package fr.univ_rouen.hansa.gameboard.routes;
 
-import java.util.ArrayList;
+import com.google.common.collect.Lists;
+
 import java.util.List;
 
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
-import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 
 
 public class Route implements IRoute {
@@ -56,7 +57,7 @@ public class Route implements IRoute {
     }
 
     public List<Pawn> getPawns() {
-        List<Pawn> l = new ArrayList<Pawn>();
+        List<Pawn> l = Lists.newArrayList();
         for (IVillage v : villages) {
             if (!v.isEmpty()) {
                 l.add(v.pushPawn());
