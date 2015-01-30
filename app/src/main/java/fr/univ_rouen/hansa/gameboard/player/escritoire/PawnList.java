@@ -43,7 +43,7 @@ public class PawnList implements IPawnList {
 
         Iterator<Merchant> merchantIterator = merchants.iterator();
 
-        while (merchantIterator.hasNext() && rMerchant.size() <= merchantCount) {
+        while (merchantIterator.hasNext() && rMerchant.size() < merchantCount) {
             rMerchant.add(merchantIterator.next());
             merchantIterator.remove();
         }

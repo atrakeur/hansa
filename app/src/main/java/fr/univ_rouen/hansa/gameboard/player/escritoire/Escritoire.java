@@ -168,7 +168,7 @@ public class Escritoire implements IEscritoire {
                 increasePower(liberSophiae);
                 break;
             case Privillegium:
-                increasePower(clavisUrbis);
+                increasePower(privilegium);
                 break;
             default:
                 throw new GameException("Power is set to " + power + ", wait another value");
@@ -179,24 +179,28 @@ public class Escritoire implements IEscritoire {
 
     @Override
     public void decreasePower(Power power) {
-        switch (power) {
-            case Actiones:
-                actiones.addAll(supply.getMerchants(1));
-                break;
-            case Bursa:
-                bursa.addAll(supply.getMerchants(1));
-                break;
-            case ClavisUrbis:
-                clavisUrbis.addAll(supply.getMerchants(1));
-                break;
-            case LiberSophiae:
-                liberSophiae.addAll(supply.getTraders(1));
-                break;
-            case Privillegium:
-                privilegium.addAll(supply.getMerchants(1));
-                break;
-            default:
-                throw new GameException("Power is set to " + power + ", wait another value");
+        try {
+            switch (power) {
+                case Actiones:
+                    actiones.addAll(supply.getMerchants(1));
+                    break;
+                case Bursa:
+                    bursa.addAll(supply.getMerchants(1));
+                    break;
+                case ClavisUrbis:
+                    clavisUrbis.addAll(supply.getMerchants(1));
+                    break;
+                case LiberSophiae:
+                    liberSophiae.addAll(supply.getTraders(1));
+                    break;
+                case Privillegium:
+                    privilegium.addAll(supply.getMerchants(1));
+                    break;
+                default:
+                    throw new GameException("Power is set to " + power + ", wait another value");
+            }
+        } catch (Exception e) {
+            throw e;
         }
     }
 
