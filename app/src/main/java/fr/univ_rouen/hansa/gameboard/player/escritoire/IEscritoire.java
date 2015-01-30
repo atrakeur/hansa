@@ -31,6 +31,7 @@ public interface IEscritoire {
     public Pawn increaseBursa();
     public boolean moveStockToSupply(int merchants, int traders);
     public List<Pawn> getFromSupply(int merchants, int traders);
+    public List<Pawn> removeFromStock(List<Pawn> pawns);
     public void addToStock(List<Pawn> pawns);
     public void addToSupply(List<Pawn> pawns);
 }

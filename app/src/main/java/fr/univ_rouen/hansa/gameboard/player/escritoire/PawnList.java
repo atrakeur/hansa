@@ -68,4 +68,20 @@ public class PawnList implements IPawnList {
 
         return rTraders;
     }
+
+    @Override
+    public List<Pawn> removePawns(List<Pawn> pawns) {
+        List<Pawn> save = Lists.newArrayList();
+
+        for (Pawn pawn : pawns) {
+            if (traders.remove(pawn) || merchants.remove(pawn)) {
+                save.add(pawn);
+            } else {
+                this.addPawns(save);
+                throw new NotEnoughSupplyException("Selected pawns are not in the lists");
+            }
+        }
+
+        return pawns;
+    }
 }

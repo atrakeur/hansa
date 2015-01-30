@@ -206,6 +206,16 @@ public class Escritoire implements IEscritoire {
         return pawns;
     }
 
+    //Attention, cette méthode ne doit être appelé que dans le cas d'annulation d'une action
+    @Override
+    public List<Pawn> removeFromStock(List<Pawn> pawns) {
+        try {
+            return stock.removePawns(pawns);
+        } catch (Exception e) {
+            throw new NotEnoughSupplyException();
+        }
+    }
+
     @Override
     public void addToStock(List<Pawn> pawns) {
         if (pawns == null) {

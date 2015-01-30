@@ -12,7 +12,7 @@ public class TurnManager {
     private TurnManager() {
     }
 
-    private IHTPlayer getCurrentPlayer() {
+    public IHTPlayer getCurrentPlayer() {
         throw new UnsupportedOperationException();
         //TODO implementation
     }

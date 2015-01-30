@@ -1,10 +1,14 @@
 package fr.univ_rouen.hansa.actions.movement;
 
+import com.google.common.collect.Lists;
+
+import java.util.List;
+
 import fr.univ_rouen.hansa.actions.Actions;
-import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.exceptions.NotAvailableActionException;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
+import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
@@ -13,6 +17,7 @@ public class IncreasePower implements IMovement {
     private final IHTPlayer player;
     private final Power power;
     private final IRoute route;
+    private final List<Pawn> pawns;
 
     private boolean actionDone;
 
@@ -29,6 +34,8 @@ public class IncreasePower implements IMovement {
         this.power = city.getPower();
         this.route = route;
 
+        pawns = Lists.newArrayList();
+
         this.actionDone = false;
     }
 
@@ -44,17 +51,37 @@ public class IncreasePower implements IMovement {
 
     @Override
     public void doMovement() {
-        for (IVillage village : route.getVillages()) {
-            if (village.getOwner() == null || player.equals(village.getOwner())) {
-                throw new NotAvailableActionException();
-            }
+        if (pawns.size() > 0) {
+            throw new IllegalStateException("Movement already done");
         }
 
-        //TODO
+        if (!route.isTradeRoute()) {
+            throw new NotAvailableActionException();
+        }
+
+        for (IVillage village : route.getVillages()) {
+            pawns.add(village.pullPawn());
+        }
+
+        player.getEscritoire().addToStock(pawns);
     }
 
     @Override
     public void doRollback() {
-        //TODO
+        if (!route.isEmpty()) {
+            throw new NotAvailableActionException();
+        }
+
+        try {
+            player.getEscritoire().removeFromStock(pawns);
+
+            for (int i = 0; i < pawns.size(); i++) {
+                route.getVillage(i).pushPawn(pawns.get(i));
+            }
+
+            pawns.clear();
+        } catch (Exception e) {
+            throw new NotAvailableActionException();
+        }
     }
 }
