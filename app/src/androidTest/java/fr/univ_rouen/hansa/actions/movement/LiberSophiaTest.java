@@ -1,4 +1,4 @@
-package fr.univ_rouen.hansa.actions;
+package fr.univ_rouen.hansa.actions.movement;
 
 import junit.framework.TestCase;
 

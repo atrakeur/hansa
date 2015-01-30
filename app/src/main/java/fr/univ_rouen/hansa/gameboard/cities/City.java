@@ -2,12 +2,14 @@ package fr.univ_rouen.hansa.gameboard.cities;
 
 import java.util.List;
 
+import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
+
 public class City implements ICity {
 
     private final Power power;
-    private final List<IKontor> kontors;
+    private final List<IKontor<? extends Pawn>> kontors;
 
-    public City(Power power, List<IKontor> kontors) {
+    public City(Power power, List<IKontor<? extends Pawn>> kontors) {
         if (kontors == null) {
             throw new IllegalArgumentException();
         }
@@ -24,7 +26,7 @@ public class City implements ICity {
         return kontors.get(i);
     }
 
-    public List<IKontor> getKontors() {
+    public List<IKontor<? extends Pawn>> getKontors() {
         return kontors;
     }
 

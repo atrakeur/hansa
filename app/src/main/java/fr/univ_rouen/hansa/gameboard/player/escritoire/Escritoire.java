@@ -2,10 +2,13 @@ package fr.univ_rouen.hansa.gameboard.player.escritoire;
 
 import com.google.common.collect.Lists;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.exceptions.NotEnoughSupplyException;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
+import fr.univ_rouen.hansa.gameboard.cities.Power;
 import fr.univ_rouen.hansa.gameboard.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.pawns.Trader;
@@ -14,7 +17,7 @@ public class Escritoire implements IEscritoire {
     private List<Merchant> clavisUrbis;
     private List<Merchant> actiones;
     private List<Merchant> privilegium;
-    private List<Trader> liberSophia;
+    private List<Trader> liberSophiae;
     private List<Merchant> bursa;
     private List<IBonusMarker> tinPlate;
     private List<IBonusMarker> bonusMarkers;
@@ -26,7 +29,7 @@ public class Escritoire implements IEscritoire {
         clavisUrbis = Lists.newArrayList();
         actiones = Lists.newArrayList();
         privilegium = Lists.newArrayList();
-        liberSophia = Lists.newArrayList();
+        liberSophiae = Lists.newArrayList();
         bursa = Lists.newArrayList();
         tinPlate = Lists.newArrayList();
         bonusMarkers = Lists.newArrayList();
@@ -50,7 +53,7 @@ public class Escritoire implements IEscritoire {
         }
 
         for (int i = 0; i < INIT_LIBER_SOPHIA; i++) {
-            liberSophia.add(new Trader());
+            liberSophiae.add(new Trader());
         }
 
         for (int i = 0; i < INIT_BURSA; i++) {
@@ -129,7 +132,7 @@ public class Escritoire implements IEscritoire {
 
     @Override
     public int liberSophiaLevel() {
-        return 5 - liberSophia.size();
+        return 5 - liberSophiae.size();
     }
 
     @Override
@@ -148,28 +151,53 @@ public class Escritoire implements IEscritoire {
     }
 
     @Override
-    public Pawn increaseClavisUrbis() {
-        return increasePower(clavisUrbis);
+    public void increasePower(Power power) {
+        Pawn pawn;
+
+        switch (power) {
+            case Actiones:
+                increasePower(actiones);
+                break;
+            case Bursa:
+                increasePower(bursa);
+                break;
+            case ClavisUrbis:
+                increasePower(clavisUrbis);
+                break;
+            case LiberSophiae:
+                increasePower(liberSophiae);
+                break;
+            case Privillegium:
+                increasePower(clavisUrbis);
+                break;
+            default:
+                throw new GameException("Power is set to " + power + ", wait another value");
+        }
+
+
     }
 
     @Override
-    public Pawn increaseActiones() {
-        return increasePower(actiones);
-    }
-
-    @Override
-    public Pawn increasePrivilegium() {
-        return increasePower(privilegium);
-    }
-
-    @Override
-    public Pawn increaseLiberSophia() {
-        return increasePower(liberSophia);
-    }
-
-    @Override
-    public Pawn increaseBursa() {
-        return increasePower(bursa);
+    public void decreasePower(Power power) {
+        switch (power) {
+            case Actiones:
+                actiones.addAll(supply.getMerchants(1));
+                break;
+            case Bursa:
+                bursa.addAll(supply.getMerchants(1));
+                break;
+            case ClavisUrbis:
+                clavisUrbis.addAll(supply.getMerchants(1));
+                break;
+            case LiberSophiae:
+                liberSophiae.addAll(supply.getTraders(1));
+                break;
+            case Privillegium:
+                privilegium.addAll(supply.getMerchants(1));
+                break;
+            default:
+                throw new GameException("Power is set to " + power + ", wait another value");
+        }
     }
 
     @Override
@@ -234,11 +262,11 @@ public class Escritoire implements IEscritoire {
         supply.addPawns(pawns);
     }
 
-    private Pawn increasePower(List<? extends Pawn> pawns) {
+    private void  increasePower(List<? extends Pawn> pawns) {
         if (pawns.size() <= 0) {
             throw new NotEnoughSupplyException("Power already increase at is max.");
         }
 
-        return pawns.remove(pawns.size() - 1);
+        supply.addPawns(Lists.newArrayList(pawns.remove(pawns.size() - 1)));
     }
 }
