@@ -175,11 +175,5 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
 
         escritoire.decreasePower(Power.Bursa);
         assertEquals(escritoire.bursaLevel(), 3);
-
-        try {
-            escritoire.decreasePower(Power.Bursa);
-            fail("Missing exception");
-        } catch (Exception e) {
-        }
     }
 }
