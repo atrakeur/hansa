@@ -9,6 +9,6 @@ public class GameBoard {
 
     List<ICity> cities;
     List<IRoute> routes;
-    ITurnManager manager;
+    TurnManager manager;
 
 }

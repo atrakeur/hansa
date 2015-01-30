@@ -4,7 +4,7 @@ package fr.univ_rouen.hansa.gameboard.cities;
 public enum Power {
     Null,
     ClavisUrbis,
-    Action,
+    Actiones,
     Privillegium,
     LiberSophiae,
     Bursa
