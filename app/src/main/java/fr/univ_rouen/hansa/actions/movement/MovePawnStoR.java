@@ -1,8 +1,11 @@
 package fr.univ_rouen.hansa.actions.movement;
 
+import java.util.List;
+
 import fr.univ_rouen.hansa.actions.Actions;
 import fr.univ_rouen.hansa.exceptions.NotAvailableActionException;
 import fr.univ_rouen.hansa.exceptions.NotEnoughSupplyException;
+import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 
 public class MovePawnStoR implements IMovement {
@@ -55,8 +58,8 @@ public class MovePawnStoR implements IMovement {
         try{
             player.getEscritoire().moveStockToSupply(nbMerchant, nbTrader);
             this.actionDone = true;
-        }catch(NotEnoughSupplyException ex) {
-            throw ex;
+        }catch(NotEnoughSupplyException e) {
+            throw e;
         }
     }
 
@@ -65,6 +68,21 @@ public class MovePawnStoR implements IMovement {
         if(!actionDone){
             throw new IllegalStateException("Movement not done yet");
         }
-        //TODO escritoire.moveSupplyToStock ?
+
+        List<Pawn> pawns;
+        try{
+            pawns = player.getEscritoire().getFromSupply(nbMerchant, nbTrader);
+        } catch (NotEnoughSupplyException e){
+            throw e;
+        }
+
+        try{
+            player.getEscritoire().removeFromSupply(pawns);
+            player.getEscritoire().addToStock(pawns);
+            actionDone = false;
+        }catch(NotEnoughSupplyException e){
+            player.getEscritoire().addToSupply(pawns);
+            throw e;
+        }
     }
 }
