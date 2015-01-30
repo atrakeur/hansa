@@ -2,7 +2,7 @@ package fr.univ_rouen.hansa.gameboard.player;
 
 import fr.univ_rouen.hansa.gameboard.player.escritoire.IEscritoire;
 
-public interface IHTPlayer {
+public interface IHTPlayer extends IScorePlayer {
 
     /**
      * Access to the escritoire and all the informations of the player
