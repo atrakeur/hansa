@@ -1,38 +1,41 @@
 package fr.univ_rouen.hansa.util;
 
+import fr.univ_rouen.hansa.view.IPosition;
+import fr.univ_rouen.hansa.view.Position;
+
 public class TavernPositions {
 
-    public static float[] GRONINGEN_EMDEN = {0, 0};
-    public static float[] EMDEN_OSNABRUCK = {0, 0};
-    public static float[] OSNABRUCK_BREMEN = {0, 0};
-    public static float[] BREMEN_HAMBURG = {0, 0};
-    public static float[] STADE_HAMBURG = {0, 0};
-    public static float[] HAMBURG_LUBECK = {0, 0};
-    public static float[] KEMPEN_OSNABRUCK = {0, 0};
-    public static float[] KEMPEN_ARNHEIM = {0, 0};
-    public static float[] ARNHEIM_MUNSTER = {0, 0};
-    public static float[] MUNSTER_MINDEN = {0, 0};
-    public static float[] BREMEN_MINDEN = {0, 0};
-    public static float[] BREMEN_HANNOVER = {0, 0};
-    public static float[] MINDEN_HANNOVER = {0, 0};
-    public static float[] HANNOVER_LUNEBURG = {0, 0};
-    public static float[] HAMBURG_LUNEBURG = {0, 0};
-    public static float[] LUNEBURG_PERLEBERG = {0, 0};
-    public static float[] PERLEBERG_STENDAL = {0, 0};
-    public static float[] ARNHEIM_DUISBURG = {0, 0};
-    public static float[] DUISBURG_DORTMUND = {0, 0};
-    public static float[] DORTMUND_PADERBORN = {0, 0};
-    public static float[] COELLEN_MARBURG = {0, 0};
-    public static float[] MARBURG_PADERBIRN = {0, 0};
-    public static float[] MINDEN_PADERBORN = {0, 0};
-    public static float[] MINDEN_BRUNSWIEK = {0, 0};
-    public static float[] BRUNSWIEK_STENDAL = {0, 0};
-    public static float[] PADERBORN_HILDSHEIM = {0, 0};
-    public static float[] HILDESHEIM_GOSLAR = {0, 0};
-    public static float[] GOSLAR_MAGDEBURG = {0, 0};
-    public static float[] STENDAL_MAGDEBURG = {0, 0};
-    public static float[] GOSLAR_QUEDLINBURG = {0, 0};
-    public static float[] QUEDLINBURG_HALLE = {0, 0};
-    public static float[] GOTTINGEN_QUEDLINBURG = {0, 0};
+    public static IPosition GRONINGEN_EMDEN = new Position(0, 0);
+    public static IPosition EMDEN_OSNABRUCK = new Position(0, 0);
+    public static IPosition OSNABRUCK_BREMEN = new Position(0, 0);
+    public static IPosition BREMEN_HAMBURG = new Position(0, 0);
+    public static IPosition STADE_HAMBURG = new Position(0, 0);
+    public static IPosition HAMBURG_LUBECK = new Position(0, 0);
+    public static IPosition KEMPEN_OSNABRUCK = new Position(0, 0);
+    public static IPosition KEMPEN_ARNHEIM = new Position(0, 0);
+    public static IPosition ARNHEIM_MUNSTER = new Position(0, 0);
+    public static IPosition MUNSTER_MINDEN = new Position(0, 0);
+    public static IPosition BREMEN_MINDEN = new Position(0, 0);
+    public static IPosition BREMEN_HANNOVER = new Position(0, 0);
+    public static IPosition MINDEN_HANNOVER = new Position(0, 0);
+    public static IPosition HANNOVER_LUNEBURG = new Position(0, 0);
+    public static IPosition HAMBURG_LUNEBURG = new Position(0, 0);
+    public static IPosition LUNEBURG_PERLEBERG = new Position(0, 0);
+    public static IPosition PERLEBERG_STENDAL = new Position(0, 0);
+    public static IPosition ARNHEIM_DUISBURG = new Position(0, 0);
+    public static IPosition DUISBURG_DORTMUND = new Position(0, 0);
+    public static IPosition DORTMUND_PADERBORN = new Position(0, 0);
+    public static IPosition COELLEN_MARBURG = new Position(0, 0);
+    public static IPosition MARBURG_PADERBIRN = new Position(0, 0);
+    public static IPosition MINDEN_PADERBORN = new Position(0, 0);
+    public static IPosition MINDEN_BRUNSWIEK = new Position(0, 0);
+    public static IPosition BRUNSWIEK_STENDAL = new Position(0, 0);
+    public static IPosition PADERBORN_HILDSHEIM = new Position(0, 0);
+    public static IPosition HILDESHEIM_GOSLAR = new Position(0, 0);
+    public static IPosition GOSLAR_MAGDEBURG = new Position(0, 0);
+    public static IPosition STENDAL_MAGDEBURG = new Position(0, 0);
+    public static IPosition GOSLAR_QUEDLINBURG = new Position(0, 0);
+    public static IPosition QUEDLINBURG_HALLE = new Position(0, 0);
+    public static IPosition GOTTINGEN_QUEDLINBURG = new Position(0, 0);
 
 }
