@@ -3,11 +3,9 @@ package fr.univ_rouen.hansa.gameboard.player.escritoire;
 import android.app.Application;
 import android.test.ApplicationTestCase;
 
-import junit.framework.TestCase;
-
 import java.util.List;
 
-import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 
 public class EscritoireTest extends ApplicationTestCase<Application> {
     public EscritoireTest() {
