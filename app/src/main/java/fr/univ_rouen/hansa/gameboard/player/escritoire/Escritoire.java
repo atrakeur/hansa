@@ -244,6 +244,15 @@ public class Escritoire implements IEscritoire {
     }
 
     @Override
+    public List<Pawn> removeFromSupply(List<Pawn> pawns) {
+        try {
+            return supply.removePawns(pawns);
+        } catch (Exception e) {
+            throw new NotEnoughSupplyException();
+        }
+    }
+
+    @Override
     public void addToStock(List<Pawn> pawns) {
         if (pawns == null) {
             throw new IllegalArgumentException();
