@@ -32,10 +32,13 @@ public class GameBoardFactory {
      */
     private GameBoard createGameBoard(int map) {
         //TODO routes supplémentaire pour la seconde map
-
-        //TODO juste villes implémentées
+        
         GameBoard gameBoard = new GameBoard();
         List<IKontor<? extends Pawn>> kontors;
+
+        // ------------------------------------ //
+        // -------------- CITIES -------------- //
+        // ------------------------------------ //
 
         //GRONINGEN
         kontors = Lists.newArrayList();
@@ -220,8 +223,8 @@ public class GameBoardFactory {
         kontors = Lists.newArrayList();
         kontors.add(new Kontor<Merchant>(false, Privillegium.Orange));
         kontors.add(new Kontor<Merchant>(false, Privillegium.Pink));
-        ICity halle = new City(CityPositions.QUEDLINBURG, Power.Null, kontors);
-        gameBoard.addCity(halle);
+        ICity quedlinburg = new City(CityPositions.QUEDLINBURG, Power.Null, kontors);
+        gameBoard.addCity(quedlinburg);
 
         //HALLE
         kontors = Lists.newArrayList();
@@ -229,6 +232,12 @@ public class GameBoardFactory {
         kontors.add(new Kontor<Trader>(false, Privillegium.Orange));
         ICity halle = new City(CityPositions.HALLE, Power.ClavisUrbis, kontors);
         gameBoard.addCity(halle);
+
+        // ------------------------------------ //
+        // -------------- ROUTES -------------- //
+        // ------------------------------------ //
+
+        //TODO
 
         return gameBoard;
     }
