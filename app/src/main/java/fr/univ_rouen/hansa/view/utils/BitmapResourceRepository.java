@@ -19,15 +19,13 @@ public class BitmapResourceRepository {
     private float scaleHeigth;
 
     private String referenceResource = "background";
-    private HashMap<String, Bitmap> resources;
-    private HashMap<String, Bitmap> scaledResources;
+    private HashMap<String, ScaledImage> resources;
 
     /**
      * Create a new repository that old image and scaled versions
      */
     public BitmapResourceRepository() {
         resources = Maps.newHashMap();
-        scaledResources = Maps.newHashMap();
     }
 
     /**
@@ -54,13 +52,18 @@ public class BitmapResourceRepository {
      * @param res the resource holder
      * @param id the id to load
      */
-    public void addResource(String key, Resources res, int id) {
+    public void addResource(String key, Resources res, int id, float sizeWidth, float sizeHeight) {
+        Bitmap image = BitmapFactory.decodeResource(res, id);
+        this.addResource(key, image, sizeWidth, sizeHeight);
+    }
+
+    public void addResource(String key, Bitmap image, float sizeWidth, float sizeHeight) {
         if (resources.containsKey(key)) {
-            throw new IllegalArgumentException("Key allready loaded");
+            resources.remove(key);
         }
 
-        resources.put(key, BitmapFactory.decodeResource(res, id));
-        scaledResources.remove(key);
+        ScaledImage scaledImage = new ScaledImage(image, sizeWidth, sizeHeight);
+        resources.put(key, scaledImage);
     }
 
     /**
@@ -69,7 +72,6 @@ public class BitmapResourceRepository {
      */
     public void removeResource(String key) {
         resources.remove(key);
-        scaledResources.remove(key);
     }
 
     /**
@@ -83,23 +85,12 @@ public class BitmapResourceRepository {
             throw new IllegalStateException("Can't compute scaled resource without reference resource");
         }
 
-        //get reference
-        Bitmap reference = resources.get(referenceResource);
-
-        //Calculate scale factor according to reference
+        //Calculate scale factor according to total size
         destWidth = width;
         destHeigth = height;
-        scaleWidth = (float) reference.getWidth() / (float) width;
-        scaleHeigth = (float) reference.getHeight() / (float) height;
 
-        for (Map.Entry<String, Bitmap> entry : resources.entrySet()) {
-            //calculate resource size
-            int newWidth = getImageScaledWidth(entry.getValue().getWidth());
-            int newHeight = getImageScaledHeight(entry.getValue().getHeight());
-
-            //remove old scaledResource and create new
-            scaledResources.remove(entry.getKey());
-            scaledResources.put(entry.getKey(), Bitmap.createScaledBitmap(entry.getValue(), newWidth, newHeight, true));
+        for (Map.Entry<String, ScaledImage> entry : resources.entrySet()) {
+            entry.getValue().computeScaled(destHeigth, destWidth);
         }
     }
 
@@ -112,27 +103,15 @@ public class BitmapResourceRepository {
             throw new IllegalArgumentException("Can't get undeclared resource "+key);
         }
 
-        if (!scaledResources.containsKey(key)) {
-            throw new IllegalArgumentException("Scaled resource not computed");
-        }
-
-        return scaledResources.get(key);
-    }
-
-    public int getImageScaledWidth(int width) {
-        return Math.round(width / scaleWidth);
-    }
-
-    public int getImageScaledHeight(int height) {
-        return Math.round(height / scaleHeigth);
+        return resources.get(key).getScaledBitmap();
     }
 
     public int getPercentToScreenWidth(float percent) {
-        return (int)(destWidth * percent / 100f);
+        return (int)(destWidth * percent);
     }
 
     public int getPercentToScreenHeight(float percent) {
-        return (int)(destHeigth * percent / 100f);
+        return (int)(destHeigth * percent);
     }
 
 }

@@ -18,7 +18,7 @@ public class GameBoardView extends SurfaceView {
         super(context, attrs);
 
         resources = new BitmapResourceRepository(this);
-        resources.addResource("background", getResources(), R.drawable.plateau23);
+        resources.addResource("background", getResources(), R.drawable.plateau23, 1, 1);
 
         setWillNotDraw(false);
     }
@@ -30,16 +30,16 @@ public class GameBoardView extends SurfaceView {
         canvas.drawRect(
                 resources.getPercentToScreenWidth(0),
                 resources.getPercentToScreenHeight(0),
-                resources.getPercentToScreenWidth(10),
-                resources.getPercentToScreenHeight(10),
+                resources.getPercentToScreenWidth(0.1f),
+                resources.getPercentToScreenHeight(0.1f),
                 paint);
 
         paint.setColor(Color.GREEN);
         canvas.drawRect(
-                resources.getPercentToScreenWidth(49f),
-                resources.getPercentToScreenHeight(49f),
-                resources.getPercentToScreenWidth(51f),
-                resources.getPercentToScreenHeight(51f),
+                resources.getPercentToScreenWidth(0.49f),
+                resources.getPercentToScreenHeight(0.49f),
+                resources.getPercentToScreenWidth(0.51f),
+                resources.getPercentToScreenHeight(0.51f),
                 paint);
     }
 
