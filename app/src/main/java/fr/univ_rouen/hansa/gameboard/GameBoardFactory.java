@@ -32,7 +32,7 @@ public class GameBoardFactory {
      */
     private GameBoard createGameBoard(int map) {
         //TODO routes supplémentaire pour la seconde map
-        
+
         GameBoard gameBoard = new GameBoard();
         List<IKontor<? extends Pawn>> kontors;
 

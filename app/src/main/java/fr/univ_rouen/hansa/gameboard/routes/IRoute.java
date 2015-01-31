@@ -4,8 +4,16 @@ import java.util.List;
 
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
+import fr.univ_rouen.hansa.view.IPosition;
 
 public interface IRoute {
+
+    /**
+     * getter on the position of the tavern in the road
+     *
+     * @return an object who represent the position of the tavern in the map
+     */
+    public IPosition getTavernPosition();
 
     /**
      * get a village to a specifique position

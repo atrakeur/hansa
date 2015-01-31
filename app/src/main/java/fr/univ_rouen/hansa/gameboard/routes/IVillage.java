@@ -2,6 +2,7 @@ package fr.univ_rouen.hansa.gameboard.routes;
 
 import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
+import fr.univ_rouen.hansa.view.IPosition;
 
 public interface IVillage {
 
@@ -13,12 +14,11 @@ public interface IVillage {
     public boolean isEmpty();
 
     /**
-     * Add a route to the village
+     * Getter for the position of the village
      *
-     * @param route who contains this village
-     * @pre route != null && this.route == null
+     * @return an object who represent the position in the map
      */
-    public void setRoute(IRoute route);
+    public IPosition getPosition();
 
     /**
      * For get the owner of the village
