@@ -38,4 +38,8 @@ public class TavernPositions {
     public static IPosition QUEDLINBURG_HALLE = new Position(0, 0);
     public static IPosition GOTTINGEN_QUEDLINBURG = new Position(0, 0);
 
+    //Map 4 - 5
+    public static IPosition EMDEN_STADE = new Position(0, 0);
+    public static IPosition MARBURG_GOTTINGEN = new Position(0, 0);
+
 }

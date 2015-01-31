@@ -137,5 +137,15 @@ public class VillagePositions {
     public static IPosition GOTTINGEN_QUEDLINBURG_1 = new Position(0, 0);
     public static IPosition GOTTINGEN_QUEDLINBURG_2 = new Position(0, 0);
     public static IPosition GOTTINGEN_QUEDLINBURG_3 = new Position(0, 0);
+
+    //Map 4 - 5
+
+    public static IPosition EMDEN_STADE_1 = new Position(0, 0);
+    public static IPosition EMDEN_STADE_2 = new Position(0, 0);
+    public static IPosition EMDEN_STADE_3 = new Position(0, 0);
+
+    public static IPosition MARBURG_GOTTINGEN_1 = new Position(0, 0);
+    public static IPosition MARBURG_GOTTINGEN_2 = new Position(0, 0);
+    public static IPosition MARBURG_GOTTINGEN_3 = new Position(0, 0);
     
 }
