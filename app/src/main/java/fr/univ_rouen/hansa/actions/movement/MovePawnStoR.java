@@ -26,8 +26,11 @@ public class MovePawnStoR implements IMovement {
             throw new NotAvailableActionException("Bursa level insufficient.");
         }
 
+        List<Pawn> tmp;
+
         try{
-            player.getEscritoire().getFromSupply(nbMerchant, nbTrader);
+            tmp = player.getEscritoire().getFromSupply(nbMerchant, nbTrader);
+            player.getEscritoire().addToSupply(tmp);
         } catch (NotEnoughSupplyException e){
             throw e;
         }
