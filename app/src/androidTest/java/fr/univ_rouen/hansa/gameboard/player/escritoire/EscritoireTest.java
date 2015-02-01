@@ -3,8 +3,6 @@ package fr.univ_rouen.hansa.gameboard.player.escritoire;
 import android.app.Application;
 import android.test.ApplicationTestCase;
 
-import junit.framework.TestCase;
-
 import java.util.List;
 
 import fr.univ_rouen.hansa.gameboard.cities.Power;
@@ -142,7 +140,7 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
         } catch (Exception e){
         }
 
-        supplyPawns = escritoire.getFromSupply(11, 1);
+        supplyPawns = escritoire.popFromSupply(11, 1);
         assertTrue(supplyPawns.size() == 12);
 
         escritoire = new Escritoire(5);
@@ -154,7 +152,7 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
         } catch (Exception e){
         }
 
-        supplyPawns = escritoire.getFromSupply(11, 1);
+        supplyPawns = escritoire.popFromSupply(11, 1);
         assertTrue(supplyPawns.size() == 12);
     }
 

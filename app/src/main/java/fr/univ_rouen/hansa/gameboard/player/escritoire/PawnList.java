@@ -84,4 +84,9 @@ public class PawnList implements IPawnList {
 
         return pawns;
     }
+
+    @Override
+    public boolean enoughPawns(int merchants, int traders) {
+        return merchants <= this.merchants.size() && traders <= this.traders.size();
+    }
 }

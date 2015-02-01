@@ -28,9 +28,10 @@ public interface IEscritoire {
     public void increasePower(Power power);
     public void decreasePower(Power power);
     public boolean moveStockToSupply(int merchants, int traders);
-    public List<Pawn> getFromSupply(int merchants, int traders);
+    public List<Pawn> popFromSupply(int merchants, int traders);
     public List<Pawn> removeFromStock(List<Pawn> pawns);
     public List<Pawn> removeFromSupply(List<Pawn> pawns);
     public void addToStock(List<Pawn> pawns);
     public void addToSupply(List<Pawn> pawns);
+    public boolean enoughSupply(int merchants, int traders);
 }
