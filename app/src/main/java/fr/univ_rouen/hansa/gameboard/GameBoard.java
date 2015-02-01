@@ -8,9 +8,9 @@ import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 
 public class GameBoard {
-    List<ICity> cities;
-    List<IRoute> routes;
-    TurnManager manager;
+    private List<ICity> cities;
+    private List<IRoute> routes;
+    private TurnManager manager;
 
     GameBoard() {
         cities = Lists.newArrayList();

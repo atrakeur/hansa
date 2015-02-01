@@ -66,6 +66,8 @@ public class IncreasePower implements IMovement {
         player.getEscritoire().addToStock(pawns);
 
         player.getEscritoire().increasePower(power);
+
+        actionDone = true;
     }
 
     @Override
@@ -87,5 +89,7 @@ public class IncreasePower implements IMovement {
         } catch (Exception e) {
             throw new NotAvailableActionException();
         }
+
+        actionDone = false;
     }
 }

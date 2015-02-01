@@ -36,7 +36,7 @@ public class GameBoardFactory {
      * @param map 1 for the map of 2/3 players, 2 for the map of 4/5 players
      * @return the gameboard initialized
      */
-    private GameBoard createGameBoard(int map) {
+    public GameBoard createGameBoard(int map) {
         GameBoard gameBoard = new GameBoard();
         List<IKontor<? extends Pawn>> kontors;
         List<IVillage> villages;
