@@ -2,15 +2,15 @@ package fr.univ_rouen.hansa.actions.movement;
 
 import junit.framework.TestCase;
 
-import fr.univ_rouen.hansa.actions.movement.LiberSophia;
 import fr.univ_rouen.hansa.gameboard.pawns.Trader;
 import fr.univ_rouen.hansa.gameboard.routes.Village;
+import fr.univ_rouen.hansa.view.Position;
 
 public class LiberSophiaTest extends TestCase {
 
     public void testMovement() throws Exception {
-        Village source = new Village();
-        Village destination = new Village();
+        Village source = new Village(new Position(0, 0));
+        Village destination = new Village(new Position(0, 0));
 
         LiberSophia liberSophia = new LiberSophia(source, destination);
 

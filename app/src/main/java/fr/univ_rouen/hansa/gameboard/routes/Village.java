@@ -2,12 +2,16 @@ package fr.univ_rouen.hansa.gameboard.routes;
 
 import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
-import fr.univ_rouen.hansa.gameboard.routes.IVillage;
+import fr.univ_rouen.hansa.view.IPosition;
 
 public class Village implements IVillage {
 
+    private final IPosition position;
     private Pawn pawn;
-    private IRoute route;
+
+    public Village(IPosition position) {
+        this.position = position;
+    }
 
     @Override
     public boolean isEmpty() {
@@ -15,16 +19,8 @@ public class Village implements IVillage {
     }
 
     @Override
-    public void setRoute(IRoute route) {
-        if (route == null) {
-            throw new IllegalArgumentException();
-        }
-
-        if (this.route != null) {
-            throw new IllegalStateException("Route already initialised");
-        }
-
-        this.route = route;
+    public IPosition getPosition() {
+        return position;
     }
 
     @Override

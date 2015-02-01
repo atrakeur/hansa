@@ -1,6 +1,26 @@
 package fr.univ_rouen.hansa.gameboard.player;
 
 public interface IScorePlayer {
-    public void addScore(int score);
+
+    /**
+     * Increase score of the player
+     *
+     * @post if the score is upper 20, EndOfGameException is launch
+     */
+    public void increaseScore();
+
+    /**
+     * Return the current score of the player
+     *
+     * @return the current score
+     */
     public int getScore();
+
+    /**
+     * Return the final score after the end of the game, with all the calculs
+     *
+     * @return the final score
+     */
+    public int getFinalScore();
+
 }
