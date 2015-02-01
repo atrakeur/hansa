@@ -218,7 +218,7 @@ public class Escritoire implements IEscritoire {
     }
 
     @Override
-    public List<Pawn> getFromSupply(int merchants, int traders) {
+    public List<Pawn> popFromSupply(int merchants, int traders) {
         List<Pawn> pawns = Lists.newArrayList();
 
         try {
@@ -276,5 +276,10 @@ public class Escritoire implements IEscritoire {
         }
 
         supply.addPawns(Lists.newArrayList(pawns.remove(pawns.size() - 1)));
+    }
+
+    @Override
+    public boolean enoughSupply(int merchants, int traders) {
+        return supply.enoughPawns(merchants, traders);
     }
 }
