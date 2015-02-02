@@ -26,9 +26,7 @@ public class BonusActiones implements IBonusMarker {
 
     @Override
     public void doAction() {
-        //TODO
         IHTPlayer player = TurnManager.getInstance().getCurrentPlayer();
-        //Todo augmenter le nombre d'action du joueur
         player.setActionNumber(getValue());
         this.state = BonusState.used;
     }
