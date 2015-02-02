@@ -16,6 +16,7 @@ public interface IEscritoire {
     public static final int INIT_STOCK = 7;
     public static final int INIT_SUPPLY = 4;
 
+    public List<IBonusMarker> getBonusMarker();
     public List<IBonusMarker> getTinPlateContent();
     public List<IBonusMarker> getUnusedBonusMarker();
     public List<IBonusMarker> getUsedBonusMarker();
