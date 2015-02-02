@@ -1,9 +1,9 @@
 package fr.univ_rouen.hansa.gameboard.board;
 
-import fr.univ_rouen.hansa.gameboard.ITurnManager;
+import fr.univ_rouen.hansa.gameboard.TurnManager;
 
 public class GameBoard extends PlayersBoard {
 
-    ITurnManager manager;
+    TurnManager manager;
 
 }

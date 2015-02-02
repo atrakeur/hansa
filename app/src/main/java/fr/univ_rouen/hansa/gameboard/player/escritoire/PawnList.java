@@ -43,7 +43,7 @@ public class PawnList implements IPawnList {
 
         Iterator<Merchant> merchantIterator = merchants.iterator();
 
-        while (merchantIterator.hasNext() && rMerchant.size() <= merchantCount) {
+        while (merchantIterator.hasNext() && rMerchant.size() < merchantCount) {
             rMerchant.add(merchantIterator.next());
             merchantIterator.remove();
         }
@@ -67,5 +67,26 @@ public class PawnList implements IPawnList {
         }
 
         return rTraders;
+    }
+
+    @Override
+    public List<Pawn> removePawns(List<Pawn> pawns) {
+        List<Pawn> save = Lists.newArrayList();
+
+        for (Pawn pawn : pawns) {
+            if (traders.remove(pawn) || merchants.remove(pawn)) {
+                save.add(pawn);
+            } else {
+                this.addPawns(save);
+                throw new NotEnoughSupplyException("Selected pawns are not in the lists");
+            }
+        }
+
+        return pawns;
+    }
+
+    @Override
+    public boolean enoughPawns(int merchants, int traders) {
+        return merchants <= this.merchants.size() && traders <= this.traders.size();
     }
 }

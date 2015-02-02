@@ -10,4 +10,6 @@ public interface IPawnList {
     public void addPawns(List<Pawn> pawns);
     public List<Merchant> getMerchants(int merchants);
     public List<Trader> getTraders(int traders);
+    public List<Pawn> removePawns(List<Pawn> pawns);
+    public boolean enoughPawns(int merchants, int traders);
 }

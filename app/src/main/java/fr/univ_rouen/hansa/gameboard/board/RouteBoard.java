@@ -20,8 +20,8 @@ public abstract class RouteBoard extends CitiesBoard {
 
     protected void addRoute(IRoute route)
     {
-        List<ICity> cities = route.getCities();
-        if (cities.size() != 2 || getRoute(cities.get(0), cities.get(1)) != null)
+        ICity[] cities = route.getCities();
+        if (cities.length != 2 || getRoute(cities[0], cities[1]) != null)
         {
             throw new IllegalArgumentException("addRoute need a route that link two cities together.");
         }
@@ -35,8 +35,13 @@ public abstract class RouteBoard extends CitiesBoard {
 
     public IRoute getRoute(ICity city1, ICity city2) {
         for(IRoute route: routes) {
-            List<ICity> cities = route.getCities();
-            if (cities.contains(city1) && cities.contains(city2)) {
+            ICity[] cities = route.getCities();
+
+            if (cities[0] == city1 && cities[1] == city2) {
+                return route;
+            }
+
+            if (cities[1] == city1 && cities[0] == city2) {
                 return route;
             }
         }

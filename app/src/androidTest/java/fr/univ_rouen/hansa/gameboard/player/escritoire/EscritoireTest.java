@@ -6,6 +6,7 @@ import android.test.ApplicationTestCase;
 import java.util.List;
 
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.cities.Power;
 
 public class EscritoireTest extends ApplicationTestCase<Application> {
     public EscritoireTest() {
@@ -17,20 +18,20 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
 
         assertEquals(escritoire.clavisUrbisLevel(), 1);
 
-        escritoire.increaseClavisUrbis();
+        escritoire.increasePower(Power.ClavisUrbis);
         assertEquals(escritoire.clavisUrbisLevel(), 2);
 
-        escritoire.increaseClavisUrbis();
+        escritoire.increasePower(Power.ClavisUrbis);
         assertEquals(escritoire.clavisUrbisLevel(), 2);
 
-        escritoire.increaseClavisUrbis();
+        escritoire.increasePower(Power.ClavisUrbis);
         assertEquals(escritoire.clavisUrbisLevel(), 3);
 
-        escritoire.increaseClavisUrbis();
+        escritoire.increasePower(Power.ClavisUrbis);
         assertEquals(escritoire.clavisUrbisLevel(), 4);
 
         try {
-            escritoire.increaseClavisUrbis();
+            escritoire.increasePower(Power.ClavisUrbis);
             fail("Missing exception");
         } catch (Exception e){
         }
@@ -41,23 +42,23 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
 
         assertEquals(escritoire.actionesLevel(), 2);
 
-        escritoire.increaseActiones();
+        escritoire.increasePower(Power.Actiones);
         assertEquals(escritoire.actionesLevel(), 3);
 
-        escritoire.increaseActiones();
+        escritoire.increasePower(Power.Actiones);
         assertEquals(escritoire.actionesLevel(), 3);
 
-        escritoire.increaseActiones();
+        escritoire.increasePower(Power.Actiones);
         assertEquals(escritoire.actionesLevel(), 4);
 
-        escritoire.increaseActiones();
+        escritoire.increasePower(Power.Actiones);
         assertEquals(escritoire.actionesLevel(), 4);
 
-        escritoire.increaseActiones();
+        escritoire.increasePower(Power.Actiones);
         assertEquals(escritoire.actionesLevel(), 5);
 
         try {
-            escritoire.increaseActiones();
+            escritoire.increasePower(Power.Actiones);
             fail("Missing exception");
         } catch (Exception e){
         }
@@ -68,17 +69,17 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
 
         assertEquals(escritoire.privilegiumLevel(), 1);
 
-        escritoire.increasePrivilegium();
+        escritoire.increasePower(Power.Privillegium);
         assertEquals(escritoire.privilegiumLevel(), 2);
 
-        escritoire.increasePrivilegium();
+        escritoire.increasePower(Power.Privillegium);
         assertEquals(escritoire.privilegiumLevel(), 3);
 
-        escritoire.increasePrivilegium();
+        escritoire.increasePower(Power.Privillegium);
         assertEquals(escritoire.privilegiumLevel(), 4);
 
         try {
-            escritoire.increasePrivilegium();
+            escritoire.increasePower(Power.Privillegium);
             fail("Missing exception");
         } catch (Exception e){
         }
@@ -89,17 +90,17 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
 
         assertEquals(escritoire.liberSophiaLevel(), 2);
 
-        escritoire.increaseLiberSophia();
+        escritoire.increasePower(Power.LiberSophiae);
         assertEquals(escritoire.liberSophiaLevel(), 3);
 
-        escritoire.increaseLiberSophia();
+        escritoire.increasePower(Power.LiberSophiae);
         assertEquals(escritoire.liberSophiaLevel(), 4);
 
-        escritoire.increaseLiberSophia();
+        escritoire.increasePower(Power.LiberSophiae);
         assertEquals(escritoire.liberSophiaLevel(), 5);
 
         try {
-            escritoire.increaseLiberSophia();
+            escritoire.increasePower(Power.LiberSophiae);
             fail("Missing exception");
         } catch (Exception e){
         }
@@ -110,17 +111,17 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
 
         assertEquals(escritoire.bursaLevel(), 3);
 
-        escritoire.increaseBursa();
+        escritoire.increasePower(Power.Bursa);
         assertEquals(escritoire.bursaLevel(), 5);
 
-        escritoire.increaseBursa();
+        escritoire.increasePower(Power.Bursa);
         assertEquals(escritoire.bursaLevel(), 7);
 
-        escritoire.increaseBursa();
+        escritoire.increasePower(Power.Bursa);
         assertEquals(escritoire.bursaLevel(), Integer.MAX_VALUE);
 
         try {
-            escritoire.increaseBursa();
+            escritoire.increasePower(Power.Bursa);
             fail("Missing exception");
         } catch (Exception e){
         }
@@ -139,7 +140,7 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
         } catch (Exception e){
         }
 
-        supplyPawns = escritoire.getFromSupply(11, 1);
+        supplyPawns = escritoire.popFromSupply(11, 1);
         assertTrue(supplyPawns.size() == 12);
 
         escritoire = new Escritoire(5);
@@ -151,7 +152,26 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
         } catch (Exception e){
         }
 
-        supplyPawns = escritoire.getFromSupply(11, 1);
+        supplyPawns = escritoire.popFromSupply(11, 1);
         assertTrue(supplyPawns.size() == 12);
+    }
+
+    public void testDecrease() {
+        Escritoire escritoire = new Escritoire(1);
+
+        escritoire.increasePower(Power.Bursa);
+        escritoire.increasePower(Power.Bursa);
+        escritoire.increasePower(Power.Bursa);
+
+        assertEquals(escritoire.bursaLevel(), Integer.MAX_VALUE);
+
+        escritoire.decreasePower(Power.Bursa);
+        assertEquals(escritoire.bursaLevel(), 7);
+
+        escritoire.decreasePower(Power.Bursa);
+        assertEquals(escritoire.bursaLevel(), 5);
+
+        escritoire.decreasePower(Power.Bursa);
+        assertEquals(escritoire.bursaLevel(), 3);
     }
 }
