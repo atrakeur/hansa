@@ -1,4 +1,4 @@
-package fr.univ_rouen.hansa.view;
+package fr.univ_rouen.hansa.view.interactions;
 
 public interface IClickableArea {
 

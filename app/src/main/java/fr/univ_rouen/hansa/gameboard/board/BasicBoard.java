@@ -2,16 +2,16 @@ package fr.univ_rouen.hansa.gameboard.board;
 
 public abstract class BasicBoard {
 
-    private String image;
+    private int background;
 
-    protected void setImage(String image)
+    protected void setBackground(int image)
     {
-        this.image = image;
+        this.background = image;
     }
 
-    public String getImage()
+    public int getBackground()
     {
-        return image;
+        return background;
     }
 
 }

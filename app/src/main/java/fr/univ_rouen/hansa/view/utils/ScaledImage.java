@@ -42,6 +42,10 @@ public class ScaledImage {
      * @param destWidth the destination screen size
      */
     public void computeScaled(int destHeight, int destWidth) {
+        if (destHeight == 0 || destWidth == 0) {
+            return;
+        }
+
         this.destHeight = destHeight;
         this.destWidth = destWidth;
 

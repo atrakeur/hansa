@@ -11,31 +11,33 @@ import com.google.common.collect.Maps;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BitmapResourceRepository {
+public class ResourceRepository {
 
     private int destWidth;
     private int destHeigth;
     private float scaleWidth;
     private float scaleHeigth;
 
+    private Resources resourcesLoader;
     private String referenceResource = "background";
     private HashMap<String, ScaledImage> resources;
 
     /**
      * Create a new repository that old image and scaled versions
      */
-    public BitmapResourceRepository() {
-        resources = Maps.newHashMap();
+    public ResourceRepository(Resources resources) {
+        this.resourcesLoader = resources;
+        this.resources = Maps.newHashMap();
     }
 
     /**
      * Create a new repository linked to a given view
      * @param view the view to link and adapt to
      */
-    public BitmapResourceRepository(final SurfaceView view) {
-        this();
+    public ResourceRepository(final SurfaceView view, Resources resources) {
+        this(resources);
 
-        final BitmapResourceRepository instance = this;
+        final ResourceRepository instance = this;
 
         view.getHolder().addCallback(new SurfaceHolder.Callback() {
             public void surfaceCreated(SurfaceHolder holder) {
@@ -49,11 +51,10 @@ public class BitmapResourceRepository {
     /**
      * Load a given resource into live memory
      * @param key the key to associate
-     * @param res the resource holder
      * @param id the id to load
      */
-    public void addResource(String key, Resources res, int id, float sizeWidth, float sizeHeight) {
-        Bitmap image = BitmapFactory.decodeResource(res, id);
+    public void addResource(String key, int id, float sizeWidth, float sizeHeight) {
+        Bitmap image = BitmapFactory.decodeResource(resourcesLoader, id);
         this.addResource(key, image, sizeWidth, sizeHeight);
     }
 
@@ -64,6 +65,11 @@ public class BitmapResourceRepository {
 
         ScaledImage scaledImage = new ScaledImage(image, sizeWidth, sizeHeight);
         resources.put(key, scaledImage);
+        scaledImage.computeScaled(destHeigth, destWidth);
+    }
+
+    public boolean hasResource(String key) {
+        return resources.containsKey(key);
     }
 
     /**
@@ -112,6 +118,10 @@ public class BitmapResourceRepository {
 
     public int getPercentToScreenHeight(float percent) {
         return (int)(destHeigth * percent);
+    }
+
+    public void clear() {
+        resources.clear();
     }
 
 }

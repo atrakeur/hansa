@@ -4,8 +4,9 @@ import java.util.List;
 
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.view.IPosition;
+import fr.univ_rouen.hansa.view.display.IDrawable;
 
-public interface ICity {
+public interface ICity extends IDrawable {
 
     /**
      * Return the kontor at the position i int the city

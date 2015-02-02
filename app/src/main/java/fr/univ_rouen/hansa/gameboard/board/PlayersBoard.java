@@ -7,7 +7,7 @@ import java.util.List;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 
-public class PlayersBoard extends RouteBoard {
+public abstract class PlayersBoard extends RouteBoard {
 
     private List<IHTPlayer> players;
     private List<Pawn> pawns;

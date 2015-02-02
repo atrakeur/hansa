@@ -8,39 +8,42 @@ import android.util.AttributeSet;
 import android.view.SurfaceView;
 
 import fr.univ_rouen.hansa.R;
-import fr.univ_rouen.hansa.view.utils.BitmapResourceRepository;
+import fr.univ_rouen.hansa.gameboard.board.GameBoard;
+import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
+import fr.univ_rouen.hansa.view.utils.ResourceRepository;
 
 public class GameBoardView extends SurfaceView {
 
-    BitmapResourceRepository resources;
+    GameBoard board;
+    ResourceRepository resources;
 
     public GameBoardView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        resources = new BitmapResourceRepository(this);
-        resources.addResource("background", getResources(), R.drawable.plateau23, 1, 1);
+        resources = new ResourceRepository(this, getResources());
 
         setWillNotDraw(false);
+
+        //TODO change that using a cute menu to select map
+        setBoard(GameBoardFactory.getInstance().createGameBoard(1));
+    }
+
+    public void setBoard(GameBoard board) {
+        this.resources.clear();
+
+        this.board = board;
+
+        board.getDrawer().load(resources);
     }
 
     public void onDraw(Canvas canvas) {
-        canvas.drawBitmap(resources.getScaledResource("background"), 0, 0, null);
-        Paint paint = new Paint();
-        paint.setColor(Color.RED);
-        canvas.drawRect(
-                resources.getPercentToScreenWidth(0),
-                resources.getPercentToScreenHeight(0),
-                resources.getPercentToScreenWidth(0.1f),
-                resources.getPercentToScreenHeight(0.1f),
-                paint);
-
-        paint.setColor(Color.GREEN);
-        canvas.drawRect(
-                resources.getPercentToScreenWidth(0.49f),
-                resources.getPercentToScreenHeight(0.49f),
-                resources.getPercentToScreenWidth(0.51f),
-                resources.getPercentToScreenHeight(0.51f),
-                paint);
+        if (board == null) {
+            Paint paint = new Paint();
+            paint.setColor(Color.RED);
+            canvas.drawRect(0, 0, 100, 100, paint);
+        } else {
+            board.getDrawer().draw(resources, canvas);
+        }
     }
 
 }
