@@ -6,6 +6,7 @@ import java.util.List;
 
 import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.exceptions.NotEnoughSupplyException;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusState;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
 import fr.univ_rouen.hansa.gameboard.pawns.Merchant;
@@ -75,23 +76,40 @@ public class Escritoire implements IEscritoire {
     }
 
     @Override
+    public List<IBonusMarker> getBonusMarker() {
+        return bonusMarkers;
+    }
+
+    @Override
     public List<IBonusMarker> getTinPlateContent() {
         return tinPlate;
     }
 
     @Override
     public List<IBonusMarker> getUnusedBonusMarker() {
-        return null;
+        List<IBonusMarker> tmp = Lists.newArrayList();
+        for (IBonusMarker bonus : getBonusMarker()) {
+            if (bonus.getState() == BonusState.unused) {
+                tmp.add(bonus);
+            }
+        }
+        return tmp;
     }
 
     @Override
     public List<IBonusMarker> getUsedBonusMarker() {
-        return null;
+        List<IBonusMarker> tmp = Lists.newArrayList();
+        for (IBonusMarker bonus : getBonusMarker()) {
+            if (bonus.getState() == BonusState.used) {
+                tmp.add(bonus);
+            }
+        }
+        return tmp;
     }
 
     @Override
     public int bonusMarkerCount() {
-        return bonusMarkers.size();
+        return getBonusMarker().size();
     }
 
     @Override
