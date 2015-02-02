@@ -8,4 +8,8 @@ public interface IHTPlayer {
     public PlayerColor getPlayerColor();
 
     public int getCount();
+
+    public int getActionNumber();
+
+    public void setActionNumber(int i);
 }
