@@ -12,6 +12,17 @@ import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 
 public class MovePawnStoRTest extends TestCase {
 
+    private static final int SUPPLY_MER = 5;
+    private static final int SUPPLY_TRA = 1;
+    private static final int STOCK_MER = 6;
+    private static final int STOCK_TRA = 0;
+
+
+    private static final int MOVE_MER = 3;
+    private static final int MOVE_TRA = 0;
+
+
+
     public void testMovement() throws Exception{
 
         TurnManager manager = TurnManager.getInstance();
@@ -48,7 +59,7 @@ public class MovePawnStoRTest extends TestCase {
             throw new Exception("Invalid Affectation not catch.");
         }catch (NotAvailableActionException e){}
 
-        move = new MovePawnStoR(player, 3, 0);
+        move = new MovePawnStoR(player, MOVE_MER, MOVE_TRA);
 
         assertNotNull(move);
         assertFalse(move.isDone());
@@ -58,8 +69,15 @@ public class MovePawnStoRTest extends TestCase {
         }catch(IllegalStateException ex){}
 
         move.doMovement();
-
         assertTrue(move.isDone());
+
+
+        assertTrue(player.getEscritoire().getSupply().getMerchantCount() == (SUPPLY_MER + MOVE_MER));
+        assertTrue(player.getEscritoire().getSupply().getTraderCount() == (SUPPLY_TRA + MOVE_TRA));
+
+        assertTrue(player.getEscritoire().getStock().getMerchantCount() == (STOCK_MER - MOVE_MER));
+        assertTrue(player.getEscritoire().getStock().getTraderCount() == (STOCK_TRA - MOVE_TRA));
+
 
         move.doRollback();
 
