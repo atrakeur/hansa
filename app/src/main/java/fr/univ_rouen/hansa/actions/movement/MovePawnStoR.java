@@ -75,7 +75,6 @@ public class MovePawnStoR implements IMovement {
         }
 
         try{
-            player.getEscritoire().addToSupply(pawns);
             player.getEscritoire().addToStock(pawns);
             actionDone = false;
         }catch(NotEnoughSupplyException e){

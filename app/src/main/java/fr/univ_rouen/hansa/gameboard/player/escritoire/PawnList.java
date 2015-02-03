@@ -61,7 +61,7 @@ public class PawnList implements IPawnList {
 
         Iterator<Trader> traderIterator = traders.iterator();
 
-        while (traderIterator.hasNext() && rTraders.size() <= traderCount) {
+        while (traderIterator.hasNext() && rTraders.size() < traderCount) {
             rTraders.add(traderIterator.next());
             traderIterator.remove();
         }

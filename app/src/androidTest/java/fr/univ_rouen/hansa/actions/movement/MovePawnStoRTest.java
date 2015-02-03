@@ -82,5 +82,13 @@ public class MovePawnStoRTest extends TestCase {
         move.doRollback();
 
         assertFalse(move.isDone());
+
+
+        assertTrue(player.getEscritoire().getSupply().getMerchantCount() == SUPPLY_MER);
+        assertTrue(player.getEscritoire().getSupply().getTraderCount() == SUPPLY_TRA);
+
+        assertTrue(player.getEscritoire().getStock().getMerchantCount() == STOCK_MER);
+        assertTrue(player.getEscritoire().getStock().getTraderCount() == STOCK_TRA);
+
     }
 }
