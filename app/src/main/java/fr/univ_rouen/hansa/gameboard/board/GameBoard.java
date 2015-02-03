@@ -16,7 +16,7 @@ public class GameBoard extends PlayersBoard implements IDrawable {
 
     private final IDrawer drawer;
 
-    TurnManager manager;
+    private TurnManager manager;
 
     GameBoard() {
         drawer = new HansaGameBoardDrawer(this);
