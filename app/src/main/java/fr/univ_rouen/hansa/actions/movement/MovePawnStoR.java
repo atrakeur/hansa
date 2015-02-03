@@ -22,7 +22,7 @@ public class MovePawnStoR implements IMovement {
             throw new IllegalArgumentException();
         }
 
-        if(player.getEscritoire().enoughSupply(nbMerchant, nbTrader)){
+        if(!player.getEscritoire().enoughSupply(nbMerchant, nbTrader)){
             throw new NotEnoughSupplyException();
         }
 
@@ -75,7 +75,6 @@ public class MovePawnStoR implements IMovement {
         }
 
         try{
-            player.getEscritoire().removeFromSupply(pawns);
             player.getEscritoire().addToStock(pawns);
             actionDone = false;
         }catch(NotEnoughSupplyException e){

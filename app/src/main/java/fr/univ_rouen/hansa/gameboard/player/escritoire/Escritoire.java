@@ -180,19 +180,19 @@ public class Escritoire implements IEscritoire {
     public void decreasePower(Power power) {
         switch (power) {
             case Actiones:
-                actiones.addAll(supply.getMerchants(1));
+                actiones.addAll(supply.popMerchants(1));
                 break;
             case Bursa:
-                bursa.addAll(supply.getMerchants(1));
+                bursa.addAll(supply.popMerchants(1));
                 break;
             case ClavisUrbis:
-                clavisUrbis.addAll(supply.getMerchants(1));
+                clavisUrbis.addAll(supply.popMerchants(1));
                 break;
             case LiberSophiae:
-                liberSophiae.addAll(supply.getTraders(1));
+                liberSophiae.addAll(supply.popTraders(1));
                 break;
             case Privillegium:
-                privilegium.addAll(supply.getMerchants(1));
+                privilegium.addAll(supply.popMerchants(1));
                 break;
             default:
                 throw new GameException("Power is set to " + power + ", wait another value");
@@ -204,8 +204,8 @@ public class Escritoire implements IEscritoire {
         List<Pawn> pawns = Lists.newArrayList();
 
         try {
-            pawns.addAll(stock.getMerchants(merchants));
-            pawns.addAll(stock.getTraders(traders));
+            pawns.addAll(stock.popMerchants(merchants));
+            pawns.addAll(stock.popTraders(traders));
 
             supply.addPawns(pawns);
         } catch (NotEnoughSupplyException e) {
@@ -222,8 +222,8 @@ public class Escritoire implements IEscritoire {
         List<Pawn> pawns = Lists.newArrayList();
 
         try {
-            pawns.addAll(supply.getMerchants(merchants));
-            pawns.addAll(supply.getTraders(traders));
+            pawns.addAll(supply.popMerchants(merchants));
+            pawns.addAll(supply.popTraders(traders));
         } catch (NotEnoughSupplyException e) {
             supply.addPawns(pawns);
 
@@ -281,5 +281,15 @@ public class Escritoire implements IEscritoire {
     @Override
     public boolean enoughSupply(int merchants, int traders) {
         return supply.enoughPawns(merchants, traders);
+    }
+
+    @Override
+    public IPawnList getStock() {
+        return stock;
+    }
+
+    @Override
+    public IPawnList getSupply() {
+        return supply;
     }
 }
