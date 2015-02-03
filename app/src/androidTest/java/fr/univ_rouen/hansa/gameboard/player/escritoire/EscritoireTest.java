@@ -5,8 +5,8 @@ import android.test.ApplicationTestCase;
 
 import java.util.List;
 
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
-import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
 
 public class EscritoireTest extends ApplicationTestCase<Application> {
     public EscritoireTest() {

@@ -1,10 +1,13 @@
 package fr.univ_rouen.hansa.gameboard.routes;
 
+import com.google.common.collect.Lists;
+
 import java.util.List;
 
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.view.IPosition;
 
@@ -95,5 +98,18 @@ public class Route implements IRoute {
         }
 
         return cities[0].equals(city) || cities[1].equals(city);
+    }
+    
+    public List<Pawn> getPawns() {
+        List<Pawn> l = Lists.newArrayList();
+        for (IVillage v : villages) {
+            if (!v.isEmpty()) {
+                Pawn p = v.pullPawn();
+                l.add(p);
+                v.pushPawn(p);
+            }
+        }
+
+        return l;
     }
 }
