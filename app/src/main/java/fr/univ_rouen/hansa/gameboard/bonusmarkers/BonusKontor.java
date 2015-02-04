@@ -4,6 +4,10 @@ import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.cities.Kontor;
 import fr.univ_rouen.hansa.gameboard.player.escritoire.IEscritoire;
 
+
+/**
+ * Bonus which allow you to add a Kontor on the left of a Village
+ */
 public class BonusKontor implements IBonusMarker {
 
     private BonusState state;

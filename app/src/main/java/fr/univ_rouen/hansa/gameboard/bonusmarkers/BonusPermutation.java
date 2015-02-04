@@ -1,5 +1,9 @@
 package fr.univ_rouen.hansa.gameboard.bonusmarkers;
 
+
+/**
+ * Bonus which allow you to permute two Kontor in a City
+ */
 public class BonusPermutation implements IBonusMarker {
 
     private BonusState state;

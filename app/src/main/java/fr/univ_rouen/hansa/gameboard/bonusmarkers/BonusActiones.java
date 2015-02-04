@@ -3,6 +3,9 @@ package fr.univ_rouen.hansa.gameboard.bonusmarkers;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 
+/**
+ * Bonus which allow you to do 3 or 4 more Actions
+ */
 public class BonusActiones implements IBonusMarker {
     private BonusState state;
     private int value;

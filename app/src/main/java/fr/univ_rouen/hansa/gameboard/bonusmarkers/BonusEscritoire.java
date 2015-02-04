@@ -4,6 +4,10 @@ import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
 import fr.univ_rouen.hansa.gameboard.player.escritoire.IEscritoire;
 
+
+/**
+ * Bonus which upgrade one of your Power
+ */
 public class BonusEscritoire implements IBonusMarker {
 
     private BonusState state;
