@@ -1,5 +1,9 @@
 package fr.univ_rouen.hansa.gameboard.bonusmarkers;
 
+
+/**
+ * Bonus which allow you to remove 3 pawns from the Routes
+ */
 public class BonusRemovePawns implements IBonusMarker {
 
     private BonusState state;
