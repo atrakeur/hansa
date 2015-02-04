@@ -14,8 +14,14 @@ public class BonusKontor implements IBonusMarker {
     }
     @Override
     public BonusState getState() {
-        //TODO
         return state;
+    }
+    @Override
+    public void setState(BonusState state) {
+        if (state == null){
+            throw new NullPointerException();
+        }
+        this.state = state;
     }
 
     @Override

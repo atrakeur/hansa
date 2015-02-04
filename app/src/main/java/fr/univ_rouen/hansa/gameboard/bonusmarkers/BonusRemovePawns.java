@@ -1,13 +1,10 @@
 package fr.univ_rouen.hansa.gameboard.bonusmarkers;
 
-import fr.univ_rouen.hansa.gameboard.TurnManager;
-import fr.univ_rouen.hansa.gameboard.player.escritoire.IEscritoire;
-
-public class BonusRemovePions implements IBonusMarker {
+public class BonusRemovePawns implements IBonusMarker {
 
     private BonusState state;
 
-    public BonusRemovePions() {
+    public BonusRemovePawns() {
         super();
         this.state = BonusState.unused;
     }
@@ -16,7 +13,13 @@ public class BonusRemovePions implements IBonusMarker {
         //TODO
         return state;
     }
-
+    @Override
+    public void setState(BonusState state) {
+        if (state == null){
+            throw new NullPointerException();
+        }
+        this.state = state;
+    }
     @Override
     public void doAction() {
         //TODO

@@ -1,9 +1,7 @@
 package fr.univ_rouen.hansa.gameboard.bonusmarkers;
 
 import fr.univ_rouen.hansa.gameboard.TurnManager;
-import fr.univ_rouen.hansa.gameboard.player.HTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
-import fr.univ_rouen.hansa.gameboard.player.escritoire.IEscritoire;
 
 public class BonusActiones implements IBonusMarker {
     private BonusState state;
@@ -20,8 +18,15 @@ public class BonusActiones implements IBonusMarker {
 
     @Override
     public BonusState getState() {
-        //TODO
         return state;
+    }
+
+    @Override
+    public void setState(BonusState state) {
+        if (state == null){
+            throw new NullPointerException();
+        }
+        this.state = state;
     }
 
     @Override
