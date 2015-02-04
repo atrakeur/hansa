@@ -25,4 +25,7 @@ public class BonusRemovePawns implements IBonusMarker {
         //TODO
         //IEscritoire escritoire = TurnManager.getInstance().getCurrentPlayer().getEscritoire();
     }
+    public void undoAction() {
+
+    }
 }
