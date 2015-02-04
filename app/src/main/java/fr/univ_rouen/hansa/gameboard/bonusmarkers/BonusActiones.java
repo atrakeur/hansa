@@ -9,7 +9,7 @@ public class BonusActiones implements IBonusMarker {
 
     public BonusActiones(int v) {
         super();
-        if (v != 3 || v !=  4) {
+        if (v != 3 && v !=  4) {
             throw new IllegalArgumentException("Valeur");
         }
         state = BonusState.unused;
