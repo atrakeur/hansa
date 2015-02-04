@@ -30,4 +30,7 @@ public class BonusKontor implements IBonusMarker {
         IEscritoire escritoire = TurnManager.getInstance().getCurrentPlayer().getEscritoire();
 
     }
+    public void undoAction() {
+
+    }
 }
