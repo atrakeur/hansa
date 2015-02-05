@@ -7,11 +7,6 @@ import android.graphics.RectF;
 
 import java.util.List;
 
-import fr.univ_rouen.hansa.gameboard.cities.ICity;
-import fr.univ_rouen.hansa.gameboard.cities.IKontor;
-import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
-import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
-import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 import fr.univ_rouen.hansa.view.utils.ResourceRepository;
@@ -22,7 +17,6 @@ public class HansaRouteDrawer implements IDrawer {
     public final float KONTOR_MERCHANT_SIZE_Y = 0.0275f;
     public final float KONTOR_TRADER_SIZE_X = 0.014f;
     public final float KONTOR_TRADER_SIZE_Y = 0.018f;
-    public final float KONTOR_SPACING_X = 0.00925f;
 
     private final IRoute route;
 
@@ -41,7 +35,7 @@ public class HansaRouteDrawer implements IDrawer {
 
         Paint paint = new Paint();
 
-        for(IVillage village: villages) {
+        for (IVillage village : villages) {
             //ATM on dessine le trader pusi le merchant,
             // faudra dessiner l'un ou l'autre suivant le contenu...
 
@@ -51,18 +45,18 @@ public class HansaRouteDrawer implements IDrawer {
             paint.setColor(Color.GREEN);
             canvas.drawOval(
                     new RectF(resources.getPercentToScreenWidth(posX - KONTOR_MERCHANT_SIZE_X / 2),
-                            resources.getPercentToScreenHeight( posY - KONTOR_MERCHANT_SIZE_Y / 2),
-                            resources.getPercentToScreenWidth(  posX + KONTOR_MERCHANT_SIZE_X / 2),
-                            resources.getPercentToScreenHeight( posY + KONTOR_MERCHANT_SIZE_Y / 2)),
+                            resources.getPercentToScreenHeight(posY - KONTOR_MERCHANT_SIZE_Y / 2),
+                            resources.getPercentToScreenWidth(posX + KONTOR_MERCHANT_SIZE_X / 2),
+                            resources.getPercentToScreenHeight(posY + KONTOR_MERCHANT_SIZE_Y / 2)),
                     paint
             );
 
             paint.setColor(Color.RED);
             canvas.drawRect(
                     new RectF(resources.getPercentToScreenWidth(posX - KONTOR_TRADER_SIZE_X / 2),
-                            resources.getPercentToScreenHeight( posY - KONTOR_TRADER_SIZE_Y / 2),
-                            resources.getPercentToScreenWidth(  posX + KONTOR_TRADER_SIZE_X / 2),
-                            resources.getPercentToScreenHeight( posY + KONTOR_TRADER_SIZE_Y / 2)),
+                            resources.getPercentToScreenHeight(posY - KONTOR_TRADER_SIZE_Y / 2),
+                            resources.getPercentToScreenWidth(posX + KONTOR_TRADER_SIZE_X / 2),
+                            resources.getPercentToScreenHeight(posY + KONTOR_TRADER_SIZE_Y / 2)),
                     paint
             );
         }

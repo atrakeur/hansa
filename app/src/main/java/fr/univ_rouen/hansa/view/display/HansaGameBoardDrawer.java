@@ -25,11 +25,11 @@ public class HansaGameBoardDrawer implements IDrawer {
     public void load(ResourceRepository resources) {
         resources.addResource("background", board.getBackground(), 1, 1);
 
-        for(ICity city : cities) {
+        for (ICity city : cities) {
             city.getDrawer().load(resources);
         }
 
-        for(IRoute route : routes) {
+        for (IRoute route : routes) {
             route.getDrawer().load(resources);
         }
     }
@@ -38,11 +38,11 @@ public class HansaGameBoardDrawer implements IDrawer {
     public void draw(ResourceRepository resources, Canvas canvas) {
         canvas.drawBitmap(resources.getScaledResource("background"), 0, 0, null);
 
-        for(ICity city : cities) {
+        for (ICity city : cities) {
             city.getDrawer().draw(resources, canvas);
         }
 
-        for(IRoute route : routes) {
+        for (IRoute route : routes) {
             route.getDrawer().draw(resources, canvas);
         }
     }

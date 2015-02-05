@@ -15,7 +15,7 @@ import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.view.utils.ResourceRepository;
 
-public class HansaCityDrawer implements IDrawer  {
+public class HansaCityDrawer implements IDrawer {
 
     public final float KONTOR_MERCHANT_SIZE_X = 0.021f;
     public final float KONTOR_MERCHANT_SIZE_Y = 0.0275f;
@@ -40,7 +40,7 @@ public class HansaCityDrawer implements IDrawer  {
 
         //Calculate full city size
         float citySizeX = 0.0f;
-        for(IKontor kontor: kontors) {
+        for (IKontor kontor : kontors) {
             if (kontor.getPawnClass() == Trader.class) {
                 citySizeX += KONTOR_TRADER_SIZE_X;
             } else if (kontor.getPawnClass() == Merchant.class) {
@@ -52,7 +52,7 @@ public class HansaCityDrawer implements IDrawer  {
         //Draw kontors from left to right
         Paint paint = new Paint();
         float drawPosX = city.getPosition().getX() - citySizeX / 2;
-        for(IKontor kontor: kontors) {
+        for (IKontor kontor : kontors) {
             paint.setColor(kontor.getPrivillegium().getColor());
 
             if (kontor.getPawnClass() == Trader.class) {
