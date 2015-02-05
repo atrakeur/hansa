@@ -36,6 +36,14 @@ public class BonusActiones implements IBonusMarker {
         this.state = BonusState.used;
     }
 
+    @Override
+    public void undoAction() {
+        IHTPlayer player = TurnManager.getInstance().getCurrentPlayer();
+        int undo = -getValue();
+        player.setActionNumber(undo);
+        this.state = BonusState.unused;
+    }
+
     public int getValue() {
         return value;
     }
