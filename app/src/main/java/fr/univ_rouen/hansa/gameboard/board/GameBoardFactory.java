@@ -55,142 +55,142 @@ public class GameBoardFactory {
 
         //GRONINGEN
         kontors = Lists.newArrayList();
-        kontors.add(new Kontor<Trader>(true, Privillegium.White));
-        kontors.add(new Kontor<Merchant>(false, Privillegium.Orange));
+        kontors.add(new Kontor(Trader.class, true, Privillegium.White));
+        kontors.add(new Kontor(Merchant.class, false, Privillegium.Orange));
         ICity groningen = new City(CityPositions.GRONINGEN, Power.LiberSophiae, kontors);
         gameBoard.addCity(groningen);
 
         //EMDEN
         kontors = Lists.newArrayList();
-        kontors.add(new Kontor<Merchant>(false, Privillegium.White));
-        kontors.add(new Kontor<Trader>(false, Privillegium.Pink));
+        kontors.add(new Kontor(Merchant.class,false, Privillegium.White));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.Pink));
         ICity emden = new City(CityPositions.EMDEN, Power.Null, kontors);
         gameBoard.addCity(emden);
 
         //HAMBURG
         kontors = Lists.newArrayList();
-        kontors.add(new Kontor<Trader>(false, Privillegium.White));
-        kontors.add(new Kontor<Trader>(false, Privillegium.Orange));
-        kontors.add(new Kontor<Trader>(false, Privillegium.Black));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.White));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.Orange));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.Black));
         ICity hamburg = new City(CityPositions.HAMBURG, Power.Null, kontors);
         gameBoard.addCity(hamburg);
 
         //LUBECK
         kontors = Lists.newArrayList();
-        kontors.add(new Kontor<Trader>(true, Privillegium.White));
-        kontors.add(new Kontor<Trader>(false, Privillegium.Pink));
+        kontors.add(new Kontor(Trader.class,true, Privillegium.White));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.Pink));
         ICity lubeck = new City(CityPositions.LUBECK, Power.Bursa, kontors);
         gameBoard.addCity(lubeck);
 
         //OSNABRUCK
         kontors = Lists.newArrayList();
-        kontors.add(new Kontor<Trader>(false, Privillegium.White));
-        kontors.add(new Kontor<Trader>(false, Privillegium.Orange));
-        kontors.add(new Kontor<Trader>(false, Privillegium.Black));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.White));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.Orange));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.Black));
         ICity osnabruck = new City(CityPositions.OSNABRUCK, Power.Null, kontors);
         gameBoard.addCity(osnabruck);
 
         //HANNOVER
         kontors = Lists.newArrayList();
-        kontors.add(new Kontor<Trader>(false, Privillegium.White));
-        kontors.add(new Kontor<Trader>(false, Privillegium.Pink));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.White));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.Pink));
         ICity hannover = new City(CityPositions.HANNOVER, Power.Null, kontors);
         gameBoard.addCity(hannover);
 
         //PERLBERG
         kontors = Lists.newArrayList();
-        kontors.add(new Kontor<Trader>(false, Privillegium.White));
-        kontors.add(new Kontor<Trader>(false, Privillegium.Pink));
-        kontors.add(new Kontor<Trader>(false, Privillegium.Black));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.White));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.Pink));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.Black));
         ICity perlberg = new City(CityPositions.PERLBERG, Power.Null, kontors);
         gameBoard.addCity(perlberg);
 
         //ARNHEIM
         kontors = Lists.newArrayList();
-        kontors.add(new Kontor<Trader>(false, Privillegium.White));
-        kontors.add(new Kontor<Merchant>(false, Privillegium.White));
-        kontors.add(new Kontor<Trader>(false, Privillegium.Orange));
-        kontors.add(new Kontor<Trader>(false, Privillegium.Pink));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.White));
+        kontors.add(new Kontor(Merchant.class,false, Privillegium.White));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.Orange));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.Pink));
         ICity arnheim = new City(CityPositions.ARNHEIM, Power.Null, kontors);
         gameBoard.addCity(arnheim);
 
         //MUNSTER
         kontors = Lists.newArrayList();
-        kontors.add(new Kontor<Merchant>(false, Privillegium.White));
-        kontors.add(new Kontor<Trader>(false, Privillegium.Orange));
+        kontors.add(new Kontor(Merchant.class,false, Privillegium.White));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.Orange));
         ICity munster = new City(CityPositions.MUNSTER, Power.Null, kontors);
         gameBoard.addCity(munster);
 
         //MINDEN
         kontors = Lists.newArrayList();
-        kontors.add(new Kontor<Trader>(false, Privillegium.White));
-        kontors.add(new Kontor<Trader>(false, Privillegium.Orange));
-        kontors.add(new Kontor<Trader>(false, Privillegium.Pink));
-        kontors.add(new Kontor<Trader>(false, Privillegium.Black));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.White));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.Orange));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.Pink));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.Black));
         ICity minden = new City(CityPositions.MINDEN, Power.Null, kontors);
         gameBoard.addCity(minden);
 
         //BRUNSWIEK
         kontors = Lists.newArrayList();
-        kontors.add(new Kontor<Trader>(false, Privillegium.Orange));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.Orange));
         ICity brunswiek = new City(CityPositions.BRUNSWIEK, Power.Null, kontors);
         gameBoard.addCity(brunswiek);
 
         //STENDAL
         kontors = Lists.newArrayList();
-        kontors.add(new Kontor<Trader>(false, Privillegium.White));
-        kontors.add(new Kontor<Merchant>(false, Privillegium.White));
-        kontors.add(new Kontor<Trader>(false, Privillegium.Orange));
-        kontors.add(new Kontor<Trader>(false, Privillegium.Pink));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.White));
+        kontors.add(new Kontor(Merchant.class,false, Privillegium.White));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.Orange));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.Pink));
         ICity stendal = new City(CityPositions.STENDAL, Power.Null, kontors);
         gameBoard.addCity(stendal);
 
         //DUISBURG
         kontors = Lists.newArrayList();
-        kontors.add(new Kontor<Trader>(false, Privillegium.White));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.White));
         ICity duisburg = new City(CityPositions.DUISBURG, Power.Null, kontors);
         gameBoard.addCity(duisburg);
 
         //PADERBORN
         kontors = Lists.newArrayList();
-        kontors.add(new Kontor<Trader>(false, Privillegium.White));
-        kontors.add(new Kontor<Merchant>(false, Privillegium.Black));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.White));
+        kontors.add(new Kontor(Merchant.class,false, Privillegium.Black));
         ICity paderborn = new City(CityPositions.PADERBORN, Power.Null, kontors);
         gameBoard.addCity(paderborn);
 
         //HILDESHEIM
         kontors = Lists.newArrayList();
-        kontors.add(new Kontor<Trader>(false, Privillegium.White));
-        kontors.add(new Kontor<Trader>(false, Privillegium.Black));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.White));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.Black));
         ICity hildesheim = new City(CityPositions.HILDESHEIM, Power.Null, kontors);
         gameBoard.addCity(hildesheim);
 
         //MAGDEBURG
         kontors = Lists.newArrayList();
-        kontors.add(new Kontor<Merchant>(false, Privillegium.White));
-        kontors.add(new Kontor<Trader>(false, Privillegium.Orange));
+        kontors.add(new Kontor(Merchant.class,false, Privillegium.White));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.Orange));
         ICity magdeburg = new City(CityPositions.MAGDEBURG, Power.Null, kontors);
         gameBoard.addCity(magdeburg);
 
         //COELLEN
         //TODO Gestion spécial de Coellen avec les points bonus
         kontors = Lists.newArrayList();
-        kontors.add(new Kontor<Trader>(true, Privillegium.White));
-        kontors.add(new Kontor<Trader>(false, Privillegium.Pink));
+        kontors.add(new Kontor(Trader.class,true, Privillegium.White));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.Pink));
         ICity coellen = new City(CityPositions.COELLEN, Power.Null, kontors);
         gameBoard.addCity(coellen);
 
         //QUEDLINBURG
         kontors = Lists.newArrayList();
-        kontors.add(new Kontor<Merchant>(false, Privillegium.Orange));
-        kontors.add(new Kontor<Merchant>(false, Privillegium.Pink));
+        kontors.add(new Kontor(Merchant.class,false, Privillegium.Orange));
+        kontors.add(new Kontor(Merchant.class,false, Privillegium.Pink));
         ICity quedlinburg = new City(CityPositions.QUEDLINBURG, Power.Null, kontors);
         gameBoard.addCity(quedlinburg);
 
         //HALLE
         kontors = Lists.newArrayList();
-        kontors.add(new Kontor<Trader>(true, Privillegium.White));
-        kontors.add(new Kontor<Trader>(false, Privillegium.Orange));
+        kontors.add(new Kontor(Trader.class,true, Privillegium.White));
+        kontors.add(new Kontor(Trader.class,false, Privillegium.Orange));
         ICity halle = new City(CityPositions.HALLE, Power.ClavisUrbis, kontors);
         gameBoard.addCity(halle);
 
@@ -207,109 +207,109 @@ public class GameBoardFactory {
         if (map == 1) {
             //DORTMUND
             kontors = Lists.newArrayList();
-            kontors.add(new Kontor<Merchant>(false, Privillegium.White));
-            kontors.add(new Kontor<Trader>(false, Privillegium.Orange));
+            kontors.add(new Kontor(Merchant.class,false, Privillegium.White));
+            kontors.add(new Kontor(Trader.class,false, Privillegium.Orange));
             dortmund = new City(CityPositions.DORTMUND, Power.Null, kontors);
             gameBoard.addCity(dortmund);
 
             //KAMPEN
             kontors = Lists.newArrayList();
-            kontors.add(new Kontor<Trader>(false, Privillegium.Orange));
-            kontors.add(new Kontor<Trader>(false, Privillegium.Black));
+            kontors.add(new Kontor(Trader.class,false, Privillegium.Orange));
+            kontors.add(new Kontor(Trader.class,false, Privillegium.Black));
             kampen = new City(CityPositions.KAMPEN, Power.Null, kontors);
             gameBoard.addCity(kampen);
 
             //BREMEN
             kontors = Lists.newArrayList();
-            kontors.add(new Kontor<Trader>(false, Privillegium.Pink));
+            kontors.add(new Kontor(Trader.class,false, Privillegium.Pink));
             bremen = new City(CityPositions.BREMEN, Power.Null, kontors);
             gameBoard.addCity(bremen);
 
             //STADE
             kontors = Lists.newArrayList();
-            kontors.add(new Kontor<Merchant>(true, Privillegium.White));
+            kontors.add(new Kontor(Merchant.class,true, Privillegium.White));
             stade = new City(CityPositions.STADE, Power.Privillegium, kontors);
             gameBoard.addCity(stade);
 
             //LUNEBURG
             kontors = Lists.newArrayList();
-            kontors.add(new Kontor<Merchant>(false, Privillegium.White));
+            kontors.add(new Kontor(Merchant.class,false, Privillegium.White));
             luneburg = new City(CityPositions.LUNEBURG, Power.Null, kontors);
             gameBoard.addCity(luneburg);
 
             //GOSLAR
             kontors = Lists.newArrayList();
-            kontors.add(new Kontor<Trader>(false, Privillegium.White));
+            kontors.add(new Kontor(Trader.class,false, Privillegium.White));
             goslar = new City(CityPositions.GOSLAR, Power.Null, kontors);
             gameBoard.addCity(goslar);
 
             //GOTTINGEN
             kontors = Lists.newArrayList();
-            kontors.add(new Kontor<Trader>(false, Privillegium.White));
-            kontors.add(new Kontor<Trader>(false, Privillegium.Orange));
+            kontors.add(new Kontor(Trader.class,false, Privillegium.White));
+            kontors.add(new Kontor(Trader.class,false, Privillegium.Orange));
             gottingen = new City(CityPositions.GOTTINGEN, Power.Actiones, kontors);
             gameBoard.addCity(gottingen);
 
             //MARBURG
             kontors = Lists.newArrayList();
-            kontors.add(new Kontor<Trader>(true, Privillegium.Orange));
-            kontors.add(new Kontor<Trader>(false, Privillegium.Pink));
+            kontors.add(new Kontor(Trader.class,true, Privillegium.Orange));
+            kontors.add(new Kontor(Trader.class,false, Privillegium.Pink));
             marburg = new City(CityPositions.MARBURG, Power.Null, kontors);
             gameBoard.addCity(marburg);
         } else {
             //DORTMUND
             kontors = Lists.newArrayList();
-            kontors.add(new Kontor<Merchant>(false, Privillegium.White));
-            kontors.add(new Kontor<Trader>(false, Privillegium.Orange));
-            kontors.add(new Kontor<Trader>(false, Privillegium.Pink));
+            kontors.add(new Kontor(Merchant.class,false, Privillegium.White));
+            kontors.add(new Kontor(Trader.class,false, Privillegium.Orange));
+            kontors.add(new Kontor(Trader.class,false, Privillegium.Pink));
             dortmund = new City(CityPositions.DORTMUND, Power.Null, kontors);
             gameBoard.addCity(dortmund);
 
             //KAMPEN
             kontors = Lists.newArrayList();
-            kontors.add(new Kontor<Merchant>(false, Privillegium.Orange));
-            kontors.add(new Kontor<Trader>(false, Privillegium.Black));
+            kontors.add(new Kontor(Merchant.class,false, Privillegium.Orange));
+            kontors.add(new Kontor(Trader.class,false, Privillegium.Black));
             kampen = new City(CityPositions.KAMPEN, Power.Null, kontors);
             gameBoard.addCity(kampen);
 
             //BREMEN
             kontors = Lists.newArrayList();
-            kontors.add(new Kontor<Merchant>(false, Privillegium.White));
-            kontors.add(new Kontor<Trader>(false, Privillegium.Pink));
+            kontors.add(new Kontor(Merchant.class,false, Privillegium.White));
+            kontors.add(new Kontor(Trader.class,false, Privillegium.Pink));
             bremen = new City(CityPositions.BREMEN, Power.Null, kontors);
             gameBoard.addCity(bremen);
 
             //STADE
             kontors = Lists.newArrayList();
-            kontors.add(new Kontor<Merchant>(false, Privillegium.White));
+            kontors.add(new Kontor(Merchant.class,false, Privillegium.White));
             stade = new City(CityPositions.STADE, Power.Privillegium, kontors);
             gameBoard.addCity(stade);
 
             //LUNEBURG
             kontors = Lists.newArrayList();
-            kontors.add(new Kontor<Merchant>(false, Privillegium.Orange));
-            kontors.add(new Kontor<Trader>(false, Privillegium.Black));
+            kontors.add(new Kontor(Merchant.class,false, Privillegium.Orange));
+            kontors.add(new Kontor(Trader.class,false, Privillegium.Black));
             luneburg = new City(CityPositions.LUNEBURG, Power.Null, kontors);
             gameBoard.addCity(luneburg);
 
             //GOSLAR
             kontors = Lists.newArrayList();
-            kontors.add(new Kontor<Trader>(false, Privillegium.White));
-            kontors.add(new Kontor<Trader>(false, Privillegium.Black));
+            kontors.add(new Kontor(Trader.class,false, Privillegium.White));
+            kontors.add(new Kontor(Trader.class,false, Privillegium.Black));
             goslar = new City(CityPositions.GOSLAR, Power.Null, kontors);
             gameBoard.addCity(goslar);
 
             //GOTTINGEN
             kontors = Lists.newArrayList();
-            kontors.add(new Kontor<Merchant>(false, Privillegium.Orange));
-            kontors.add(new Kontor<Merchant>(false, Privillegium.Pink));
+            kontors.add(new Kontor(Merchant.class,false, Privillegium.Orange));
+            kontors.add(new Kontor(Merchant.class,false, Privillegium.Pink));
             gottingen = new City(CityPositions.GOTTINGEN, Power.Actiones, kontors);
             gameBoard.addCity(gottingen);
 
             //MARBURG
             kontors = Lists.newArrayList();
-            kontors.add(new Kontor<Trader>(false, Privillegium.Orange));
-            kontors.add(new Kontor<Trader>(false, Privillegium.Pink));
+            kontors.add(new Kontor(Trader.class,false, Privillegium.Orange));
+            kontors.add(new Kontor(Trader.class,false, Privillegium.Pink));
             marburg = new City(CityPositions.MARBURG, Power.Null, kontors);
             gameBoard.addCity(marburg);
         }

@@ -11,6 +11,7 @@ import fr.univ_rouen.hansa.view.display.IDrawer;
 public class City implements ICity {
 
     private final IDrawer drawer;
+
     private final IPosition position;
     private final Power power;
     private final List<IKontor<? extends Pawn>> kontors;
@@ -21,6 +22,7 @@ public class City implements ICity {
         }
 
         this.drawer = new HansaCityDrawer(this);
+
         this.position = position;
         this.power = power;
         this.kontors = kontors;

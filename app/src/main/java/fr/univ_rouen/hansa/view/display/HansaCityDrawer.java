@@ -3,19 +3,25 @@ package fr.univ_rouen.hansa.view.display;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.RectF;
 
 import java.util.List;
 
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.IKontor;
 import fr.univ_rouen.hansa.gameboard.cities.Kontor;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.view.utils.ResourceRepository;
 
 public class HansaCityDrawer implements IDrawer  {
 
-    public final float KONTOR_SIZE = 0.015f;
-    public final float KONTOR_SPACING = 0.015f;
+    public final float KONTOR_MERCHANT_SIZE_X = 0.021f;
+    public final float KONTOR_MERCHANT_SIZE_Y = 0.0275f;
+    public final float KONTOR_TRADER_SIZE_X = 0.014f;
+    public final float KONTOR_TRADER_SIZE_Y = 0.018f;
+    public final float KONTOR_SPACING_X = 0.00925f;
 
     private final ICity city;
 
@@ -32,25 +38,44 @@ public class HansaCityDrawer implements IDrawer  {
     public void draw(ResourceRepository resources, Canvas canvas) {
         List<IKontor<? extends Pawn>> kontors = city.getKontors();
 
-        float citySizeX = KONTOR_SIZE * kontors.size() + KONTOR_SPACING * (kontors.size() - 1);
+        //Calculate full city size
+        float citySizeX = 0.0f;
+        for(IKontor kontor: kontors) {
+            if (kontor.getPawnClass() == Trader.class) {
+                citySizeX += KONTOR_TRADER_SIZE_X;
+            } else if (kontor.getPawnClass() == Merchant.class) {
+                citySizeX += KONTOR_MERCHANT_SIZE_X;
+            }
+        }
+        citySizeX += KONTOR_SPACING_X * (kontors.size() - 1);
 
+        //Draw kontors from left to right
         Paint paint = new Paint();
+        float drawPosX = city.getPosition().getX() - citySizeX / 2;
+        for(IKontor kontor: kontors) {
+            paint.setColor(kontor.getPrivillegium().getColor());
 
-        for(int i = 0; i < kontors.size(); i++)
-        {
-            float kontorPosX = city.getPosition().getX() - citySizeX / 2;
-            kontorPosX = kontorPosX + KONTOR_SIZE * i;
-            kontorPosX = kontorPosX + KONTOR_SPACING * i;
+            if (kontor.getPawnClass() == Trader.class) {
+                canvas.drawRect(
+                        resources.getPercentToScreenWidth(drawPosX),
+                        resources.getPercentToScreenHeight(city.getPosition().getY() - KONTOR_TRADER_SIZE_Y / 2),
+                        resources.getPercentToScreenWidth(drawPosX + KONTOR_TRADER_SIZE_X),
+                        resources.getPercentToScreenHeight(city.getPosition().getY() + KONTOR_TRADER_SIZE_Y / 2),
+                        paint
+                );
 
-            paint.setColor(kontors.get(i).getPrivillegium().getColor());
+                drawPosX += KONTOR_TRADER_SIZE_X + KONTOR_SPACING_X;
+            } else if (kontor.getPawnClass() == Merchant.class) {
+                canvas.drawOval(
+                        new RectF(resources.getPercentToScreenWidth(drawPosX),
+                                resources.getPercentToScreenHeight(city.getPosition().getY() - KONTOR_MERCHANT_SIZE_Y / 2),
+                                resources.getPercentToScreenWidth(drawPosX + KONTOR_MERCHANT_SIZE_X),
+                                resources.getPercentToScreenHeight(city.getPosition().getY() + KONTOR_MERCHANT_SIZE_Y / 2)),
+                        paint
+                );
 
-            canvas.drawRect(
-                    resources.getPercentToScreenWidth(kontorPosX),
-                    resources.getPercentToScreenHeight(city.getPosition().getY() - KONTOR_SIZE),
-                    resources.getPercentToScreenWidth(kontorPosX + KONTOR_SIZE),
-                    resources.getPercentToScreenHeight(city.getPosition().getY() + KONTOR_SIZE),
-                    paint
-            );
+                drawPosX += KONTOR_MERCHANT_SIZE_X + KONTOR_SPACING_X;
+            }
         }
     }
 }
