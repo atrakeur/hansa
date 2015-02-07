@@ -5,7 +5,7 @@ import fr.univ_rouen.hansa.view.Position;
 
 public class CityPositions {
 
-    public static IPosition GRONINGEN = new Position(0.054f, 0.161f);
+    public static IPosition GRONINGEN = new Position(0.0595f, 0.161f);
     public static IPosition EMDEN = new Position(0, 0);
     public static IPosition BREMEN = new Position(0, 0);
     public static IPosition STADE = new Position(0, 0);
@@ -31,6 +31,6 @@ public class CityPositions {
     public static IPosition MARBURG = new Position(0, 0);
     public static IPosition GOTTINGEN = new Position(0, 0);
     public static IPosition QUEDLINBURG = new Position(0, 0);
-    public static IPosition HALLE = new Position(0, 0);
+    public static IPosition HALLE = new Position(0.9045f, 0.9025f);
 
 }

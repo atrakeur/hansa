@@ -3,13 +3,26 @@ package fr.univ_rouen.hansa.view.display;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.RectF;
+
+import java.util.List;
 
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
+import fr.univ_rouen.hansa.gameboard.cities.IKontor;
+import fr.univ_rouen.hansa.gameboard.cities.Kontor;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.view.utils.ResourceRepository;
 
-public class HansaCityDrawer implements IDrawer  {
+public class HansaCityDrawer implements IDrawer {
 
-    public final float CITY_DRAW_SIZE = 0.005f;
+    public final float KONTOR_MERCHANT_SIZE_X = 0.021f;
+    public final float KONTOR_MERCHANT_SIZE_Y = 0.0275f;
+    public final float KONTOR_TRADER_SIZE_X = 0.014f;
+    public final float KONTOR_TRADER_SIZE_Y = 0.018f;
+    public final float KONTOR_SPACING_X = 0.00925f;
+
     private final ICity city;
 
     public HansaCityDrawer(ICity city) {
@@ -23,14 +36,46 @@ public class HansaCityDrawer implements IDrawer  {
 
     @Override
     public void draw(ResourceRepository resources, Canvas canvas) {
+        List<IKontor<? extends Pawn>> kontors = city.getKontors();
+
+        //Calculate full city size
+        float citySizeX = 0.0f;
+        for (IKontor kontor : kontors) {
+            if (kontor.getPawnClass() == Trader.class) {
+                citySizeX += KONTOR_TRADER_SIZE_X;
+            } else if (kontor.getPawnClass() == Merchant.class) {
+                citySizeX += KONTOR_MERCHANT_SIZE_X;
+            }
+        }
+        citySizeX += KONTOR_SPACING_X * (kontors.size() - 1);
+
+        //Draw kontors from left to right
         Paint paint = new Paint();
-        paint.setColor(Color.RED);
-        canvas.drawRect(
-            resources.getPercentToScreenWidth(city.getPosition().getX() - CITY_DRAW_SIZE),
-            resources.getPercentToScreenHeight(city.getPosition().getY() - CITY_DRAW_SIZE),
-            resources.getPercentToScreenWidth(city.getPosition().getX() + CITY_DRAW_SIZE),
-            resources.getPercentToScreenHeight(city.getPosition().getY() + CITY_DRAW_SIZE),
-            paint
-        );
+        float drawPosX = city.getPosition().getX() - citySizeX / 2;
+        for (IKontor kontor : kontors) {
+            paint.setColor(kontor.getPrivillegium().getColor());
+
+            if (kontor.getPawnClass() == Trader.class) {
+                canvas.drawRect(
+                        resources.getPercentToScreenWidth(drawPosX),
+                        resources.getPercentToScreenHeight(city.getPosition().getY() - KONTOR_TRADER_SIZE_Y / 2),
+                        resources.getPercentToScreenWidth(drawPosX + KONTOR_TRADER_SIZE_X),
+                        resources.getPercentToScreenHeight(city.getPosition().getY() + KONTOR_TRADER_SIZE_Y / 2),
+                        paint
+                );
+
+                drawPosX += KONTOR_TRADER_SIZE_X + KONTOR_SPACING_X;
+            } else if (kontor.getPawnClass() == Merchant.class) {
+                canvas.drawOval(
+                        new RectF(resources.getPercentToScreenWidth(drawPosX),
+                                resources.getPercentToScreenHeight(city.getPosition().getY() - KONTOR_MERCHANT_SIZE_Y / 2),
+                                resources.getPercentToScreenWidth(drawPosX + KONTOR_MERCHANT_SIZE_X),
+                                resources.getPercentToScreenHeight(city.getPosition().getY() + KONTOR_MERCHANT_SIZE_Y / 2)),
+                        paint
+                );
+
+                drawPosX += KONTOR_MERCHANT_SIZE_X + KONTOR_SPACING_X;
+            }
+        }
     }
 }
