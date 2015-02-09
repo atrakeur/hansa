@@ -1,8 +1,8 @@
 package fr.univ_rouen.hansa.gameboard.routes;
 
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
-import fr.univ_rouen.hansa.view.IPosition;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
+import fr.univ_rouen.hansa.view.IPosition;
 
 public interface IVillage {
 

@@ -4,7 +4,6 @@ import java.util.List;
 
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
-import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.view.IPosition;
 import fr.univ_rouen.hansa.view.display.IDrawable;
 

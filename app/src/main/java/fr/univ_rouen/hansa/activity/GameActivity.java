@@ -1,50 +1,99 @@
 package fr.univ_rouen.hansa.activity;
 
 import android.app.Activity;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Arrays;
+
 import fr.univ_rouen.hansa.R;
+import fr.univ_rouen.hansa.gameboard.TurnManager;
+import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 
 public class GameActivity extends Activity {
+
+    private Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-
-        SurfaceView surface =  (SurfaceView)findViewById(R.id.dynamic_ui);
-        surface.getHolder().addCallback(new SurfaceHolder.Callback() {
-
-            @Override
-            public void surfaceCreated(SurfaceHolder holder) {
-                Canvas canvas = holder.lockCanvas();
-
-                //On récupère l'image du plateau est on la dessine
-                canvas.drawBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.plateau23), 0, 0, null);
-
-                holder.unlockCanvasAndPost(canvas);
-            }
-
-            @Override
-            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
-            }
-
-            @Override
-            public void surfaceDestroyed(SurfaceHolder holder) {
-
-            }
-        });
+        TurnManager.getInstance().addPlayers(Arrays.asList(PlayerColor.values()));
     }
 
     public void toasty(View v){
         Toast.makeText(getApplicationContext(), "Toasty", Toast.LENGTH_SHORT).show();
+    }
+
+    public void bursa_action(View v){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+        // set title
+        alertDialogBuilder.setTitle(R.string.ab_title);
+
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.alert_bursa, null);
+
+        // set dialog message
+        alertDialogBuilder
+            .setView(dialogView)
+            .setCancelable(false)
+            .setPositiveButton(R.string.alert_confirm, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // if this button is clicked, close
+                    // current activity
+                    GameActivity.this.finish();
+                }
+            })
+            .setNegativeButton(R.string.alert_cancel,new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog,int id) {
+                    // if this button is clicked, just close
+                    // the dialog box and do nothing
+                    dialog.cancel();
+                }
+            });
+
+        ((TextView) dialogView.findViewById(R.id.ab_mer_nb_stock)).setText(""+TurnManager.getInstance().getCurrentPlayer().getEscritoire().getStock().getMerchantCount());
+        ((TextView) dialogView.findViewById(R.id.ab_tra_nb_stock)).setText(""+TurnManager.getInstance().getCurrentPlayer().getEscritoire().getStock().getTraderCount());
+        ((TextView) dialogView.findViewById(R.id.ab_bursa_nb)).setText(""+TurnManager.getInstance().getCurrentPlayer().getEscritoire().bursaLevel());
+        final TextView nbMer = ((TextView) dialogView.findViewById(R.id.ab_bursa_mer));
+        nbMer.setText("0");
+        ((Button) dialogView.findViewById(R.id.ab_bursa_plus)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int nb = (Integer.parseInt("" + nbMer.getText()) + 1);
+                if (nb > TurnManager.getInstance().getCurrentPlayer().getEscritoire().bursaLevel()) {
+                    Toast.makeText(getApplicationContext(), R.string.ab_too_much, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                nbMer.setText("" + nb);
+            }
+        });
+        ((Button) dialogView.findViewById(R.id.ab_bursa_minus)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int nb = Integer.parseInt(""+nbMer.getText())-1;
+                if(nb<0){
+                    Toast.makeText(getApplicationContext(), R.string.ab_too_low, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                nbMer.setText(""+nb);
+            }
+        });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+
     }
 
 }

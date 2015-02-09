@@ -40,7 +40,7 @@
             android:contentDescription="@string/button_bursa"
 
             android:background="#000000"
-            android:onClick="toasty" />
+            android:onClick="bursa_action" />
         <ImageButton
             android:id="@+id/button_bonus_marker"
             android:layout_weight="1"

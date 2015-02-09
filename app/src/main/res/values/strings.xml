@@ -6,10 +6,24 @@
 
     <!--ACCESSIBILITY-->
     <string name="gameboard">Plateau de Jeu</string>
-    <string name="button_cancel">Boutton Annuler</string>
-    <string name="button_bursa">Boutton Bursa</string>
-    <string name="button_bonus_marker">Boutton Jeton Bonus</string>
-    <string name="button_submit">Boutton Valider</string>
-    <string name="button_pause">Boutto Pause</string>
+    <string name="button_cancel">Bouton Annuler</string>
+    <string name="button_bursa">Bouton Bursa</string>
+    <string name="button_bonus_marker">Bouton Jeton Bonus</string>
+    <string name="button_submit">Bouton Valider</string>
+    <string name="button_pause">Bouton Pause</string>
+
+    <!--ALERT STRING-->
+    <string name="alert_confirm">Confirmer</string>
+    <string name="alert_cancel">Annuler</string>
+
+    <!--ALERT BURSA STRING-->
+    <string name="ab_title">Action Bursa</string>
+    <string name="ab_stock">Stock</string>
+    <string name="ab_move">Nb de M a déplacer : </string>
+    <string name="ab_bursa">Bursa</string>
+    <string name="ab_merchant">M:</string>
+    <string name="ab_trader">T:</string>
+    <string name="ab_too_low">Le nombre de Commerçants doit être supérieur ou égal à 0.</string>
+    <string name="ab_too_much">Votre pouvoir Bursa n\'est pas assez élevé.</string>
 
 </resources>
