@@ -19,28 +19,6 @@ public class GameActivity extends Activity {
         setContentView(R.layout.activity_game);
 
         SurfaceView surface =  (SurfaceView)findViewById(R.id.dynamic_ui);
-        surface.getHolder().addCallback(new SurfaceHolder.Callback() {
-
-            @Override
-            public void surfaceCreated(SurfaceHolder holder) {
-                Canvas canvas = holder.lockCanvas();
-
-                //On récupère l'image du plateau est on la dessine
-                canvas.drawBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.plateau23), 0, 0, null);
-
-                holder.unlockCanvasAndPost(canvas);
-            }
-
-            @Override
-            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
-            }
-
-            @Override
-            public void surfaceDestroyed(SurfaceHolder holder) {
-
-            }
-        });
     }
 
     public void toasty(View v){
