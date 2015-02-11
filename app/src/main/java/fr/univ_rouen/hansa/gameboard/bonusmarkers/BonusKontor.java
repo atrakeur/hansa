@@ -6,7 +6,7 @@ import fr.univ_rouen.hansa.gameboard.player.escritoire.IEscritoire;
 
 
 /**
- * Bonus which allow you to add a Kontor on the left of a Village
+ * Bonus which allow you to add a Kontor on the left of a City
  */
 public class BonusKontor implements IBonusMarker {
 
