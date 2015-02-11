@@ -14,7 +14,9 @@ import android.widget.Toast;
 import java.util.Arrays;
 
 import fr.univ_rouen.hansa.R;
+import fr.univ_rouen.hansa.actions.MovementManager;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
+import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 
 public class GameActivity extends Activity {
@@ -33,6 +35,7 @@ public class GameActivity extends Activity {
     }
 
     public void bursa_action(View v){
+
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
         // set title
@@ -40,25 +43,6 @@ public class GameActivity extends Activity {
 
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.alert_bursa, null);
-
-        // set dialog message
-        alertDialogBuilder
-            .setView(dialogView)
-            .setCancelable(false)
-            .setPositiveButton(R.string.alert_confirm, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    // if this button is clicked, close
-                    // current activity
-                    GameActivity.this.finish();
-                }
-            })
-            .setNegativeButton(R.string.alert_cancel,new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog,int id) {
-                    // if this button is clicked, just close
-                    // the dialog box and do nothing
-                    dialog.cancel();
-                }
-            });
 
         ((TextView) dialogView.findViewById(R.id.ab_mer_nb_stock)).setText(""+TurnManager.getInstance().getCurrentPlayer().getEscritoire().getStock().getMerchantCount());
         ((TextView) dialogView.findViewById(R.id.ab_tra_nb_stock)).setText(""+TurnManager.getInstance().getCurrentPlayer().getEscritoire().getStock().getTraderCount());
@@ -87,6 +71,26 @@ public class GameActivity extends Activity {
                 nbMer.setText(""+nb);
             }
         });
+
+        // set dialog message
+        alertDialogBuilder
+            .setView(dialogView)
+            .setCancelable(false)
+            .setPositiveButton(R.string.alert_confirm, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    MovementManager.getInstance().doBursaMove(Integer.parseInt(""+nbMer.getText()));
+                    IHTPlayer p = TurnManager.getInstance().getCurrentPlayer();
+                    Toast.makeText(context, "Nombre de trader : "+p.getEscritoire().getSupply().getTraderCount(), Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                }
+            })
+            .setNegativeButton(R.string.alert_cancel, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // if this button is clicked, just close
+                    // the dialog box and do nothing
+                    dialog.cancel();
+                }
+            });
 
         // create alert dialog
         AlertDialog alertDialog = alertDialogBuilder.create();
