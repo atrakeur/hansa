@@ -10,4 +10,5 @@ public interface IBonusMarker {
     public BonusState getState();
     public void setState(BonusState state);
     public void doAction();
+    public void undoAction();
 }
