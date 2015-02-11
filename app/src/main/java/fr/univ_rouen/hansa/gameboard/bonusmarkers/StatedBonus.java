@@ -1,7 +1,7 @@
 package fr.univ_rouen.hansa.gameboard.bonusmarkers;
 
 /**
- * abstract Bonus wich handle states
+ * abstract Bonus which handle states
  */
 public abstract class StatedBonus implements IBonusMarker {
     private BonusState state;
@@ -19,5 +19,18 @@ public abstract class StatedBonus implements IBonusMarker {
             throw new NullPointerException();
         }
         this.state = state;
+    }
+    @Override
+    public void doAction() {
+        if(this.getState() != BonusState.onHand ){
+            throw new IllegalStateException("Bonus must have been set");
+        }
+        setState(BonusState.used);
+    }
+    public void undoAction() {
+        if(this.getState() != BonusState.used ){
+            throw new IllegalStateException("Bonus must have been used");
+        }
+        setState(BonusState.onHand);
     }
 }
