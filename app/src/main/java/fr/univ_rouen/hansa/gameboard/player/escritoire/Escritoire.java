@@ -279,8 +279,8 @@ public class Escritoire implements IEscritoire {
     }
 
     @Override
-    public boolean enoughSupply(int merchants, int traders) {
-        return supply.enoughPawns(merchants, traders);
+    public boolean enoughStock(int merchants, int traders) {
+        return stock.enoughPawns(merchants, traders);
     }
 
     @Override
