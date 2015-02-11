@@ -13,11 +13,11 @@ import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 
 public class Escritoire implements IEscritoire {
-    private List<Merchant> clavisUrbis;
-    private List<Merchant> actiones;
-    private List<Merchant> privilegium;
-    private List<Trader> liberSophiae;
-    private List<Merchant> bursa;
+    private List<Trader> clavisUrbis;
+    private List<Trader> actiones;
+    private List<Trader> privilegium;
+    private List<Merchant> liberSophiae;
+    private List<Trader> bursa;
     private List<IBonusMarker> tinPlate;
     private List<IBonusMarker> bonusMarkers;
 
@@ -40,36 +40,36 @@ public class Escritoire implements IEscritoire {
         List<Pawn> initSupply = Lists.newArrayList();
 
         for (int i = 0; i < INIT_CLAVIS_URBIS; i++) {
-            clavisUrbis.add(new Merchant());
+            clavisUrbis.add(new Trader());
         }
 
         for (int i = 0; i < INIT_ACTIONES; i++) {
-            actiones.add(new Merchant());
+            actiones.add(new Trader());
         }
 
         for (int i = 0; i < INIT_PRIVILEGIUM; i++) {
-            privilegium.add(new Merchant());
+            privilegium.add(new Trader());
         }
 
         for (int i = 0; i < INIT_LIBER_SOPHIA; i++) {
-            liberSophiae.add(new Trader());
+            liberSophiae.add(new Merchant());
         }
 
         for (int i = 0; i < INIT_BURSA; i++) {
-            bursa.add(new Merchant());
+            bursa.add(new Trader());
         }
 
         for (int i = 0; i < INIT_STOCK - startingPlace; i++) {
-            initStock.add(new Merchant());
+            initStock.add(new Trader());
         }
 
         stock.addPawns(initStock);
 
         for (int i = 0; i < INIT_SUPPLY + startingPlace; i++) {
-            initSupply.add(new Merchant());
+            initSupply.add(new Trader());
         }
 
-        initSupply.add(new Trader());
+        initSupply.add(new Merchant());
 
         supply.addPawns(initSupply);
     }
@@ -180,19 +180,19 @@ public class Escritoire implements IEscritoire {
     public void decreasePower(Power power) {
         switch (power) {
             case Actiones:
-                actiones.addAll(supply.popMerchants(1));
+                actiones.addAll(supply.popTraders(1));
                 break;
             case Bursa:
-                bursa.addAll(supply.popMerchants(1));
+                bursa.addAll(supply.popTraders(1));
                 break;
             case ClavisUrbis:
-                clavisUrbis.addAll(supply.popMerchants(1));
+                clavisUrbis.addAll(supply.popTraders(1));
                 break;
             case LiberSophiae:
-                liberSophiae.addAll(supply.popTraders(1));
+                liberSophiae.addAll(supply.popMerchants(1));
                 break;
             case Privillegium:
-                privilegium.addAll(supply.popMerchants(1));
+                privilegium.addAll(supply.popTraders(1));
                 break;
             default:
                 throw new GameException("Power is set to " + power + ", wait another value");
