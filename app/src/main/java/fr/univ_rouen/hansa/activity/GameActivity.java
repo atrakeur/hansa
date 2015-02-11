@@ -5,9 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +16,7 @@ import fr.univ_rouen.hansa.actions.MovementManager;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
+import fr.univ_rouen.hansa.view.interactions.AlertDialogBursa;
 
 public class GameActivity extends Activity {
 
@@ -35,13 +34,21 @@ public class GameActivity extends Activity {
     }
 
     public void bursa_action(View v){
+        if(TurnManager.getInstance().getCurrentPlayer().getEscritoire().getStock().getMerchantCount() <= 0){
+            MovementManager.getInstance().doBursaMove(0);
+            Toast.makeText(context, "Nombre de trader : "+TurnManager.getInstance().getCurrentPlayer().getEscritoire().getSupply().getTraderCount(), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
+        AlertDialogBursa dialog = new AlertDialogBursa(context, getLayoutInflater(), TurnManager.getInstance().getCurrentPlayer() );
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
         // set title
         alertDialogBuilder.setTitle(R.string.ab_title);
 
-        LayoutInflater inflater = this.getLayoutInflater();
+        /*LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.alert_bursa, null);
 
         ((TextView) dialogView.findViewById(R.id.ab_mer_nb_stock)).setText(""+TurnManager.getInstance().getCurrentPlayer().getEscritoire().getStock().getMerchantCount());
@@ -70,16 +77,16 @@ public class GameActivity extends Activity {
                 }
                 nbMer.setText(""+nb);
             }
-        });
-
+        });*/
+        final TextView tex = dialog.getResult();
         // set dialog message
         alertDialogBuilder
-            .setView(dialogView)
+            .setView(dialog.getView())
             .setCancelable(false)
             .setPositiveButton(R.string.alert_confirm, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                    MovementManager.getInstance().doBursaMove(Integer.parseInt(""+nbMer.getText()));
                     IHTPlayer p = TurnManager.getInstance().getCurrentPlayer();
+                    MovementManager.getInstance().doBursaMove(Integer.parseInt( tex.getText()+"" ));
                     Toast.makeText(context, "Nombre de trader : "+p.getEscritoire().getSupply().getTraderCount(), Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
