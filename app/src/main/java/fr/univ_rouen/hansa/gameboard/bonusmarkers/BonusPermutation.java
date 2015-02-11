@@ -29,4 +29,7 @@ public class BonusPermutation implements IBonusMarker {
         //TODO
 
     }
+    public void undoAction() {
+
+    }
 }
