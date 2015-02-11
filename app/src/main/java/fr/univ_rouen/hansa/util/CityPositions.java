@@ -31,6 +31,6 @@ public class CityPositions {
     public static IPosition MARBURG = new Position(0, 0);
     public static IPosition GOTTINGEN = new Position(0, 0);
     public static IPosition QUEDLINBURG = new Position(0, 0);
-    public static IPosition HALLE = new Position(0, 0);
+    public static IPosition HALLE = new Position(0.9045f, 0.9025f);
 
 }

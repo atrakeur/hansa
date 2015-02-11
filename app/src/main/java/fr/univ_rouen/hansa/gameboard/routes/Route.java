@@ -10,9 +10,14 @@ import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.view.IPosition;
+import fr.univ_rouen.hansa.view.display.HansaCityDrawer;
+import fr.univ_rouen.hansa.view.display.HansaRouteDrawer;
+import fr.univ_rouen.hansa.view.display.IDrawer;
 
 
 public class Route implements IRoute {
+
+    private final IDrawer drawer;
 
     private final List<IVillage> villages;
     private final ICity[] cities;
@@ -24,6 +29,8 @@ public class Route implements IRoute {
         if (villages == null || cities == null || cities.length != 2) {
             throw new IllegalArgumentException();
         }
+
+        this.drawer = new HansaRouteDrawer(this);
 
         this.villages = villages;
         this.cities = cities;
@@ -111,5 +118,10 @@ public class Route implements IRoute {
         }
 
         return l;
+    }
+
+    @Override
+    public IDrawer getDrawer() {
+        return this.drawer;
     }
 }

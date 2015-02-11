@@ -5,9 +5,9 @@ import fr.univ_rouen.hansa.view.Position;
 
 public class VillagePositions {
 
-    public static IPosition GRONINGEN_EMDEN_1 = new Position(0, 0);
-    public static IPosition GRONINGEN_EMDEN_2 = new Position(0, 0);
-    public static IPosition GRONINGEN_EMDEN_3 = new Position(0, 0);
+    public static IPosition GRONINGEN_EMDEN_1 = new Position(0.1161f, 0.2321f);
+    public static IPosition GRONINGEN_EMDEN_2 = new Position(0.1669f, 0.2142f);
+    public static IPosition GRONINGEN_EMDEN_3 = new Position(0.2197f, 0.1696f);
     
     public static IPosition EMDEN_OSNABRUCK_1 = new Position(0, 0);
     public static IPosition EMDEN_OSNABRUCK_2 = new Position(0, 0);
