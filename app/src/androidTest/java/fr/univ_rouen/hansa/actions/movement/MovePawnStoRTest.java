@@ -12,14 +12,14 @@ import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 
 public class MovePawnStoRTest extends TestCase {
 
-    private static final int SUPPLY_MER = 5;
-    private static final int SUPPLY_TRA = 1;
-    private static final int STOCK_MER = 6;
-    private static final int STOCK_TRA = 0;
+    private static final int SUPPLY_MER = 1;
+    private static final int SUPPLY_TRA = 5;
+    private static final int STOCK_MER = 0;
+    private static final int STOCK_TRA = 6;
 
 
-    private static final int MOVE_MER = 3;
-    private static final int MOVE_TRA = 0;
+    private static final int MOVE_MER = 0;
+    private static final int MOVE_TRA = 3;
 
 
 
@@ -55,7 +55,7 @@ public class MovePawnStoRTest extends TestCase {
         }catch (NotEnoughSupplyException e){}
 
         try{
-            move = new MovePawnStoR(player, 4, 0);
+            move = new MovePawnStoR(player, 0, 4);
             throw new Exception("Invalid Affectation not catch.");
         }catch (NotAvailableActionException e){}
 
