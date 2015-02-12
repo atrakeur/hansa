@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 
@@ -12,12 +13,16 @@ import fr.univ_rouen.hansa.R;
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
 import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
 import fr.univ_rouen.hansa.view.interactions.IClickable;
+import fr.univ_rouen.hansa.view.interactions.IClickableArea;
 import fr.univ_rouen.hansa.view.utils.ResourceRepository;
 
 public class GameBoardView extends SurfaceView {
 
     GameBoard board;
     ResourceRepository resources;
+
+    private IClickableArea touchStart;
+    private IClickableArea touchEnd;
 
     public GameBoardView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -46,22 +51,86 @@ public class GameBoardView extends SurfaceView {
         } else {
             board.getDrawer().draw(resources, canvas);
         }
+
+        IClickable[] clickables = board.getClickables();
+        for (IClickable clickable: clickables) {
+            clickable.getClickableArea().drawDebug(resources, canvas);
+        }
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        IClickable[] clickables = board.getClickables();
+        //On touchdown, reset
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            this.touchStart = null;
+            this.touchEnd = null;
+        }
 
+        //Get the area below the touch area
+        IClickableArea touchedArea = null;
+        IClickable[] clickables = board.getClickables();
         float percentX = resources.getScreenWidthToPercent(event.getX());
         float percentY = resources.getScreenWidthToPercent(event.getX());
-
         for (IClickable clickable: clickables) {
             if (clickable.getClickableArea().isClicked(percentX, percentY)) {
-                return clickable.getClickableArea().onTouchEvent(event);
+                touchedArea = clickable.getClickableArea();
+            }
+        }
+
+        Log.w("RawClick", this.stringValue(event) + " " + touchedArea);
+
+        //Early out if nothing touched
+        if (touchedArea == null) {
+            return false;
+        }
+
+        //Touchdown, start drag & drop? or just click?
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            this.touchStart = touchedArea;
+        }
+        //Touch ended
+        else if (event.getAction() == MotionEvent.ACTION_UP) {
+            this.touchEnd = touchedArea;
+        }
+        //Event bidon qu'on gére pas!
+        else {
+            return false;
+        }
+
+        //Dispatch events correctly (Simple click, drag from and drag to)
+        if (event.getAction() == MotionEvent.ACTION_UP) {
+            if (this.touchStart == this.touchEnd) {
+                this.touchEnd.onClick();
+            } else {
+                if (touchStart != null) {
+                    this.touchStart.onDragTo(this.touchEnd);
+                }
+                if (touchEnd != null) {
+                    this.touchEnd.onDragFrom(this.touchStart);
+                }
             }
         }
 
         return true;
     }
+
+    private String stringValue(MotionEvent event) {
+
+        final int action = event.getAction();
+
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+                return "ACTION_DOWN";
+            case MotionEvent.ACTION_MOVE:
+                return "ACTION_MOVE";
+            case MotionEvent.ACTION_UP:
+                return "ACTION_UP";
+            case MotionEvent.ACTION_CANCEL:
+                return "ACTION_CANCEL";
+        }
+
+        return "";
+    }
+
 
 }
