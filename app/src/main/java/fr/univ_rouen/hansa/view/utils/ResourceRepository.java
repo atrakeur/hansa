@@ -54,16 +54,7 @@ public class ResourceRepository {
      * @param id the id to load
      */
     public void addResource(String key, int id, float sizeWidth, float sizeHeight) {
-        Bitmap image = BitmapFactory.decodeResource(resourcesLoader, id);
-        this.addResource(key, image, sizeWidth, sizeHeight);
-    }
-
-    public void addResource(String key, Bitmap image, float sizeWidth, float sizeHeight) {
-        if (resources.containsKey(key)) {
-            resources.remove(key);
-        }
-
-        ScaledImage scaledImage = new ScaledImage(image, sizeWidth, sizeHeight);
+        ScaledImage scaledImage = new ScaledImage(this.resourcesLoader, id, sizeWidth, sizeHeight);
         resources.put(key, scaledImage);
         scaledImage.computeScaled(destHeigth, destWidth);
     }
