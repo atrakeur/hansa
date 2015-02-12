@@ -28,6 +28,11 @@ public class MovePawnStoR implements IMovement {
             throw new NotAvailableActionException("Bursa level insufficient.");
         }
 
+        if(player.getEscritoire().getStock().getTraderCount() == 0 &&
+                player.getEscritoire().getStock().getMerchantCount() == 0){
+            throw new NotAvailableActionException("Aucun pion a déplacer.");
+        }
+
         this.player = player;
         this.nbTrader = this.player.getEscritoire().getStock().getTraderCount();
         this.nbMerchant = this.player.getEscritoire().getStock().getMerchantCount();
@@ -62,6 +67,11 @@ public class MovePawnStoR implements IMovement {
 
             if (player.getEscritoire().bursaLevel() < merchant) {
                 throw new NotAvailableActionException("Bursa level insufficient.");
+            }
+
+            if(player.getEscritoire().getStock().getTraderCount() == 0 &&
+                    player.getEscritoire().getStock().getMerchantCount() == 0){
+                throw new NotAvailableActionException("Aucun pion a déplacer.");
             }
 
             this.player = player;

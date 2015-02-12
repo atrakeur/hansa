@@ -19,11 +19,11 @@
     <!--ALERT BURSA STRING-->
     <string name="ab_title">Action Bursa</string>
     <string name="ab_stock">Stock</string>
-    <string name="ab_move">Nb de M a déplacer : </string>
+    <string name="ab_move">M déplacé : </string>
     <string name="ab_bursa">Bursa</string>
     <string name="ab_merchant">M:</string>
     <string name="ab_trader">T:</string>
-    <string name="ab_summary">Pions déplacés dans la réserve</string>
+    <string name="ab_summary">Etat de la Réserve après mouvement</string>
 
     <string name="ab_too_low">Le nombre de Commerçants doit être supérieur ou égal à 0.</string>
     <string name="ab_too_much_bursa">Votre pouvoir Bursa n\'est pas assez élevé.</string>

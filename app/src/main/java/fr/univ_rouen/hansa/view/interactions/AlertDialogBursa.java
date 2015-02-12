@@ -31,7 +31,7 @@ public class AlertDialogBursa {
     }
 
     public View getView(){
-        final TextView abMerNbStock, abTraNbStock, abBursaNb, abBursaMer;
+        final TextView abMerNbStock, abTraNbStock, abBursaNb, abBursaMer, abMerRecap, abTraRecap;
         final Button bPlus, bMinus;
 
 
@@ -39,6 +39,8 @@ public class AlertDialogBursa {
         abTraNbStock = (TextView) dialogView.findViewById(R.id.ab_tra_nb_stock);
         abBursaNb    = (TextView) dialogView.findViewById(R.id.ab_bursa_nb);
         abBursaMer   = (TextView) dialogView.findViewById(R.id.ab_bursa_mer);
+        abMerRecap   = (TextView) dialogView.findViewById(R.id.ab_mer_recap);
+        abTraRecap   = (TextView) dialogView.findViewById(R.id.ab_tra_recap);
 
         bPlus = (Button) dialogView.findViewById(R.id.ab_bursa_plus);
         bMinus= (Button) dialogView.findViewById(R.id.ab_bursa_minus);
@@ -47,8 +49,11 @@ public class AlertDialogBursa {
         abTraNbStock.setText(""+player.getEscritoire().getStock().getTraderCount());
         abBursaNb.setText(""+player.getEscritoire().bursaLevel());
         abBursaMer.setText("0");
+        abMerRecap.setText(""+player.getEscritoire().getSupply().getMerchantCount());
 
-
+        abTraRecap.setText(""+(player.getEscritoire().getSupply().getTraderCount()
+                + Math.min(player.getEscritoire().getStock().getTraderCount(),
+                player.getEscritoire().bursaLevel())));
         bPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,6 +70,10 @@ public class AlertDialogBursa {
                 }
 
                 abBursaMer.setText(""+nb);
+                abMerRecap.setText(""+(player.getEscritoire().getSupply().getMerchantCount() + nb));
+                abTraRecap.setText(""+(player.getEscritoire().getSupply().getTraderCount()
+                        + Math.min(player.getEscritoire().getStock().getTraderCount(),
+                        player.getEscritoire().bursaLevel() - nb)));
 
             }
         });
@@ -80,6 +89,10 @@ public class AlertDialogBursa {
                 }
 
                 abBursaMer.setText(""+nb);
+                abMerRecap.setText(""+(player.getEscritoire().getSupply().getMerchantCount() + nb));
+                abTraRecap.setText(""+(player.getEscritoire().getSupply().getTraderCount()
+                        + Math.min(player.getEscritoire().getStock().getTraderCount(),
+                        player.getEscritoire().bursaLevel() - nb)));
 
             }
         });
