@@ -8,5 +8,6 @@ public enum Actions {
     movePawnStoR,
     endRound,
     playBonus,
-    keepRoute
+    keepRoute,
+    replaceMovedPawn
 }

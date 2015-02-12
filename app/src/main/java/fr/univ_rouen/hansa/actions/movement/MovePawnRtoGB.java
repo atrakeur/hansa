@@ -3,9 +3,10 @@ package fr.univ_rouen.hansa.actions.movement;
 import com.google.common.collect.Lists;
 
 import fr.univ_rouen.hansa.actions.Actions;
-import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
-import fr.univ_rouen.hansa.gameboard.pawns.Trader;
+import fr.univ_rouen.hansa.exceptions.NoPlaceException;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 
 public class MovePawnRtoGB implements IMovement {
@@ -36,16 +37,15 @@ public class MovePawnRtoGB implements IMovement {
     @Override
     public void doMovement() {
         if (!village.isEmpty()) {
-            //TODO gestion si un joueur est déjà présent
-            throw new IllegalStateException();
+            throw new NoPlaceException();
         }
 
         Pawn pawn;
 
         if (type.equals(Trader.class)) {
-            pawn = player.getEscritoire().getFromSupply(0, 1).get(0);
+            pawn = player.getEscritoire().popFromSupply(0, 1).get(0);
         } else {
-            pawn = player.getEscritoire().getFromSupply(1, 0).get(0);
+            pawn = player.getEscritoire().popFromSupply(1, 0).get(0);
         }
 
         village.pushPawn(pawn);
@@ -56,7 +56,7 @@ public class MovePawnRtoGB implements IMovement {
     @Override
     public void doRollback() {
         if (village.isEmpty()) {
-            throw new IllegalStateException();
+            throw new NoPlaceException();
         }
 
         player.getEscritoire().addToSupply(Lists.newArrayList(village.pullPawn()));

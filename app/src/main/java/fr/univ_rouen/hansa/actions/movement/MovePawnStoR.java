@@ -36,6 +36,7 @@ public class MovePawnStoR implements IMovement {
 
         this.actionDone = false;
     }
+
     @Override
     public boolean isDone() {
         return actionDone;
