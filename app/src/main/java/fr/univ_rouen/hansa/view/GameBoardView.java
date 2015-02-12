@@ -5,11 +5,13 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.SurfaceView;
 
 import fr.univ_rouen.hansa.R;
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
 import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
+import fr.univ_rouen.hansa.view.interactions.IClickable;
 import fr.univ_rouen.hansa.view.utils.ResourceRepository;
 
 public class GameBoardView extends SurfaceView {
@@ -44,6 +46,22 @@ public class GameBoardView extends SurfaceView {
         } else {
             board.getDrawer().draw(resources, canvas);
         }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        IClickable[] clickables = board.getClickables();
+
+        float percentX = resources.getScreenWidthToPercent(event.getX());
+        float percentY = resources.getScreenWidthToPercent(event.getX());
+
+        for (IClickable clickable: clickables) {
+            if (clickable.getClickableArea().isClicked(percentX, percentY)) {
+                return clickable.getClickableArea().onTouchEvent(event);
+            }
+        }
+
+        return true;
     }
 
 }
