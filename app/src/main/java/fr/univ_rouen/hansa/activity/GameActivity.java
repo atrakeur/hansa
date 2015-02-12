@@ -17,8 +17,6 @@ public class GameActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-
-        SurfaceView surface =  (SurfaceView)findViewById(R.id.dynamic_ui);
     }
 
     public void toasty(View v){
