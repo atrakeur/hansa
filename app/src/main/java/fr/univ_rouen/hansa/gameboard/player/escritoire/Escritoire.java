@@ -218,6 +218,24 @@ public class Escritoire implements IEscritoire {
     }
 
     @Override
+    public boolean moveSupplyToStock(int merchants, int traders) {
+        List<Pawn> pawns = Lists.newArrayList();
+
+        try {
+            pawns.addAll(supply.popMerchants(merchants));
+            pawns.addAll(supply.popTraders(traders));
+
+            stock.addPawns(pawns);
+        } catch (NotEnoughSupplyException e) {
+            supply.addPawns(pawns);
+
+            throw e;
+        }
+
+        return true;
+    }
+
+    @Override
     public List<Pawn> popFromSupply(int merchants, int traders) {
         List<Pawn> pawns = Lists.newArrayList();
 
