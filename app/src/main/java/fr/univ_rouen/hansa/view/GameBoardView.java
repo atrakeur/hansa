@@ -70,14 +70,12 @@ public class GameBoardView extends SurfaceView {
         IClickableArea touchedArea = null;
         IClickable[] clickables = board.getClickables();
         float percentX = resources.getScreenWidthToPercent(event.getX());
-        float percentY = resources.getScreenWidthToPercent(event.getX());
+        float percentY = resources.getScreenHeigthToPercent(event.getY());
         for (IClickable clickable: clickables) {
             if (clickable.getClickableArea().isClicked(percentX, percentY)) {
                 touchedArea = clickable.getClickableArea();
             }
         }
-
-        Log.w("RawClick", this.stringValue(event) + " " + touchedArea);
 
         //Early out if nothing touched
         if (touchedArea == null) {
@@ -113,24 +111,5 @@ public class GameBoardView extends SurfaceView {
 
         return true;
     }
-
-    private String stringValue(MotionEvent event) {
-
-        final int action = event.getAction();
-
-        switch (action) {
-            case MotionEvent.ACTION_DOWN:
-                return "ACTION_DOWN";
-            case MotionEvent.ACTION_MOVE:
-                return "ACTION_MOVE";
-            case MotionEvent.ACTION_UP:
-                return "ACTION_UP";
-            case MotionEvent.ACTION_CANCEL:
-                return "ACTION_CANCEL";
-        }
-
-        return "";
-    }
-
 
 }
