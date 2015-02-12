@@ -5,7 +5,8 @@ public enum Actions {
     increasePower,
     movePawnRtoGB,
     keepKontor,
-    movePawnStoR,
+    bursa,
+    movePawnRtoS, //Move Supply (accessible) to Stock (unaccessible)
     endRound,
     playBonus,
     keepRoute,

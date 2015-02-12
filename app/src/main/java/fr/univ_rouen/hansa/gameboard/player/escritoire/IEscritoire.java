@@ -27,7 +27,25 @@ public interface IEscritoire {
     public int bursaLevel();
     public void increasePower(Power power);
     public void decreasePower(Power power);
+
+    /**
+     * Move stock (unaccessible pawns) to supply (accessible pawns)
+     *
+     * @param merchants number of merchants to move
+     * @param traders   number of traders to move
+     * @return true if the action can be done, false else
+     */
     public boolean moveStockToSupply(int merchants, int traders);
+
+    /**
+     * Move supply (accessible pawns) to stock (unaccessible pawns)
+     *
+     * @param merchants number of merchants to move
+     * @param traders number of traders to move
+     * @return true if the action can be done, false else
+     */
+    public boolean moveSupplyToStock(int merchants, int traders);
+
     public List<Pawn> popFromSupply(int merchants, int traders);
     public List<Pawn> removeFromStock(List<Pawn> pawns);
     public List<Pawn> removeFromSupply(List<Pawn> pawns);

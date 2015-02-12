@@ -52,7 +52,7 @@ public class ReplaceMovedPawn implements IMovement {
         if (!source.isEmpty() && destination.isEmpty()) {
             throw new IllegalStateException();
         }
-        
+
         source.pushPawn(destination.pullPawn());
 
         actionDone = false;
