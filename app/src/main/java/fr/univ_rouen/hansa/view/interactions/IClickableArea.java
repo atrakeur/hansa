@@ -1,6 +1,9 @@
 package fr.univ_rouen.hansa.view.interactions;
 
+import android.graphics.Canvas;
 import android.view.MotionEvent;
+
+import fr.univ_rouen.hansa.view.utils.ResourceRepository;
 
 public interface IClickableArea {
 
@@ -17,6 +20,12 @@ public interface IClickableArea {
 
     public boolean isClicked(float x, float y);
 
-    public boolean onTouchEvent(MotionEvent event);
+    public void onClick();
+
+    public void onDragTo(IClickableArea to);
+
+    public void onDragFrom(IClickableArea from);
+
+    public void drawDebug(ResourceRepository resources, Canvas canvas);
     
 }
