@@ -5,15 +5,11 @@
     android:layout_height="match_parent"
     tools:context="fr.univ_rouen.hansa.activity.GameActivity" >
 
-    <ImageView
-        android:id="@+id/gameboard"
+    <fr.univ_rouen.hansa.view.GameBoardView
+        android:id="@+id/dynamic_ui"
         android:layout_weight="8"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:scaleType="fitXY"
-        android:src="@drawable/plateau23"
-        android:contentDescription="@string/gameboard"
-        />
+        android:layout_height="match_parent"/>
 
     <LinearLayout
         android:orientation="vertical"

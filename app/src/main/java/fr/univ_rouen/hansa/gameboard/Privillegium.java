@@ -1,10 +1,24 @@
 package fr.univ_rouen.hansa.gameboard;
 
+import android.graphics.Color;
+
 public enum Privillegium {
 
-    White,
-    Orange,
-    Pink,
-    Black
+    //TODO adjust to correct colors
+    White(Color.WHITE),
+    Orange(Color.YELLOW),
+    Pink(Color.RED),
+    Black(Color.BLACK);
+
+    private int color;
+
+    Privillegium(int color) {
+        this.color = color;
+    }
+
+    public int getColor() {
+        return this.color;
+    }
+
 
 }

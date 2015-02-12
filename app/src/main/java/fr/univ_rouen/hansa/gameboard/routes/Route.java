@@ -1,15 +1,23 @@
 package fr.univ_rouen.hansa.gameboard.routes;
 
+import com.google.common.collect.Lists;
+
 import java.util.List;
 
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.view.IPosition;
+import fr.univ_rouen.hansa.view.display.HansaCityDrawer;
+import fr.univ_rouen.hansa.view.display.HansaRouteDrawer;
+import fr.univ_rouen.hansa.view.display.IDrawer;
 
 
 public class Route implements IRoute {
+
+    private final IDrawer drawer;
 
     private final List<IVillage> villages;
     private final ICity[] cities;
@@ -21,6 +29,8 @@ public class Route implements IRoute {
         if (villages == null || cities == null || cities.length != 2) {
             throw new IllegalArgumentException();
         }
+
+        this.drawer = new HansaRouteDrawer(this);
 
         this.villages = villages;
         this.cities = cities;
@@ -95,5 +105,23 @@ public class Route implements IRoute {
         }
 
         return cities[0].equals(city) || cities[1].equals(city);
+    }
+    
+    public List<Pawn> getPawns() {
+        List<Pawn> l = Lists.newArrayList();
+        for (IVillage v : villages) {
+            if (!v.isEmpty()) {
+                Pawn p = v.pullPawn();
+                l.add(p);
+                v.pushPawn(p);
+            }
+        }
+
+        return l;
+    }
+
+    @Override
+    public IDrawer getDrawer() {
+        return this.drawer;
     }
 }

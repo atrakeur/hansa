@@ -3,12 +3,10 @@ package fr.univ_rouen.hansa.gameboard.player.escritoire;
 import android.app.Application;
 import android.test.ApplicationTestCase;
 
-import junit.framework.TestCase;
-
 import java.util.List;
 
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
-import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
 
 public class EscritoireTest extends ApplicationTestCase<Application> {
     public EscritoireTest() {
@@ -134,27 +132,27 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
         List<Pawn> supplyPawns;
 
         escritoire = new Escritoire(1);
-        assertTrue(escritoire.moveStockToSupply(6, 0));
+        assertTrue(escritoire.moveStockToSupply(0, 6));
 
         try {
-            escritoire.moveStockToSupply(1, 0);
+            escritoire.moveStockToSupply(0, 1);
             fail("Missing exception");
         } catch (Exception e){
         }
 
-        supplyPawns = escritoire.getFromSupply(11, 1);
+        supplyPawns = escritoire.popFromSupply(1, 11);
         assertTrue(supplyPawns.size() == 12);
 
         escritoire = new Escritoire(5);
-        assertTrue(escritoire.moveStockToSupply(2, 0));
+        assertTrue(escritoire.moveStockToSupply(0, 2));
 
         try {
-            escritoire.moveStockToSupply(1, 0);
+            escritoire.moveStockToSupply(0, 1);
             fail("Missing exception");
         } catch (Exception e){
         }
 
-        supplyPawns = escritoire.getFromSupply(11, 1);
+        supplyPawns = escritoire.popFromSupply(1, 11);
         assertTrue(supplyPawns.size() == 12);
     }
 

@@ -5,8 +5,8 @@ import java.util.List;
 import fr.univ_rouen.hansa.actions.Actions;
 import fr.univ_rouen.hansa.exceptions.NotAvailableActionException;
 import fr.univ_rouen.hansa.exceptions.NotEnoughSupplyException;
-import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 
 public class MovePawnStoR implements IMovement {
 
@@ -22,17 +22,12 @@ public class MovePawnStoR implements IMovement {
             throw new IllegalArgumentException();
         }
 
-        if(player.getEscritoire().bursaLevel() < (nbTrader + nbMerchant)){
-            throw new NotAvailableActionException("Bursa level insufficient.");
+        if(!player.getEscritoire().enoughSupply(nbMerchant, nbTrader)){
+            throw new NotEnoughSupplyException();
         }
 
-        List<Pawn> tmp;
-
-        try{
-            tmp = player.getEscritoire().getFromSupply(nbMerchant, nbTrader);
-            player.getEscritoire().addToSupply(tmp);
-        } catch (NotEnoughSupplyException e){
-            throw e;
+        if(player.getEscritoire().bursaLevel() < (nbTrader + nbMerchant)){
+            throw new NotAvailableActionException("Bursa level insufficient.");
         }
 
         this.player = player;
@@ -74,13 +69,12 @@ public class MovePawnStoR implements IMovement {
 
         List<Pawn> pawns;
         try{
-            pawns = player.getEscritoire().getFromSupply(nbMerchant, nbTrader);
+            pawns = player.getEscritoire().popFromSupply(nbMerchant, nbTrader);
         } catch (NotEnoughSupplyException e){
             throw e;
         }
 
         try{
-            player.getEscritoire().removeFromSupply(pawns);
             player.getEscritoire().addToStock(pawns);
             actionDone = false;
         }catch(NotEnoughSupplyException e){

@@ -1,8 +1,5 @@
 package fr.univ_rouen.hansa.gameboard.player;
 
-import fr.univ_rouen.hansa.gameboard.GameBoard;
-import fr.univ_rouen.hansa.gameboard.player.escritoire.IEscritoire;
-
 public class ScorePlayer implements IScorePlayer {
     private int score;
 

@@ -1,11 +1,16 @@
 package fr.univ_rouen.hansa.gameboard.cities;
 
+
 import java.util.List;
 
-import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.view.IPosition;
+import fr.univ_rouen.hansa.view.display.HansaCityDrawer;
+import fr.univ_rouen.hansa.view.display.IDrawer;
 
 public class City implements ICity {
+
+    private final IDrawer drawer;
 
     private final IPosition position;
     private final Power power;
@@ -15,6 +20,8 @@ public class City implements ICity {
         if (kontors == null) {
             throw new IllegalArgumentException();
         }
+
+        this.drawer = new HansaCityDrawer(this);
 
         this.position = position;
         this.power = power;
@@ -55,5 +62,10 @@ public class City implements ICity {
         }
 
         return true;
+    }
+
+    @Override
+    public IDrawer getDrawer() {
+        return this.drawer;
     }
 }

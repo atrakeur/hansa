@@ -7,9 +7,9 @@ import java.util.List;
 
 import fr.univ_rouen.hansa.exceptions.InvalidPionException;
 import fr.univ_rouen.hansa.exceptions.NotEnoughSupplyException;
-import fr.univ_rouen.hansa.gameboard.pawns.Merchant;
-import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
-import fr.univ_rouen.hansa.gameboard.pawns.Trader;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 
 public class PawnList implements IPawnList {
     List<Trader> traders;
@@ -28,13 +28,13 @@ public class PawnList implements IPawnList {
             } else if (pawn instanceof Merchant) {
                 merchants.add((Merchant) pawn);
             } else {
-                throw new InvalidPionException("Excpects Traders or Merchants");
+                throw new InvalidPionException("Expects Traders or Merchants");
             }
         }
     }
 
     @Override
-    public List<Merchant> getMerchants(int merchantCount) {
+    public List<Merchant> popMerchants(int merchantCount) {
         if (merchants.size() < merchantCount) {
             throw new NotEnoughSupplyException();
         }
@@ -52,7 +52,7 @@ public class PawnList implements IPawnList {
     }
 
     @Override
-    public List<Trader> getTraders(int traderCount) {
+    public List<Trader> popTraders(int traderCount) {
         if (traders.size() < traderCount) {
             throw new NotEnoughSupplyException();
         }
@@ -61,7 +61,7 @@ public class PawnList implements IPawnList {
 
         Iterator<Trader> traderIterator = traders.iterator();
 
-        while (traderIterator.hasNext() && rTraders.size() <= traderCount) {
+        while (traderIterator.hasNext() && rTraders.size() < traderCount) {
             rTraders.add(traderIterator.next());
             traderIterator.remove();
         }
@@ -83,5 +83,20 @@ public class PawnList implements IPawnList {
         }
 
         return pawns;
+    }
+
+    @Override
+    public boolean enoughPawns(int merchants, int traders) {
+        return merchants <= this.merchants.size() && traders <= this.traders.size();
+    }
+
+    @Override
+    public int getTraderCount(){
+        return traders.size();
+    }
+
+    @Override
+    public int getMerchantCount() {
+        return merchants.size();
     }
 }

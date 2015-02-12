@@ -2,7 +2,7 @@ package fr.univ_rouen.hansa.actions.movement;
 
 import junit.framework.TestCase;
 
-import fr.univ_rouen.hansa.gameboard.pawns.Trader;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.gameboard.routes.Village;
 import fr.univ_rouen.hansa.view.Position;
 
