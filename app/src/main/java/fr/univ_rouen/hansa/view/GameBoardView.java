@@ -14,12 +14,15 @@ import fr.univ_rouen.hansa.gameboard.board.GameBoard;
 import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
 import fr.univ_rouen.hansa.view.interactions.IClickable;
 import fr.univ_rouen.hansa.view.interactions.IClickableArea;
+import fr.univ_rouen.hansa.view.utils.DrawingThread;
 import fr.univ_rouen.hansa.view.utils.ResourceRepository;
 
 public class GameBoardView extends SurfaceView {
 
-    GameBoard board;
-    ResourceRepository resources;
+    private DrawingThread thread;
+
+    private GameBoard board;
+    private ResourceRepository resources;
 
     private IClickableArea touchStart;
     private IClickableArea touchEnd;
@@ -29,10 +32,13 @@ public class GameBoardView extends SurfaceView {
 
         resources = new ResourceRepository(this, getResources());
 
+        setFocusable(true);
         setWillNotDraw(false);
 
         //TODO change that using a cute menu to select map
         setBoard(GameBoardFactory.getInstance().createGameBoard(1));
+
+        thread = new DrawingThread(this, getHolder());
     }
 
     public void setBoard(GameBoard board) {
