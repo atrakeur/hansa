@@ -10,22 +10,28 @@ import android.view.SurfaceView;
 import fr.univ_rouen.hansa.R;
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
 import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
+import fr.univ_rouen.hansa.view.utils.DrawingThread;
 import fr.univ_rouen.hansa.view.utils.ResourceRepository;
 
 public class GameBoardView extends SurfaceView {
 
-    GameBoard board;
-    ResourceRepository resources;
+    private DrawingThread thread;
+
+    private GameBoard board;
+    private ResourceRepository resources;
 
     public GameBoardView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         resources = new ResourceRepository(this, getResources());
 
+        setFocusable(true);
         setWillNotDraw(false);
 
         //TODO change that using a cute menu to select map
         setBoard(GameBoardFactory.getInstance().createGameBoard(1));
+
+        thread = new DrawingThread(this, getHolder());
     }
 
     public void setBoard(GameBoard board) {
