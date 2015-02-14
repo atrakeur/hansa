@@ -33,6 +33,15 @@ public class Village implements IVillage {
     }
 
     @Override
+    public Class<? extends Pawn> getPawnType() {
+        if (pawn == null) {
+            return null;
+        }
+
+        return pawn.getClass();
+    }
+
+    @Override
     public void pushPawn(Pawn pawn) {
         if (!isEmpty()) {
             throw new IllegalStateException("Village already taken");
