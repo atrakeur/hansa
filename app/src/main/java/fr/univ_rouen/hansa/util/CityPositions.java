@@ -33,5 +33,4 @@ public class CityPositions {
     public static IPosition QUEDLINBURG = new Position(0.827f, 0.864f);
     public static IPosition HALLE = new Position(0.906f, 0.931f);
 
-
 }

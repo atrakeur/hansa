@@ -10,7 +10,7 @@ import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 
-public class MovePawnStoRTest extends TestCase {
+public class BursaTest extends TestCase {
 
     private static final int SUPPLY_MER = 1;
     private static final int SUPPLY_TRA = 5;
@@ -32,34 +32,34 @@ public class MovePawnStoRTest extends TestCase {
         IHTPlayer player=manager.getCurrentPlayer();
         assertNotNull(player);
 
-        MovePawnStoR move;
+        Bursa move;
 
         try{
-            move = new MovePawnStoR(null, 0, 0);
+            move = new Bursa(null, 0, 0);
             throw new Exception("Invalid Affectation not catch.");
         }catch (IllegalArgumentException e){}
 
         try{
-            move = new MovePawnStoR(player, -1, 0);
+            move = new Bursa(player, -1, 0);
             throw new Exception("Invalid Affectation not catch.");
         }catch (IllegalArgumentException e){}
 
         try{
-            move = new MovePawnStoR(player, 0, -1);
+            move = new Bursa(player, 0, -1);
             throw new Exception("Invalid Affectation not catch.");
         }catch (IllegalArgumentException e){}
 
         try{
-            move = new MovePawnStoR(player, 100, 100);
+            move = new Bursa(player, 100, 100);
             throw new Exception("Invalid Affectation not catch.");
         }catch (NotEnoughSupplyException e){}
 
         try{
-            move = new MovePawnStoR(player, 0, 4);
+            move = new Bursa(player, 0, 4);
             throw new Exception("Invalid Affectation not catch.");
         }catch (NotAvailableActionException e){}
 
-        move = new MovePawnStoR(player, MOVE_MER, MOVE_TRA);
+        move = new Bursa(player, MOVE_MER, MOVE_TRA);
 
         assertNotNull(move);
         assertFalse(move.isDone());
