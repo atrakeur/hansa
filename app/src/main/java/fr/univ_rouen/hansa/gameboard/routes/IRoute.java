@@ -49,6 +49,13 @@ public interface IRoute extends IDrawable{
     /**
      * Allow to know if all the village of a route is taken by a player
      *
+     * @return true if the route is complete
+     */
+    public boolean isTradeRoute();
+
+    /**
+     * Allow to know if all the village of a route is taken by a specific player
+     *
      * @param player the player to check
      * @return true if the route is complete
      */

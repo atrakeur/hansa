@@ -83,6 +83,21 @@ public class Route implements IRoute {
     }
 
     @Override
+    public boolean isTradeRoute() {
+        IHTPlayer player = villages.get(0).getOwner();
+
+        if (player != null) {
+            for (IVillage village : villages) {
+                if (village.getOwner() == null || !village.getOwner().equals(player)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    @Override
     public boolean isTradeRoute(IHTPlayer player) {
         for (IVillage village : villages) {
             if (village.getOwner() == null || !village.getOwner().equals(player)) {
