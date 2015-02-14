@@ -17,6 +17,8 @@ public class ReplaceMovedPawnTest extends TestCase {
 
     @Override
     public void setUp() throws java.lang.Exception {
+        super.setUp();
+
         GameBoardFactory.getInstance().createGameBoard(1);
         player = TurnManager.getInstance().getCurrentPlayer();
     }
