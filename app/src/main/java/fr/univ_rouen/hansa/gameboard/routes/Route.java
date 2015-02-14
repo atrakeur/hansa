@@ -4,13 +4,11 @@ import com.google.common.collect.Lists;
 
 import java.util.List;
 
-import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
-import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.view.IPosition;
-import fr.univ_rouen.hansa.view.display.HansaCityDrawer;
 import fr.univ_rouen.hansa.view.display.HansaRouteDrawer;
 import fr.univ_rouen.hansa.view.display.IDrawer;
 
@@ -85,11 +83,9 @@ public class Route implements IRoute {
     }
 
     @Override
-    public boolean isTradeRoute() {
-        IHTPlayer player = TurnManager.getInstance().getCurrentPlayer();
-
+    public boolean isTradeRoute(IHTPlayer player) {
         for (IVillage village : villages) {
-            if (village.getOwner() == null || player.equals(village.getOwner())) {
+            if (village.getOwner() == null || !village.getOwner().equals(player)) {
                 return false;
             }
         }

@@ -1,7 +1,5 @@
 package fr.univ_rouen.hansa.gameboard;
 
-import android.util.Log;
-
 import com.google.common.collect.Lists;
 
 import java.util.List;
