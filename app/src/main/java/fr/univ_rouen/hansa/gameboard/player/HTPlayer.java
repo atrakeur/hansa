@@ -12,7 +12,7 @@ public class HTPlayer extends ScorePlayer implements IHTPlayer {
 
         this.color = color;
 
-        this.escritoire = new Escritoire(startingPlace);
+        this.escritoire = new Escritoire(this, startingPlace);
     }
 
     @Override

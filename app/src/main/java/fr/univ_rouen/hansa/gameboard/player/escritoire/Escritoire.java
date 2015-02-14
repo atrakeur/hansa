@@ -7,12 +7,15 @@ import java.util.List;
 import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.exceptions.NotEnoughSupplyException;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
+import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
 
 public class Escritoire implements IEscritoire {
+    private final IHTPlayer owner;
+
     private List<Trader> clavisUrbis;
     private List<Trader> actiones;
     private List<Trader> privilegium;
@@ -24,7 +27,9 @@ public class Escritoire implements IEscritoire {
     private IPawnList stock;
     private IPawnList supply;
 
-    public Escritoire(int startingPlace) {
+    public Escritoire(IHTPlayer owner, int startingPlace) {
+        this.owner = owner;
+
         clavisUrbis = Lists.newArrayList();
         actiones = Lists.newArrayList();
         privilegium = Lists.newArrayList();
@@ -40,36 +45,36 @@ public class Escritoire implements IEscritoire {
         List<Pawn> initSupply = Lists.newArrayList();
 
         for (int i = 0; i < INIT_CLAVIS_URBIS; i++) {
-            clavisUrbis.add(new Trader());
+            clavisUrbis.add(new Trader(owner));
         }
 
         for (int i = 0; i < INIT_ACTIONES; i++) {
-            actiones.add(new Trader());
+            actiones.add(new Trader(owner));
         }
 
         for (int i = 0; i < INIT_PRIVILEGIUM; i++) {
-            privilegium.add(new Trader());
+            privilegium.add(new Trader(owner));
         }
 
         for (int i = 0; i < INIT_LIBER_SOPHIA; i++) {
-            liberSophiae.add(new Merchant());
+            liberSophiae.add(new Merchant(owner));
         }
 
         for (int i = 0; i < INIT_BURSA; i++) {
-            bursa.add(new Trader());
+            bursa.add(new Trader(owner));
         }
 
         for (int i = 0; i < INIT_STOCK - startingPlace; i++) {
-            initStock.add(new Trader());
+            initStock.add(new Trader(owner));
         }
 
         stock.addPawns(initStock);
 
         for (int i = 0; i < INIT_SUPPLY + startingPlace; i++) {
-            initSupply.add(new Trader());
+            initSupply.add(new Trader(owner));
         }
 
-        initSupply.add(new Merchant());
+        initSupply.add(new Merchant(owner));
 
         supply.addPawns(initSupply);
     }

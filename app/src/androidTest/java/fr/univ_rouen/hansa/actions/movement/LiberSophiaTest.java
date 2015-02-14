@@ -2,6 +2,7 @@ package fr.univ_rouen.hansa.actions.movement;
 
 import junit.framework.TestCase;
 
+import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.gameboard.routes.Village;
 import fr.univ_rouen.hansa.view.Position;
@@ -14,7 +15,7 @@ public class LiberSophiaTest extends TestCase {
 
         LiberSophia liberSophia = new LiberSophia(source, destination);
 
-        source.pushPawn(new Trader());
+        source.pushPawn(new Trader(TurnManager.getInstance().getCurrentPlayer()));
 
         assertFalse(liberSophia.isDone());
 

@@ -36,6 +36,10 @@ public class Route implements IRoute {
         this.cities = cities;
         this.tavernPosition = tavernPosition;
 
+        for (ICity city : cities) {
+            city.setRoute(this);
+        }
+
         this.bonusMarker = null;
     }
 
