@@ -12,7 +12,6 @@ import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
-import fr.univ_rouen.hansa.gameboard.cities.Power;
 
 public class Escritoire implements IEscritoire {
     private final IHTPlayer owner;

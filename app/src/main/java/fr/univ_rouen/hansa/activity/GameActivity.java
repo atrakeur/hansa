@@ -5,8 +5,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,16 +31,18 @@ public class GameActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         TurnManager.getInstance().addPlayers(Arrays.asList(PlayerColor.values()));
-
-        List<Pawn> pawns = new ArrayList<>();
-        pawns.add(new Merchant());
-        pawns.add(new Merchant());
-        pawns.add(new Merchant());
-        pawns.add(new Merchant());
-        pawns.add(new Merchant());
-        pawns.add(new Merchant());
-
         IHTPlayer player =TurnManager.getInstance().getCurrentPlayer();
+
+
+        //TODO just pour la présentation, à enlever après ;)
+        List<Pawn> pawns = new ArrayList<>();
+        pawns.add(new Merchant(player));
+        pawns.add(new Merchant(player));
+        pawns.add(new Merchant(player));
+        pawns.add(new Merchant(player));
+        pawns.add(new Merchant(player));
+        pawns.add(new Merchant(player));
+
         player.getEscritoire().addToStock(pawns);
 
     }
