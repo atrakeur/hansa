@@ -51,7 +51,7 @@ public class IncreasePowerTest extends TestCase {
         try {
             action.doMovement();
             fail("need to throw an exception is the route is not taken by the player");
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
         assertFalse(action.isDone());
