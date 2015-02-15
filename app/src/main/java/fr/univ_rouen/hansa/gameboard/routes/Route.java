@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 
 import java.util.List;
 
-import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
@@ -34,6 +33,10 @@ public class Route implements IRoute {
         this.villages = villages;
         this.cities = cities;
         this.tavernPosition = tavernPosition;
+
+        for (ICity city : cities) {
+            city.setRoute(this);
+        }
 
         this.bonusMarker = null;
     }
@@ -81,10 +84,23 @@ public class Route implements IRoute {
 
     @Override
     public boolean isTradeRoute() {
-        IHTPlayer player = TurnManager.getInstance().getCurrentPlayer();
+        IHTPlayer player = villages.get(0).getOwner();
 
+        if (player != null) {
+            for (IVillage village : villages) {
+                if (village.getOwner() == null || !village.getOwner().equals(player)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean isTradeRoute(IHTPlayer player) {
         for (IVillage village : villages) {
-            if (village.getOwner() == null || player.equals(village.getOwner())) {
+            if (village.getOwner() == null || !village.getOwner().equals(player)) {
                 return false;
             }
         }

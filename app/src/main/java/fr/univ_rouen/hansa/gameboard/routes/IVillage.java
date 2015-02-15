@@ -28,6 +28,13 @@ public interface IVillage {
     public IHTPlayer getOwner();
 
     /**
+     * For know the type of pawn in the village
+     *
+     * @return the class who represent the type of pawn
+     */
+    public Class<? extends Pawn> getPawnType();
+
+    /**
      * Add a pawn to the village
      *
      * @param pawn the pawn add to the village

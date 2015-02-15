@@ -9,6 +9,11 @@ public class Position implements IPosition {
         this.y = y;
     }
 
+    public Position(double x, double y) {
+        this.x = (float)x;
+        this.y = (float)y;
+    }
+
     @Override
     public float getX() {
         return x;

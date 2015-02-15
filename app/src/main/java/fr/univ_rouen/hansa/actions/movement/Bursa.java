@@ -8,7 +8,7 @@ import fr.univ_rouen.hansa.exceptions.NotEnoughSupplyException;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 
-public class MovePawnStoR implements IMovement {
+public class Bursa implements IMovement {
 
     private IHTPlayer player;
     private int nbMerchant;
@@ -19,25 +19,26 @@ public class MovePawnStoR implements IMovement {
     /* Constructeur de la classe MovePawnStoR, pour la compétence Bursa au Maximum
     * @throw NotAvailableActionException si la compétence bursa de player n'est pas au maximum
     * */
-    public MovePawnStoR(IHTPlayer player){
-        if(player == null){
+    public Bursa(IHTPlayer player) {
+        if (player == null) {
             throw new IllegalArgumentException();
         }
 
-        if(player.getEscritoire().bursaLevel() < Integer.MAX_VALUE){
+        if (player.getEscritoire().bursaLevel() < Integer.MAX_VALUE) {
             throw new NotAvailableActionException("Bursa level insufficient.");
         }
 
-        if(player.getEscritoire().getStock().getTraderCount() == 0 &&
-                player.getEscritoire().getStock().getMerchantCount() == 0){
+        if (player.getEscritoire().getStock().getTraderCount() == 0 &&
+                player.getEscritoire().getStock().getMerchantCount() == 0) {
             throw new NotAvailableActionException("Aucun pion a déplacer.");
         }
 
         this.player = player;
         this.nbTrader = this.player.getEscritoire().getStock().getTraderCount();
         this.nbMerchant = this.player.getEscritoire().getStock().getMerchantCount();
+        this.actionDone = false;
     }
-
+    
     /**Constructeur de la classe MovePawnStoR
      * L'instanciation des traders se fait de la façon suivante :
      * Trader =
@@ -50,7 +51,7 @@ public class MovePawnStoR implements IMovement {
      * @throws NotEnoughSupplyException S'il n'y a pas assez de merchant dans le stock
      * @throws NotAvailableActionException Si le nombre de merchant est supérieur à la valeur actuel du pouvoir bursa du player.
      * */
-    public MovePawnStoR(IHTPlayer player, int merchant){
+    public Bursa(IHTPlayer player, int merchant){
         if(player == null || merchant < 0){
             throw new IllegalArgumentException();
         }
@@ -89,7 +90,7 @@ public class MovePawnStoR implements IMovement {
 
     @Override
     public Actions getActionDone() {
-        return Actions.movePawnStoR;
+        return Actions.bursa;
     }
 
     @Override

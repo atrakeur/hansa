@@ -11,7 +11,7 @@ import fr.univ_rouen.hansa.gameboard.cities.Power;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 
-public class MovePawnStoRTest extends TestCase {
+public class BursaTest extends TestCase {
 
     private static final int SUPPLY_MER = 1;
     private static final int SUPPLY_TRA = 5;
@@ -31,13 +31,13 @@ public class MovePawnStoRTest extends TestCase {
         IHTPlayer player=manager.getCurrentPlayer();
         assertNotNull(player);
 
-        MovePawnStoR move;
+        Bursa move;
 
         player.getEscritoire().increasePower(Power.Bursa);
         player.getEscritoire().increasePower(Power.Bursa);
         player.getEscritoire().increasePower(Power.Bursa);
 
-        move = new MovePawnStoR(player);
+        move = new Bursa(player);
         move.doMovement();
 
         assertTrue(player.getEscritoire().getStock().getMerchantCount() == 0);
@@ -48,7 +48,7 @@ public class MovePawnStoRTest extends TestCase {
         assertTrue(player.getEscritoire().getStock().getMerchantCount() == STOCK_MER);
         assertTrue(player.getEscritoire().getStock().getTraderCount() == STOCK_TRA);
 
-        move = new MovePawnStoR(player, 0);
+        move = new Bursa(player, 0);
         move.doMovement();
 
         assertTrue(player.getEscritoire().getStock().getMerchantCount() == 0);
@@ -69,34 +69,34 @@ public class MovePawnStoRTest extends TestCase {
         IHTPlayer player=manager.getCurrentPlayer();
         assertNotNull(player);
 
-        MovePawnStoR move;
+        Bursa move;
 
         try{
-            move = new MovePawnStoR(null, 0);
+            move = new Bursa(null, 0);
             throw new Exception("Invalid Affectation not catch.");
         }catch (IllegalArgumentException e){}
 
         try{
-            move = new MovePawnStoR(player, -1);
+            move = new Bursa(player, -1);
             throw new Exception("Invalid Affectation not catch.");
         }catch (IllegalArgumentException e){}
 
         try{
-            move = new MovePawnStoR(player);
+            move = new Bursa(player);
             throw new Exception("Invalid Affectation not catch.");
         }catch (NotAvailableActionException e){}
 
         try{
-            move = new MovePawnStoR(player, 100);
+            move = new Bursa(player, 100);
             throw new Exception("Invalid Affectation not catch.");
         }catch (NotEnoughSupplyException e){}
 
         try{
-            move = new MovePawnStoR(player, 4);
+            move = new Bursa(player, 4);
             throw new Exception("Invalid Affectation not catch.");
         }catch (NotEnoughSupplyException e){}
 
-        move = new MovePawnStoR(player, MOVE_MER);
+        move = new Bursa(player, MOVE_MER);
 
         assertNotNull(move);
         assertFalse(move.isDone());
