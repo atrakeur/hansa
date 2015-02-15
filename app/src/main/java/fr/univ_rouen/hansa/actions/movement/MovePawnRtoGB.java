@@ -36,6 +36,10 @@ public class MovePawnRtoGB implements IMovement {
 
     @Override
     public void doMovement() {
+        if (actionDone == true) {
+            throw new IllegalStateException();
+        }
+
         if (!village.isEmpty()) {
             throw new NoPlaceException();
         }
@@ -55,6 +59,10 @@ public class MovePawnRtoGB implements IMovement {
 
     @Override
     public void doRollback() {
+        if (actionDone == false) {
+            throw new IllegalStateException();
+        }
+
         if (village.isEmpty()) {
             throw new NoPlaceException();
         }

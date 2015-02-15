@@ -3,10 +3,25 @@ package fr.univ_rouen.hansa.gameboard.cities;
 import java.util.List;
 
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 import fr.univ_rouen.hansa.view.IPosition;
 import fr.univ_rouen.hansa.view.display.IDrawable;
 
 public interface ICity extends IDrawable {
+
+    /**
+     * Set a route near the city
+     *
+     * @param route IRoute near the city
+     */
+    public void setRoute(IRoute route);
+
+    /**
+     * Return all routes near the city
+     *
+     * @return a set of IRoute
+     */
+    public List<IRoute> getRoutes();
 
     /**
      * Return the kontor at the position i int the city
