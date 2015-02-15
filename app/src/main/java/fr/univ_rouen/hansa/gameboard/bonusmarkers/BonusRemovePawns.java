@@ -8,31 +8,19 @@ import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 
-public class BonusRemovePawns implements IBonusMarker {
+public class BonusRemovePawns extends StatedBonus implements IBonusMarker {
 
-    private BonusState state;
     private List<Pawn> pawn;
-
 
     public BonusRemovePawns() {
         super();
-        this.state = BonusState.unused;
         pawn = Lists.newArrayList();
     }
-    @Override
-    public BonusState getState() {
-        return state;
-    }
-    @Override
-    public void setState(BonusState state) {
-        if (state == null){
-            throw new NullPointerException();
-        }
-        this.state = state;
-    }
+
     public List<Pawn> getPawn() {
         return pawn;
     }
+
     public void setPawn(List<Pawn> p) {
         if (p == null) {
             throw new IllegalArgumentException();
@@ -42,6 +30,7 @@ public class BonusRemovePawns implements IBonusMarker {
 
     @Override
     public void doAction() {
+        super.doAction();
         /**
          * On initialise la liste des pions par couleurs
          * et les joueurs par couleurs
@@ -101,6 +90,7 @@ public class BonusRemovePawns implements IBonusMarker {
 
     @Override
     public void undoAction() {
+        super.undoAction();
 
         /**
          * On initialise la liste des pions par couleurs

@@ -8,40 +8,25 @@ import fr.univ_rouen.hansa.gameboard.player.escritoire.IEscritoire;
 /**
  * Bonus which upgrade one of your Power
  */
-public class BonusEscritoire implements IBonusMarker {
-
-    private BonusState state;
+public class BonusEscritoire extends StatedBonus implements IBonusMarker {
     private Power power;
 
     public BonusEscritoire() {
         super();
-        this.state = BonusState.unused;
-    }
-    @Override
-    public BonusState getState() {
-        return state;
-    }
-
-    @Override
-    public void setState(BonusState state) {
-        if (state == null){
-            throw new NullPointerException();
-        }
-        this.state = state;
     }
 
     @Override
     public void doAction() {
+        super.doAction();
         IEscritoire escritoire = TurnManager.getInstance().getCurrentPlayer().getEscritoire();
         escritoire.increasePower(getPower());
-        this.state = BonusState.used;
     }
 
     @Override
     public void undoAction() {
+        super.undoAction();
         IEscritoire escritoire = TurnManager.getInstance().getCurrentPlayer().getEscritoire();
         escritoire.decreasePower(getPower());
-        this.state = BonusState.unused;
     }
 
     public Power getPower() {
