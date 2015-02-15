@@ -25,7 +25,7 @@ public class Village implements IVillage {
 
     @Override
     public void setRoute(IRoute route) {
-        if (route != null) {
+        if (this.route != null) {
             throw new IllegalStateException();
         }
 

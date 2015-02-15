@@ -53,6 +53,8 @@ public class KeepRoute implements IMovement {
         }
 
         player.getEscritoire().getStock().addPawns(pawns);
+
+        actionDone = true;
     }
 
     @Override
