@@ -110,6 +110,8 @@ public class KeepKontor implements IMovement {
             }
         }
 
+        pawns.clear();;
+
         actionDone = false;
     }
 }
