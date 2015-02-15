@@ -32,4 +32,6 @@ public class MovementManager {
         stack.pop().doRollback();
     }
 
+    public boolean isEmpty(){return stack.isEmpty();}
+
 }

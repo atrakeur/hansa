@@ -40,17 +40,29 @@ public class GameActivity extends Activity {
         pawns.add(new Merchant());
         pawns.add(new Merchant());
 
+        IHTPlayer player =TurnManager.getInstance().getCurrentPlayer();
+        player.getEscritoire().addToStock(pawns);
 
-        TurnManager.getInstance().getCurrentPlayer().getEscritoire().addToStock(pawns);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+        IHTPlayer player =TurnManager.getInstance().getCurrentPlayer();
+
+        findViewById(R.id.button_cancel).setBackgroundColor(player.getPlayerColor().getColor());
+        findViewById(R.id.button_bursa).setBackgroundColor(player.getPlayerColor().getColor());
+        findViewById(R.id.button_bonus_marker).setBackgroundColor(player.getPlayerColor().getColor());
+        findViewById(R.id.button_submit).setBackgroundColor(player.getPlayerColor().getColor());
+        findViewById(R.id.button_pause).setBackgroundColor(player.getPlayerColor().getColor());
     }
 
     public void toasty(View v){
         Toast.makeText(getApplicationContext(), "Toasty", Toast.LENGTH_SHORT).show();
     }
 
-    public void bursa_action(View v){
+    public void bursaAction(View v){
         final IHTPlayer player = TurnManager.getInstance().getCurrentPlayer();
 
         if(player.getEscritoire().getStock().getMerchantCount() == 0 &&
@@ -66,6 +78,11 @@ public class GameActivity extends Activity {
             return;
         }
 
+        if(player.getEscritoire().bursaLevel() == Integer.MAX_VALUE){
+            MovementManager.getInstance().doBursaMove();
+            Toast.makeText(context, "Nombre de trader : "+TurnManager.getInstance().getCurrentPlayer().getEscritoire().getSupply().getTraderCount(), Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         AlertDialogBursa dialog = new AlertDialogBursa(context, getLayoutInflater(), player );
 
@@ -82,7 +99,8 @@ public class GameActivity extends Activity {
             .setPositiveButton(R.string.alert_confirm, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     MovementManager.getInstance().doBursaMove(Integer.parseInt( tex.getText()+"" ));
-                    Toast.makeText(context, "Nombre de trader : "+player.getEscritoire().getSupply().getTraderCount(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Vous avez "+player.getEscritoire().getSupply().getTraderCount()+" Traders, et "
+                            +player.getEscritoire().getSupply().getMerchantCount()+" Marchants", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
             })
@@ -100,6 +118,17 @@ public class GameActivity extends Activity {
         // show it
         alertDialog.show();
 
+    }
+
+    public void pauseAction(View view){
+        if(!MovementManager.getInstance().isEmpty()){
+            MovementManager.getInstance().rollbackMove();
+        }
+    }
+
+    public void submitAction(View v){
+        TurnManager.getInstance().nextPlayer();
+        this.onResume();
     }
 
 }
