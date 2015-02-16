@@ -6,6 +6,7 @@ import java.util.List;
 
 import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.exceptions.NotEnoughSupplyException;
+import fr.univ_rouen.hansa.gameboard.Privillegium;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
@@ -130,8 +131,8 @@ public class Escritoire implements IEscritoire {
     }
 
     @Override
-    public int privilegiumLevel() {
-        return 4 - privilegium.size();
+    public Privillegium privilegiumLevel() {
+        return Privillegium.values()[3 - privilegium.size()];
     }
 
     @Override

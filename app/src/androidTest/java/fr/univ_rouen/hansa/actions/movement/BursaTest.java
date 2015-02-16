@@ -66,7 +66,7 @@ public class BursaTest extends TestCase {
         assertNotNull(manager);
 
         manager.addPlayers(Arrays.asList(PlayerColor.values()));
-        IHTPlayer player=manager.getCurrentPlayer();
+        IHTPlayer player = manager.getCurrentPlayer();
         assertNotNull(player);
 
         Bursa move;

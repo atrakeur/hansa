@@ -8,13 +8,15 @@ import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
 import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
+import fr.univ_rouen.hansa.gameboard.cities.IKontor;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 
-public class IncreasePowerTest extends TestCase {
+public class KeepKontorTest extends TestCase {
     private IHTPlayer player;
     private ICity city;
     private IRoute route;
@@ -44,48 +46,34 @@ public class IncreasePowerTest extends TestCase {
     }
 
     public void testMovement() throws Exception {
-        IncreasePower action = new IncreasePower(player, city, route);
-
-        int liberSophia = player.getEscritoire().liberSophiaLevel();
-
-        try {
-            action.doMovement();
-            fail("need to throw an exception is the route is not taken by the player");
-        } catch (Exception ignored) {
-        }
-
-        assertFalse(action.isDone());
-
         for (IVillage village : route.getVillages()) {
             new MovePawnRtoGB(player, village, Trader.class).doMovement();
         }
 
-        int stockState = player.getEscritoire().getStock().getMerchantCount()
-                + player.getEscritoire().getStock().getTraderCount();
+        KeepKontor action = new KeepKontor(player, city, route.getVillage(0));
+        
+        IKontor<Pawn> kontor = city.getNextKontor();
 
-        int supplyState = player.getEscritoire().getSupply().getMerchantCount()
-                + player.getEscritoire().getSupply().getTraderCount();
+        assertFalse(action.isDone());
+
+        int stockState = player.getEscritoire().getStock().getMerchantCount()
+                       + player.getEscritoire().getStock().getTraderCount();
 
 
         // ------ Movement ------ //
-
-
+        
         action.doMovement();
 
         for (IVillage village : route.getVillages()) {
             assertTrue(village.isEmpty());
         }
-
-        assertTrue(player.getEscritoire().liberSophiaLevel() == liberSophia + 1);
+        
+        assertFalse(kontor.isEmpty());
 
         int stockDone = player.getEscritoire().getStock().getMerchantCount()
                       + player.getEscritoire().getStock().getTraderCount();
 
-        int supplyDone = player.getEscritoire().getSupply().getMerchantCount()
-                       + player.getEscritoire().getSupply().getTraderCount();
-
-        assertTrue(stockDone == stockState + route.getVillages().size());
-        assertTrue(supplyDone == supplyState + 1);
+        assertTrue(stockDone == stockState + route.getVillages().size() - 1);
 
 
         // ------ Rollback ------ //
@@ -97,16 +85,25 @@ public class IncreasePowerTest extends TestCase {
             assertFalse(village.isEmpty());
         }
 
-        assertTrue(player.getEscritoire().liberSophiaLevel() == liberSophia);
+        assertTrue(kontor.isEmpty());
 
         int stockRB = player.getEscritoire().getStock().getMerchantCount()
                     + player.getEscritoire().getStock().getTraderCount();
 
-        int supplyRB = player.getEscritoire().getSupply().getMerchantCount()
-                     + player.getEscritoire().getSupply().getTraderCount();
-
         assertTrue(stockRB == stockState);
-        assertTrue(supplyRB == supplyState);
-    }
 
+
+        // ------ Movement forbidden ------ //
+
+
+        //Create a fake pawn for test
+        kontor.pushPawn(new Trader(player));
+
+        try {
+            action.doMovement();
+            fail("if the player don't have privillegium, need to throw an exception");
+        } catch (Exception ignored) {
+        }
+    }
+    
 }

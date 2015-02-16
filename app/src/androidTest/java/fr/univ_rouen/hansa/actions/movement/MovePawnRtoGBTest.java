@@ -57,7 +57,7 @@ public class MovePawnRtoGBTest extends TestCase {
             MovePawnRtoGB action2 = new MovePawnRtoGB(player2, village, Trader.class);
             action2.doMovement();
             fail("doMovement need to throw an exception when the village is already taken");
-        } catch (NoPlaceException e) {
+        } catch (NoPlaceException ignored) {
         }
     }
 }

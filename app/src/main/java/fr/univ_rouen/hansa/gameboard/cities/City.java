@@ -44,12 +44,23 @@ public class City implements ICity {
     }
 
     @Override
-    public IKontor getKontor(int i) {
+    public IKontor<? extends Pawn> getKontor(int i) {
         if (i < 0 || i > kontors.size()) {
             throw new IllegalArgumentException();
         }
 
         return kontors.get(i);
+    }
+
+    @Override
+    public IKontor<? extends Pawn> getNextKontor() {
+        for (IKontor kontor : kontors) {
+            if (kontor.isEmpty()) {
+                return kontor;
+            }
+        }
+
+        return null;
     }
 
     @Override
