@@ -57,10 +57,12 @@ public class HansaRouteDrawer implements IDrawer {
                 }
 
                 canvas.drawOval(
-                        new RectF(resources.getPercentToScreenWidth(posX - KONTOR_MERCHANT_SIZE_X / 2),
+                        new RectF(
+                                resources.getPercentToScreenWidth(posX - KONTOR_MERCHANT_SIZE_X / 2),
                                 resources.getPercentToScreenHeight(posY - KONTOR_MERCHANT_SIZE_Y / 2),
                                 resources.getPercentToScreenWidth(posX + KONTOR_MERCHANT_SIZE_X / 2),
-                                resources.getPercentToScreenHeight(posY + KONTOR_MERCHANT_SIZE_Y / 2)),
+                                resources.getPercentToScreenHeight(posY + KONTOR_MERCHANT_SIZE_Y / 2)
+                        ),
                         paint
                 );
             }
@@ -75,10 +77,12 @@ public class HansaRouteDrawer implements IDrawer {
                 }
 
                 canvas.drawRect(
-                        new RectF(resources.getPercentToScreenWidth(posX - KONTOR_TRADER_SIZE_X / 2),
+                        new RectF(
+                                resources.getPercentToScreenWidth(posX - KONTOR_TRADER_SIZE_X / 2),
                                 resources.getPercentToScreenHeight(posY - KONTOR_TRADER_SIZE_Y / 2),
                                 resources.getPercentToScreenWidth(posX + KONTOR_TRADER_SIZE_X / 2),
-                                resources.getPercentToScreenHeight(posY + KONTOR_TRADER_SIZE_Y / 2)),
+                                resources.getPercentToScreenHeight(posY + KONTOR_TRADER_SIZE_Y / 2)
+                        ),
                         paint
                 );
             }
