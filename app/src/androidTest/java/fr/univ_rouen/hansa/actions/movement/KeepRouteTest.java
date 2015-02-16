@@ -2,21 +2,16 @@ package fr.univ_rouen.hansa.actions.movement;
 
 import junit.framework.TestCase;
 
-import java.util.List;
-
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
 import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
-import fr.univ_rouen.hansa.gameboard.cities.ICity;
-import fr.univ_rouen.hansa.gameboard.cities.Power;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 
-public class IncreasePowerTest extends TestCase {
+public class KeepRouteTest extends TestCase {
     private IHTPlayer player;
-    private ICity city;
     private IRoute route;
 
     @Override
@@ -26,27 +21,11 @@ public class IncreasePowerTest extends TestCase {
         GameBoard gameBoard = GameBoardFactory.getInstance().createGameBoard(1);
 
         player = TurnManager.getInstance().getCurrentPlayer();
-
-        List<ICity> cities = gameBoard.getCities();
-
-        for (ICity city : cities) {
-            if (city.getPower() == Power.LiberSophiae) {
-                this.city = city;
-                break;
-            }
-        }
-
-        if (city == null) {
-            throw new IllegalStateException();
-        }
-
-        route = city.getRoutes().get(0);
+        route = gameBoard.getRoutes().get(0);
     }
 
     public void testMovement() throws Exception {
-        IncreasePower action = new IncreasePower(player, city, route);
-
-        int liberSophia = player.getEscritoire().liberSophiaLevel();
+        KeepRoute action = new KeepRoute(player, route);
 
         try {
             action.doMovement();
@@ -61,14 +40,10 @@ public class IncreasePowerTest extends TestCase {
         }
 
         int stockState = player.getEscritoire().getStock().getMerchantCount()
-                + player.getEscritoire().getStock().getTraderCount();
-
-        int supplyState = player.getEscritoire().getSupply().getMerchantCount()
-                + player.getEscritoire().getSupply().getTraderCount();
+                       + player.getEscritoire().getStock().getTraderCount();
 
 
         // ------ Movement ------ //
-
 
         action.doMovement();
 
@@ -76,16 +51,10 @@ public class IncreasePowerTest extends TestCase {
             assertTrue(village.isEmpty());
         }
 
-        assertTrue(player.getEscritoire().liberSophiaLevel() == liberSophia + 1);
-
         int stockDone = player.getEscritoire().getStock().getMerchantCount()
                       + player.getEscritoire().getStock().getTraderCount();
 
-        int supplyDone = player.getEscritoire().getSupply().getMerchantCount()
-                       + player.getEscritoire().getSupply().getTraderCount();
-
         assertTrue(stockDone == stockState + route.getVillages().size());
-        assertTrue(supplyDone == supplyState + 1);
 
 
         // ------ Rollback ------ //
@@ -97,16 +66,10 @@ public class IncreasePowerTest extends TestCase {
             assertFalse(village.isEmpty());
         }
 
-        assertTrue(player.getEscritoire().liberSophiaLevel() == liberSophia);
-
         int stockRB = player.getEscritoire().getStock().getMerchantCount()
                     + player.getEscritoire().getStock().getTraderCount();
 
-        int supplyRB = player.getEscritoire().getSupply().getMerchantCount()
-                     + player.getEscritoire().getSupply().getTraderCount();
-
         assertTrue(stockRB == stockState);
-        assertTrue(supplyRB == supplyState);
     }
 
 }

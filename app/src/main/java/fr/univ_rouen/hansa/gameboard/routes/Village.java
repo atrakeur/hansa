@@ -8,9 +8,28 @@ public class Village implements IVillage {
 
     private final IPosition position;
     private Pawn pawn;
+    private IRoute route;
 
     public Village(IPosition position) {
         this.position = position;
+    }
+
+    @Override
+    public IRoute getRoute() {
+        if (route == null) {
+            throw new IllegalStateException();
+        }
+
+        return route;
+    }
+
+    @Override
+    public void setRoute(IRoute route) {
+        if (this.route != null) {
+            throw new IllegalStateException();
+        }
+
+        this.route = route;
     }
 
     @Override

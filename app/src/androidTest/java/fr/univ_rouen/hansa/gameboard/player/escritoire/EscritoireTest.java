@@ -5,6 +5,7 @@ import android.test.ApplicationTestCase;
 
 import java.util.List;
 
+import fr.univ_rouen.hansa.gameboard.Privillegium;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
@@ -34,7 +35,7 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
         try {
             escritoire.increasePower(Power.ClavisUrbis);
             fail("Missing exception");
-        } catch (Exception e){
+        } catch (Exception ignored){
         }
     }
 
@@ -61,28 +62,28 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
         try {
             escritoire.increasePower(Power.Actiones);
             fail("Missing exception");
-        } catch (Exception e){
+        } catch (Exception ignored){
         }
     }
 
     public void testPrivilegium() throws Exception {
         Escritoire escritoire = new Escritoire(TurnManager.getInstance().getCurrentPlayer(), 1);
 
-        assertEquals(escritoire.privilegiumLevel(), 1);
+        assertEquals(escritoire.privilegiumLevel(), Privillegium.White);
 
         escritoire.increasePower(Power.Privillegium);
-        assertEquals(escritoire.privilegiumLevel(), 2);
+        assertEquals(escritoire.privilegiumLevel(), Privillegium.Orange);
 
         escritoire.increasePower(Power.Privillegium);
-        assertEquals(escritoire.privilegiumLevel(), 3);
+        assertEquals(escritoire.privilegiumLevel(), Privillegium.Pink);
 
         escritoire.increasePower(Power.Privillegium);
-        assertEquals(escritoire.privilegiumLevel(), 4);
+        assertEquals(escritoire.privilegiumLevel(), Privillegium.Black);
 
         try {
             escritoire.increasePower(Power.Privillegium);
             fail("Missing exception");
-        } catch (Exception e){
+        } catch (Exception ignored){
         }
     }
 
@@ -103,7 +104,7 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
         try {
             escritoire.increasePower(Power.LiberSophiae);
             fail("Missing exception");
-        } catch (Exception e){
+        } catch (Exception ignored){
         }
     }
 
@@ -124,7 +125,7 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
         try {
             escritoire.increasePower(Power.Bursa);
             fail("Missing exception");
-        } catch (Exception e){
+        } catch (Exception ignored){
         }
     }
 
@@ -138,7 +139,7 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
         try {
             escritoire.moveStockToSupply(0, 1);
             fail("Missing exception");
-        } catch (Exception e){
+        } catch (Exception ignored){
         }
 
         supplyPawns = escritoire.popFromSupply(1, 11);
@@ -150,7 +151,7 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
         try {
             escritoire.moveStockToSupply(0, 1);
             fail("Missing exception");
-        } catch (Exception e){
+        } catch (Exception ignored){
         }
 
         supplyPawns = escritoire.popFromSupply(1, 11);

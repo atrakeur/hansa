@@ -7,8 +7,8 @@ public interface IKontor<E extends Pawn> {
 
     public boolean isEmpty();
     public Class<E> getPawnClass();
-    public void pullPawn(E pawn);
-    public E pushPawn();
+    public void pushPawn(E pawn);
+    public E popPawn();
     public Privillegium getPrivillegium();
 
 }

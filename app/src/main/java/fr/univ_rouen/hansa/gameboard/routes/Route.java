@@ -38,6 +38,10 @@ public class Route implements IRoute {
             city.setRoute(this);
         }
 
+        for (IVillage village : villages) {
+            village.setRoute(this);
+        }
+
         this.bonusMarker = null;
     }
 

@@ -37,7 +37,7 @@ public class MovePawnRtoSTest extends TestCase {
         try {
             new MovePawnRtoS(player, 0, 1).doMovement();
             fail("can't make the movement but didn't throw exception");
-        } catch(Exception e) {
+        } catch(Exception ignored) {
         }
 
         action.doRollback();

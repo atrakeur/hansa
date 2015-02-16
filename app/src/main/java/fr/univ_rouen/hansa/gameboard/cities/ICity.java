@@ -32,6 +32,13 @@ public interface ICity extends IDrawable {
     public IKontor getKontor(int i);
 
     /**
+     * Return the kontor who can be keep
+     *
+     * @return the kontor selected
+     */
+    public IKontor getNextKontor();
+
+    /**
      * Getter for the position of the city
      *
      * @return an object who represent the position of the city in percent of the map
