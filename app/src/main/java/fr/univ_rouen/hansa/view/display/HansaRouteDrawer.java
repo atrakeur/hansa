@@ -59,7 +59,6 @@ public class HansaRouteDrawer implements IDrawer {
             }
 
             if (debug == true || village.getPawnType() == Trader.class) {
-                Log.w("View", "Draw Trader!");
                 paint.setColor(Color.RED);
                 canvas.drawRect(
                         new RectF(resources.getPercentToScreenWidth(posX - KONTOR_TRADER_SIZE_X / 2),
