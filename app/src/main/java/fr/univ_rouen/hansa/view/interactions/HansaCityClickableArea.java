@@ -14,7 +14,7 @@ import fr.univ_rouen.hansa.view.utils.ResourceRepository;
 
 public class HansaCityClickableArea extends ClickableArea {
 
-    private float selectionDistance = 0.05f;
+    private float selectionDistance = 0.04f;
     private ICity city;
 
     public HansaCityClickableArea(ICity city) {
@@ -66,12 +66,18 @@ public class HansaCityClickableArea extends ClickableArea {
     public void drawDebug(ResourceRepository resources, Canvas canvas)
     {
         float radius = Math.max(
-                resources.getScreenWidthToPercent(this.selectionDistance),
-                resources.getScreenHeigthToPercent(this.selectionDistance)
+                resources.getPercentToScreenWidth(this.selectionDistance),
+                resources.getPercentToScreenHeight(this.selectionDistance)
         );
         Paint p = new Paint();
         p.setColor(Color.GREEN);
-        canvas.drawCircle(city.getPosition().getX(), city.getPosition().getY(), radius, p);
+        p.setStyle(Paint.Style.FILL);
+        canvas.drawCircle(
+                resources.getPercentToScreenWidth(city.getPosition().getX()),
+                resources.getPercentToScreenHeight(city.getPosition().getY()),
+                radius,
+                p
+        );
     }
 
     @Override

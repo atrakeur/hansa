@@ -18,7 +18,7 @@ import fr.univ_rouen.hansa.view.utils.ResourceRepository;
 
 public class HansaVillageClickableArea extends ClickableArea {
 
-    private float selectionDistance = 0.05f;
+    private float selectionDistance = 0.025f;
     private IVillage village;
 
     public HansaVillageClickableArea(IVillage village) {
@@ -78,12 +78,18 @@ public class HansaVillageClickableArea extends ClickableArea {
     public void drawDebug(ResourceRepository resources, Canvas canvas)
     {
         float radius = Math.max(
-                resources.getScreenWidthToPercent(this.selectionDistance),
-                resources.getScreenHeigthToPercent(this.selectionDistance)
+                resources.getPercentToScreenWidth(this.selectionDistance),
+                resources.getPercentToScreenHeight(this.selectionDistance)
         );
         Paint p = new Paint();
-        p.setColor(Color.GREEN);
-        canvas.drawCircle(village.getPosition().getX(), village.getPosition().getY(), radius, p);
+        p.setColor(Color.CYAN);
+        p.setStyle(Paint.Style.FILL);
+        canvas.drawCircle(
+                resources.getPercentToScreenWidth(village.getPosition().getX()),
+                resources.getPercentToScreenHeight(village.getPosition().getY()),
+                radius,
+                p
+        );
     }
 
     @Override

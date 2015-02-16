@@ -57,11 +57,6 @@ public class GameBoardView extends SurfaceView {
         } else {
             board.getDrawer().draw(resources, canvas);
         }
-
-        IClickable[] clickables = board.getClickables();
-        for (IClickable clickable: clickables) {
-            clickable.getClickableArea().drawDebug(resources, canvas);
-        }
     }
 
     @Override
