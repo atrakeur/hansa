@@ -1,10 +1,24 @@
 package fr.univ_rouen.hansa.gameboard.routes;
 
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
-import fr.univ_rouen.hansa.view.IPosition;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
+import fr.univ_rouen.hansa.view.IPosition;
 
 public interface IVillage {
+
+    /**
+     * Allow to know the route of the village
+     *
+     * @return the route of the village
+     */
+    public IRoute getRoute();
+
+    /**
+     * Set the route attach to the village
+     *
+     * @param route the route of the village
+     */
+    public void setRoute(IRoute route);
 
     /**
      * Allow you to know if the village have a pawn or not

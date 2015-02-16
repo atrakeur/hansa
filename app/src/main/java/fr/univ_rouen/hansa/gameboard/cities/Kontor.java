@@ -1,8 +1,8 @@
 package fr.univ_rouen.hansa.gameboard.cities;
 
 import fr.univ_rouen.hansa.gameboard.Privillegium;
-import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 
 public class Kontor<E extends Pawn> implements IKontor<E> {
 
@@ -27,7 +27,7 @@ public class Kontor<E extends Pawn> implements IKontor<E> {
         return pawn == null;
     }
 
-    public E pushPawn() {
+    public E popPawn() {
         E p = pawn;
         pawn = null;
         return p;
@@ -37,7 +37,7 @@ public class Kontor<E extends Pawn> implements IKontor<E> {
         return privillegium;
     }
 
-    public void pullPawn(E pawn) {
+    public void pushPawn(E pawn) {
         if (pawn == null) {
             throw new IllegalArgumentException();
         }

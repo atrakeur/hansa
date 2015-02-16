@@ -7,6 +7,7 @@ import java.util.Arrays;
 import fr.univ_rouen.hansa.exceptions.NotAvailableActionException;
 import fr.univ_rouen.hansa.exceptions.NotEnoughSupplyException;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
+import fr.univ_rouen.hansa.gameboard.cities.Power;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 
@@ -21,9 +22,7 @@ public class BursaTest extends TestCase {
     private static final int MOVE_MER = 0;
     private static final int MOVE_TRA = 3;
 
-
-
-    public void testMovement() throws Exception{
+    public void testMaxBursa() throws Exception{
 
         TurnManager manager = TurnManager.getInstance();
         assertNotNull(manager);
@@ -34,32 +33,70 @@ public class BursaTest extends TestCase {
 
         Bursa move;
 
+        player.getEscritoire().increasePower(Power.Bursa);
+        player.getEscritoire().increasePower(Power.Bursa);
+        player.getEscritoire().increasePower(Power.Bursa);
+
+        move = new Bursa(player);
+        move.doMovement();
+
+        assertTrue(player.getEscritoire().getStock().getMerchantCount() == 0);
+        assertTrue(player.getEscritoire().getStock().getTraderCount() == 0);
+
+        move.doRollback();
+
+        assertTrue(player.getEscritoire().getStock().getMerchantCount() == STOCK_MER);
+        assertTrue(player.getEscritoire().getStock().getTraderCount() == STOCK_TRA);
+
+        move = new Bursa(player, 0);
+        move.doMovement();
+
+        assertTrue(player.getEscritoire().getStock().getMerchantCount() == 0);
+        assertTrue(player.getEscritoire().getStock().getTraderCount() == 0);
+
+        move.doRollback();
+
+        assertTrue(player.getEscritoire().getStock().getMerchantCount() == STOCK_MER);
+        assertTrue(player.getEscritoire().getStock().getTraderCount() == STOCK_TRA);
+    }
+
+    public void testMovement() throws Exception{
+
+        TurnManager manager = TurnManager.getInstance();
+        assertNotNull(manager);
+
+        manager.addPlayers(Arrays.asList(PlayerColor.values()));
+        IHTPlayer player = manager.getCurrentPlayer();
+        assertNotNull(player);
+
+        Bursa move;
+
         try{
-            move = new Bursa(null, 0, 0);
+            move = new Bursa(null, 0);
             throw new Exception("Invalid Affectation not catch.");
         }catch (IllegalArgumentException e){}
 
         try{
-            move = new Bursa(player, -1, 0);
+            move = new Bursa(player, -1);
             throw new Exception("Invalid Affectation not catch.");
         }catch (IllegalArgumentException e){}
 
         try{
-            move = new Bursa(player, 0, -1);
+            move = new Bursa(player);
             throw new Exception("Invalid Affectation not catch.");
-        }catch (IllegalArgumentException e){}
+        }catch (NotAvailableActionException e){}
 
         try{
-            move = new Bursa(player, 100, 100);
+            move = new Bursa(player, 100);
             throw new Exception("Invalid Affectation not catch.");
         }catch (NotEnoughSupplyException e){}
 
         try{
-            move = new Bursa(player, 0, 4);
+            move = new Bursa(player, 4);
             throw new Exception("Invalid Affectation not catch.");
-        }catch (NotAvailableActionException e){}
+        }catch (NotEnoughSupplyException e){}
 
-        move = new Bursa(player, MOVE_MER, MOVE_TRA);
+        move = new Bursa(player, MOVE_MER);
 
         assertNotNull(move);
         assertFalse(move.isDone());

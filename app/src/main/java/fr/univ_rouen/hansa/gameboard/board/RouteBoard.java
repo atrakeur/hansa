@@ -5,7 +5,6 @@ import com.google.common.collect.Lists;
 import java.util.Collections;
 import java.util.List;
 
-import fr.univ_rouen.hansa.gameboard.board.CitiesBoard;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 
@@ -13,8 +12,9 @@ public abstract class RouteBoard extends CitiesBoard {
 
     private List<IRoute> routes;
 
-    public RouteBoard()
-    {
+    public RouteBoard() {
+        super();
+
         routes = Lists.newArrayList();
     }
 

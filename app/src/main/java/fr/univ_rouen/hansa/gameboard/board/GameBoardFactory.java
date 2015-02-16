@@ -11,6 +11,7 @@ import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.IKontor;
 import fr.univ_rouen.hansa.gameboard.cities.Kontor;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
+import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
@@ -33,13 +34,24 @@ public class GameBoardFactory {
     }
 
     /**
-     * Create and init a new GameBoard
+     * Create and init a new GameBoard with 2 players by default
      *
      * @param map 1 for the map of 2/3 players, 2 for the map of 4/5 players
      * @return the gameboard initialized
      */
     public GameBoard createGameBoard(int map) {
-        GameBoard gameBoard = new GameBoard();
+        return this.createGameBoard(map, Lists.newArrayList(PlayerColor.blue, PlayerColor.green));
+    }
+
+    /**
+     * Create and init a new GameBoard
+     *
+     * @param map 1 for the map of 2/3 players, 2 for the map of 4/5 players
+     * @param players the differents colors of the players who play
+     * @return the gameboard initialized
+     */
+    public GameBoard createGameBoard(int map, List<PlayerColor> players) {
+        GameBoard gameBoard = new GameBoard(players);
         List<IKontor<? extends Pawn>> kontors;
         List<IVillage> villages;
         ICity[] cities;

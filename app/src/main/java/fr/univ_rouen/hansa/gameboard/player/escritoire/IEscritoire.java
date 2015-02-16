@@ -2,6 +2,7 @@ package fr.univ_rouen.hansa.gameboard.player.escritoire;
 
 import java.util.List;
 
+import fr.univ_rouen.hansa.gameboard.Privillegium;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
@@ -22,7 +23,7 @@ public interface IEscritoire {
     public int bonusMarkerCount();
     public int clavisUrbisLevel();
     public int actionesLevel();
-    public int privilegiumLevel();
+    public Privillegium privilegiumLevel();
     public int liberSophiaLevel();
     public int bursaLevel();
     public void increasePower(Power power);
@@ -51,7 +52,7 @@ public interface IEscritoire {
     public List<Pawn> removeFromSupply(List<Pawn> pawns);
     public void addToStock(List<Pawn> pawns);
     public void addToSupply(List<Pawn> pawns);
-    public boolean enoughSupply(int merchants, int traders);
+    public boolean enoughStock(int merchants, int traders);
     public IPawnList getStock();
     public IPawnList getSupply();
 

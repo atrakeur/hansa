@@ -11,8 +11,9 @@ public abstract class CitiesBoard extends BasicBoard {
 
     List<ICity> cities;
 
-    public CitiesBoard()
-    {
+    public CitiesBoard() {
+        super();
+
         cities = Lists.newArrayList();
     }
 

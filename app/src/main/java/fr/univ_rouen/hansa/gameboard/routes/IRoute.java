@@ -4,7 +4,7 @@ import java.util.List;
 
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
-import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.view.IPosition;
 import fr.univ_rouen.hansa.view.display.IDrawable;
 
@@ -47,11 +47,19 @@ public interface IRoute extends IDrawable{
     public boolean isEmpty();
 
     /**
-     * Allow to know if all the village of a route is taken by the -current- player
+     * Allow to know if all the village of a route is taken by a player
      *
      * @return true if the route is complete
      */
     public boolean isTradeRoute();
+
+    /**
+     * Allow to know if all the village of a route is taken by a specific player
+     *
+     * @param player the player to check
+     * @return true if the route is complete
+     */
+    public boolean isTradeRoute(IHTPlayer player);
 
     /**
      * return the bonus marker in the tavern of the road

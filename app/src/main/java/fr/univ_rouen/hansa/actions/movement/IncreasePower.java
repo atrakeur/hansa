@@ -51,11 +51,11 @@ public class IncreasePower implements IMovement {
 
     @Override
     public void doMovement() {
-        if (pawns.size() > 0) {
+        if (pawns.size() > 0 || actionDone) {
             throw new IllegalStateException("Movement already done");
         }
 
-        if (!route.isTradeRoute()) {
+        if (!route.isTradeRoute(player)) {
             throw new NotAvailableActionException();
         }
 

@@ -5,8 +5,10 @@ import android.test.ApplicationTestCase;
 
 import java.util.List;
 
-import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.Privillegium;
+import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 
 public class EscritoireTest extends ApplicationTestCase<Application> {
     public EscritoireTest() {
@@ -14,7 +16,7 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
     }
 
     public void testClavisUrbis() throws Exception {
-        Escritoire escritoire = new Escritoire(1);
+        Escritoire escritoire = new Escritoire(TurnManager.getInstance().getCurrentPlayer(), 1);
 
         assertEquals(escritoire.clavisUrbisLevel(), 1);
 
@@ -33,12 +35,12 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
         try {
             escritoire.increasePower(Power.ClavisUrbis);
             fail("Missing exception");
-        } catch (Exception e){
+        } catch (Exception ignored){
         }
     }
 
     public void testActiones() throws Exception {
-        Escritoire escritoire = new Escritoire(1);
+        Escritoire escritoire = new Escritoire(TurnManager.getInstance().getCurrentPlayer(), 1);
 
         assertEquals(escritoire.actionesLevel(), 2);
 
@@ -60,33 +62,33 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
         try {
             escritoire.increasePower(Power.Actiones);
             fail("Missing exception");
-        } catch (Exception e){
+        } catch (Exception ignored){
         }
     }
 
     public void testPrivilegium() throws Exception {
-        Escritoire escritoire = new Escritoire(1);
+        Escritoire escritoire = new Escritoire(TurnManager.getInstance().getCurrentPlayer(), 1);
 
-        assertEquals(escritoire.privilegiumLevel(), 1);
-
-        escritoire.increasePower(Power.Privillegium);
-        assertEquals(escritoire.privilegiumLevel(), 2);
+        assertEquals(escritoire.privilegiumLevel(), Privillegium.White);
 
         escritoire.increasePower(Power.Privillegium);
-        assertEquals(escritoire.privilegiumLevel(), 3);
+        assertEquals(escritoire.privilegiumLevel(), Privillegium.Orange);
 
         escritoire.increasePower(Power.Privillegium);
-        assertEquals(escritoire.privilegiumLevel(), 4);
+        assertEquals(escritoire.privilegiumLevel(), Privillegium.Pink);
+
+        escritoire.increasePower(Power.Privillegium);
+        assertEquals(escritoire.privilegiumLevel(), Privillegium.Black);
 
         try {
             escritoire.increasePower(Power.Privillegium);
             fail("Missing exception");
-        } catch (Exception e){
+        } catch (Exception ignored){
         }
     }
 
     public void testLiberSophia() throws Exception {
-        Escritoire escritoire = new Escritoire(1);
+        Escritoire escritoire = new Escritoire(TurnManager.getInstance().getCurrentPlayer(), 1);
 
         assertEquals(escritoire.liberSophiaLevel(), 2);
 
@@ -102,12 +104,12 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
         try {
             escritoire.increasePower(Power.LiberSophiae);
             fail("Missing exception");
-        } catch (Exception e){
+        } catch (Exception ignored){
         }
     }
 
     public void testBursa() throws Exception {
-        Escritoire escritoire = new Escritoire(1);
+        Escritoire escritoire = new Escritoire(TurnManager.getInstance().getCurrentPlayer(), 1);
 
         assertEquals(escritoire.bursaLevel(), 3);
 
@@ -123,7 +125,7 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
         try {
             escritoire.increasePower(Power.Bursa);
             fail("Missing exception");
-        } catch (Exception e){
+        } catch (Exception ignored){
         }
     }
 
@@ -131,25 +133,25 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
         Escritoire escritoire;
         List<Pawn> supplyPawns;
 
-        escritoire = new Escritoire(1);
+        escritoire = new Escritoire(TurnManager.getInstance().getCurrentPlayer(), 1);
         assertTrue(escritoire.moveStockToSupply(0, 6));
 
         try {
             escritoire.moveStockToSupply(0, 1);
             fail("Missing exception");
-        } catch (Exception e){
+        } catch (Exception ignored){
         }
 
         supplyPawns = escritoire.popFromSupply(1, 11);
         assertTrue(supplyPawns.size() == 12);
 
-        escritoire = new Escritoire(5);
+        escritoire = new Escritoire(TurnManager.getInstance().getCurrentPlayer(), 5);
         assertTrue(escritoire.moveStockToSupply(0, 2));
 
         try {
             escritoire.moveStockToSupply(0, 1);
             fail("Missing exception");
-        } catch (Exception e){
+        } catch (Exception ignored){
         }
 
         supplyPawns = escritoire.popFromSupply(1, 11);
@@ -157,7 +159,7 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
     }
 
     public void testDecrease() {
-        Escritoire escritoire = new Escritoire(1);
+        Escritoire escritoire = new Escritoire(TurnManager.getInstance().getCurrentPlayer(), 1);
 
         escritoire.increasePower(Power.Bursa);
         escritoire.increasePower(Power.Bursa);

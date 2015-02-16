@@ -12,8 +12,7 @@ public abstract class PlayersBoard extends RouteBoard {
     private List<IHTPlayer> players;
     private List<Pawn> pawns;
 
-    public PlayersBoard()
-    {
+    public PlayersBoard() {
         players = Lists.newArrayList();
         pawns   = Lists.newArrayList();
     }
