@@ -1,8 +1,8 @@
 package fr.univ_rouen.hansa.gameboard.cities;
 
 import fr.univ_rouen.hansa.gameboard.Privillegium;
-import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 
 public class Kontor<E extends Pawn> implements IKontor<E> {
 

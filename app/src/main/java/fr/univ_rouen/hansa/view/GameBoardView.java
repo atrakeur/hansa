@@ -6,8 +6,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.SurfaceView;
+import android.widget.Toast;
 
-import fr.univ_rouen.hansa.R;
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
 import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
 import fr.univ_rouen.hansa.view.utils.DrawingThread;
@@ -50,6 +50,12 @@ public class GameBoardView extends SurfaceView {
         } else {
             board.getDrawer().draw(resources, canvas);
         }
+    }
+
+    /**Display the error message as a toast
+     * @param msg message to be displayed*/
+    public void showErrorMsg(String msg){
+        Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
     }
 
 }

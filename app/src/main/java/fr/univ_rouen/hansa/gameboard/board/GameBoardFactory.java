@@ -346,6 +346,7 @@ public class GameBoardFactory {
         villages.add(new Village(VillagePositions.EMDEN_OSNABRUCK_1));
         villages.add(new Village(VillagePositions.EMDEN_OSNABRUCK_2));
         villages.add(new Village(VillagePositions.EMDEN_OSNABRUCK_3));
+        villages.add(new Village(VillagePositions.EMDEN_OSNABRUCK_4));
         cities = new ICity[]{emden, osnabruck};
         tavernPosition = TavernPositions.EMDEN_OSNABRUCK;
         gameBoard.addRoute(new Route(villages, cities, tavernPosition));

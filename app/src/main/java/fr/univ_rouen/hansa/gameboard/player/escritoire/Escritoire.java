@@ -8,11 +8,11 @@ import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.exceptions.NotEnoughSupplyException;
 import fr.univ_rouen.hansa.gameboard.Privillegium;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
+import fr.univ_rouen.hansa.gameboard.cities.Power;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
-import fr.univ_rouen.hansa.gameboard.cities.Power;
 
 public class Escritoire implements IEscritoire {
     private List<Trader> clavisUrbis;
@@ -297,8 +297,8 @@ public class Escritoire implements IEscritoire {
     }
 
     @Override
-    public boolean enoughSupply(int merchants, int traders) {
-        return supply.enoughPawns(merchants, traders);
+    public boolean enoughStock(int merchants, int traders) {
+        return stock.enoughPawns(merchants, traders);
     }
 
     @Override
