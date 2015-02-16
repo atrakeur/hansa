@@ -5,6 +5,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.view.GestureDetectorCompat;
+import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,17 +26,23 @@ import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.view.interactions.AlertDialogBursa;
 
-public class GameActivity extends Activity {
+public class GameActivity extends Activity implements GestureDetector.OnGestureListener{
 
+    enum EscritoireState{MINE, OTHERS, HIDE}
+
+    private EscritoireState state;
     private Context context = this;
+    private GestureDetectorCompat mDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        state = EscritoireState.HIDE;
         TurnManager.getInstance().addPlayers(Arrays.asList(PlayerColor.values()));
         IHTPlayer player =TurnManager.getInstance().getCurrentPlayer();
 
+        mDetector = new GestureDetectorCompat(this,this);
 
         //TODO just pour la présentation, à enlever après ;)
         List<Pawn> pawns = new ArrayList<>();
@@ -44,7 +54,6 @@ public class GameActivity extends Activity {
         pawns.add(new Merchant(player));
 
         player.getEscritoire().addToStock(pawns);
-
     }
 
     @Override
@@ -133,4 +142,58 @@ public class GameActivity extends Activity {
         this.onResume();
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event){
+        this.mDetector.onTouchEvent(event);
+        // Be sure to call the superclass implementation
+        return super.onTouchEvent(event);
+    }
+
+    @Override
+    public boolean onDown(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        Log.w("Scroll Event : ", distanceX+"\t"+distanceY);
+        if(Math.abs(distanceX)<Math.abs(distanceY)){
+            if(state == EscritoireState.HIDE && distanceY>0){
+                state = EscritoireState.MINE;
+            } else if(state == EscritoireState.MINE && distanceY < 0){
+                state = EscritoireState.HIDE;
+            }
+            Log.w("Vertical", state.toString());
+        } else if(Math.abs(distanceX)>Math.abs(distanceY)){
+            if(state == EscritoireState.HIDE && distanceX<0){
+                state = EscritoireState.OTHERS;
+            } else if(state == EscritoireState.OTHERS&& distanceX > 0){
+                state = EscritoireState.HIDE;
+            }
+            Log.w("Horizontal", state.toString());
+        }
+
+
+        return true;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        return false;
+    }
 }
