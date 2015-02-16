@@ -37,6 +37,11 @@ public class GameBoard extends PlayersBoard implements IDrawable {
             cliquables.addAll(route.getVillages());
         }
 
+        for (ICity city: getCities()) {
+            cliquables.add(city);
+            //TODO add power cliquable area
+        }
+
         return cliquables.toArray(new IClickable[cliquables.size()]);
     }
 }

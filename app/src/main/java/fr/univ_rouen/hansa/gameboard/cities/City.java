@@ -7,10 +7,13 @@ import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.view.IPosition;
 import fr.univ_rouen.hansa.view.display.HansaCityDrawer;
 import fr.univ_rouen.hansa.view.display.IDrawer;
+import fr.univ_rouen.hansa.view.interactions.HansaCityClickableArea;
+import fr.univ_rouen.hansa.view.interactions.IClickableArea;
 
 public class City implements ICity {
 
     private final IDrawer drawer;
+    private final IClickableArea clickableArea;
 
     private final IPosition position;
     private final Power power;
@@ -26,6 +29,7 @@ public class City implements ICity {
         this.position = position;
         this.power = power;
         this.kontors = kontors;
+        clickableArea = new HansaCityClickableArea(this);
     }
 
     @Override
@@ -67,5 +71,10 @@ public class City implements ICity {
     @Override
     public IDrawer getDrawer() {
         return this.drawer;
+    }
+
+    @Override
+    public IClickableArea getClickableArea() {
+        return this.clickableArea;
     }
 }
