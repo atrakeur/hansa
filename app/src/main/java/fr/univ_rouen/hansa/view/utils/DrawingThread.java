@@ -55,7 +55,7 @@ public class DrawingThread extends Thread {
                     }
                 }
                 //Wait
-                sleep(500);
+                sleep(100);
             } catch(InterruptedException e) {
                 e.printStackTrace();
             } finally {

@@ -48,7 +48,14 @@ public class HansaRouteDrawer implements IDrawer {
             float posY = village.getPosition().getY();
 
             if (debug == true || village.getPawnType() == Merchant.class) {
-                paint.setColor(Color.GREEN);
+                if (debug == true) {
+                    paint.setColor(Color.GREEN);
+                }
+                else
+                {
+                    paint.setColor(village.getOwner().getPlayerColor().getColor());
+                }
+
                 canvas.drawOval(
                         new RectF(resources.getPercentToScreenWidth(posX - KONTOR_MERCHANT_SIZE_X / 2),
                                 resources.getPercentToScreenHeight(posY - KONTOR_MERCHANT_SIZE_Y / 2),
@@ -59,7 +66,14 @@ public class HansaRouteDrawer implements IDrawer {
             }
 
             if (debug == true || village.getPawnType() == Trader.class) {
-                paint.setColor(Color.RED);
+                if (debug == true) {
+                    paint.setColor(Color.RED);
+                }
+                else
+                {
+                    paint.setColor(village.getOwner().getPlayerColor().getColor());
+                }
+
                 canvas.drawRect(
                         new RectF(resources.getPercentToScreenWidth(posX - KONTOR_TRADER_SIZE_X / 2),
                                 resources.getPercentToScreenHeight(posY - KONTOR_TRADER_SIZE_Y / 2),
