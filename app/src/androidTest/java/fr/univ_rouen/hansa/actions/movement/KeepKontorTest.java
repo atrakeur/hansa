@@ -11,7 +11,6 @@ import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.IKontor;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
-import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
@@ -52,7 +51,7 @@ public class KeepKontorTest extends TestCase {
 
         KeepKontor action = new KeepKontor(player, city, route.getVillage(0));
         
-        IKontor<Pawn> kontor = city.getNextKontor();
+        IKontor kontor = city.getNextKontor();
 
         assertFalse(action.isDone());
 

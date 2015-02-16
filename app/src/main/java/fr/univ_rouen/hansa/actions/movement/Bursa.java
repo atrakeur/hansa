@@ -19,7 +19,7 @@ public class Bursa implements IMovement {
     /**
      * Constructeur de la classe MovePawnStoR, pour la compétence Bursa au Maximum
      *
-     * @throw NotAvailableActionException si la compétence bursa de player n'est pas au maximum
+     * @throws NotAvailableActionException si la compétence bursa de player n'est pas au maximum
      */
     public Bursa(IHTPlayer player) {
         if (player == null) {

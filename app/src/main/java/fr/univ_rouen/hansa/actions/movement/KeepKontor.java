@@ -18,7 +18,7 @@ import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 public class KeepKontor implements IMovement {
     private final IHTPlayer player;
     private final IVillage village;
-    private final IKontor<Pawn> kontor;
+    private final IKontor kontor;
     private final List<Pawn> pawns;
 
     private boolean actionDone;
@@ -35,7 +35,7 @@ public class KeepKontor implements IMovement {
             throw new GameException("Village has empty");
         }
 
-        this.kontor = (IKontor<Pawn>) city.getNextKontor();
+        this.kontor = city.getNextKontor();
 
         pawns = Lists.newArrayList();
     }
