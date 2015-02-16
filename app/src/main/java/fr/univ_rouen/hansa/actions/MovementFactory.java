@@ -34,7 +34,7 @@ public class MovementFactory {
             return new KeepRoute(player, ((IVillage) source.getSubject()).getRoute());
         } else if (source.getType() == IClickableArea.Type.village && destination.getType() == IClickableArea.Type.village ) {
             //TODO Check avec les differents players
-            return new LiberSophia((IVillage) source.getSubject(), (IVillage) destination.getSubject());
+            return new LiberSophia(player, (IVillage) source.getSubject(), (IVillage) destination.getSubject());
         } else if (source.getType() == IClickableArea.Type.village && destination.getType() == IClickableArea.Type.power ) {
             //TODO IncreasePower Village -> Power
             throw new UnsupportedOperationException();
