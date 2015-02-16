@@ -52,7 +52,7 @@ public interface IEscritoire {
     public List<Pawn> removeFromSupply(List<Pawn> pawns);
     public void addToStock(List<Pawn> pawns);
     public void addToSupply(List<Pawn> pawns);
-    public boolean enoughSupply(int merchants, int traders);
+    public boolean enoughStock(int merchants, int traders);
     public IPawnList getStock();
     public IPawnList getSupply();
 
