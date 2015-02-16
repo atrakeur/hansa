@@ -37,7 +37,7 @@ public interface ICity extends IDrawable, IClickable {
      *
      * @return the kontor selected
      */
-    public IKontor getNextKontor();
+    public IKontor<? extends Pawn> getNextKontor();
 
     /**
      * Getter for the position of the city

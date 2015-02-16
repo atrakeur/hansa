@@ -36,7 +36,7 @@ public class MovePawnRtoGB implements IMovement {
 
     @Override
     public void doMovement() {
-        if (actionDone == true) {
+        if (actionDone) {
             throw new IllegalStateException();
         }
 
@@ -59,7 +59,7 @@ public class MovePawnRtoGB implements IMovement {
 
     @Override
     public void doRollback() {
-        if (actionDone == false) {
+        if (!actionDone) {
             throw new IllegalStateException();
         }
 

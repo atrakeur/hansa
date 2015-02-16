@@ -16,9 +16,11 @@ public class Bursa implements IMovement {
 
     private boolean actionDone;
 
-    /* Constructeur de la classe MovePawnStoR, pour la compétence Bursa au Maximum
-    * @throw NotAvailableActionException si la compétence bursa de player n'est pas au maximum
-    * */
+    /**
+     * Constructeur de la classe MovePawnStoR, pour la compétence Bursa au Maximum
+     *
+     * @throws NotAvailableActionException si la compétence bursa de player n'est pas au maximum
+     */
     public Bursa(IHTPlayer player) {
         if (player == null) {
             throw new IllegalArgumentException();
@@ -38,25 +40,26 @@ public class Bursa implements IMovement {
         this.nbMerchant = this.player.getEscritoire().getStock().getMerchantCount();
         this.actionDone = false;
     }
-    
-    /**Constructeur de la classe MovePawnStoR
+
+    /**
+     * Constructeur de la classe MovePawnStoR
      * L'instanciation des traders se fait de la façon suivante :
      * Trader =
-     *  - Bursa - Merchant (soit le nombre de pions déplacable restant)
-     *  - Au nombre de trader présent dans le stock (si la compétence bursa est très élevée, et qu'il y a
-     *      moins de trader présent dans le stock que ceux données par bursa - merchant).
+     * - Bursa - Merchant (soit le nombre de pions déplacable restant)
+     * - Au nombre de trader présent dans le stock (si la compétence bursa est très élevée, et qu'il y a
+     * moins de trader présent dans le stock que ceux données par bursa - merchant).
      * Aussi : Si le player a augmenté son pouvoir Bursa au maximum, les traders et les merchants prennent le nombre
      * respectif de trader et de merchant qu'il y a dans le stock
      *
-     * @throws NotEnoughSupplyException S'il n'y a pas assez de merchant dans le stock
+     * @throws NotEnoughSupplyException    S'il n'y a pas assez de merchant dans le stock
      * @throws NotAvailableActionException Si le nombre de merchant est supérieur à la valeur actuel du pouvoir bursa du player.
-     * */
-    public Bursa(IHTPlayer player, int merchant){
-        if(player == null || merchant < 0){
+     */
+    public Bursa(IHTPlayer player, int merchant) {
+        if (player == null || merchant < 0) {
             throw new IllegalArgumentException();
         }
 
-        if(player.getEscritoire().bursaLevel() == Integer.MAX_VALUE){
+        if (player.getEscritoire().bursaLevel() == Integer.MAX_VALUE) {
             this.player = player;
             this.nbTrader = this.player.getEscritoire().getStock().getTraderCount();
             this.nbMerchant = this.player.getEscritoire().getStock().getMerchantCount();
@@ -70,8 +73,8 @@ public class Bursa implements IMovement {
                 throw new NotAvailableActionException("Bursa level insufficient.");
             }
 
-            if(player.getEscritoire().getStock().getTraderCount() == 0 &&
-                    player.getEscritoire().getStock().getMerchantCount() == 0){
+            if (player.getEscritoire().getStock().getTraderCount() == 0 &&
+                    player.getEscritoire().getStock().getMerchantCount() == 0) {
                 throw new NotAvailableActionException("Aucun pion a déplacer.");
             }
 
@@ -96,35 +99,28 @@ public class Bursa implements IMovement {
     @Override
     public void doMovement() {
 
-        if(actionDone){
+        if (actionDone) {
             throw new IllegalStateException("Movement already done");
         }
 
-        try{
-            player.getEscritoire().moveStockToSupply(nbMerchant, nbTrader);
-            this.actionDone = true;
-        }catch(NotEnoughSupplyException e) {
-            throw e;
-        }
+        player.getEscritoire().moveStockToSupply(nbMerchant, nbTrader);
+        this.actionDone = true;
     }
 
     @Override
     public void doRollback() {
-        if(!actionDone){
+        if (!actionDone) {
             throw new IllegalStateException("Movement not done yet");
         }
 
         List<Pawn> pawns;
-        try{
-            pawns = player.getEscritoire().popFromSupply(nbMerchant, nbTrader);
-        } catch (NotEnoughSupplyException e){
-            throw e;
-        }
 
-        try{
+        pawns = player.getEscritoire().popFromSupply(nbMerchant, nbTrader);
+
+        try {
             player.getEscritoire().addToStock(pawns);
             actionDone = false;
-        }catch(NotEnoughSupplyException e){
+        } catch (NotEnoughSupplyException e) {
             player.getEscritoire().addToSupply(pawns);
             throw e;
         }
