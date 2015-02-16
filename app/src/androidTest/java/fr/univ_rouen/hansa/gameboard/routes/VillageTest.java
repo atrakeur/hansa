@@ -98,7 +98,7 @@ public class VillageTest extends TestCase{
         village.pushPawn(p);
         assertTrue(village.pullPawn() == p);
     }
-    @Test(expected = IllegalStateException.class)
+
     public void testPullNull() throws Exception{
         village = new Village(VillagePositions.BREMEN_HAMBURG_3);
         assertNotNull( village);
