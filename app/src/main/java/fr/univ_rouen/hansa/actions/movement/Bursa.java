@@ -8,7 +8,7 @@ import fr.univ_rouen.hansa.exceptions.NotEnoughSupplyException;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 
-public class MovePawnStoR implements IMovement {
+public class Bursa implements IMovement {
 
     private IHTPlayer player;
     private int nbMerchant;
@@ -16,7 +16,7 @@ public class MovePawnStoR implements IMovement {
 
     private boolean actionDone;
 
-    public MovePawnStoR (IHTPlayer player, int nbMerchant, int nbTrader){
+    public Bursa(IHTPlayer player, int nbMerchant, int nbTrader){
 
         if(player == null || nbMerchant < 0 || nbTrader < 0){
             throw new IllegalArgumentException();
@@ -36,6 +36,7 @@ public class MovePawnStoR implements IMovement {
 
         this.actionDone = false;
     }
+
     @Override
     public boolean isDone() {
         return actionDone;
@@ -43,7 +44,7 @@ public class MovePawnStoR implements IMovement {
 
     @Override
     public Actions getActionDone() {
-        return Actions.movePawnStoR;
+        return Actions.bursa;
     }
 
     @Override

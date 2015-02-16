@@ -20,5 +20,9 @@ public enum Privillegium {
         return this.color;
     }
 
+    public boolean isBetterThan(Privillegium privillegium) {
+        return this.ordinal() >= privillegium.ordinal();
+    }
+
 
 }

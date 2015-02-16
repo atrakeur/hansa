@@ -3,11 +3,26 @@ package fr.univ_rouen.hansa.gameboard.cities;
 import java.util.List;
 
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 import fr.univ_rouen.hansa.view.IPosition;
 import fr.univ_rouen.hansa.view.display.IDrawable;
 import fr.univ_rouen.hansa.view.interactions.IClickable;
 
 public interface ICity extends IDrawable, IClickable {
+
+    /**
+     * Set a route near the city
+     *
+     * @param route IRoute near the city
+     */
+    public void setRoute(IRoute route);
+
+    /**
+     * Return all routes near the city
+     *
+     * @return a set of IRoute
+     */
+    public List<IRoute> getRoutes();
 
     /**
      * Return the kontor at the position i int the city
@@ -16,6 +31,13 @@ public interface ICity extends IDrawable, IClickable {
      * @return the kontor selected
      */
     public IKontor getKontor(int i);
+
+    /**
+     * Return the kontor who can be keep
+     *
+     * @return the kontor selected
+     */
+    public IKontor getNextKontor();
 
     /**
      * Getter for the position of the city

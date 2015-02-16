@@ -13,8 +13,9 @@ public abstract class RouteBoard extends CitiesBoard {
 
     private List<IRoute> routes;
 
-    public RouteBoard()
-    {
+    public RouteBoard() {
+        super();
+
         routes = Lists.newArrayList();
     }
 

@@ -1,9 +1,11 @@
 package fr.univ_rouen.hansa.gameboard.cities;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 import fr.univ_rouen.hansa.view.IPosition;
 import fr.univ_rouen.hansa.view.display.HansaCityDrawer;
 import fr.univ_rouen.hansa.view.display.IDrawer;
@@ -18,6 +20,7 @@ public class City implements ICity {
     private final IPosition position;
     private final Power power;
     private final List<IKontor<? extends Pawn>> kontors;
+    private final List<IRoute> routes;
 
     public City(IPosition position, Power power, List<IKontor<? extends Pawn>> kontors) {
         if (kontors == null) {
@@ -25,20 +28,43 @@ public class City implements ICity {
         }
 
         this.drawer = new HansaCityDrawer(this);
+        this.clickableArea = new HansaCityClickableArea(this);
 
         this.position = position;
         this.power = power;
         this.kontors = kontors;
-        clickableArea = new HansaCityClickableArea(this);
+
+        this.routes = new ArrayList<>();
     }
 
     @Override
-    public IKontor getKontor(int i) {
+    public void setRoute(IRoute route) {
+        routes.add(route);
+    }
+
+    @Override
+    public List<IRoute> getRoutes() {
+        return new ArrayList<>(routes);
+    }
+
+    @Override
+    public IKontor<? extends Pawn> getKontor(int i) {
         if (i < 0 || i > kontors.size()) {
             throw new IllegalArgumentException();
         }
 
         return kontors.get(i);
+    }
+
+    @Override
+    public IKontor<? extends Pawn> getNextKontor() {
+        for (IKontor kontor : kontors) {
+            if (kontor.isEmpty()) {
+                return kontor;
+            }
+        }
+
+        return null;
     }
 
     @Override
@@ -48,7 +74,7 @@ public class City implements ICity {
 
     @Override
     public List<IKontor<? extends Pawn>> getKontors() {
-        return kontors;
+        return new ArrayList<>(kontors);
     }
 
     @Override

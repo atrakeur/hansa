@@ -11,6 +11,7 @@ public class Village implements IVillage {
 
     private final IPosition position;
     private Pawn pawn;
+    private IRoute route;
 
     private IClickableArea clickableArea;
 
@@ -18,6 +19,24 @@ public class Village implements IVillage {
         this.position = position;
 
         this.clickableArea = new HansaVillageClickableArea(this);
+    }
+
+    @Override
+    public IRoute getRoute() {
+        if (route == null) {
+            throw new IllegalStateException();
+        }
+
+        return route;
+    }
+
+    @Override
+    public void setRoute(IRoute route) {
+        if (this.route != null) {
+            throw new IllegalStateException();
+        }
+
+        this.route = route;
     }
 
     @Override
@@ -37,6 +56,15 @@ public class Village implements IVillage {
         }
 
         return null;
+    }
+
+    @Override
+    public Class<? extends Pawn> getPawnType() {
+        if (pawn == null) {
+            return null;
+        }
+
+        return pawn.getClass();
     }
 
     @Override

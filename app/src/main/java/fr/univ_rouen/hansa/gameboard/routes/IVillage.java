@@ -8,6 +8,20 @@ import fr.univ_rouen.hansa.view.interactions.IClickable;
 public interface IVillage extends IClickable {
 
     /**
+     * Allow to know the route of the village
+     *
+     * @return the route of the village
+     */
+    public IRoute getRoute();
+
+    /**
+     * Set the route attach to the village
+     *
+     * @param route the route of the village
+     */
+    public void setRoute(IRoute route);
+
+    /**
      * Allow you to know if the village have a pawn or not
      *
      * @return true if the village have no pawn
@@ -27,6 +41,13 @@ public interface IVillage extends IClickable {
      * @return the owner of the village, null if the village is empty
      */
     public IHTPlayer getOwner();
+
+    /**
+     * For know the type of pawn in the village
+     *
+     * @return the class who represent the type of pawn
+     */
+    public Class<? extends Pawn> getPawnType();
 
     /**
      * Add a pawn to the village
