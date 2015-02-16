@@ -27,5 +27,7 @@ public interface IClickableArea {
     public void onDragFrom(IClickableArea from);
 
     public void drawDebug(ResourceRepository resources, Canvas canvas);
+
+    public Object getSubject();
     
 }

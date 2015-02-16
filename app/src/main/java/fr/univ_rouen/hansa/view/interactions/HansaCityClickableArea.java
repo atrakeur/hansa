@@ -6,7 +6,6 @@ import android.graphics.Paint;
 import android.util.Log;
 
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
-import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 import fr.univ_rouen.hansa.view.utils.ResourceRepository;
 
 public class HansaCityClickableArea extends ClickableArea {
@@ -15,7 +14,7 @@ public class HansaCityClickableArea extends ClickableArea {
     private ICity city;
 
     public HansaCityClickableArea(ICity city) {
-        super(Type.village);
+        super(Type.city);
 
         this.city = city;
     }
@@ -55,6 +54,11 @@ public class HansaCityClickableArea extends ClickableArea {
         Paint p = new Paint();
         p.setColor(Color.GREEN);
         canvas.drawCircle(city.getPosition().getX(), city.getPosition().getY(), radius, p);
+    }
+
+    @Override
+    public Object getSubject() {
+        return this.city;
     }
 
 }

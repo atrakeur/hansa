@@ -7,6 +7,9 @@ import android.os.Debug;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import fr.univ_rouen.hansa.actions.MovementFactory;
+import fr.univ_rouen.hansa.actions.movement.MovePawnRtoGB;
+import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 import fr.univ_rouen.hansa.view.utils.ResourceRepository;
 
@@ -34,6 +37,7 @@ public class HansaVillageClickableArea extends ClickableArea {
     @Override
     public void onClick() {
         Log.w("Village", "onClick");
+        MovementFactory.getInstance().makeMovement(this, null);
     }
 
     @Override
@@ -44,6 +48,7 @@ public class HansaVillageClickableArea extends ClickableArea {
     @Override
     public void onDragFrom(IClickableArea from) {
         Log.w("Village", "onDragFrom" + from);
+        MovementFactory.getInstance().makeMovement(from, this);
     }
 
     @Override
@@ -56,6 +61,11 @@ public class HansaVillageClickableArea extends ClickableArea {
         Paint p = new Paint();
         p.setColor(Color.GREEN);
         canvas.drawCircle(village.getPosition().getX(), village.getPosition().getY(), radius, p);
+    }
+
+    @Override
+    public Object getSubject() {
+        return this.village;
     }
 
 }

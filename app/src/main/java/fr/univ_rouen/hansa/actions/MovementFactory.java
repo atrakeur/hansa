@@ -5,6 +5,7 @@ import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.view.interactions.IClickableArea;
 
 public class MovementFactory {
+
     private static MovementFactory ourInstance = new MovementFactory();
 
     public static MovementFactory getInstance() {
@@ -14,7 +15,7 @@ public class MovementFactory {
     private MovementFactory() {
     }
 
-    private IMovement makeMovement(IClickableArea source, IClickableArea destination) {
+    public IMovement makeMovement(IClickableArea source, IClickableArea destination) {
         if (source.getType() == IClickableArea.Type.bonus && destination == null ) {
             //TODO PlayBonus Bonus -> null
         } else if (source.getType() == IClickableArea.Type.village && destination == null ) {
