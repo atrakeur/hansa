@@ -9,10 +9,13 @@ import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 import fr.univ_rouen.hansa.view.IPosition;
 import fr.univ_rouen.hansa.view.display.HansaCityDrawer;
 import fr.univ_rouen.hansa.view.display.IDrawer;
+import fr.univ_rouen.hansa.view.interactions.HansaCityClickableArea;
+import fr.univ_rouen.hansa.view.interactions.IClickableArea;
 
 public class City implements ICity {
 
     private final IDrawer drawer;
+    private final IClickableArea clickableArea;
 
     private final IPosition position;
     private final Power power;
@@ -25,6 +28,7 @@ public class City implements ICity {
         }
 
         this.drawer = new HansaCityDrawer(this);
+        this.clickableArea = new HansaCityClickableArea(this);
 
         this.position = position;
         this.power = power;
@@ -93,5 +97,10 @@ public class City implements ICity {
     @Override
     public IDrawer getDrawer() {
         return this.drawer;
+    }
+
+    @Override
+    public IClickableArea getClickableArea() {
+        return this.clickableArea;
     }
 }

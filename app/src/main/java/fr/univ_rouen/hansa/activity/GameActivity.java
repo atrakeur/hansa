@@ -14,7 +14,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import fr.univ_rouen.hansa.R;
+import fr.univ_rouen.hansa.actions.MovementFactory;
 import fr.univ_rouen.hansa.actions.MovementManager;
+import fr.univ_rouen.hansa.actions.movement.Bursa;
+import fr.univ_rouen.hansa.actions.movement.IMovement;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
@@ -75,13 +78,15 @@ public class GameActivity extends Activity {
 
 
         if(player.getEscritoire().getStock().getMerchantCount() <= 0){
-            MovementManager.getInstance().doBursaMove(0);
+            IMovement m = MovementFactory.getInstance().makeBursaMovement(0);
+            MovementManager.getInstance().doMove(m);
             Toast.makeText(context, "Nombre de trader : "+TurnManager.getInstance().getCurrentPlayer().getEscritoire().getSupply().getTraderCount(), Toast.LENGTH_SHORT).show();
             return;
         }
 
         if(player.getEscritoire().bursaLevel() == Integer.MAX_VALUE){
-            MovementManager.getInstance().doBursaMove();
+            IMovement m = MovementFactory.getInstance().makeBursaMovement();
+            MovementManager.getInstance().doMove(m);
             Toast.makeText(context, "Nombre de trader : "+TurnManager.getInstance().getCurrentPlayer().getEscritoire().getSupply().getTraderCount(), Toast.LENGTH_SHORT).show();
             return;
         }
@@ -100,7 +105,10 @@ public class GameActivity extends Activity {
             .setCancelable(false)
             .setPositiveButton(R.string.alert_confirm, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                    MovementManager.getInstance().doBursaMove(Integer.parseInt( tex.getText()+"" ));
+                    //Generate mouvement and do it!
+                    int merchants = Integer.parseInt( tex.getText()+"" );
+                    IMovement m = MovementFactory.getInstance().makeBursaMovement(merchants);
+                    MovementManager.getInstance().doMove(m);
                     Toast.makeText(context, "Vous avez "+player.getEscritoire().getSupply().getTraderCount()+" Traders, et "
                             +player.getEscritoire().getSupply().getMerchantCount()+" Marchants", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();

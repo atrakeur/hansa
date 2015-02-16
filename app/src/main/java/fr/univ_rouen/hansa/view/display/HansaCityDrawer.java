@@ -1,6 +1,7 @@
 package fr.univ_rouen.hansa.view.display;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
@@ -14,6 +15,8 @@ import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.view.utils.ResourceRepository;
 
 public class HansaCityDrawer implements IDrawer {
+
+    private boolean debug = false;
 
     public final float KONTOR_MERCHANT_SIZE_X = 0.021f;
     public final float KONTOR_MERCHANT_SIZE_Y = 0.0275f;
@@ -50,10 +53,18 @@ public class HansaCityDrawer implements IDrawer {
         //Draw kontors from left to right
         Paint paint = new Paint();
         float drawPosX = city.getPosition().getX() - citySizeX / 2;
-        for (IKontor kontor : kontors) {
-            paint.setColor(kontor.getPrivillegium().getColor());
 
-            if (kontor.getPawnClass() == Trader.class) {
+        for (IKontor kontor : kontors) {
+            //Draw a trader type kontor
+            if (kontor.getPawnClass() == Trader.class && (debug || !kontor.isEmpty())) {
+                if (debug) {
+                    int color = kontor.getPrivillegium().getColor();
+                    paint.setColor(color);
+                } else {
+                    int color = kontor.getOwner().getPlayerColor().getColor();
+                    paint.setColor(color);
+                }
+
                 canvas.drawRect(
                         resources.getPercentToScreenWidth(drawPosX),
                         resources.getPercentToScreenHeight(city.getPosition().getY() - KONTOR_TRADER_SIZE_Y / 2),
@@ -63,7 +74,18 @@ public class HansaCityDrawer implements IDrawer {
                 );
 
                 drawPosX += KONTOR_TRADER_SIZE_X + KONTOR_SPACING_X;
-            } else if (kontor.getPawnClass() == Merchant.class) {
+            }
+
+            //Draw a Merchant type kontor
+            if (kontor.getPawnClass() == Merchant.class && (debug || !kontor.isEmpty())) {
+                if (debug) {
+                    int color = kontor.getPrivillegium().getColor();
+                    paint.setColor(color);
+                } else {
+                    int color = kontor.getOwner().getPlayerColor().getColor();
+                    paint.setColor(color);
+                }
+
                 canvas.drawOval(
                         new RectF(resources.getPercentToScreenWidth(drawPosX),
                                 resources.getPercentToScreenHeight(city.getPosition().getY() - KONTOR_MERCHANT_SIZE_Y / 2),

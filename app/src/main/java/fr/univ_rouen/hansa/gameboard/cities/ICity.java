@@ -6,8 +6,9 @@ import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 import fr.univ_rouen.hansa.view.IPosition;
 import fr.univ_rouen.hansa.view.display.IDrawable;
+import fr.univ_rouen.hansa.view.interactions.IClickable;
 
-public interface ICity extends IDrawable {
+public interface ICity extends IDrawable, IClickable {
 
     /**
      * Set a route near the city
