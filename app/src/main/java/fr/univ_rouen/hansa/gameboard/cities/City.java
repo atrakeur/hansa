@@ -54,7 +54,7 @@ public class City implements ICity {
 
     @Override
     public IKontor<? extends Pawn> getNextKontor() {
-        for (IKontor kontor : kontors) {
+        for (IKontor<? extends Pawn> kontor : kontors) {
             if (kontor.isEmpty()) {
                 return kontor;
             }
@@ -80,7 +80,7 @@ public class City implements ICity {
 
     @Override
     public boolean isCompletedCity() {
-        for (IKontor k : kontors) {
+        for (IKontor<? extends Pawn> k : kontors) {
             if (k.isEmpty()) {
                 return false;
             }

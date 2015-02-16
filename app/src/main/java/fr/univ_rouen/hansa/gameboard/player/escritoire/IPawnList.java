@@ -35,7 +35,7 @@ public interface IPawnList {
     /**
      * Remove and return the pawns argument from the list of pawns
      * @return the given pawns
-     * @throw fr.univ_rouen.hansa.exceptions.NotEnoughSupplyException if there is not enough pawns in the list or one pawns is not in the list.
+     * @throws fr.univ_rouen.hansa.exceptions.NotEnoughSupplyException if there is not enough pawns in the list or one pawns is not in the list.
      * */
     public List<Pawn> removePawns(List<Pawn> pawns);
 
