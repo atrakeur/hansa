@@ -106,6 +106,13 @@ public class Escritoire implements IEscritoire {
         }
         return tmp;
     }
+    @Override
+    public void addBonusMarker(IBonusMarker bonus) {
+        if (bonus == null) {
+            throw new IllegalArgumentException();
+        }
+        bonusMarkers.add(bonus);
+    }
 
     @Override
     public int bonusMarkerCount() {

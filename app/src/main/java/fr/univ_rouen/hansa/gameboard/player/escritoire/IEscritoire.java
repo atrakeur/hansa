@@ -20,6 +20,7 @@ public interface IEscritoire {
     public List<IBonusMarker> getTinPlateContent();
     public List<IBonusMarker> getUnusedBonusMarker();
     public List<IBonusMarker> getUsedBonusMarker();
+    public void addBonusMarker(IBonusMarker bonus);
     public int bonusMarkerCount();
     public int clavisUrbisLevel();
     public int actionesLevel();
