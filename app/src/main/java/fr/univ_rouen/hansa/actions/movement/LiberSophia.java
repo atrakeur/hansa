@@ -2,15 +2,19 @@ package fr.univ_rouen.hansa.actions.movement;
 
 import fr.univ_rouen.hansa.actions.Actions;
 import fr.univ_rouen.hansa.exceptions.GameException;
+import fr.univ_rouen.hansa.exceptions.NotAvailableActionException;
+import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 
 public class LiberSophia implements IMovement {
+    private final IHTPlayer player;
     private final IVillage source;
     private final IVillage destination;
 
     private boolean actionDone;
 
-    public LiberSophia(IVillage source, IVillage destination) {
+    public LiberSophia(IHTPlayer player, IVillage source, IVillage destination) {
+        this.player = player;
         this.source = source;
         this.destination = destination;
 
@@ -30,11 +34,15 @@ public class LiberSophia implements IMovement {
     @Override
     public void doMovement() {
         if (!destination.isEmpty()) {
-            throw new GameException("Village destination is not empty");
+            throw new NotAvailableActionException("Village destination is not empty");
         }
 
         if (source.isEmpty()) {
             throw new GameException("Village source is empty");
+        }
+
+        if (!source.getOwner().equals(player)) {
+            throw new GameException("Wrong player in the village");
         }
 
         destination.pushPawn(source.pullPawn());
