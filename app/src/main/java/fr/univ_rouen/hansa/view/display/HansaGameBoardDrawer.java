@@ -7,6 +7,7 @@ import java.util.List;
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
+import fr.univ_rouen.hansa.view.interactions.IClickable;
 import fr.univ_rouen.hansa.view.utils.ResourceRepository;
 
 public class HansaGameBoardDrawer implements IDrawer {
@@ -44,6 +45,10 @@ public class HansaGameBoardDrawer implements IDrawer {
 
         for (IRoute route : routes) {
             route.getDrawer().draw(resources, canvas);
+        }
+
+        for (IClickable clickable: board.getClickables()) {
+            clickable.getClickableArea().drawDebug(resources, canvas);
         }
     }
 }

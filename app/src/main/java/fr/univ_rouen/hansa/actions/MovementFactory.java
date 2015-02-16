@@ -24,7 +24,7 @@ public class MovementFactory {
     private MovementFactory() {
     }
 
-    private IMovement makeMovement(IClickableArea source, IClickableArea destination) {
+    public IMovement makeMovement(IClickableArea source, IClickableArea destination) {
         IHTPlayer player = TurnManager.getInstance().getCurrentPlayer();
 
         if (source.getType() == IClickableArea.Type.bonus && destination == null ) {
@@ -43,11 +43,20 @@ public class MovementFactory {
             return new MovePawnRtoGB(player, (IVillage) destination.getSubject(), Trader.class);
         } else if (source.getType() == IClickableArea.Type.village && destination.getType() == IClickableArea.Type.city ) {
             return new KeepKontor(player, (ICity) destination.getSubject(), (IVillage) source.getSubject());
-        } else if (source.getType() == IClickableArea.Type.stock && destination.getType() == IClickableArea.Type.supply ) {
-            //TODO Enelver les valeurs en dur
-            return new Bursa(player, 1, 1);
         }
 
-        throw new GameException("Invalid movement");
+        throw new GameException("Invalid movement for types "+source.getType() +" to "+destination.getType());
+    }
+
+    public IMovement makeBursaMovement(int merchant) {
+        IHTPlayer player = TurnManager.getInstance().getCurrentPlayer();
+
+        return new Bursa(player, merchant);
+    }
+
+    public IMovement makeBursaMovement() {
+        IHTPlayer player = TurnManager.getInstance().getCurrentPlayer();
+
+        return new Bursa(player);
     }
 }

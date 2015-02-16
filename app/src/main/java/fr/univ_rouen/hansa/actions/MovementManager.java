@@ -16,20 +16,23 @@ public class MovementManager {
 
     public static MovementManager getInstance(){return instance;}
 
-    public void doBursaMove(){
-            IMovement m = new Bursa(TurnManager.getInstance().getCurrentPlayer());
-            m.doMovement();
-            stack.push(m);
-    }
-
-    public void doBursaMove(int merchant){
-        IMovement m = new Bursa(TurnManager.getInstance().getCurrentPlayer(), merchant);
+    public void doMove(IMovement m) {
+        if (m.isDone()) {
+            throw new IllegalStateException("Can't do the same Movement twice");
+        }
         m.doMovement();
         stack.push(m);
     }
 
-    public void rollbackMove(){
-        stack.pop().doRollback();
+    public IMovement rollbackMove(){
+        IMovement m = stack.pop();
+        if (!m.isDone()) {
+            stack.push(m);
+            throw new IllegalStateException("Can't rollback the same Movement twice");
+        }
+
+        m.doRollback();
+        return m;
     }
 
     public boolean isEmpty(){return stack.isEmpty();}

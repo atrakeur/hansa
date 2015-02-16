@@ -12,30 +12,24 @@ import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.view.utils.ResourceRepository;
 
-public class HansaCityClickableArea extends ClickableArea {
+public class HansaSupplyClickableArea extends ClickableArea {
 
-    private float selectionDistance = 0.05f;
-    private ICity city;
+    private float posX = 0.9f;
+    private float posY = 0.9f;
+    private float sizeX = 0.1f;
+    private float sizeY = 0.1f;
 
-    public HansaCityClickableArea(ICity city) {
-        super(Type.city);
-
-        this.city = city;
+    public HansaSupplyClickableArea() {
+        super(Type.supply);
     }
 
     public boolean isClicked(float x, float y) {
-        double distance = Math.sqrt(
-                Math.pow(x - city.getPosition().getX(), 2)
-                +
-                Math.pow(y - city.getPosition().getY(), 2)
-        );
-
-        return distance < selectionDistance;
+        return x > posX && x < posX + sizeX && y > posY && y < posY + sizeY;
     }
 
     @Override
     public void onClick() {
-        Log.w("Ville", "onClick");
+        Log.w("Supply", "onClick");
 
         try {
             IMovement m = MovementFactory.getInstance().makeMovement(this, null);
@@ -47,12 +41,12 @@ public class HansaCityClickableArea extends ClickableArea {
 
     @Override
     public void onDragTo(IClickableArea to) {
-        Log.w("Ville", "onDragTo " + to);
+        Log.w("Supply", "onDragTo " + to);
     }
 
     @Override
     public void onDragFrom(IClickableArea from) {
-        Log.w("Ville", "onDragFrom" + from);
+        Log.w("Supply", "onDragFrom" + from);
 
         try {
             IMovement m = MovementFactory.getInstance().makeMovement(from, this);
@@ -60,23 +54,21 @@ public class HansaCityClickableArea extends ClickableArea {
         } catch(GameException e) {
             e.printStackTrace();
         }
+
     }
 
     @Override
     public void drawDebug(ResourceRepository resources, Canvas canvas)
     {
-        float radius = Math.max(
-                resources.getScreenWidthToPercent(this.selectionDistance),
-                resources.getScreenHeigthToPercent(this.selectionDistance)
-        );
         Paint p = new Paint();
-        p.setColor(Color.GREEN);
-        canvas.drawCircle(city.getPosition().getX(), city.getPosition().getY(), radius, p);
+        p.setColor(Color.MAGENTA);
+        canvas.drawRect(posX, posY, posX + sizeX, posY + sizeY, p);
     }
 
     @Override
     public Object getSubject() {
-        return this.city;
+        throw new IllegalStateException("No subject on Supply clickable area");
     }
 
 }
+

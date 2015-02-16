@@ -49,7 +49,7 @@ public class GameBoardView extends SurfaceView {
         board.getDrawer().load(resources);
     }
 
-    public void onDraw(Canvas canvas) {
+    public void redraw(Canvas canvas) {
         if (board == null) {
             Paint paint = new Paint();
             paint.setColor(Color.RED);

@@ -8,14 +8,17 @@ import android.util.Log;
 import android.view.MotionEvent;
 
 import fr.univ_rouen.hansa.actions.MovementFactory;
+import fr.univ_rouen.hansa.actions.MovementManager;
+import fr.univ_rouen.hansa.actions.movement.IMovement;
 import fr.univ_rouen.hansa.actions.movement.MovePawnRtoGB;
+import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 import fr.univ_rouen.hansa.view.utils.ResourceRepository;
 
 public class HansaVillageClickableArea extends ClickableArea {
 
-    private float selectionDistance = 0.1f;
+    private float selectionDistance = 0.05f;
     private IVillage village;
 
     public HansaVillageClickableArea(IVillage village) {
@@ -37,7 +40,13 @@ public class HansaVillageClickableArea extends ClickableArea {
     @Override
     public void onClick() {
         Log.w("Village", "onClick");
-        MovementFactory.getInstance().makeMovement(this, null);
+
+        try {
+            IMovement m = MovementFactory.getInstance().makeMovement(this, null);
+            MovementManager.getInstance().doMove(m);
+        } catch(GameException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -48,7 +57,21 @@ public class HansaVillageClickableArea extends ClickableArea {
     @Override
     public void onDragFrom(IClickableArea from) {
         Log.w("Village", "onDragFrom" + from);
-        MovementFactory.getInstance().makeMovement(from, this);
+
+        try {
+            IMovement m = MovementFactory.getInstance().makeMovement(from, this);
+
+            Log.w("Important!", m.toString());
+            Log.w("Important!", ""+ village.isEmpty());
+            Log.w("Important!", ""+ village.getPawnType());
+
+            MovementManager.getInstance().doMove(m);
+
+            Log.w("Important!", ""+ village.isEmpty());
+            Log.w("Important!", ""+ village.getPawnType());
+        } catch(GameException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

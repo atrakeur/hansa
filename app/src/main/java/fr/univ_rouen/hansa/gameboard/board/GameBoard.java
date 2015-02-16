@@ -1,5 +1,7 @@
 package fr.univ_rouen.hansa.gameboard.board;
 
+import com.google.common.collect.Lists;
+
 import java.util.List;
 
 import fr.univ_rouen.hansa.gameboard.TurnManager;
@@ -11,7 +13,9 @@ import fr.univ_rouen.hansa.gameboard.routes.Route;
 import fr.univ_rouen.hansa.view.display.HansaGameBoardDrawer;
 import fr.univ_rouen.hansa.view.display.IDrawable;
 import fr.univ_rouen.hansa.view.display.IDrawer;
+import fr.univ_rouen.hansa.view.interactions.HansaSupplyClickableArea;
 import fr.univ_rouen.hansa.view.interactions.IClickable;
+import fr.univ_rouen.hansa.view.interactions.IClickableArea;
 
 public class GameBoard extends PlayersBoard implements IDrawable {
 
@@ -43,6 +47,14 @@ public class GameBoard extends PlayersBoard implements IDrawable {
             cliquables.add(city);
             //TODO add power cliquable area
         }
+
+        //TODO remove that shit
+        cliquables.add(new IClickable() {
+            @Override
+            public IClickableArea getClickableArea() {
+                return new HansaSupplyClickableArea();
+            }
+        });
 
         return cliquables.toArray(new IClickable[cliquables.size()]);
     }
