@@ -111,6 +111,14 @@ public class ResourceRepository {
         return (int)(destHeigth * percent);
     }
 
+    public float getScreenWidthToPercent(float width) {
+        return width / destWidth;
+    }
+
+    public float getScreenHeigthToPercent(float heigth) {
+        return heigth / destHeigth;
+    }
+
     public void clear() {
         resources.clear();
     }

@@ -3,6 +3,9 @@ package fr.univ_rouen.hansa.gameboard.routes;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.view.IPosition;
+import fr.univ_rouen.hansa.view.interactions.HansaVillageClickableArea;
+import fr.univ_rouen.hansa.view.interactions.IClickable;
+import fr.univ_rouen.hansa.view.interactions.IClickableArea;
 
 public class Village implements IVillage {
 
@@ -10,8 +13,12 @@ public class Village implements IVillage {
     private Pawn pawn;
     private IRoute route;
 
+    private IClickableArea clickableArea;
+
     public Village(IPosition position) {
         this.position = position;
+
+        this.clickableArea = new HansaVillageClickableArea(this);
     }
 
     @Override
@@ -79,5 +86,10 @@ public class Village implements IVillage {
         this.pawn = null;
 
         return pawn;
+    }
+
+    @Override
+    public IClickableArea getClickableArea() {
+        return this.clickableArea;
     }
 }
