@@ -2,7 +2,6 @@ package fr.univ_rouen.hansa.view.utils;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 

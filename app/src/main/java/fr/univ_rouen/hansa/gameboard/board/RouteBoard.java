@@ -5,7 +5,6 @@ import com.google.common.collect.Lists;
 import java.util.Collections;
 import java.util.List;
 
-import fr.univ_rouen.hansa.gameboard.board.CitiesBoard;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 

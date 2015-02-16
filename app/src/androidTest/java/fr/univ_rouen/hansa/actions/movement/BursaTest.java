@@ -7,6 +7,7 @@ import java.util.Arrays;
 import fr.univ_rouen.hansa.exceptions.NotAvailableActionException;
 import fr.univ_rouen.hansa.exceptions.NotEnoughSupplyException;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
+import fr.univ_rouen.hansa.gameboard.cities.Power;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 
@@ -21,8 +22,45 @@ public class BursaTest extends TestCase {
     private static final int MOVE_MER = 0;
     private static final int MOVE_TRA = 3;
 
+    public void testMaxBursa() throws Exception{
 
-    public void testMovement() throws Exception {
+        TurnManager manager = TurnManager.getInstance();
+        assertNotNull(manager);
+
+        manager.addPlayers(Arrays.asList(PlayerColor.values()));
+        IHTPlayer player=manager.getCurrentPlayer();
+        assertNotNull(player);
+
+        Bursa move;
+
+        player.getEscritoire().increasePower(Power.Bursa);
+        player.getEscritoire().increasePower(Power.Bursa);
+        player.getEscritoire().increasePower(Power.Bursa);
+
+        move = new Bursa(player);
+        move.doMovement();
+
+        assertTrue(player.getEscritoire().getStock().getMerchantCount() == 0);
+        assertTrue(player.getEscritoire().getStock().getTraderCount() == 0);
+
+        move.doRollback();
+
+        assertTrue(player.getEscritoire().getStock().getMerchantCount() == STOCK_MER);
+        assertTrue(player.getEscritoire().getStock().getTraderCount() == STOCK_TRA);
+
+        move = new Bursa(player, 0);
+        move.doMovement();
+
+        assertTrue(player.getEscritoire().getStock().getMerchantCount() == 0);
+        assertTrue(player.getEscritoire().getStock().getTraderCount() == 0);
+
+        move.doRollback();
+
+        assertTrue(player.getEscritoire().getStock().getMerchantCount() == STOCK_MER);
+        assertTrue(player.getEscritoire().getStock().getTraderCount() == STOCK_TRA);
+    }
+
+    public void testMovement() throws Exception{
 
         TurnManager manager = TurnManager.getInstance();
         assertNotNull(manager);
@@ -31,45 +69,41 @@ public class BursaTest extends TestCase {
         IHTPlayer player = manager.getCurrentPlayer();
         assertNotNull(player);
 
-        try {
-            new Bursa(null, 0, 0);
-            throw new Exception("Invalid Affectation not catch.");
-        } catch (IllegalArgumentException ignored) {
-        }
+        Bursa move;
 
-        try {
-            new Bursa(player, -1, 0);
+        try{
+            move = new Bursa(null, 0);
             throw new Exception("Invalid Affectation not catch.");
-        } catch (IllegalArgumentException ignored) {
-        }
+        }catch (IllegalArgumentException e){}
 
-        try {
-            new Bursa(player, 0, -1);
+        try{
+            move = new Bursa(player, -1);
             throw new Exception("Invalid Affectation not catch.");
-        } catch (IllegalArgumentException ignored) {
-        }
+        }catch (IllegalArgumentException e){}
 
-        try {
-            new Bursa(player, 100, 100);
+        try{
+            move = new Bursa(player);
             throw new Exception("Invalid Affectation not catch.");
-        } catch (NotEnoughSupplyException ignored) {
-        }
+        }catch (NotAvailableActionException e){}
 
-        try {
-            new Bursa(player, 0, 4);
+        try{
+            move = new Bursa(player, 100);
             throw new Exception("Invalid Affectation not catch.");
-        } catch (NotAvailableActionException ignored) {
-        }
+        }catch (NotEnoughSupplyException e){}
 
-        Bursa move = new Bursa(player, MOVE_MER, MOVE_TRA);
+        try{
+            move = new Bursa(player, 4);
+            throw new Exception("Invalid Affectation not catch.");
+        }catch (NotEnoughSupplyException e){}
+
+        move = new Bursa(player, MOVE_MER);
 
         assertNotNull(move);
         assertFalse(move.isDone());
 
-        try {
+        try{
             move.doRollback();
-        } catch (IllegalStateException ignored) {
-        }
+        }catch(IllegalStateException ex){}
 
         move.doMovement();
         assertTrue(move.isDone());

@@ -1,7 +1,5 @@
 package fr.univ_rouen.hansa.view.interactions;
 
-import fr.univ_rouen.hansa.view.interactions.IClickableArea;
-
 public class ClickableArea implements IClickableArea {
 
     private final Type type;
