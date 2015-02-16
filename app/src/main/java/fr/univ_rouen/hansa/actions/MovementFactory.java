@@ -2,6 +2,8 @@ package fr.univ_rouen.hansa.actions;
 
 import fr.univ_rouen.hansa.actions.movement.IMovement;
 import fr.univ_rouen.hansa.exceptions.GameException;
+import fr.univ_rouen.hansa.gameboard.TurnManager;
+import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.view.interactions.IClickableArea;
 
 public class MovementFactory {
@@ -15,8 +17,11 @@ public class MovementFactory {
     }
 
     private IMovement makeMovement(IClickableArea source, IClickableArea destination) {
+        IHTPlayer player = TurnManager.getInstance().getCurrentPlayer();
+
         if (source.getType() == IClickableArea.Type.bonus && destination == null ) {
             //TODO PlayBonus Bonus -> null
+            throw new UnsupportedOperationException();
         } else if (source.getType() == IClickableArea.Type.village && destination == null ) {
             //TODO KeepRoute Village -> null
         } else if (source.getType() == IClickableArea.Type.village && destination.getType() == IClickableArea.Type.village ) {
