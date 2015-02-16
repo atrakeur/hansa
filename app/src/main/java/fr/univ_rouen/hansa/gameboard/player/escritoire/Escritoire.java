@@ -15,8 +15,6 @@ import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
 
 public class Escritoire implements IEscritoire {
-    private final IHTPlayer owner;
-
     private List<Trader> clavisUrbis;
     private List<Trader> actiones;
     private List<Trader> privilegium;
@@ -29,8 +27,6 @@ public class Escritoire implements IEscritoire {
     private IPawnList supply;
 
     public Escritoire(IHTPlayer owner, int startingPlace) {
-        this.owner = owner;
-
         clavisUrbis = Lists.newArrayList();
         actiones = Lists.newArrayList();
         privilegium = Lists.newArrayList();
@@ -157,8 +153,6 @@ public class Escritoire implements IEscritoire {
 
     @Override
     public void increasePower(Power power) {
-        Pawn pawn;
-
         switch (power) {
             case Actiones:
                 increasePower(actiones);

@@ -27,8 +27,6 @@ public class KeepKontor implements IMovement {
         this.player = player;
         this.village = village;
 
-        this.actionDone = false;
-
         if (city.isCompletedCity()) {
             throw new NoPlaceException("City is complete");
         }
@@ -37,11 +35,7 @@ public class KeepKontor implements IMovement {
             throw new GameException("Village has empty");
         }
 
-        if (city.isCompletedCity()) {
-            throw new NoPlaceException("City is complete");
-        }
-
-        this.kontor = city.getNextKontor();
+        this.kontor = (IKontor<Pawn>) city.getNextKontor();
 
         pawns = Lists.newArrayList();
     }
@@ -110,7 +104,7 @@ public class KeepKontor implements IMovement {
             }
         }
 
-        pawns.clear();;
+        pawns.clear();
 
         actionDone = false;
     }
