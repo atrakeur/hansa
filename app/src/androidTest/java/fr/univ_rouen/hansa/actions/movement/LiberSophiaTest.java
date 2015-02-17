@@ -2,19 +2,25 @@ package fr.univ_rouen.hansa.actions.movement;
 
 import junit.framework.TestCase;
 
-import fr.univ_rouen.hansa.actions.movement.LiberSophia;
-import fr.univ_rouen.hansa.gameboard.pawns.Trader;
+import fr.univ_rouen.hansa.gameboard.TurnManager;
+import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
+import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.gameboard.routes.Village;
+import fr.univ_rouen.hansa.view.Position;
 
 public class LiberSophiaTest extends TestCase {
 
     public void testMovement() throws Exception {
-        Village source = new Village();
-        Village destination = new Village();
+        GameBoardFactory.getInstance().createGameBoard(1);
 
-        LiberSophia liberSophia = new LiberSophia(source, destination);
+        IHTPlayer player = TurnManager.getInstance().getCurrentPlayer();
+        Village source = new Village(new Position(0, 0));
+        Village destination = new Village(new Position(0, 0));
 
-        source.pushPawn(new Trader());
+        LiberSophia liberSophia = new LiberSophia(player, source, destination);
+
+        source.pushPawn(new Trader(TurnManager.getInstance().getCurrentPlayer()));
 
         assertFalse(liberSophia.isDone());
 

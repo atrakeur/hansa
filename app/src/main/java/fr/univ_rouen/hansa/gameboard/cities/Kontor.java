@@ -1,23 +1,34 @@
 package fr.univ_rouen.hansa.gameboard.cities;
 
 import fr.univ_rouen.hansa.gameboard.Privillegium;
-import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.TurnManager;
+import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 
 public class Kontor<E extends Pawn> implements IKontor<E> {
 
+    private final Class<E> pawnClass;
+    private final boolean victoryPoint;
     private E pawn;
     private Privillegium privillegium;
 
-    public Kontor(Privillegium p) {
-        pawn = null;
-        privillegium = p;
+    public Kontor(Class<E> pawnClass, boolean victoryPoint, Privillegium privillegium) {
+        this.pawnClass = pawnClass;
+        this.victoryPoint = victoryPoint;
+        this.privillegium = privillegium;
+
+        this.pawn = null;
+    }
+
+    public Class<E> getPawnClass() {
+        return this.pawnClass;
     }
 
     public boolean isEmpty() {
         return pawn == null;
     }
 
-    public E pushPawn() {
+    public E popPawn() {
         E p = pawn;
         pawn = null;
         return p;
@@ -27,16 +38,28 @@ public class Kontor<E extends Pawn> implements IKontor<E> {
         return privillegium;
     }
 
-    public void pullPawn(E p) {
-        if (p == null) {
+    public void pushPawn(E pawn) {
+        if (pawn == null) {
             throw new IllegalArgumentException();
         }
 
-        if (!this.isEmpty()){
+        if (!this.isEmpty()) {
             throw new IllegalStateException();
         }
 
-        pawn = p;
+        this.pawn = pawn;
+
+        if (victoryPoint) {
+            TurnManager.getInstance().getCurrentPlayer().increaseScore();
+        }
+    }
+
+    public IHTPlayer getOwner() {
+        if (isEmpty()) {
+            return null;
+        }
+
+        return this.pawn.getPlayer();
     }
 
 }
