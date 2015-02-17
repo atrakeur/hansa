@@ -3,31 +3,18 @@ package fr.univ_rouen.hansa.gameboard.player.bonusmarkers;
 import android.app.Application;
 import android.test.ApplicationTestCase;
 
-import com.google.common.collect.Lists;
-
-import java.util.List;
-
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusActiones;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusEscritoire;
-import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusKontor;
-import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusRemovePawns;
-import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
-import fr.univ_rouen.hansa.gameboard.cities.City;
-import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
-import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
-import fr.univ_rouen.hansa.gameboard.pawns.Trader;
 import fr.univ_rouen.hansa.gameboard.player.HTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
-import fr.univ_rouen.hansa.gameboard.player.escritoire.IPawnList;
 
-/**
- * Created by AffluxXx on 16/02/2015.
- */
 public class BonusMarkersTest extends ApplicationTestCase<Application> {
 
-    public BonusMarkersTest() {super(Application.class);}
+    public BonusMarkersTest() {
+        super(Application.class);
+    }
 
     public void testBonusActiones() throws Exception {
         /**
@@ -36,7 +23,7 @@ public class BonusMarkersTest extends ApplicationTestCase<Application> {
          * Test du résultat de la méthode doAction et de la méthode unDoAction
          */
         BonusActiones bn3 = new BonusActiones(3);
-        IHTPlayer player = new HTPlayer(PlayerColor.blue,1);
+        IHTPlayer player = new HTPlayer(PlayerColor.blue, 1);
         player.getEscritoire().addBonusMarker(bn3);
         bn3.doAction();
         assertEquals(player.getActionNumber(), 4);
@@ -74,14 +61,14 @@ public class BonusMarkersTest extends ApplicationTestCase<Application> {
         assertEquals(player.getEscritoire().bursaLevel(), 3);
         es.setPower(Power.ClavisUrbis);
         es.doAction();
-        assertEquals(player.getEscritoire().clavisUrbisLevel(),2);
+        assertEquals(player.getEscritoire().clavisUrbisLevel(), 2);
         es.undoAction();
-        assertEquals(player.getEscritoire().clavisUrbisLevel(),1);
+        assertEquals(player.getEscritoire().clavisUrbisLevel(), 1);
         es.setPower(Power.LiberSophiae);
         es.doAction();
-        assertEquals(player.getEscritoire().liberSophiaLevel(),3);
+        assertEquals(player.getEscritoire().liberSophiaLevel(), 3);
         es.undoAction();
-        assertEquals(player.getEscritoire().liberSophiaLevel(),2);
+        assertEquals(player.getEscritoire().liberSophiaLevel(), 2);
         es.setPower(Power.Privillegium);
         es.doAction();
         assertEquals(player.getEscritoire().privilegiumLevel(), 2);
@@ -92,16 +79,16 @@ public class BonusMarkersTest extends ApplicationTestCase<Application> {
     public void testBonusRemovePawns() throws Exception {
         /**
          * A voir avec Steeven pour la façon de l'implementer
-        IBonusMarker bonus = new BonusRemovePawns();
-        List<Pawn> pawn;
-        pawn = new Lists.newArrayList();
-        IHTPlayer p1 = new HTPlayer(PlayerColor.blue, 1);
-        for (int i = 0; i < 10; i++) {
-            Pawn p = new Trader();
-            pawn.add(p);
-        }
-        p1.getEscritoire().addToStock(pawn);
-        */
+         IBonusMarker bonus = new BonusRemovePawns();
+         List<Pawn> pawn;
+         pawn = new Lists.newArrayList();
+         IHTPlayer p1 = new HTPlayer(PlayerColor.blue, 1);
+         for (int i = 0; i < 10; i++) {
+         Pawn p = new Trader();
+         pawn.add(p);
+         }
+         p1.getEscritoire().addToStock(pawn);
+         */
 
     }
 }

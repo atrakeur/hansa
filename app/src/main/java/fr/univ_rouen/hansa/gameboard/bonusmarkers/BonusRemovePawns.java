@@ -4,9 +4,9 @@ import com.google.common.collect.Lists;
 
 import java.util.List;
 
-import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 
 public class BonusRemovePawns extends StatedBonus implements IBonusMarker {
 

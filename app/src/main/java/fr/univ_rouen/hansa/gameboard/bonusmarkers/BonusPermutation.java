@@ -1,8 +1,7 @@
 package fr.univ_rouen.hansa.gameboard.bonusmarkers;
 
-
 import fr.univ_rouen.hansa.gameboard.cities.IKontor;
-import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 
 /**
  * Bonus which allow you to permute two Kontor in a City
@@ -26,10 +25,10 @@ public class BonusPermutation extends StatedBonus implements IBonusMarker {
             throw new IllegalStateException("A kontor is empty");
         }
         //TODO check if k1 & k2 are in the same city
-        Pawn p1 = k1.pushPawn();
-        Pawn p2 = k2.pushPawn();
-        k1.pullPawn(p2);
-        k2.pullPawn(p1);
+        Pawn p1 = k1.popPawn();
+        Pawn p2 = k2.popPawn();
+        k1.pushPawn(p2);
+        k2.pushPawn(p1);
     }
     @Override
     public void undoAction() {
@@ -41,10 +40,10 @@ public class BonusPermutation extends StatedBonus implements IBonusMarker {
             throw new IllegalStateException("A kontor is empty");
         }
         //TODO check if k1 & k2 are in the same city
-        Pawn p1 = k1.pushPawn();
-        Pawn p2 = k2.pushPawn();
-        k1.pullPawn(p2);
-        k2.pullPawn(p1);
+        Pawn p1 = k1.popPawn();
+        Pawn p2 = k2.popPawn();
+        k1.pushPawn(p2);
+        k2.pushPawn(p1);
     }
 
     public void setKontor1(IKontor<Pawn> k){
