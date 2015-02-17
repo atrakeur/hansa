@@ -1,19 +1,10 @@
 package fr.univ_rouen.hansa.gameboard.routes;
 
 import junit.framework.TestCase;
-
-import org.junit.Test;
-
-import fr.univ_rouen.hansa.gameboard.player.HTPlayer;
-import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
-import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
-import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
-import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
-import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
+import fr.univ_rouen.hansa.gameboard.player.*;
+import fr.univ_rouen.hansa.gameboard.player.pawns.*;
 import fr.univ_rouen.hansa.util.VillagePositions;
-import fr.univ_rouen.hansa.view.Position;
 
-import static org.junit.Assert.*;
 
 public class VillageTest extends TestCase{
     private IHTPlayer player = new HTPlayer(PlayerColor.purple, 3);
@@ -38,7 +29,7 @@ public class VillageTest extends TestCase{
         assertFalse(VillagePositions.ARNHEIM_DUISBURG_3 == village.getPosition());
 
     }
-    @Test(expected = IllegalArgumentException.class)
+
     public void testPositionNull() throws Exception {
         try {
             village = new Village(null);
@@ -98,7 +89,7 @@ public class VillageTest extends TestCase{
         village.pushPawn(p);
         assertTrue(village.pullPawn() == p);
     }
-    @Test(expected = IllegalStateException.class)
+
     public void testPullNull() throws Exception{
         village = new Village(VillagePositions.BREMEN_HAMBURG_3);
         assertNotNull( village);

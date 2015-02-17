@@ -1,37 +1,19 @@
 package fr.univ_rouen.hansa.gameboard.routes;
 
 import com.google.common.collect.Lists;
-
 import junit.framework.TestCase;
-
-import org.junit.Test;
-
 import java.util.List;
-
 import fr.univ_rouen.hansa.gameboard.Privillegium;
-import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusActiones;
-import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusEscritoire;
-import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.*;
 import fr.univ_rouen.hansa.gameboard.cities.City;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.IKontor;
 import fr.univ_rouen.hansa.gameboard.cities.Kontor;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
-import fr.univ_rouen.hansa.gameboard.player.HTPlayer;
-import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
-import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
-import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
-import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
-import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
-import fr.univ_rouen.hansa.util.CityPositions;
-import fr.univ_rouen.hansa.util.TavernPositions;
-import fr.univ_rouen.hansa.util.VillagePositions;
-import fr.univ_rouen.hansa.view.IPosition;
-import fr.univ_rouen.hansa.view.display.HansaCityDrawer;
-import fr.univ_rouen.hansa.view.display.HansaRouteDrawer;
-
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertNotNull;
+import fr.univ_rouen.hansa.gameboard.player.*;
+import fr.univ_rouen.hansa.gameboard.player.pawns.*;
+import fr.univ_rouen.hansa.util.*;
+import fr.univ_rouen.hansa.view.display.*;
 
 public class RouteTest extends TestCase{
     private IHTPlayer player = new HTPlayer(PlayerColor.yellow, 5);
@@ -39,8 +21,8 @@ public class RouteTest extends TestCase{
     private List<IVillage> villages;
     private ICity[] cities;
     private List<IKontor<? extends Pawn>> kontors;
-    private void initialize(){
 
+    private void initialize(){
         villages = Lists.newArrayList();
         assertNotNull(villages);
         villages.add(new Village(VillagePositions.GRONINGEN_EMDEN_1));

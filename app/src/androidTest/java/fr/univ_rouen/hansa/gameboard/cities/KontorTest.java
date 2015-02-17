@@ -1,21 +1,12 @@
 package fr.univ_rouen.hansa.gameboard.cities;
 
 import junit.framework.TestCase;
-
-import org.junit.Test;
-
-import fr.univ_rouen.hansa.exceptions.NotEnoughSupplyException;
 import fr.univ_rouen.hansa.gameboard.Privillegium;
-import fr.univ_rouen.hansa.gameboard.player.HTPlayer;
-import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
-import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
-import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
-import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
-import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
+import fr.univ_rouen.hansa.gameboard.player.*;
+import fr.univ_rouen.hansa.gameboard.player.pawns.*;
 
-import static junit.framework.Assert.*;
 
-public class KontorTest{
+public class KontorTest extends TestCase {
     private IHTPlayer player = new HTPlayer(PlayerColor.blue, 1);
     private IKontor<Pawn> kontor;
 

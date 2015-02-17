@@ -1,22 +1,13 @@
 package fr.univ_rouen.hansa.gameboard.cities;
 
 import com.google.common.collect.Lists;
-
 import junit.framework.TestCase;
-
-import org.junit.Test;
-
 import java.util.List;
-
 import fr.univ_rouen.hansa.gameboard.Privillegium;
-import fr.univ_rouen.hansa.gameboard.player.HTPlayer;
-import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
-import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
-import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
-import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
+import fr.univ_rouen.hansa.gameboard.player.*;
+import fr.univ_rouen.hansa.gameboard.player.pawns.*;
 import fr.univ_rouen.hansa.util.CityPositions;
 import fr.univ_rouen.hansa.view.display.HansaCityDrawer;
-
 
 public class CityTest extends TestCase{
     private IHTPlayer player;
