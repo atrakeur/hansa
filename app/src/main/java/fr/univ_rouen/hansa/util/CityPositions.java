@@ -30,7 +30,7 @@ public class CityPositions {
     //
     public static IPosition ARNHEIM = new Position(0.066f, 0.546f);
     //
-    public static IPosition MUNSTER = new Position(0.272f, 0.596f);
+    public static IPosition MUNSTER = new Position(0.272f, 0.594f);
     //ok
     public static IPosition MINDEN = new Position(0.465f, 0.523f);
     //ok
