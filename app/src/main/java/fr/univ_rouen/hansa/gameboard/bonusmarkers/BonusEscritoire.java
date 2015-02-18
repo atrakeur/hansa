@@ -2,6 +2,7 @@ package fr.univ_rouen.hansa.gameboard.bonusmarkers;
 
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
+import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.escritoire.IEscritoire;
 
 
@@ -10,6 +11,7 @@ import fr.univ_rouen.hansa.gameboard.player.escritoire.IEscritoire;
  */
 public class BonusEscritoire extends StatedBonus implements IBonusMarker {
     private Power power;
+    private IHTPlayer player;
 
     public BonusEscritoire() {
         super();
@@ -18,14 +20,14 @@ public class BonusEscritoire extends StatedBonus implements IBonusMarker {
     @Override
     public void doAction() {
         super.doAction();
-        IEscritoire escritoire = TurnManager.getInstance().getCurrentPlayer().getEscritoire();
+        IEscritoire escritoire = getPlayer().getEscritoire();
         escritoire.increasePower(getPower());
     }
 
     @Override
     public void undoAction() {
         super.undoAction();
-        IEscritoire escritoire = TurnManager.getInstance().getCurrentPlayer().getEscritoire();
+        IEscritoire escritoire = getPlayer().getEscritoire();
         escritoire.decreasePower(getPower());
     }
 
@@ -39,5 +41,14 @@ public class BonusEscritoire extends StatedBonus implements IBonusMarker {
         }
         power = p;
 
+    }
+    public IHTPlayer getPlayer() {
+        return player;
+    }
+    public void setPlayer(IHTPlayer p) {
+        if (p == null) {
+            throw new IllegalArgumentException();
+        }
+        player = p;
     }
 }

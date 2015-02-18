@@ -8,6 +8,7 @@ import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
  */
 public class BonusActiones extends StatedBonus implements IBonusMarker {
     private int value;
+    private IHTPlayer player;
 
     public BonusActiones(int v) {
         super();
@@ -20,19 +21,27 @@ public class BonusActiones extends StatedBonus implements IBonusMarker {
     @Override
     public void doAction() {
         super.doAction();
-        IHTPlayer player = TurnManager.getInstance().getCurrentPlayer();
         player.setActionNumber(getValue());
     }
 
     @Override
     public void undoAction() {
         super.undoAction();
-        IHTPlayer player = TurnManager.getInstance().getCurrentPlayer();
         int undo = -getValue();
         player.setActionNumber(undo);
     }
 
     public int getValue() {
         return value;
+    }
+
+    public IHTPlayer getPlayer() {
+        return player;
+    }
+    public void setPlayer(IHTPlayer p) {
+        if (p == null) {
+            throw new IllegalArgumentException();
+        }
+        player = p;
     }
 }

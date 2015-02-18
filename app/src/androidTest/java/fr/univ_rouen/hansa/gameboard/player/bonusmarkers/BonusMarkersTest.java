@@ -3,8 +3,11 @@ package fr.univ_rouen.hansa.gameboard.player.bonusmarkers;
 import android.app.Application;
 import android.test.ApplicationTestCase;
 
+import fr.univ_rouen.hansa.gameboard.Privillegium;
+import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusActiones;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusEscritoire;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusState;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
 import fr.univ_rouen.hansa.gameboard.player.HTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
@@ -23,10 +26,12 @@ public class BonusMarkersTest extends ApplicationTestCase<Application> {
          * Test du résultat de la méthode doAction et de la méthode unDoAction
          */
         BonusActiones bn3 = new BonusActiones(3);
+        bn3.setState(BonusState.onHand);
         IHTPlayer player = new HTPlayer(PlayerColor.blue, 1);
         player.getEscritoire().addBonusMarker(bn3);
+        bn3.setPlayer(player);
         bn3.doAction();
-        assertEquals(player.getActionNumber(), 4);
+        assertEquals(player.getActionNumber(), 5);
         bn3.undoAction();
         assertEquals(player.getActionNumber(), 2);
         /**
@@ -34,8 +39,10 @@ public class BonusMarkersTest extends ApplicationTestCase<Application> {
          */
         BonusActiones bn4 = new BonusActiones(4);
         player.getEscritoire().addBonusMarker(bn4);
+        bn4.setPlayer(player);
+        bn4.setState(BonusState.onHand);
         bn4.doAction();
-        assertEquals(player.getActionNumber(), 5);
+        assertEquals(player.getActionNumber(), 6);
         bn4.undoAction();
         assertEquals(player.getActionNumber(), 2);
     }
@@ -50,10 +57,13 @@ public class BonusMarkersTest extends ApplicationTestCase<Application> {
         BonusEscritoire es = new BonusEscritoire();
         es.setPower(Power.Actiones);
         IHTPlayer player = new HTPlayer(PlayerColor.blue, 1);
+        es.setPlayer(player);
+        es.setState(BonusState.onHand);
+        player.getEscritoire().addBonusMarker(es);
         es.doAction();
-        assertEquals(player.getActionNumber(), 3);
+        assertEquals(player.getEscritoire().actionesLevel(), 3);
         es.undoAction();
-        assertEquals(player.getActionNumber(), 2);
+        assertEquals(player.getEscritoire().actionesLevel(), 2);
         es.setPower(Power.Bursa);
         es.doAction();
         assertEquals(player.getEscritoire().bursaLevel(), 5);
@@ -71,9 +81,9 @@ public class BonusMarkersTest extends ApplicationTestCase<Application> {
         assertEquals(player.getEscritoire().liberSophiaLevel(), 2);
         es.setPower(Power.Privillegium);
         es.doAction();
-        assertEquals(player.getEscritoire().privilegiumLevel(), 2);
+        assertEquals(player.getEscritoire().privilegiumLevel(), Privillegium.Orange);
         es.undoAction();
-        assertEquals(player.getEscritoire().privilegiumLevel(), 1);
+        assertEquals(player.getEscritoire().privilegiumLevel(), Privillegium.White);
     }
 
     public void testBonusRemovePawns() throws Exception {
