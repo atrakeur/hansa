@@ -2,16 +2,31 @@ package fr.univ_rouen.hansa.gameboard.player.bonusmarkers;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
+import android.util.Log;
+
+import com.google.common.collect.Lists;
+
+import java.util.List;
 
 import fr.univ_rouen.hansa.gameboard.Privillegium;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusActiones;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusEscritoire;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusKontor;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusState;
+import fr.univ_rouen.hansa.gameboard.cities.City;
+import fr.univ_rouen.hansa.gameboard.cities.ICity;
+import fr.univ_rouen.hansa.gameboard.cities.IKontor;
+import fr.univ_rouen.hansa.gameboard.cities.Kontor;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
 import fr.univ_rouen.hansa.gameboard.player.HTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
+import fr.univ_rouen.hansa.view.IPosition;
+import fr.univ_rouen.hansa.view.Position;
 
 public class BonusMarkersTest extends ApplicationTestCase<Application> {
 
@@ -99,6 +114,47 @@ public class BonusMarkersTest extends ApplicationTestCase<Application> {
          }
          p1.getEscritoire().addToStock(pawn);
          */
+
+    }
+
+    public void testBonusKontor() throws Exception {
+        /**
+         * Creation des variables utiles pour les test
+         */
+        BonusKontor bk = new BonusKontor();
+        IHTPlayer player = new HTPlayer(PlayerColor.blue, 1);
+        IHTPlayer player2 = new HTPlayer(PlayerColor.green,2);
+        Pawn p = new Trader(player);
+        //public static IPosition STADE = new Position(0.533f, 0.094f);
+        List<IKontor<? extends Pawn>> kontors = Lists.newArrayList();
+        Pawn c = new Merchant(player2);
+        Kontor k = new Kontor(c.getClass(), true, Privillegium.White);
+        kontors.add(k);
+        ICity city = new City(new Position(0.533f, 0.094f),Power.Privillegium, kontors);
+        /**
+         * Test l'effet du jeton bonus sur la liste des comptoirs additionel.
+         * Test aussi lorsque l'effet est lancé plusieurs fois
+         */
+        bk.setState(BonusState.onHand);
+        bk.setCity(city);
+        player.getEscritoire().addBonusMarker(bk);
+        bk.setPawn(p);
+        bk.setPlayer(player);
+        bk.doAction();
+        assertEquals(city.getAdditionalKontors().size(), 1);
+        bk.setState(BonusState.onHand);
+        bk.doAction();
+        assertEquals(city.getAdditionalKontors().size(),2);
+        bk.setState(BonusState.onHand);
+        bk.doAction();
+        assertEquals(city.getAdditionalKontors().size(),3);
+        bk.setState(BonusState.onHand);
+        bk.doAction();
+        assertEquals(city.getAdditionalKontors().size(),4);
+        bk.undoAction();
+        assertEquals(city.getAdditionalKontors().size(), 3);
+    }
+    public void testBonusPermutation() throws Exception {
 
     }
 }

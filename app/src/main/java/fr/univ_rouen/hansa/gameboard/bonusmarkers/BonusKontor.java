@@ -15,6 +15,7 @@ import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 public class BonusKontor extends StatedBonus implements IBonusMarker {
     private ICity city;
     private Pawn pawn;
+    private IHTPlayer player;
 
     public BonusKontor() {
         super();
@@ -46,6 +47,15 @@ public class BonusKontor extends StatedBonus implements IBonusMarker {
         }
         this.pawn = pawn;
     }
+    public void setPlayer(IHTPlayer p) {
+        if (p == null) {
+            throw new IllegalArgumentException();
+        }
+        player = p;
+    }
+    public IHTPlayer getPlayer() {
+        return player;
+    }
 
     @Override
     public void doAction() {
@@ -59,9 +69,9 @@ public class BonusKontor extends StatedBonus implements IBonusMarker {
             throw new IllegalStateException("a pawn must have been set");
         }
 
-        IHTPlayer player = TurnManager.getInstance().getCurrentPlayer();
+        IHTPlayer p = getPlayer();
 
-        if (!player.getEscritoire().getBonusMarker().contains(this)) {
+        if (!p.getEscritoire().getBonusMarker().contains(this)) {
             throw new IllegalStateException("The current player differs of the marker's owner");
         }
 
@@ -82,9 +92,9 @@ public class BonusKontor extends StatedBonus implements IBonusMarker {
             throw new IllegalStateException("a pawn must have been set");
         }
 
-        IHTPlayer player = TurnManager.getInstance().getCurrentPlayer();
+        IHTPlayer p = getPlayer();
 
-        if (!player.getEscritoire().getBonusMarker().contains(this)) {
+        if (!p.getEscritoire().getBonusMarker().contains(this)) {
             throw new IllegalStateException("The current player differs of the marker's owner");
         }
 
