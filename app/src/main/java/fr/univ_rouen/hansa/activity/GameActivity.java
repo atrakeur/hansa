@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +44,11 @@ public class GameActivity extends Activity implements GestureDetector.OnGestureL
         IHTPlayer player =TurnManager.getInstance().getCurrentPlayer();
 
         mDetector = new GestureDetectorCompat(this,this);
+
+        final ImageView view = (ImageView)findViewById(R.id.escritoire);
+
+        view.setVisibility(View.GONE);
+
 
         //TODO just pour la présentation, à enlever après ;)
         List<Pawn> pawns = new ArrayList<>();
@@ -170,8 +176,10 @@ public class GameActivity extends Activity implements GestureDetector.OnGestureL
         if(Math.abs(distanceX)<Math.abs(distanceY)){
             if(state == EscritoireState.HIDE && distanceY>0){
                 state = EscritoireState.MINE;
+                (findViewById(R.id.escritoire)).setVisibility(View.VISIBLE);
             } else if(state == EscritoireState.MINE && distanceY < 0){
                 state = EscritoireState.HIDE;
+                (findViewById(R.id.escritoire)).setVisibility(View.GONE);
             }
             Log.w("Vertical", state.toString());
         } else if(Math.abs(distanceX)>Math.abs(distanceY)){
