@@ -91,7 +91,7 @@ public class PawnList implements IPawnList {
     }
 
     @Override
-    public int getTraderCount(){
+    public int getTraderCount() {
         return traders.size();
     }
 
