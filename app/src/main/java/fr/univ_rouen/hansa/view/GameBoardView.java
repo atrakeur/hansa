@@ -10,6 +10,9 @@ import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.widget.Toast;
 
+import java.util.Collections;
+
+import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
 import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
 import fr.univ_rouen.hansa.view.utils.DrawingThread;
@@ -97,17 +100,28 @@ public class GameBoardView extends SurfaceView {
         }
 
         //Dispatch events correctly (Simple click, drag from and drag to)
-        if (event.getAction() == MotionEvent.ACTION_UP) {
-            if (this.touchStart == this.touchEnd) {
-                this.touchEnd.onClick();
-            } else {
-                if (touchStart != null) {
-                    this.touchStart.onDragTo(this.touchEnd);
-                }
-                if (touchEnd != null) {
-                    this.touchEnd.onDragFrom(this.touchStart);
+        try {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                if (this.touchStart == this.touchEnd) {
+                    this.touchEnd.onClick();
+                } else {
+                    if (touchStart != null) {
+                        this.touchStart.onDragTo(this.touchEnd);
+                    }
+                    if (touchEnd != null) {
+                        this.touchEnd.onDragFrom(this.touchStart);
+                    }
                 }
             }
+        } catch (GameException e) {
+            this.showErrorMsg(e.getMessage());
+            e.printStackTrace();
+        } catch (UnsupportedOperationException e) {
+            this.showErrorMsg("Action not implemented (yet?)");
+            e.printStackTrace();
+        } catch (Exception e) {
+            this.showErrorMsg("General exception (should never happen, time to debug)");
+            e.printStackTrace();
         }
 
         return true;

@@ -45,7 +45,7 @@ public class MovementFactory {
             return new KeepKontor(player, (ICity) destination.getSubject(), (IVillage) source.getSubject());
         }
 
-        throw new GameException("Invalid movement for types "+source.getType() +" to "+destination.getType());
+        throw new GameException("Invalid movement");
     }
 
     public IMovement makeBursaMovement(int merchant) {

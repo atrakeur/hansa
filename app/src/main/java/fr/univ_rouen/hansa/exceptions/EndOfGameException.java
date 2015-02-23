@@ -1,7 +1,7 @@
 package fr.univ_rouen.hansa.exceptions;
 
 /**
- * Désigne une erreur générée a cause d'une fin de tour
+ * Exception triggered because of an End game event
  */
 public class EndOfGameException extends GameException {
 
