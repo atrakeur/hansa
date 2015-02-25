@@ -2,151 +2,97 @@ package fr.univ_rouen.hansa.gameboard.bonusmarkers;
 
 import com.google.common.collect.Lists;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 
 public class BonusRemovePawns extends StatedBonus implements IBonusMarker {
 
+    // La liste des villages concernés
+    private List<IVillage> villages;
+    // la liste des joueurs concernés
+    private List<IHTPlayer> players;
+    // La liste des pions concernés
     private List<Pawn> pawn;
 
     public BonusRemovePawns() {
         super();
-        pawn = Lists.newArrayList();
+    }
+
+    public List<IHTPlayer> getPlayers() {
+        return Lists.newArrayList(players);
+    }
+
+    public List<IVillage> getVillage() {
+        return Lists.newArrayList(villages);
     }
 
     public List<Pawn> getPawn() {
-        return pawn;
+        return Lists.newArrayList(pawn);
+    }
+
+    public void setVillage(List<IVillage> v) {
+        if (v == null || v.size() > 3) {
+            throw new IllegalArgumentException();
+        }
+        villages = v;
+
+    }
+
+    public void setPlayers(List<IHTPlayer> p) {
+        if (p == null || p.size() > 3) {
+            throw new IllegalArgumentException();
+        }
+        players = p;
     }
 
     public void setPawn(List<Pawn> p) {
-        if (p == null) {
+        if (p == null || p.size() > 3) {
             throw new IllegalArgumentException();
         }
         pawn = p;
     }
 
+
     @Override
     public void doAction() {
         super.doAction();
-        /**
-         * On initialise la liste des pions par couleurs
-         * et les joueurs par couleurs
-         * En effet le jeton définis les pions a supprimer du plateau
-         * De la on récupère le joueur affecté pour remetter les pions dans sa réserve
-         */
-        List<Pawn> blue = Lists.newArrayList();
-        IHTPlayer pb = null;
-        List<Pawn> red = Lists.newArrayList();
-        IHTPlayer pr = null;
-        List<Pawn> green = Lists.newArrayList();
-        IHTPlayer pg = null;
-        List<Pawn> yellow = Lists.newArrayList();
-        IHTPlayer py = null;
-        List<Pawn> purple = Lists.newArrayList();
-        IHTPlayer pp = null;
-        for(int i = 0; i < getPawn().size(); i++) {
-            PlayerColor playerColor = getPawn().get(i).getPlayer().getPlayerColor();
-            if (playerColor == PlayerColor.blue) {
-                blue.add(getPawn().get(i));
-                pb = getPawn().get(i).getPlayer();
-            } else if (playerColor == PlayerColor.green) {
-                green.add(getPawn().get(i));
-                pg = getPawn().get(i).getPlayer();
-            } else if (playerColor == PlayerColor.red) {
-                red.add(getPawn().get(i));
-                pr = getPawn().get(i).getPlayer();
-            } else if (playerColor == PlayerColor.yellow) {
-                yellow.add(getPawn().get(i));
-                py = getPawn().get(i).getPlayer();
-            } else {
-                purple.add(getPawn().get(i));
-                pp = getPawn().get(i).getPlayer();
-            }
+        List<IVillage> v = getVillage();
+        List<IHTPlayer> player = Lists.newArrayList();
+        if (v == null) {
+            throw new IllegalStateException("village not set");
         }
-        /**
-         * On test les valeurs de player pour ne pas addToSupply une quantité null.
-         * Cela évite les possibles IAE définis dans escritoire.
-         */
-        if (pb != null) {
-            pb.getEscritoire().addToSupply(blue);
+        List<Pawn> p = Lists.newArrayList();
+        for (int i = 0; i < v.size(); i++) {
+            p.add(v.get(i).pullPawn());
         }
-        if (pr != null) {
-            pr.getEscritoire().addToSupply(red);
+        for (Pawn pawn : p) {
+            player.add(pawn.getPlayer());
+            pawn.getPlayer().getEscritoire().addToSupply(Lists.newArrayList(pawn));
         }
-        if (py != null) {
-            py.getEscritoire().addToSupply(yellow);
-        }
-        if (pp != null) {
-            pp.getEscritoire().addToSupply(purple);
-        }
-
-        if (pg != null) {
-            pg.getEscritoire().addToSupply(green);
-        }
+        setPlayers(player);
+        setPawn(p);
     }
 
     @Override
     public void undoAction() {
         super.undoAction();
-
-        /**
-         * On initialise la liste des pions par couleurs
-         * et les joueurs par couleurs
-         * En effet le jeton définis les pions a supprimer du plateau
-         * De la on récupère le joueur affecté pour remetter les pions dans sa réserve
-         */
-        List<Pawn> blue = Lists.newArrayList();
-        IHTPlayer pb = null;
-        List<Pawn> red = Lists.newArrayList();
-        IHTPlayer pr = null;
-        List<Pawn> green = Lists.newArrayList();
-        IHTPlayer pg = null;
-        List<Pawn> yellow = Lists.newArrayList();
-        IHTPlayer py = null;
-        List<Pawn> purple = Lists.newArrayList();
-        IHTPlayer pp = null;
-        for(int i = 0; i < getPawn().size(); i++) {
-            PlayerColor playerColor = getPawn().get(i).getPlayer().getPlayerColor();
-            if (playerColor == PlayerColor.blue) {
-                blue.add(getPawn().get(i));
-                pb = getPawn().get(i).getPlayer();
-            } else if (playerColor == PlayerColor.green) {
-                green.add(getPawn().get(i));
-                pg = getPawn().get(i).getPlayer();
-            } else if (playerColor == PlayerColor.red) {
-                red.add(getPawn().get(i));
-                pr = getPawn().get(i).getPlayer();
-            } else if (playerColor == PlayerColor.yellow) {
-                yellow.add(getPawn().get(i));
-                py = getPawn().get(i).getPlayer();
-            } else {
-                purple.add(getPawn().get(i));
-                pp = getPawn().get(i).getPlayer();
-            }
+        List<IVillage> v = getVillage();
+        if (v == null) {
+            throw new IllegalStateException();
         }
         /**
-         * On test les valeurs de player pour ne pas addToSupply une quantité null.
-         * Cela évite les possibles IAE définis dans escritoire.
+         * On recupere la liste des pions a retirer du stock des joueurs
          */
-        if (pb != null) {
-            pb.getEscritoire().removeFromSupply(blue);
+        List<Pawn> p = getPawn();
+        List<IHTPlayer> player = getPlayers();
+        for (int i = 0; i < p.size(); i++) {
+            player.get(i).getEscritoire().removeFromSupply(Lists.newArrayList(p.get(i)));
         }
-        if (pr != null) {
-            pr.getEscritoire().removeFromSupply(red);
-        }
-        if (py != null) {
-            py.getEscritoire().removeFromSupply(yellow);
-        }
-        if (pp != null) {
-            pp.getEscritoire().removeFromSupply(purple);
-        }
-
-        if (pg != null) {
-            pg.getEscritoire().removeFromSupply(green);
-        }
-
     }
 }

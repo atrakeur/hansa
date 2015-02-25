@@ -13,6 +13,8 @@ import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusActiones;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusEscritoire;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusKontor;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusPermutation;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusRemovePawns;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusState;
 import fr.univ_rouen.hansa.gameboard.cities.City;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
@@ -25,6 +27,8 @@ import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
+import fr.univ_rouen.hansa.gameboard.routes.IVillage;
+import fr.univ_rouen.hansa.gameboard.routes.Village;
 import fr.univ_rouen.hansa.view.IPosition;
 import fr.univ_rouen.hansa.view.Position;
 
@@ -103,18 +107,36 @@ public class BonusMarkersTest extends ApplicationTestCase<Application> {
 
     public void testBonusRemovePawns() throws Exception {
         /**
-         * A voir avec Steeven pour la façon de l'implementer
-         IBonusMarker bonus = new BonusRemovePawns();
-         List<Pawn> pawn;
-         pawn = new Lists.newArrayList();
-         IHTPlayer p1 = new HTPlayer(PlayerColor.blue, 1);
-         for (int i = 0; i < 10; i++) {
-         Pawn p = new Trader();
-         pawn.add(p);
-         }
-         p1.getEscritoire().addToStock(pawn);
+         * Test du jeton bonus RemovePawns
          */
-
+        BonusRemovePawns brp = new BonusRemovePawns();
+        IHTPlayer player = new HTPlayer(PlayerColor.green, 1);
+        IHTPlayer p2 = new HTPlayer(PlayerColor.blue, 2);
+        IHTPlayer p3 = new HTPlayer(PlayerColor.purple, 3);
+        IHTPlayer p4 = new HTPlayer(PlayerColor.red, 4);
+        IVillage v1 = new Village(new Position(0.115f, 0.221f));
+        IVillage v2 = new Village(new Position(0.224f, 0.31f));
+        IVillage v3 = new Village(new Position(0.668f, 0.075f));
+        Pawn m1 = new Merchant(p2);
+        Pawn m2 = new Merchant(p3);
+        Pawn t1 = new Trader(p4);
+        v1.pushPawn(m1);
+        v2.pushPawn(m2);
+        v3.pushPawn(t1);
+        List<IVillage> v = Lists.newArrayList();
+        v.add(v1);
+        v.add(v2);
+        v.add(v3);
+        brp.setVillage(v);
+        player.getEscritoire().addBonusMarker(brp);
+        brp.setState(BonusState.onHand);
+        brp.doAction();
+        assertEquals(brp.getVillage().isEmpty(), false);
+        assertEquals(brp.getPlayers().isEmpty(), false);
+        assertEquals(brp.getPlayers().size(), 3);
+        assertEquals(brp.getPawn().size(), 3);
+        assertEquals(brp.getPawn().isEmpty(), false);
+        brp.undoAction();
     }
 
     public void testBonusKontor() throws Exception {
@@ -155,6 +177,38 @@ public class BonusMarkersTest extends ApplicationTestCase<Application> {
         assertEquals(city.getAdditionalKontors().size(), 3);
     }
     public void testBonusPermutation() throws Exception {
+        BonusPermutation bp = new BonusPermutation();
+        IHTPlayer player = new HTPlayer(PlayerColor.blue, 1);
+        IHTPlayer player2 = new HTPlayer(PlayerColor.green,2);
+        Pawn p = new Trader(player);
+        Pawn c = new Merchant(player2);
+        List<IKontor<? extends Pawn>> kontors = Lists.newArrayList();
+        Kontor k = new Kontor(c.getClass(), true, Privillegium.White);
+        Kontor k2 = new Kontor(p.getClass(), true, Privillegium.White);
+        k.pushPawn(c);
+        k2.pushPawn(p);
+        kontors.add(k);
+        kontors.add(k2);
+        ICity city = new City(new Position(0.906f, 0.916f), null, kontors);
+        bp.setCity(city);
+        bp.setKontor1(k);
+        bp.setKontor2(k2);
+        player.getEscritoire().addBonusMarker(bp);
+        bp.setState(BonusState.onHand);
+        assertEquals(bp.getKontor1().isEmpty(), false);
+        assertEquals(bp.getKontor2().isEmpty(), false);
+        assertEquals(bp.getKontor1().getOwner(), player2);
+        assertEquals(bp.getKontor2().getOwner(), player);
+        bp.doAction();
+        assertEquals(bp.getKontor1().isEmpty(), false);
+        assertEquals(bp.getKontor2().isEmpty(), false);
+        assertEquals(bp.getKontor1().getOwner(), player);
+        assertEquals(bp.getKontor2().getOwner(), player2);
+        bp.undoAction();
+        assertEquals(bp.getKontor1().isEmpty(), false);
+        assertEquals(bp.getKontor2().isEmpty(), false);
+        assertEquals(bp.getKontor1().getOwner(), player2);
+        assertEquals(bp.getKontor2().getOwner(), player);
 
     }
 }

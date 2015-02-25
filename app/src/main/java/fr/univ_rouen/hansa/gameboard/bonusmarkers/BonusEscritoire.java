@@ -42,9 +42,11 @@ public class BonusEscritoire extends StatedBonus implements IBonusMarker {
         power = p;
 
     }
+
     public IHTPlayer getPlayer() {
         return player;
     }
+
     public void setPlayer(IHTPlayer p) {
         if (p == null) {
             throw new IllegalArgumentException();

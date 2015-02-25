@@ -79,12 +79,12 @@ public class Escritoire implements IEscritoire {
 
     @Override
     public List<IBonusMarker> getBonusMarker() {
-        return bonusMarkers;
+        return Lists.newArrayList(bonusMarkers);
     }
 
     @Override
     public List<IBonusMarker> getTinPlateContent() {
-        return tinPlate;
+        return Lists.newArrayList(tinPlate);
     }
 
     @Override

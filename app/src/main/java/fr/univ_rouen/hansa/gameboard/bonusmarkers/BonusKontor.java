@@ -47,12 +47,14 @@ public class BonusKontor extends StatedBonus implements IBonusMarker {
         }
         this.pawn = pawn;
     }
+
     public void setPlayer(IHTPlayer p) {
         if (p == null) {
             throw new IllegalArgumentException();
         }
         player = p;
     }
+
     public IHTPlayer getPlayer() {
         return player;
     }

@@ -12,7 +12,7 @@ public class BonusActiones extends StatedBonus implements IBonusMarker {
 
     public BonusActiones(int v) {
         super();
-        if (v != 3 && v !=  4) {
+        if (v != 3 && v != 4) {
             throw new IllegalArgumentException("Valeur");
         }
         this.value = v;
@@ -38,6 +38,7 @@ public class BonusActiones extends StatedBonus implements IBonusMarker {
     public IHTPlayer getPlayer() {
         return player;
     }
+
     public void setPlayer(IHTPlayer p) {
         if (p == null) {
             throw new IllegalArgumentException();
