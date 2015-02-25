@@ -93,6 +93,7 @@ public class BonusRemovePawns extends StatedBonus implements IBonusMarker {
         List<IHTPlayer> player = getPlayers();
         for (int i = 0; i < p.size(); i++) {
             player.get(i).getEscritoire().removeFromSupply(Lists.newArrayList(p.get(i)));
+            v.get(i).pushPawn(p.get(i));
         }
     }
 }
