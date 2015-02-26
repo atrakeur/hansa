@@ -1,17 +1,22 @@
 package fr.univ_rouen.hansa.gameboard.routes;
 
 import junit.framework.TestCase;
-import fr.univ_rouen.hansa.gameboard.player.*;
-import fr.univ_rouen.hansa.gameboard.player.pawns.*;
+
+import fr.univ_rouen.hansa.gameboard.player.HTPlayer;
+import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
+import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.util.VillagePositions;
 
 
-public class VillageTest extends TestCase{
+public class VillageTest extends TestCase {
     private IHTPlayer player = new HTPlayer(PlayerColor.purple, 3);
-    private  IVillage village;
+    private IVillage village;
 
     public void testIsEmpty() throws Exception {
-        village= new Village(VillagePositions.ARNHEIM_DUISBURG_1);
+        village = new Village(VillagePositions.ARNHEIM_DUISBURG_1);
         assertNotNull(village);
         Pawn p = new Merchant(player);
         assertTrue("village is empty", village.isEmpty());
@@ -23,20 +28,13 @@ public class VillageTest extends TestCase{
     }
 
     public void testGetPosition() throws Exception {
-        village= new Village(VillagePositions.ARNHEIM_MUNSTER_1);
+        village = new Village(VillagePositions.ARNHEIM_MUNSTER_1);
         assertNotNull(village);
         assertTrue(VillagePositions.ARNHEIM_MUNSTER_1 == village.getPosition());
         assertFalse(VillagePositions.ARNHEIM_DUISBURG_3 == village.getPosition());
 
     }
 
-    public void testPositionNull() throws Exception {
-        try {
-            village = new Village(null);
-            fail("Invalid Affectation");
-
-        }catch (IllegalArgumentException e){}
-    }
 
     public void testGetOwner() throws Exception {
         village = new Village(VillagePositions.ARNHEIM_MUNSTER_1);
@@ -54,18 +52,9 @@ public class VillageTest extends TestCase{
         village.pushPawn(p);
         assertTrue(village.pullPawn() == p);
         village.pushPawn(p);
-        assertNotNull(village.pullPawn() );
+        assertNotNull(village.pullPawn());
     }
 
-    public void testPushPawnNull() throws Exception {
-        village = new Village(VillagePositions.BREMEN_HAMBURG_4);
-        assertNotNull(village);
-        try{
-            village.pushPawn(null);
-            fail("Invalid Affectation");
-
-        }catch (IllegalArgumentException e){}
-    }
 
     public void testPushPawn2() throws Exception {
         village = new Village(VillagePositions.ARNHEIM_DUISBURG_1);
@@ -77,7 +66,8 @@ public class VillageTest extends TestCase{
             village.pushPawn(p1);
             fail("Invalid Affectation");
 
-        }catch (IllegalStateException e){}
+        } catch (IllegalStateException e) {
+        }
     }
 
     public void testPullPawn() throws Exception {
@@ -90,13 +80,14 @@ public class VillageTest extends TestCase{
         assertTrue(village.pullPawn() == p);
     }
 
-    public void testPullNull() throws Exception{
+    public void testPullNull() throws Exception {
         village = new Village(VillagePositions.BREMEN_HAMBURG_3);
-        assertNotNull( village);
-        try{
-             village.pullPawn();
+        assertNotNull(village);
+        try {
+            village.pullPawn();
             fail("Invalid Affectation");
-        }catch (IllegalStateException e){}
+        } catch (IllegalStateException e) {
+        }
 
     }
 }
