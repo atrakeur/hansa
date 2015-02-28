@@ -16,19 +16,14 @@ public class KontorTest extends TestCase {
 
     public void testGetPawnClass() throws Exception {
         kontor = new Kontor(Trader.class, false, Privillegium.White);
-        assertNotNull(kontor);
         assertEquals(Trader.class, kontor.getPawnClass());
-        assertFalse(Merchant.class.equals(kontor.getPawnClass()));
 
         kontor = new Kontor(Merchant.class, true, Privillegium.White);
-        assertNotNull(kontor);
         assertTrue(kontor.getPawnClass().equals(Merchant.class));
-        assertFalse(kontor.getPawnClass().equals(Trader.class));
     }
 
     public void testIsEmpty() throws Exception {
         kontor = new Kontor(Trader.class, false, Privillegium.White);
-        assertNotNull(kontor);
         assertTrue("kontor  is empty", kontor.isEmpty());
         Trader p = new Trader(player);
         kontor.pushPawn(p);
@@ -41,7 +36,6 @@ public class KontorTest extends TestCase {
 
         Trader p = new Trader(player);
         kontor = new Kontor(Trader.class, false, Privillegium.Black);
-        assertNotNull(kontor);
         assertNull(kontor.popPawn());
         kontor.pushPawn(p);
         assertNotNull(kontor.popPawn());
@@ -52,19 +46,12 @@ public class KontorTest extends TestCase {
     public void testGetPrivillegium() throws Exception {
 
         kontor = new Kontor(Trader.class, false, Privillegium.Orange);
-        assertNotNull(kontor);
         assertNotNull(kontor.getPrivillegium());
         assertTrue(Privillegium.Orange == kontor.getPrivillegium());
-        for (Privillegium p : Privillegium.values()) {
-            if (Privillegium.Orange != p) {
-                assertFalse(p == kontor.getPrivillegium());
-            }
-        }
     }
 
     public void testPushPawnNull() throws Exception {
         kontor = new Kontor(Merchant.class, true, Privillegium.Pink);
-        assertNotNull(kontor);
         try {
             kontor.pushPawn(null);
             fail("Invalid Affectation");
@@ -76,7 +63,6 @@ public class KontorTest extends TestCase {
     public void testPushPawn2() throws Exception {
 
         IKontor<Merchant> kontor = new Kontor(Merchant.class, false, Privillegium.Pink);
-        assertNotNull(kontor);
         Merchant p = new Merchant(player);
         Merchant p1 = new Merchant(player);
         kontor.pushPawn(p);

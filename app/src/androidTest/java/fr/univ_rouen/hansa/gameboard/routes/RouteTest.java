@@ -34,24 +34,18 @@ public class RouteTest extends TestCase {
 
     private void initialize() {
         villages = Lists.newArrayList();
-        assertNotNull(villages);
         villages.add(new Village(VillagePositions.GRONINGEN_EMDEN_1));
         villages.add(new Village(VillagePositions.GRONINGEN_EMDEN_2));
         villages.add(new Village(VillagePositions.GRONINGEN_EMDEN_3));
         kontors = Lists.newArrayList();
-        assertNotNull(kontors);
         kontors.add(new Kontor(Merchant.class, false, Privillegium.White));
         kontors.add(new Kontor(Trader.class, false, Privillegium.Pink));
         ICity c1 = new City(CityPositions.EMDEN, Power.Null, kontors);
-        assertNotNull(c1);
         kontors = Lists.newArrayList();
-        assertNotNull(kontors);
         kontors.add(new Kontor(Trader.class, true, Privillegium.White));
         kontors.add(new Kontor(Merchant.class, false, Privillegium.Orange));
         ICity c2 = new City(CityPositions.GRONINGEN, Power.LiberSophiae, kontors);
-        assertNotNull(c2);
         cities = new ICity[]{c1, c2};
-        assertNotNull(cities);
 
     }
 
@@ -67,18 +61,13 @@ public class RouteTest extends TestCase {
     public void testConsRoute2() throws Exception {
 
         villages = Lists.newArrayList();
-        assertNotNull(villages);
-
         villages.add(new Village(VillagePositions.HAMBURG_LUNEBURG_1));
         villages.add(new Village(VillagePositions.HAMBURG_LUNEBURG_2));
         kontors = Lists.newArrayList();
-        assertNotNull(kontors);
         kontors.add(new Kontor(Trader.class, true, Privillegium.White));
         kontors.add(new Kontor(Trader.class, false, Privillegium.Orange));
         ICity c = new City(CityPositions.HALLE, Power.ClavisUrbis, kontors);
-        assertNotNull(c);
         cities = new ICity[]{c};
-        assertNotNull(cities);
         try {
             route = new Route(villages, cities, TavernPositions.GRONINGEN_EMDEN);
             fail("Invalid Affectation");
@@ -91,29 +80,22 @@ public class RouteTest extends TestCase {
     public void testConsRoute3() throws Exception {
 
         villages = Lists.newArrayList();
-        assertNotNull(villages);
         villages.add(new Village(VillagePositions.GRONINGEN_EMDEN_1));
         villages.add(new Village(VillagePositions.GRONINGEN_EMDEN_2));
         villages.add(new Village(VillagePositions.GRONINGEN_EMDEN_3));
         kontors = Lists.newArrayList();
-        assertNotNull(kontors);
         kontors.add(new Kontor(Trader.class, false, Privillegium.White));
         kontors.add(new Kontor(Trader.class, false, Privillegium.Orange));
 
         ICity c1 = new City(CityPositions.HALLE, Power.ClavisUrbis, kontors);
-        assertNotNull(c1);
         kontors = Lists.newArrayList();
-        assertNotNull(kontors);
         kontors.add(new Kontor(Merchant.class, false, Privillegium.White));
         kontors.add(new Kontor(Trader.class, false, Privillegium.Pink));
         ICity c2 = new City(CityPositions.EMDEN, Power.Null, kontors);
-        assertNotNull(c2);
         kontors = Lists.newArrayList();
-        assertNotNull(kontors);
         kontors.add(new Kontor(Trader.class, true, Privillegium.White));
         kontors.add(new Kontor(Merchant.class, false, Privillegium.Orange));
         ICity c3 = new City(CityPositions.GRONINGEN, Power.LiberSophiae, kontors);
-        assertNotNull(c3);
         cities = new ICity[]{c1, c2, c3};
         try {
             route = new Route(villages, cities, TavernPositions.GRONINGEN_EMDEN);
@@ -127,26 +109,21 @@ public class RouteTest extends TestCase {
     public void testGetTavernPosition() throws Exception {
         initialize();
         route = new Route(villages, cities, TavernPositions.GRONINGEN_EMDEN);
-        assertNotNull(route);
         assertNotNull(route.getTavernPosition());
         assertTrue(TavernPositions.GRONINGEN_EMDEN == route.getTavernPosition());
-        assertFalse(TavernPositions.BREMEN_HANNOVER == route.getTavernPosition());
     }
 
     public void testGetVillages() throws Exception {
         initialize();
         route = new Route(villages, cities, TavernPositions.GRONINGEN_EMDEN);
-        assertNotNull(route);
         assertNotNull(route.getVillages());
         assertTrue(villages == route.getVillages());
-        assertFalse(route.getVillages() == null);
 
     }
 
     public void testGetVillage() throws Exception {
         initialize();
         route = new Route(villages, cities, TavernPositions.GRONINGEN_EMDEN);
-        assertNotNull(route);
         assertNotNull(route.getVillage(0));
         int i = 0;
         for (IVillage v : villages) {
@@ -160,7 +137,6 @@ public class RouteTest extends TestCase {
     public void testGetVillageInf() throws Exception {
         initialize();
         route = new Route(villages, cities, TavernPositions.GRONINGEN_EMDEN);
-        assertNotNull(route);
         try {
             route.getVillage(-1);
             fail("Invalid Affectation");
@@ -173,7 +149,6 @@ public class RouteTest extends TestCase {
     public void testGetVillageSup() throws Exception {
         initialize();
         route = new Route(villages, cities, TavernPositions.GRONINGEN_EMDEN);
-        assertNotNull(route);
         try {
             route.getVillage(route.getVillages().size() + 1);
             fail("Invalid Affectation");
@@ -186,7 +161,6 @@ public class RouteTest extends TestCase {
     public void testGetCities() throws Exception {
         initialize();
         route = new Route(villages, cities, TavernPositions.GRONINGEN_EMDEN);
-        assertNotNull(route);
         assertNotNull(route.getCities());
         assertTrue(cities == route.getCities());
         assertFalse(route.getCities() == null);
@@ -195,7 +169,6 @@ public class RouteTest extends TestCase {
     public void testIsEmpty() throws Exception {
         initialize();
         route = new Route(villages, cities, TavernPositions.GRONINGEN_EMDEN);
-        assertNotNull(route);
         assertNotNull(route.getVillages());
         assertTrue(route.isEmpty());
         Pawn p = new Trader(player);
@@ -209,7 +182,6 @@ public class RouteTest extends TestCase {
     public void testIsTradeRoute() throws Exception {
         initialize();
         route = new Route(villages, cities, TavernPositions.GRONINGEN_EMDEN);
-        assertNotNull(route);
         assertNotNull(route.getVillages());
         Pawn p = new Trader(player);
         Pawn p1 = new Trader(player);
@@ -227,7 +199,6 @@ public class RouteTest extends TestCase {
         initialize();
         IBonusMarker bm = new BonusActiones();
         route = new Route(villages, cities, TavernPositions.GRONINGEN_EMDEN, bm);
-        assertNotNull(route);
         assertNotNull(route.getBonusMarker());
         assertTrue(bm == route.getBonusMarker());
         assertTrue(route.getBonusMarker().getClass() == BonusActiones.class);
@@ -236,7 +207,6 @@ public class RouteTest extends TestCase {
     public void testIsYourCityNull() throws Exception {
         initialize();
         route = new Route(villages, cities, TavernPositions.GRONINGEN_EMDEN);
-        assertNotNull(route);
         try {
             route.isYourCity(null);
             fail("Invalid Affectation");
@@ -248,12 +218,10 @@ public class RouteTest extends TestCase {
     public void testIsYourCity() throws Exception {
         initialize();
         route = new Route(villages, cities, TavernPositions.GRONINGEN_EMDEN);
-        assertNotNull(route);
         assertTrue(route.isYourCity(cities[0]));
         assertTrue(route.isYourCity(cities[1]));
 
         kontors = Lists.newArrayList();
-        assertNotNull(kontors);
         kontors.add(new Kontor(Merchant.class, false, Privillegium.White));
         kontors.add(new Kontor(Trader.class, false, Privillegium.Pink));
         ICity c = new City(CityPositions.BREMEN, Power.Null, kontors);
@@ -263,9 +231,7 @@ public class RouteTest extends TestCase {
     public void testGetDrawer() throws Exception {
         initialize();
         route = new Route(villages, cities, TavernPositions.GRONINGEN_EMDEN);
-        assertNotNull(route);
         assertNotNull(route.getDrawer());
         assertTrue(route.getDrawer().getClass().equals(HansaRouteDrawer.class));
-
     }
 }

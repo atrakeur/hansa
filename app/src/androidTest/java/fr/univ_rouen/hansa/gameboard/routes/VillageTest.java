@@ -17,7 +17,6 @@ public class VillageTest extends TestCase {
 
     public void testIsEmpty() throws Exception {
         village = new Village(VillagePositions.ARNHEIM_DUISBURG_1);
-        assertNotNull(village);
         Pawn p = new Merchant(player);
         assertTrue("village is empty", village.isEmpty());
         village.pushPawn(p);
@@ -29,16 +28,13 @@ public class VillageTest extends TestCase {
 
     public void testGetPosition() throws Exception {
         village = new Village(VillagePositions.ARNHEIM_MUNSTER_1);
-        assertNotNull(village);
         assertTrue(VillagePositions.ARNHEIM_MUNSTER_1 == village.getPosition());
-        assertFalse(VillagePositions.ARNHEIM_DUISBURG_3 == village.getPosition());
 
     }
 
 
     public void testGetOwner() throws Exception {
         village = new Village(VillagePositions.ARNHEIM_MUNSTER_1);
-        assertNotNull(village);
         Trader p = new Trader(player);
         village.pushPawn(p);
         assertNotNull(village.pullPawn().getPlayer());
@@ -58,7 +54,6 @@ public class VillageTest extends TestCase {
 
     public void testPushPawn2() throws Exception {
         village = new Village(VillagePositions.ARNHEIM_DUISBURG_1);
-        assertNotNull(village);
         Merchant p = new Merchant(player);
         Merchant p1 = new Merchant(player);
         village.pushPawn(p);
@@ -72,7 +67,6 @@ public class VillageTest extends TestCase {
 
     public void testPullPawn() throws Exception {
         village = new Village(VillagePositions.BREMEN_HAMBURG_2);
-        assertNotNull(village);
         Pawn p = new Merchant(player);
         village.pushPawn(p);
         assertNotNull(village.pullPawn());
@@ -82,7 +76,6 @@ public class VillageTest extends TestCase {
 
     public void testPullNull() throws Exception {
         village = new Village(VillagePositions.BREMEN_HAMBURG_3);
-        assertNotNull(village);
         try {
             village.pullPawn();
             fail("Invalid Affectation");
