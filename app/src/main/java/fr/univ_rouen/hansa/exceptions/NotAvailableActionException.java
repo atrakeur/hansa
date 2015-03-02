@@ -1,7 +1,7 @@
 package fr.univ_rouen.hansa.exceptions;
 
 /**
- * Erreur déclenchée par une action non disponible
+ * Exception triggered when an action that isn't available is used
  */
 public class NotAvailableActionException extends GameException {
 
