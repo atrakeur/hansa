@@ -17,4 +17,8 @@ public interface IHTPlayer extends IScorePlayer {
      * @return PlayerColor, an enum who represent the color
      */
     public PlayerColor getPlayerColor();
+
+    public int getActionNumber();
+
+    public void setActionNumber(int i);
 }

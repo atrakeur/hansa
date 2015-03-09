@@ -1,5 +1,6 @@
 package fr.univ_rouen.hansa.gameboard.cities;
 
+import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +21,15 @@ public class City implements ICity {
     private final IPosition position;
     private final Power power;
     private final List<IKontor<? extends Pawn>> kontors;
+    private final List<IKontor<? extends Pawn>> additionalKontors;
     private final List<IRoute> routes;
 
     public City(IPosition position, Power power, List<IKontor<? extends Pawn>> kontors) {
         if (kontors == null) {
             throw new IllegalArgumentException();
         }
+        
+        this.additionalKontors = Lists.newArrayList();
 
         this.drawer = new HansaCityDrawer(this);
         this.clickableArea = new HansaCityClickableArea(this);
@@ -34,7 +38,7 @@ public class City implements ICity {
         this.power = power;
         this.kontors = kontors;
 
-        this.routes = new ArrayList<>();
+        this.routes = Lists.newArrayList();
     }
 
     @Override
@@ -44,7 +48,7 @@ public class City implements ICity {
 
     @Override
     public List<IRoute> getRoutes() {
-        return new ArrayList<>(routes);
+        return Lists.newArrayList(routes);
     }
 
     @Override
@@ -74,7 +78,21 @@ public class City implements ICity {
 
     @Override
     public List<IKontor<? extends Pawn>> getKontors() {
-        return new ArrayList<>(kontors);
+        return Lists.newArrayList(kontors);
+    }
+
+    @Override
+    public List<IKontor<? extends Pawn>> getAdditionalKontors() {
+        return additionalKontors;
+    }
+
+    @Override
+    public void pushAdditionalKontors(IKontor<? extends Pawn> kontor) {
+        if (kontor == null || kontor.isEmpty()){
+            throw new IllegalArgumentException("additionnalKontor null or empty");
+        }
+        
+        additionalKontors.add(kontor);
     }
 
     @Override

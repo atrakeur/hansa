@@ -9,14 +9,14 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import com.google.common.collect.Lists;
+
 import java.util.Arrays;
 import java.util.List;
 
 import fr.univ_rouen.hansa.R;
 import fr.univ_rouen.hansa.actions.MovementFactory;
 import fr.univ_rouen.hansa.actions.MovementManager;
-import fr.univ_rouen.hansa.actions.movement.Bursa;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
@@ -38,7 +38,7 @@ public class GameActivity extends Activity {
 
 
         //TODO just pour la présentation, à enlever après ;)
-        List<Pawn> pawns = new ArrayList<>();
+        List<Pawn> pawns = Lists.newArrayList();
         pawns.add(new Merchant(player));
         pawns.add(new Merchant(player));
         pawns.add(new Merchant(player));

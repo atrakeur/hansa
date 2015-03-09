@@ -54,6 +54,20 @@ public interface ICity extends IDrawable, IClickable {
     public List<IKontor<? extends Pawn>> getKontors();
 
     /**
+     * Additional Kontors created by Bonus BonusKontor.
+     *
+     * @return Additional Kontors List
+     */
+    public List<IKontor<? extends Pawn>> getAdditionalKontors();
+
+    /**
+     * push an additional kontor
+     *
+     * @param kontor : kontor != null && !kontor.isEmpty()
+     */
+    public void pushAdditionalKontors(IKontor<? extends Pawn> kontor);
+
+    /**
      * Getter for the power of the city
      *
      * @return the power of the city

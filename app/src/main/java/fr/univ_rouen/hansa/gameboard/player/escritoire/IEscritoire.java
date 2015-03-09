@@ -16,6 +16,8 @@ public interface IEscritoire {
     public static final int INIT_STOCK = 7;
     public static final int INIT_SUPPLY = 4;
 
+    public List<IBonusMarker> getBonusMarker();
+    
     /**
      * Return Bonus markers the player need to replace at the end of the round
      *
@@ -36,6 +38,8 @@ public interface IEscritoire {
      * @return the list of bonus marker that the player have play
      */
     public List<IBonusMarker> getUsedBonusMarker();
+    
+    public void addBonusMarker(IBonusMarker bonus);
 
     /**
      * Return the number of bonus marker the player have
@@ -107,7 +111,7 @@ public interface IEscritoire {
      * Move supply (accessible pawns) to stock (unaccessible pawns)
      *
      * @param merchants number of merchants to move
-     * @param traders   number of traders to move
+     * @param traders number of traders to move
      * @return true if the action can be done, false else
      */
     public boolean moveSupplyToStock(int merchants, int traders);
