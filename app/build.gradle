@@ -7,7 +7,6 @@ android {
     defaultConfig {
         applicationId "fr.univ_rouen.hansa"
         minSdkVersion 14
-        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
@@ -25,6 +24,7 @@ repositories {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:21.0.3'
-    compile group: 'com.google.guava', name: 'guava', version: '15.0'
+    compile 'com.android.support:appcompat-v7:18+'
+    // Jeu pour adulte
+    compile 'com.google.guava:guava:15.0'
 }

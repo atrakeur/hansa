@@ -8,8 +8,8 @@ import fr.univ_rouen.hansa.actions.Actions;
 import fr.univ_rouen.hansa.exceptions.NotAvailableActionException;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
-import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 
@@ -51,11 +51,11 @@ public class IncreasePower implements IMovement {
 
     @Override
     public void doMovement() {
-        if (pawns.size() > 0) {
+        if (pawns.size() > 0 || actionDone) {
             throw new IllegalStateException("Movement already done");
         }
 
-        if (!route.isTradeRoute()) {
+        if (!route.isTradeRoute(player)) {
             throw new NotAvailableActionException();
         }
 
@@ -66,6 +66,8 @@ public class IncreasePower implements IMovement {
         player.getEscritoire().addToStock(pawns);
 
         player.getEscritoire().increasePower(power);
+
+        actionDone = true;
     }
 
     @Override
@@ -87,5 +89,7 @@ public class IncreasePower implements IMovement {
         } catch (Exception e) {
             throw new NotAvailableActionException();
         }
+
+        actionDone = false;
     }
 }

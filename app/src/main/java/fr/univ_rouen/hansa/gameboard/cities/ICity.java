@@ -2,10 +2,27 @@ package fr.univ_rouen.hansa.gameboard.cities;
 
 import java.util.List;
 
-import fr.univ_rouen.hansa.gameboard.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 import fr.univ_rouen.hansa.view.IPosition;
+import fr.univ_rouen.hansa.view.display.IDrawable;
+import fr.univ_rouen.hansa.view.interactions.IClickable;
 
-public interface ICity {
+public interface ICity extends IDrawable, IClickable {
+
+    /**
+     * Set a route near the city
+     *
+     * @param route IRoute near the city
+     */
+    public void setRoute(IRoute route);
+
+    /**
+     * Return all routes near the city
+     *
+     * @return a set of IRoute
+     */
+    public List<IRoute> getRoutes();
 
     /**
      * Return the kontor at the position i int the city
@@ -14,6 +31,13 @@ public interface ICity {
      * @return the kontor selected
      */
     public IKontor getKontor(int i);
+
+    /**
+     * Return the kontor who can be keep
+     *
+     * @return the kontor selected
+     */
+    public IKontor<? extends Pawn> getNextKontor();
 
     /**
      * Getter for the position of the city
@@ -28,6 +52,20 @@ public interface ICity {
      * @return the list of kontors of the city
      */
     public List<IKontor<? extends Pawn>> getKontors();
+
+    /**
+     * Additional Kontors created by Bonus BonusKontor.
+     *
+     * @return Additional Kontors List
+     */
+    public List<IKontor<? extends Pawn>> getAdditionalKontors();
+
+    /**
+     * push an additional kontor
+     *
+     * @param kontor : kontor != null && !kontor.isEmpty()
+     */
+    public void pushAdditionalKontors(IKontor<? extends Pawn> kontor);
 
     /**
      * Getter for the power of the city

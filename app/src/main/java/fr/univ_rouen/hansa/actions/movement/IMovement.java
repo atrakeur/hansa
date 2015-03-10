@@ -2,6 +2,11 @@ package fr.univ_rouen.hansa.actions.movement;
 
 import fr.univ_rouen.hansa.actions.Actions;
 
+/**
+ * Represents a movement that is done by a player on the GameBoard
+ * The player can be anything (real player or AI)
+ * Any movement can be undone/redone and track it's state internally.
+ */
 public interface IMovement {
 
     /**

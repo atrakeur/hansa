@@ -1,5 +1,8 @@
 package fr.univ_rouen.hansa.exceptions;
 
+/**
+ * Exception triggered by a GameLogic
+ */
 public class GameException extends RuntimeException {
 
     public GameException()

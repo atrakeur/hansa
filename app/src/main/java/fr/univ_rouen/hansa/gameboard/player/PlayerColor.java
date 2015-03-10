@@ -7,11 +7,15 @@ public enum PlayerColor {
     blue(Color.BLUE),
     yellow(Color.YELLOW),
     green(Color.GREEN),
-    purple(Color.rgb(127,15,126));
+    purple(Color.rgb(127, 15, 126));
 
     private final int color;
 
     private PlayerColor(int color) {
         this.color = color;
+    }
+
+    public int getColor() {
+        return color;
     }
 }
