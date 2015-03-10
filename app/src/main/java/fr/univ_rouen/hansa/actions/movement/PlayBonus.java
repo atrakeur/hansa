@@ -12,7 +12,7 @@ public class PlayBonus implements IMovement {
     public PlayBonus(IBonusMarker bonus){
 
         if(bonus == null || bonus.getState() != BonusState.onHand){
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("The bonus argument is null or its state is not onHand");
         }
 
         this.bonusMarker = bonus;
@@ -32,18 +32,20 @@ public class PlayBonus implements IMovement {
     @Override
     public void doMovement() {
         if(this.isDone() || this.bonusMarker.getState() != BonusState.onHand){
-            throw new IllegalStateException();
+            throw new IllegalStateException("Action already done or invalid bonus state");
         }
 
         bonusMarker.doAction();
+        actionDone = true;
     }
 
     @Override
     public void doRollback() {
-        if(!this.isDone() || this.bonusMarker.getState() == BonusState.onHand){
-            throw new IllegalStateException();
+        if(!this.isDone() || this.bonusMarker.getState() != BonusState.used){
+            throw new IllegalStateException("Action already undone or invalid bonus state");
         }
 
-        //??? euh undoAction ?
+        bonusMarker.undoAction();
+        actionDone = false;
     }
 }
