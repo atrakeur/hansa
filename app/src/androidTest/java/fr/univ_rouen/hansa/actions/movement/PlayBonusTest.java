@@ -8,7 +8,7 @@ import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 
 public class PlayBonusTest extends TestCase {
 
-    class BonusMarker implements IBonusMarker{
+    class BonusMarker implements IBonusMarker {
         private BonusState state = BonusState.onHand;
 
         @Override
@@ -32,24 +32,26 @@ public class PlayBonusTest extends TestCase {
         }
     }
 
-    public void test_constructor_with_valid_parameter() throws Exception{
+    public void testConstructorWithValidParameter() throws Exception {
         PlayBonus action = new PlayBonus(new BonusMarker());
         assertFalse(action.isDone());
         assertEquals(action.getActionDone(), Actions.playBonus);
     }
 
 
-    public void test_constructor_with_invalid_bonus_marker_state() throws Exception{
+    public void testConstructorWithInvalidBonusMarkerState() throws Exception {
         IBonusMarker bonus = new BonusMarker();
         bonus.setState(BonusState.inPlate);
-        try{
+        try {
             new PlayBonus(bonus);
             fail("Constructor should have raised an IllegalArgumentException");
-        }catch (IllegalArgumentException ex){ assertEquals(ex.getMessage(), "The bonus argument is null or its state is not onHand"); }
+        } catch (IllegalArgumentException ex) {
+            assertEquals(ex.getMessage(), "The bonus argument is null or its state is not onHand");
+        }
     }
 
 
-    public void test_do_valid_movement_and_rollback() throws Exception{
+    public void testDoValidMovementAndRollback() throws Exception {
         PlayBonus action = new PlayBonus(new BonusMarker());
         action.doMovement();
         assertTrue(action.isDone());
@@ -58,42 +60,50 @@ public class PlayBonusTest extends TestCase {
         assertFalse(action.isDone());
     }
 
-    public void test_invalid_initial_bonus_marker_state() throws Exception{
+    public void testInvalidInitialBonusMarkerState() throws Exception {
         IBonusMarker bonus = new BonusMarker();
         PlayBonus action = new PlayBonus(bonus);
         bonus.setState(BonusState.inPlate);
-        try{
+        try {
             action.doMovement();
             fail("doMovement() should have raised an IllegalStateException");
-        } catch(IllegalStateException ex){ assertEquals(ex.getMessage(), "Action already done or invalid bonus state");}
+        } catch (IllegalStateException ex) {
+            assertEquals(ex.getMessage(), "Action already done or invalid bonus state");
+        }
     }
 
-    public void test_invalid_rollback_bonus_marker_state() throws Exception{
+    public void testInvalidRollbackBonusMarkerState() throws Exception {
         IBonusMarker bonus = new BonusMarker();
         PlayBonus action = new PlayBonus(bonus);
         action.doMovement();
         bonus.setState(BonusState.inPlate);
 
-        try{
+        try {
             action.doRollback();
             fail("doRollback() should have raised an IllegalStateException");
-        } catch(IllegalStateException ex){ assertEquals(ex.getMessage(), "Action already undone or invalid bonus state");}
+        } catch (IllegalStateException ex) {
+            assertEquals(ex.getMessage(), "Action already undone or invalid bonus state");
+        }
     }
 
-    public void test_invalid_early_rollback() throws Exception{
+    public void testInvalidEarlyRollback() throws Exception {
         PlayBonus action = new PlayBonus(new BonusMarker());
-        try{
+        try {
             action.doRollback();
             fail("doRollback() should have raised an IllegalStateException");
-        } catch(IllegalStateException ex){assertEquals(ex.getMessage(), "Action already undone or invalid bonus state");}
+        } catch (IllegalStateException ex) {
+            assertEquals(ex.getMessage(), "Action already undone or invalid bonus state");
+        }
     }
 
-    public void test_invalid_doMovement_twice_in_a_row() throws Exception{
+    public void testInvalidDoMovementTwiceInARow() throws Exception {
         PlayBonus action = new PlayBonus(new BonusMarker());
         action.doMovement();
-        try{
+        try {
             action.doMovement();
             fail("doMovement() should have raised an IllegalStateException");
-        } catch(IllegalStateException ex){ assertEquals(ex.getMessage(), "Action already done or invalid bonus state");}
+        } catch (IllegalStateException ex) {
+            assertEquals(ex.getMessage(), "Action already done or invalid bonus state");
+        }
     }
 }
