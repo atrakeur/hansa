@@ -197,7 +197,7 @@ public class RouteTest extends TestCase {
 
     public void testGetBonusMarker() throws Exception {
         initialize();
-        IBonusMarker bm = new BonusActiones();
+        IBonusMarker bm = new BonusActiones(3);
         route = new Route(villages, cities, TavernPositions.GRONINGEN_EMDEN, bm);
         assertNotNull(route.getBonusMarker());
         assertTrue(bm == route.getBonusMarker());
