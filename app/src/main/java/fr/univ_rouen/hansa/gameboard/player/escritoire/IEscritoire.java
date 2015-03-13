@@ -38,7 +38,12 @@ public interface IEscritoire {
      * @return the list of bonus marker that the player have play
      */
     public List<IBonusMarker> getUsedBonusMarker();
-    
+
+    /**
+     * Add a bonusmarker at the list of bonus marker
+     * @param bonus
+     * The bonus marker
+     */
     public void addBonusMarker(IBonusMarker bonus);
 
     /**

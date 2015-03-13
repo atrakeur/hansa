@@ -18,7 +18,17 @@ public interface IHTPlayer extends IScorePlayer {
      */
     public PlayerColor getPlayerColor();
 
+    /**
+     * Return the number of action for the player
+     * @return
+     * The number of action that can be play by the player
+     */
     public int getActionNumber();
 
+    /**
+     * Set the number of action
+     * @param i
+     * Number of action to add to the previous actionnumber
+     */
     public void setActionNumber(int i);
 }
