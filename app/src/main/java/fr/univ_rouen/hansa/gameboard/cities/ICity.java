@@ -2,6 +2,7 @@ package fr.univ_rouen.hansa.gameboard.cities;
 
 import java.util.List;
 
+import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 import fr.univ_rouen.hansa.view.IPosition;
@@ -80,5 +81,14 @@ public interface ICity extends IDrawable, IClickable {
      * @return true if the city is completed, false else;
      */
     public boolean isCompletedCity();
+
+    /**
+     * The city's owner is the player with the most Kontor in this city.
+     * In case of a tie, the one that occupies the house higher value (the one furthest
+     * to the right) controls the city.
+     *
+     * @return the city's owner
+     */
+    public IHTPlayer getOwner();
 
 }
