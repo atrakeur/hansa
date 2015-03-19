@@ -14,7 +14,7 @@ public class HansaGameBoardDrawer implements IDrawer {
 
     private boolean debug = false;
 
-    GameBoard board;
+    GameBoard  board;
     List<ICity> cities;
     List<IRoute> routes;
 

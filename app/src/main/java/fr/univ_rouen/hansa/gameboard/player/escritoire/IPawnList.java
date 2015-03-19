@@ -1,12 +1,13 @@
 package fr.univ_rouen.hansa.gameboard.player.escritoire;
 
+import java.io.Serializable;
 import java.util.List;
 
 import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 
-public interface IPawnList {
+public interface IPawnList extends Serializable {
 
     /**
      * Add the given pawns arguments to the list of pawns

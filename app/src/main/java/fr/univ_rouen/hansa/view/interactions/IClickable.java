@@ -1,6 +1,8 @@
 package fr.univ_rouen.hansa.view.interactions;
 
-public interface IClickable {
+import java.io.Serializable;
+
+public interface IClickable extends Serializable {
 
     public IClickableArea getClickableArea();
 

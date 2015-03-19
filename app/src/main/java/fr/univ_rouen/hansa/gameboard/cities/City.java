@@ -14,7 +14,7 @@ import fr.univ_rouen.hansa.view.interactions.IClickableArea;
 
 public class City implements ICity {
 
-    private final IDrawer drawer;
+    private static IDrawer drawer;
     private final IClickableArea clickableArea;
 
     private final IPosition position;
@@ -35,6 +35,13 @@ public class City implements ICity {
         this.kontors = kontors;
 
         this.routes = new ArrayList<>();
+    }
+    public void setDrawer(IDrawer drawer){
+        if(drawer ==null){
+            throw new IllegalArgumentException();
+        }
+        this.drawer = drawer;
+
     }
 
     @Override

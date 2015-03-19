@@ -5,11 +5,9 @@ import com.google.common.collect.Lists;
 import java.util.List;
 
 import fr.univ_rouen.hansa.gameboard.TurnManager;
-import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
-import fr.univ_rouen.hansa.gameboard.board.PlayersBoard;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
+import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
-import fr.univ_rouen.hansa.gameboard.routes.Route;
 import fr.univ_rouen.hansa.view.display.HansaGameBoardDrawer;
 import fr.univ_rouen.hansa.view.display.IDrawable;
 import fr.univ_rouen.hansa.view.display.IDrawer;
@@ -19,7 +17,7 @@ import fr.univ_rouen.hansa.view.interactions.IClickableArea;
 
 public class GameBoard extends PlayersBoard implements IDrawable {
 
-    private final IDrawer drawer;
+    private static IDrawer drawer;
 
     private TurnManager manager;
 
@@ -36,14 +34,25 @@ public class GameBoard extends PlayersBoard implements IDrawable {
         return this.drawer;
     }
 
+    public void setDrawer(IDrawer drawer) {
+        if (drawer == null) {
+            throw new IllegalArgumentException();
+        }
+        this.drawer = drawer;
+    }
+
+    public TurnManager getManager() {
+        return manager;
+    }
+
     public IClickable[] getClickables() {
         List<IClickable> cliquables = Lists.newArrayList();
 
-        for (IRoute route: getRoutes()) {
+        for (IRoute route : getRoutes()) {
             cliquables.addAll(route.getVillages());
         }
 
-        for (ICity city: getCities()) {
+        for (ICity city : getCities()) {
             cliquables.add(city);
             //TODO add power cliquable area
         }

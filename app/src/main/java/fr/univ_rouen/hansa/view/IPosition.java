@@ -1,6 +1,8 @@
 package fr.univ_rouen.hansa.view;
 
-public interface IPosition {
+import java.io.Serializable;
+
+public interface IPosition extends Serializable {
 
     /**
      * Get the position in percent of X with the corner on the top left

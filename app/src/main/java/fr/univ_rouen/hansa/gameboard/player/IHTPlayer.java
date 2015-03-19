@@ -1,8 +1,10 @@
 package fr.univ_rouen.hansa.gameboard.player;
 
+import java.io.Serializable;
+
 import fr.univ_rouen.hansa.gameboard.player.escritoire.IEscritoire;
 
-public interface IHTPlayer extends IScorePlayer {
+public interface IHTPlayer extends IScorePlayer, Serializable {
 
     /**
      * Access to the escritoire and all the informations of the player

@@ -133,4 +133,11 @@ public class GameBoardView extends SurfaceView {
         Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
     }
 
+    public GameBoard getBoard() {
+        return board;
+    }
+
+    public void setBoardLoad(GameBoard boardLoad) {
+        this.board = boardLoad;
+    }
 }

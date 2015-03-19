@@ -1,0 +1,30 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/load_layout"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_horizontal"
+    tools:context="fr.univ_rouen.hansa.activity.LoadActivity">
+
+    <TextView
+        android:id="@+id/titre"
+        android:layout_weight="1"
+        android:layout_marginTop="10dp"
+        android:layout_width="400dp"
+        android:layout_height="90dp"
+        android:text="@string/title_load_activity"
+        android:textSize="20sp"
+        android:textColor="#d28756"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:gravity="center"
+        android:background="#e2d7b7" />
+
+    <ListView
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/saves"
+        android:layout_below="@+id/titre"
+        android:layout_marginTop="5dp"/>
+
+</RelativeLayout>

@@ -1,5 +1,6 @@
 package fr.univ_rouen.hansa.gameboard.player.escritoire;
 
+import java.io.Serializable;
 import java.util.List;
 
 import fr.univ_rouen.hansa.gameboard.Privillegium;
@@ -7,7 +8,7 @@ import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 
-public interface IEscritoire {
+public interface IEscritoire extends  Serializable {
     public static final int INIT_CLAVIS_URBIS = 4;
     public static final int INIT_ACTIONES = 5;
     public static final int INIT_PRIVILEGIUM = 3;

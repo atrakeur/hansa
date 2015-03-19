@@ -1,6 +1,8 @@
 package fr.univ_rouen.hansa.view.display;
 
-public interface IDrawable {
+import java.io.Serializable;
+
+public interface IDrawable extends Serializable {
 
     public IDrawer getDrawer();
 

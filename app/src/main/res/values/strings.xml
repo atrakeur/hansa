@@ -28,7 +28,23 @@
     <string name="ab_too_low">Le nombre de Commerçants doit être supérieur ou égal à 0.</string>
     <string name="ab_too_much_bursa">Votre pouvoir Bursa n\'est pas assez élevé.</string>
     <string name="ab_too_much_mer">Vous n\'avez pas autant de Marchand dans votre Stock.</string>
+    <string name="save_title">Sauvegarde</string>
+    <string name="title_activity_load">loadActivity</string>
 
+    <string name="hello_world">Hello world!</string>
+    <string name="delete_save">Supprimer</string>
+    <string name="date_format">dd/mm/yyyy</string>
+
+    <string name="title_activity_load_activity2">LoadActivity2</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_load_activity">Les sauvegardes</string>
+    <string name="alert_question_save">voulez  vous sauvegarder cette partie ?</string>
+    <string name="alert_save_max">vous avez cinq  sauvegardes</string>
+    <string name="delete_toast">suppression en cours...</string>
+    <string name="question_delete_save">Voulez vous supprimer cette sauvegarde ?</string>
+    <string name="error_load_save">error!!!</string>
+    <string name="load_toast">chargemment en cours...</string>
 
 
 </resources>

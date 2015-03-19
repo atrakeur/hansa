@@ -76,9 +76,8 @@
             android:scaleType="fitCenter"
             android:src="@drawable/pause"
             android:contentDescription="@string/button_pause"
-
             android:background="#000000"
-            android:onClick="toasty"
+            android:onClick="save"
             />
 
     </LinearLayout>
