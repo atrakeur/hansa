@@ -2,15 +2,13 @@ package fr.univ_rouen.hansa.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.view.GestureDetectorCompat;
 import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,13 +25,13 @@ import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.view.interactions.AlertDialogBursa;
 
-public class GameActivity extends Activity implements GestureDetector.OnGestureListener{
+public class GameActivity extends Activity{
+
 
     enum EscritoireState{MINE, OTHERS, HIDE}
 
     private EscritoireState state;
     private Context context = this;
-    private GestureDetectorCompat mDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +40,6 @@ public class GameActivity extends Activity implements GestureDetector.OnGestureL
         state = EscritoireState.HIDE;
         TurnManager.getInstance().addPlayers(Arrays.asList(PlayerColor.values()));
         IHTPlayer player =TurnManager.getInstance().getCurrentPlayer();
-
-        mDetector = new GestureDetectorCompat(this,this);
-
-        final ImageView view = (ImageView)findViewById(R.id.escritoire);
-
-        view.setVisibility(View.GONE);
-
 
         //TODO just pour la présentation, à enlever après ;)
         List<Pawn> pawns = new ArrayList<>();
@@ -68,11 +59,17 @@ public class GameActivity extends Activity implements GestureDetector.OnGestureL
 
         IHTPlayer player =TurnManager.getInstance().getCurrentPlayer();
 
+        LinearLayout sideMenu = (LinearLayout) findViewById(R.id.side_menu);
+
+        for(int i = 0; i<sideMenu.getChildCount(); i++){
+            sideMenu.getChildAt(i).setBackgroundColor(player.getPlayerColor().getColor());
+        }
+/*
         findViewById(R.id.button_cancel).setBackgroundColor(player.getPlayerColor().getColor());
         findViewById(R.id.button_bursa).setBackgroundColor(player.getPlayerColor().getColor());
         findViewById(R.id.button_bonus_marker).setBackgroundColor(player.getPlayerColor().getColor());
         findViewById(R.id.button_submit).setBackgroundColor(player.getPlayerColor().getColor());
-        findViewById(R.id.button_pause).setBackgroundColor(player.getPlayerColor().getColor());
+        findViewById(R.id.button_pause).setBackgroundColor(player.getPlayerColor().getColor());*/
     }
 
     public void toasty(View v){
@@ -148,60 +145,17 @@ public class GameActivity extends Activity implements GestureDetector.OnGestureL
         this.onResume();
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event){
-        this.mDetector.onTouchEvent(event);
-        // Be sure to call the superclass implementation
-        return super.onTouchEvent(event);
-    }
-
-    @Override
-    public boolean onDown(MotionEvent e) {
-        return false;
-    }
-
-    @Override
-    public void onShowPress(MotionEvent e) {
-
-    }
-
-    @Override
-    public boolean onSingleTapUp(MotionEvent e) {
-        return false;
-    }
-
-    @Override
-    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-        Log.w("Scroll Event : ", distanceX+"\t"+distanceY);
-        if(Math.abs(distanceX)<Math.abs(distanceY)){
-            if(state == EscritoireState.HIDE && distanceY>0){
-                state = EscritoireState.MINE;
-                (findViewById(R.id.escritoire)).setVisibility(View.VISIBLE);
-            } else if(state == EscritoireState.MINE && distanceY < 0){
-                state = EscritoireState.HIDE;
-                (findViewById(R.id.escritoire)).setVisibility(View.GONE);
-            }
-            Log.w("Vertical", state.toString());
-        } else if(Math.abs(distanceX)>Math.abs(distanceY)){
-            if(state == EscritoireState.HIDE && distanceX<0){
-                state = EscritoireState.OTHERS;
-            } else if(state == EscritoireState.OTHERS&& distanceX > 0){
-                state = EscritoireState.HIDE;
-            }
-            Log.w("Horizontal", state.toString());
+    public void toggleEscritoire(View view) {
+        Dialog dial = new Dialog(context, android.R.style.Theme_Material_Light_Dialog);
+        Log.w("Escritoire State", ""+state);
+        if(state == EscritoireState.HIDE){
+            dial.setContentView(R.layout.dialog_escritoire);
+            dial.show();
+        } else if(state == EscritoireState.MINE){
+            dial.dismiss();
+            state = EscritoireState.HIDE;
+            //(findViewById(R.id.escritoire)).setVisibility(View.GONE);
         }
-
-
-        return true;
     }
 
-    @Override
-    public void onLongPress(MotionEvent e) {
-
-    }
-
-    @Override
-    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        return false;
-    }
 }
