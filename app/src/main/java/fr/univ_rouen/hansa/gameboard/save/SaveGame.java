@@ -53,9 +53,7 @@ public class SaveGame implements Serializable {
             saveGame = new SaveGame();
 
         }
-        if (saveGame != null) return saveGame;
-        else
-            return new SaveGame();
+        return saveGame;
 
     }
 

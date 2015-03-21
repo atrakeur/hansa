@@ -1,6 +1,7 @@
 package fr.univ_rouen.hansa.gameboard.save;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,10 +23,10 @@ import fr.univ_rouen.hansa.activity.LoadActivity;
 public class ModelListSave extends BaseAdapter {
     private LayoutInflater myInflater;
     private Intent game;
-    private LoadActivity context;
+    private Context context;
     private List<Save> data;
 
-    public ModelListSave(LoadActivity context, List<Save> mydata) {
+    public ModelListSave(Context context, List<Save> mydata) {
         data = mydata;
         this.context = context;
         this.myInflater = LayoutInflater.from(context);
@@ -78,9 +79,7 @@ public class ModelListSave extends BaseAdapter {
                     game.putExtras(bundle);
                     Toast toast = Toast.makeText(context, R.string.load_toast, Toast.LENGTH_SHORT);
                     toast.show();
-                    game.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
                     context.startActivity(game);
-                    context.finish();
 
                 }
             });
