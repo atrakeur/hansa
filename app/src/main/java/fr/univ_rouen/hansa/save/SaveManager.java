@@ -1,13 +1,12 @@
 package fr.univ_rouen.hansa.save;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
+import fr.univ_rouen.hansa.save.gameboard.JSonGameBoard;
 
 public class SaveManager {
     private static SaveManager ourInstance = new SaveManager();
@@ -42,7 +41,9 @@ public class SaveManager {
      */
     public boolean save(GameBoard gameBoard, String saveName) {
         //TODO
-        //String save = gson.toJson(gameBoard);
+        JSonGameBoard jSonGameBoard = new JSonGameBoard(gameBoard);
+        String save = gson.toJson(jSonGameBoard);
+
         return false;
     }
 }
