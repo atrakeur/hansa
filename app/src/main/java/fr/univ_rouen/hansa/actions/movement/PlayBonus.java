@@ -48,4 +48,14 @@ public class PlayBonus implements IMovement {
         bonusMarker.undoAction();
         actionDone = false;
     }
+
+    @Override
+    public int getPawnReplaceMove() {
+        return 0;
+    }
+
+    @Override
+    public int getMergeableMove() {
+        return 0;
+    }
 }

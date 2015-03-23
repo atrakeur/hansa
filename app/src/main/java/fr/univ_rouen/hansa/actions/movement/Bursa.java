@@ -125,4 +125,14 @@ public class Bursa implements IMovement {
             throw e;
         }
     }
+
+    @Override
+    public int getPawnReplaceMove() {
+        return 0;
+    }
+
+    @Override
+    public int getMergeableMove() {
+        return 0;
+    }
 }
