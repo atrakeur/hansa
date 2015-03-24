@@ -31,7 +31,7 @@ public class CityTest extends TestCase {
         kontors.add(new Kontor<Trader>(Trader.class, false, Privillegium.Pink));
     }
 
-    /*public void testConsCity() throws Exception {
+    public void testConsCity() throws Exception {
         try {
             city = new City(CityPositions.STENDAL, Power.Null, null);
             fail("Invalid Affectation");
@@ -126,7 +126,7 @@ public class CityTest extends TestCase {
         assertNotNull(city.getDrawer());
         assertTrue(city.getDrawer().getClass().equals(HansaCityDrawer.class));
 
-    }*/
+    }
 
     public void testGetOwner(){
         IHTPlayer player1 = new HTPlayer(PlayerColor.green, 1);
