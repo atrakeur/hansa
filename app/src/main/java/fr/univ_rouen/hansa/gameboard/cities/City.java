@@ -69,7 +69,6 @@ public class City implements ICity {
                 return kontor;
             }
         }
-
         return null;
     }
 
@@ -126,6 +125,7 @@ public class City implements ICity {
 
     @Override
     public IHTPlayer getOwner(){
+        System.out.println("Get owner");
         if (this.getKontors().size() == 0){
             return null;
         }
@@ -133,6 +133,7 @@ public class City implements ICity {
         int kontorsOwnedMax = 0;
         Map<IHTPlayer,Integer> score = new HashMap<>();
         for (IKontor<? extends Pawn> kontor : getAdditionalKontors()){
+            System.out.println("additionnal Kontor");
             IHTPlayer kontorOwner = kontor.getOwner();
             Integer kontorsOwned = score.get(kontorOwner);
             if (kontorsOwned == null){
@@ -148,18 +149,20 @@ public class City implements ICity {
             }
         }
         for (IKontor<? extends Pawn> kontor : getKontors()){
-            IHTPlayer kontorOwner = kontor.getOwner();
-            Integer kontorsOwned = score.get(kontorOwner);
-            if (kontorsOwned == null){
-                kontorsOwned = 1;
-                score.put(kontorOwner,kontorsOwned);
-            } else {
-                kontorsOwned++;
-            }
-            score.put(kontorOwner,kontorsOwned);
-            if(kontorsOwned >= kontorsOwnedMax){
-                cityOwner = kontorOwner;
-                kontorsOwnedMax = kontorsOwned;
+            if(!kontor.isEmpty()) {
+                IHTPlayer kontorOwner = kontor.getOwner();
+                Integer kontorsOwned = score.get(kontorOwner);
+                if (kontorsOwned == null) {
+                    kontorsOwned = 1;
+                    score.put(kontorOwner, kontorsOwned);
+                } else {
+                    kontorsOwned++;
+                }
+                score.put(kontorOwner, kontorsOwned);
+                if (kontorsOwned >= kontorsOwnedMax) {
+                    cityOwner = kontorOwner;
+                    kontorsOwnedMax = kontorsOwned;
+                }
             }
         }
         return cityOwner;

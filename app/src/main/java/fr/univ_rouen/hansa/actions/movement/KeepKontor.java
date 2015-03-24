@@ -9,6 +9,7 @@ import fr.univ_rouen.hansa.actions.Actions;
 import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.exceptions.NoPlaceException;
 import fr.univ_rouen.hansa.gameboard.Privillegium;
+import fr.univ_rouen.hansa.gameboard.cities.City;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.IKontor;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
@@ -80,7 +81,9 @@ public class KeepKontor implements IMovement {
                 pawns.add(otherVillage.pullPawn());
             }
         }
-
+        /*for(ICity cities : village.getRoute().getCities()){
+            cities.
+        }*/
         player.getEscritoire().getStock().addPawns(pawns);
 
         actionDone = true;
