@@ -74,6 +74,9 @@ public class KeepKontor implements IMovement {
             throw new GameException("Wrong pawn type for take the kontor");
         }
 
+        for(ICity cities : village.getRoute().getCities()){
+            cities.getOwner().increaseScore();
+        }
         kontor.pushPawn(pawn);
 
         for (IVillage otherVillage : village.getRoute().getVillages()) {
@@ -81,9 +84,6 @@ public class KeepKontor implements IMovement {
                 pawns.add(otherVillage.pullPawn());
             }
         }
-        /*for(ICity cities : village.getRoute().getCities()){
-            cities.
-        }*/
         player.getEscritoire().getStock().addPawns(pawns);
 
         actionDone = true;
@@ -108,7 +108,9 @@ public class KeepKontor implements IMovement {
         }
 
         pawns.clear();
-
+        for(ICity cities : village.getRoute().getCities()){
+            cities.getOwner().decreaseScore();
+        }
         actionDone = false;
     }
 }
