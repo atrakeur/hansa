@@ -35,4 +35,16 @@ public class VictoryCoellen {
     public void setMerchant(Merchant merchant) {
         this.merchant = merchant;
     }
+
+    public int getValue() {
+        return value;
+    }
+
+    public boolean isAvailable() {
+        return merchant == null;
+    }
+
+    public Privillegium getPrivillegiumRequis() {
+        return privillegiumRequis;
+    }
 }
