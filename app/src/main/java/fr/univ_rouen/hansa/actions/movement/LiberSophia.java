@@ -64,4 +64,14 @@ public class LiberSophia implements IMovement {
 
         actionDone = false;
     }
+
+    @Override
+    public int getPawnReplaceMove() {
+        return 0;
+    }
+
+    @Override
+    public int getMergeableMove() {
+        return this.player.getEscritoire().liberSophiaLevel();
+    }
 }
