@@ -1,5 +1,7 @@
 package fr.univ_rouen.hansa.actions.actions;
 
+import com.google.common.collect.Lists;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,11 +15,11 @@ public class ActionFactory {
     private int replaceMoves = 0;
 
     public void compileMouvements(List<IMovement> mouvements) {
-        List<IAction> actions = new ArrayList<>();
+        List<IAction> actions = Lists.newArrayList();
 
         int replaceMoves = 0;
         Actions lastMergeAction = null;
-        List<IMovement> mergeableMoves = new ArrayList<>();
+        List<IMovement> mergeableMoves = Lists.newArrayList();
 
         for (int i = 0; i < mouvements.size(); i++) {
             IMovement movement = mouvements.get(i);

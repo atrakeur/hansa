@@ -1,25 +1,19 @@
 package fr.univ_rouen.hansa.actions.actions;
 
+import com.google.common.collect.Lists;
+
 import junit.framework.TestCase;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import fr.univ_rouen.hansa.actions.Actions;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
-import fr.univ_rouen.hansa.exceptions.NotAvailableActionException;
-import fr.univ_rouen.hansa.exceptions.NotEnoughSupplyException;
-import fr.univ_rouen.hansa.gameboard.TurnManager;
-import fr.univ_rouen.hansa.gameboard.cities.Power;
-import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
-import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 
 public class ActionFactoryTest extends TestCase {
 
     public void testActionsMergeCorrectly() {
         //Given
-        List<IMovement> moves = new ArrayList<>();
+        List<IMovement> moves = Lists.newArrayList();
         moves.add(fakeMergeableMovement(null, 2));
         moves.add(fakeMergeableMovement(null, 2));
         ActionFactory factory = new ActionFactory();
@@ -33,7 +27,7 @@ public class ActionFactoryTest extends TestCase {
 
     public void testActionsMergeConsecutiveFromCounter() {
         //Given
-        List<IMovement> moves = new ArrayList<>();
+        List<IMovement> moves = Lists.newArrayList();
         moves.add(fakeMergeableMovement(null, 2));
         moves.add(fakeMergeableMovement(null, 2));
         moves.add(fakeMergeableMovement(null, 2));
@@ -52,7 +46,7 @@ public class ActionFactoryTest extends TestCase {
 
     public void testActionsMergeConsecutiveFromType() {
         //Given
-        List<IMovement> moves = new ArrayList<>();
+        List<IMovement> moves = Lists.newArrayList();
         moves.add(fakeMergeableMovement(null, 4));
         moves.add(fakeMergeableMovement(null, 4));
         moves.add(fakeMergeableMovement(Actions.liberSophia, 4));
@@ -71,7 +65,7 @@ public class ActionFactoryTest extends TestCase {
 
     public void testActionsMergeNotConsecutiveFromCounter() {
         //Given
-        List<IMovement> moves = new ArrayList<>();
+        List<IMovement> moves = Lists.newArrayList();
         moves.add(fakeMergeableMovement(null, 2));
         moves.add(fakeMergeableMovement(null, 2));
         moves.add(fakeMergeableMovement(null, 0));
@@ -89,7 +83,7 @@ public class ActionFactoryTest extends TestCase {
 
     public void testActionsMergeNotConsecutiveFromType() {
         //Given
-        List<IMovement> moves = new ArrayList<>();
+        List<IMovement> moves = Lists.newArrayList();
         moves.add(fakeMergeableMovement(null, 4));
         moves.add(fakeMergeableMovement(null, 4));
         moves.add(fakeMergeableMovement(Actions.liberSophia, 4));
@@ -110,7 +104,7 @@ public class ActionFactoryTest extends TestCase {
 
     public void testReplaceCountCorrectly() {
         //Given
-        List<IMovement> moves = new ArrayList<>();
+        List<IMovement> moves = Lists.newArrayList();
         moves.add(fakeReplaceableMovement(null, 1));
         moves.add(fakeReplaceableMovement(null, 1));
         moves.add(fakeReplaceableMovement(null,-1));

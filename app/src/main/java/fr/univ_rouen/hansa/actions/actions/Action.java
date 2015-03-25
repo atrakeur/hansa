@@ -1,5 +1,7 @@
 package fr.univ_rouen.hansa.actions.actions;
 
+import com.google.common.collect.Lists;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,7 +16,7 @@ public class Action implements IAction {
 
     public Action(Actions type, List<IMovement> movements) {
         this.type = type;
-        this.movements = new ArrayList<>(movements);
+        this.movements = Lists.newArrayList(movements);
     }
 
     public List<IMovement> getMovements() {
