@@ -23,14 +23,6 @@
             android:layout_width="0dp"
             android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/button_escritoire"
-                android:layout_weight="1"
-                android:text="Esc"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:onClick="toggleEscritoire">
-            </Button>
 
             <ImageButton
                 android:id="@+id/button_cancel"
@@ -42,7 +34,16 @@
                 android:contentDescription="@string/button_cancel"
 
                 android:background="#000000"
+
                 android:onClick="pauseAction"/>
+            <Button
+                android:id="@+id/button_escritoire"
+                android:layout_weight="1"
+                android:text="Esc"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:onClick="displayEscritoire">
+            </Button>
 
             <ImageButton
                 android:id="@+id/button_bursa"
