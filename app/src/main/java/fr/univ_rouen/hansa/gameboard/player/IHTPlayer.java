@@ -18,7 +18,22 @@ public interface IHTPlayer extends IScorePlayer {
      */
     public PlayerColor getPlayerColor();
 
+    /**
+     * Return the number of actions left for the current turn
+     *
+     * @return the number of actions left
+     */
     public int getActionNumber();
 
+    /**
+     * Add action to the current turn
+     *
+     * @param i the number of action
+     */
     public void setActionNumber(int i);
+
+    /**
+     * Reinit actions count for a new turn
+     */
+    public void nextTurn();
 }
