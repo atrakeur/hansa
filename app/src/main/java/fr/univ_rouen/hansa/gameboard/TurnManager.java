@@ -47,8 +47,8 @@ public class TurnManager {
         return players.get(position);
     }
 
-    public void nextPlayer() {
-        if (isNextTurnAvailible() != nextTurnRequire.none) {
+    public void nextPlayer(boolean force) {
+        if (isNextTurnAvailible() != nextTurnRequire.none && !force) {
             throw new UnfinishedRoundException();
         }
 
