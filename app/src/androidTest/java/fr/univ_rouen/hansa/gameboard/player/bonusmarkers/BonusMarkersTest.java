@@ -6,7 +6,11 @@ import android.util.Log;
 
 import com.google.common.collect.Lists;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import fr.univ_rouen.hansa.gameboard.Privillegium;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
@@ -27,7 +31,9 @@ import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
+import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
+import fr.univ_rouen.hansa.gameboard.routes.Route;
 import fr.univ_rouen.hansa.gameboard.routes.Village;
 import fr.univ_rouen.hansa.view.IPosition;
 import fr.univ_rouen.hansa.view.Position;
@@ -147,12 +153,29 @@ public class BonusMarkersTest extends ApplicationTestCase<Application> {
         IHTPlayer player = new HTPlayer(PlayerColor.blue, 1);
         IHTPlayer player2 = new HTPlayer(PlayerColor.green,2);
         Pawn p = new Trader(player);
-        //public static IPosition STADE = new Position(0.533f, 0.094f);
-        List<IKontor<? extends Pawn>> kontors = Lists.newArrayList();
-        Pawn c = new Merchant(player2);
-        Kontor k = new Kontor(c.getClass(), true, Privillegium.White);
-        kontors.add(k);
-        ICity city = new City(new Position(0.533f, 0.094f),Power.Privillegium, kontors);
+        IPosition STADE = new Position(0.533f, 0.094f);
+
+
+
+        List<IKontor<? extends Pawn>> kontors1 = Lists.newArrayList();
+        Kontor k1 = new Kontor(Trader.class, true, Privillegium.White);
+        kontors1.add(k1);
+        ICity city1 = new City(new Position(0.533f, 0.094f),Power.Privillegium, kontors1);
+
+        List<IKontor<? extends Pawn>> kontors2 = Lists.newArrayList();
+        Kontor k2 = new Kontor(Trader.class, true, Privillegium.White);
+        kontors2.add(k2);
+        ICity city2 = new City(new Position(0.533f, 0.094f),Power.Privillegium, kontors2);
+
+        List<IVillage> villages = new ArrayList<IVillage>();
+        Village v1 = new Village(new Position(0.533f, 0.094f));
+        Village v2 = new Village(new Position(0.533f, 0.095f));
+        Village v3 = new Village(new Position(0.533f, 0.096f));
+        villages.add(v1);
+        villages.add(v2);
+        villages.add(v3);
+        //IRoute r = new Route();
+
         /**
          * Test l'effet du jeton bonus sur la liste des comptoirs additionel.
          * Test aussi lorsque l'effet est lancé plusieurs fois
@@ -160,7 +183,7 @@ public class BonusMarkersTest extends ApplicationTestCase<Application> {
         bk.setState(BonusState.onHand);
         bk.setCity(city);
         player.getEscritoire().addBonusMarker(bk);
-        bk.setPawn(p);
+        bk.setVillage(p);
         bk.setPlayer(player);
         bk.doAction();
         assertEquals(city.getAdditionalKontors().size(), 1);
