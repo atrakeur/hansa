@@ -85,6 +85,9 @@ public class BonusKontor extends StatedBonus implements IBonusMarker {
             throw new IllegalStateException("The current player differs of the marker's owner");
         }
 
+        for(ICity cities : village.getRoute().getCities()){
+            cities.getOwner().increaseScore();
+        }
         IKontor<Pawn> k = new Kontor(village.getPawnType(), false, Privillegium.White);
         kontor = k;
         Pawn pa = village.pullPawn();
@@ -100,6 +103,8 @@ public class BonusKontor extends StatedBonus implements IBonusMarker {
         }
         pawns = ps;
         player.getEscritoire().getStock().addPawns(ps);
+        player.setActionNumber(player.getActionNumber() - 1);
+
     }
 
     public void undoAction() {
@@ -119,7 +124,7 @@ public class BonusKontor extends StatedBonus implements IBonusMarker {
             throw new IllegalStateException("The current player differs of the marker's owner");
         }
         village.pushPawn(kontor.popPawn());
-
+        city.getAdditionalKontors().remove(kontor);
         player.getEscritoire().getStock().removePawns(pawns);
 
         Iterator<Pawn> pawnIterator = pawns.iterator();
@@ -134,5 +139,6 @@ public class BonusKontor extends StatedBonus implements IBonusMarker {
         for(ICity cities : village.getRoute().getCities()){
             cities.getOwner().decreaseScore();
         }
+        player.setActionNumber(player.getActionNumber()+1);
     }
 }
