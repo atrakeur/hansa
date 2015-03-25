@@ -111,4 +111,14 @@ public class ReplaceMovedPawn implements IMovement {
 
         actionDone = false;
     }
+
+    @Override
+    public int getPawnReplaceMove() {
+        return -1;
+    }
+
+    @Override
+    public int getMergeableMove() {
+        return 0;
+    }
 }

@@ -36,4 +36,16 @@ public interface IMovement {
      * @pre isDone == true
      */
     public void doRollback();
+
+    /**
+     * Do this movement force a replace move later?
+     * @return
+     */
+    public int getPawnReplaceMove();
+
+    /**
+     * How many movements of this type can be merged inside one action
+     * @return
+     */
+    public int getMergeableMove();
 }
