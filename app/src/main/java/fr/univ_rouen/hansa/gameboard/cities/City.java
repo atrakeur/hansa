@@ -131,7 +131,7 @@ public class City implements ICity {
         }
         IHTPlayer cityOwner = null;
         int kontorsOwnedMax = 0;
-        Map<IHTPlayer,Integer> score = new HashMap<>();
+        Map<IHTPlayer,Integer> score = new HashMap<IHTPlayer,Integer>();
         for (IKontor<? extends Pawn> kontor : getAdditionalKontors()){
             System.out.println("additionnal Kontor");
             IHTPlayer kontorOwner = kontor.getOwner();

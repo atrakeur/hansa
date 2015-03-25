@@ -234,7 +234,7 @@ public class BonusMarkersTest extends ApplicationTestCase<Application> {
     }
 
 
-    /*public void testBonusPermutation() throws Exception {
+    public void testBonusPermutation() throws Exception {
         BonusPermutation bp = new BonusPermutation();
         IHTPlayer player = new HTPlayer(PlayerColor.blue, 1);
         IHTPlayer player2 = new HTPlayer(PlayerColor.green,2);
@@ -268,5 +268,5 @@ public class BonusMarkersTest extends ApplicationTestCase<Application> {
         assertEquals(bp.getKontor1().getOwner(), player2);
         assertEquals(bp.getKontor2().getOwner(), player);
 
-    }*/
+    }
 }
