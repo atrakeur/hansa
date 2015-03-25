@@ -1,5 +1,6 @@
 package fr.univ_rouen.hansa.view.display;
 
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -8,20 +9,25 @@ import android.util.Log;
 
 import java.util.List;
 
+import fr.univ_rouen.hansa.R;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
+import fr.univ_rouen.hansa.view.IPosition;
 import fr.univ_rouen.hansa.view.utils.ResourceRepository;
 
 public class HansaRouteDrawer implements IDrawer {
 
-    private boolean debug = false;
+    private boolean debug = true;
 
     public final float KONTOR_MERCHANT_SIZE_X = 0.021f;
     public final float KONTOR_MERCHANT_SIZE_Y = 0.0275f;
     public final float KONTOR_TRADER_SIZE_X = 0.014f;
     public final float KONTOR_TRADER_SIZE_Y = 0.018f;
+
+    public final float TAVERN_SIZE = 0.040f;
 
     private final IRoute route;
 
@@ -31,7 +37,9 @@ public class HansaRouteDrawer implements IDrawer {
 
     @Override
     public void load(ResourceRepository resources) {
-
+        resources.addResource("bonusactiones3", R.drawable.bonusactiones3, TAVERN_SIZE, TAVERN_SIZE);
+        resources.addResource("bonusactiones4", R.drawable.bonusactiones4, TAVERN_SIZE, TAVERN_SIZE);
+        resources.addResource("bonusescritoire", R.drawable.bonusescritoire, TAVERN_SIZE, TAVERN_SIZE);
     }
 
     @Override
@@ -86,6 +94,28 @@ public class HansaRouteDrawer implements IDrawer {
                         paint
                 );
             }
+        }
+
+        if (debug == true || this.route.getBonusMarker() != null) {
+            //String image = "bonus" + this.route.getBonusMarker().getType();
+            String image = "bonusactiones3";
+            IPosition bonusPosition= this.route.getTavernPosition();
+
+            Bitmap pict = resources.getScaledResource(image);
+
+            int posX = resources.getPercentToScreenWidth(bonusPosition.getX()) - pict.getWidth() / 2;
+            int posY = resources.getPercentToScreenHeight(bonusPosition.getY()) - pict.getHeight() / 2;
+
+            canvas.drawBitmap(pict, posX, posY, paint);
+        } else if (debug == true) {
+            paint.setColor(Color.MAGENTA);
+            IPosition bonusPosition= this.route.getTavernPosition();
+
+            canvas.drawCircle(
+                    resources.getPercentToScreenWidth(bonusPosition.getX()),
+                    resources.getPercentToScreenHeight(bonusPosition.getY()),
+                    resources.getPercentToScreenHeight(TAVERN_SIZE),
+                    paint);
         }
     }
 

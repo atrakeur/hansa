@@ -1,7 +1,6 @@
 package fr.univ_rouen.hansa.gameboard.bonusmarkers;
 
 import fr.univ_rouen.hansa.gameboard.Privillegium;
-import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.IKontor;
 import fr.univ_rouen.hansa.gameboard.cities.Kontor;
@@ -12,13 +11,13 @@ import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 /**
  * Bonus which allow you to add a Kontor on the left of a City
  */
-public class BonusKontor extends StatedBonus implements IBonusMarker {
+public class BonusKontor extends AbstractBonus implements IBonusMarker {
     private ICity city;
     private Pawn pawn;
     private IHTPlayer player;
 
     public BonusKontor() {
-        super();
+        super("kontor");
     }
 
     /**

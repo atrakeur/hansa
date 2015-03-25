@@ -4,20 +4,19 @@ import java.util.List;
 
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.IKontor;
-import fr.univ_rouen.hansa.gameboard.cities.Kontor;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 
 /**
  * Bonus which allow you to permute two Kontor in a City
  */
-public class BonusPermutation extends StatedBonus implements IBonusMarker {
+public class BonusPermutation extends AbstractBonus implements IBonusMarker {
 
     private IKontor<Pawn> k1;
     private IKontor<Pawn> k2;
     private ICity city;
 
     public BonusPermutation() {
-        super();
+        super("permutation");
     }
 
     @Override

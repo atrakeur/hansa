@@ -14,4 +14,6 @@ public interface IBonusMarker {
     public void doAction();
 
     public void undoAction();
+
+    String getType();
 }
