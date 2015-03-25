@@ -35,5 +35,5 @@ public interface IHTPlayer extends IScorePlayer {
     /**
      * Reinit actions count for a new turn
      */
-    public void nextTurn();
+    public void newTurn();
 }

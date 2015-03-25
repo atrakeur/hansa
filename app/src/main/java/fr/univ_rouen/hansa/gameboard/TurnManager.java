@@ -51,10 +51,12 @@ public class TurnManager {
         if (isNextTurnAvailible() != nextTurnRequire.none) {
             throw new UnfinishedRoundException();
         }
-        
+
         if (++position >= players.size()) {
             position = 0;
         }
+
+        getCurrentPlayer().newTurn();
     }
 
     public nextTurnRequire isNextTurnAvailible() {

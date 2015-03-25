@@ -40,7 +40,7 @@ public class HTPlayer extends ScorePlayer implements IHTPlayer {
     }
 
     @Override
-    public void nextTurn() {
+    public void newTurn() {
         action = escritoire.actionesLevel();
     }
 
