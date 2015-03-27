@@ -137,7 +137,7 @@ public class GameActivity extends Activity {
     }
 
     public void submitAction(View v){
-        TurnManager.getInstance().nextPlayer();
+        TurnManager.getInstance().nextPlayer(false);
         this.onResume();
     }
 

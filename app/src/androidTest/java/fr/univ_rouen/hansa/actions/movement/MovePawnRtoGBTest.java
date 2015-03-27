@@ -24,7 +24,7 @@ public class MovePawnRtoGBTest extends TestCase {
         gameBoard = GameBoardFactory.getInstance().createGameBoard(1);
 
         player1 = TurnManager.getInstance().getCurrentPlayer();
-        TurnManager.getInstance().nextPlayer();
+        TurnManager.getInstance().nextPlayer(true);
         player2 = TurnManager.getInstance().getCurrentPlayer();
 
         village = gameBoard.getRoutes().get(0).getVillage(0);
