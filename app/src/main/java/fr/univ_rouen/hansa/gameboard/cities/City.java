@@ -1,6 +1,7 @@
 package fr.univ_rouen.hansa.gameboard.cities;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 import java.util.HashMap;
 import java.util.List;
@@ -125,15 +126,13 @@ public class City implements ICity {
 
     @Override
     public IHTPlayer getOwner(){
-        System.out.println("Get owner");
         if (this.getKontors().size() == 0){
             return null;
         }
         IHTPlayer cityOwner = null;
         int kontorsOwnedMax = 0;
-        Map<IHTPlayer,Integer> score = new HashMap<IHTPlayer,Integer>();
+        Map<IHTPlayer,Integer> score = Maps.newHashMap();
         for (IKontor<? extends Pawn> kontor : getAdditionalKontors()){
-            System.out.println("additionnal Kontor");
             IHTPlayer kontorOwner = kontor.getOwner();
             Integer kontorsOwned = score.get(kontorOwner);
             if (kontorsOwned == null){

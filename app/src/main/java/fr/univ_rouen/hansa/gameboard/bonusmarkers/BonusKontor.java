@@ -27,7 +27,9 @@ public class BonusKontor extends StatedBonus implements IBonusMarker {
     private IKontor kontor;
     private List<Pawn> pawns;
 
-    public BonusKontor() { super(); }
+    public BonusKontor() {
+        super();
+    }
 
     /**
      * initialise the city which will have a bonus Kontor
@@ -85,8 +87,8 @@ public class BonusKontor extends StatedBonus implements IBonusMarker {
             throw new IllegalStateException("The current player differs of the marker's owner");
         }
 
-        for(ICity cities : village.getRoute().getCities()){
-            cities.getOwner().increaseScore();
+        for (ICity city : village.getRoute().getCities()) {
+            city.getOwner().increaseScore();
         }
         IKontor<Pawn> k = new Kontor(village.getPawnType(), false, Privillegium.White);
         kontor = k;
@@ -136,9 +138,9 @@ public class BonusKontor extends StatedBonus implements IBonusMarker {
         }
 
         pawns.clear();
-        for(ICity cities : village.getRoute().getCities()){
+        for (ICity cities : village.getRoute().getCities()) {
             cities.getOwner().decreaseScore();
         }
-        player.setActionNumber(player.getActionNumber()+1);
+        player.setActionNumber(player.getActionNumber() + 1);
     }
 }

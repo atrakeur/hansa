@@ -108,8 +108,8 @@ public class KeepKontor implements IMovement {
         }
 
         pawns.clear();
-        for(ICity cities : village.getRoute().getCities()){
-            cities.getOwner().decreaseScore();
+        for(ICity city : village.getRoute().getCities()){
+            city.getOwner().decreaseScore();
         }
         actionDone = false;
     }
