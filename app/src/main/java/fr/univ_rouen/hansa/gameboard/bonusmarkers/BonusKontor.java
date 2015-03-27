@@ -105,7 +105,7 @@ public class BonusKontor extends StatedBonus implements IBonusMarker {
         }
         pawns = ps;
         player.getEscritoire().getStock().addPawns(ps);
-        player.setActionNumber(player.getActionNumber() - 1);
+        player.setActionNumber(-1);
 
     }
 
@@ -141,6 +141,6 @@ public class BonusKontor extends StatedBonus implements IBonusMarker {
         for (ICity cities : village.getRoute().getCities()) {
             cities.getOwner().decreaseScore();
         }
-        player.setActionNumber(player.getActionNumber() + 1);
+        player.setActionNumber(1);
     }
 }

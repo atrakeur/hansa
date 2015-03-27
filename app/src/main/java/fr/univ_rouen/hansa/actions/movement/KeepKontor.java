@@ -74,6 +74,10 @@ public class KeepKontor implements IMovement {
             throw new GameException("Wrong pawn type for take the kontor");
         }
 
+
+        if (kontor.hasVictoryPoint()) {
+            player.increaseScore();
+        }
         for(ICity cities : village.getRoute().getCities()){
             cities.getOwner().increaseScore();
         }
@@ -105,6 +109,9 @@ public class KeepKontor implements IMovement {
             if (!otherVillage.equals(village)) {
                 otherVillage.pushPawn(pawnIterator.next());
             }
+        }
+        if (kontor.hasVictoryPoint()) {
+            player.decreaseScore();
         }
 
         pawns.clear();
