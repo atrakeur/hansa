@@ -28,6 +28,7 @@
     <!--DIALOG ESCRITOIRE-->
     <string name="esc_title">Escritoire</string>
     <string name="esc_stock">Stock</string>
+    <string name="esc_supply">Réserve</string>
     <string name="esc_clavis_urbis">Clavis Urbis</string>
     <string name="esc_privilegium">Privilegium</string>
     <string name="esc_liber_sophia">Liber Sophia</string>

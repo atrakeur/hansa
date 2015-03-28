@@ -4,14 +4,11 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="space_between_component">25dp</dimen>
-    <dimen name="space_between_pawn_component">35dp</dimen>
+    <dimen name="space_between_pawn_component">75dp</dimen>
     <dimen name="space_between_column">125dp</dimen>
 
     <dimen name="size_color_view">25dp</dimen>
     <dimen name="size_player_color_view">30dp</dimen>
 
     <dimen name="dialog_escritoire_margin">30dp</dimen>
-
-    <dimen name="size_text_dialog_escritoire">23sp</dimen>
-    <dimen name="size_player_dialog_escritoire">25sp</dimen>
 </resources>

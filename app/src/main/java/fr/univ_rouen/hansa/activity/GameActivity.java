@@ -24,6 +24,7 @@ import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 import fr.univ_rouen.hansa.gameboard.player.escritoire.IEscritoire;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
+import fr.univ_rouen.hansa.view.CircleView;
 import fr.univ_rouen.hansa.view.interactions.AlertDialogBursa;
 
 public class GameActivity extends Activity {
@@ -144,15 +145,25 @@ public class GameActivity extends Activity {
     }
 
     public void displayEscritoire(View view) {
+
         Dialog dial = new Dialog(context, android.R.style.Theme_Material_Dialog_Alert);
         dial.setTitle(R.string.esc_title);
         dial.setContentView(R.layout.list_escritoire);
 
         IHTPlayer player = TurnManager.getInstance().getCurrentPlayer();
-        dial.findViewById(R.id.color_trader_stock).setBackgroundColor(player.getPlayerColor().getColor());
-        dial.findViewById(R.id.color_merchant_stock).setBackgroundColor(player.getPlayerColor().getColor());
-
         IEscritoire esc = player.getEscritoire();
+
+        //Settings of the player Stock
+        dial.findViewById(R.id.color_trader_stock).setBackgroundColor(player.getPlayerColor().getColor());
+        ((TextView) dial.findViewById(R.id.nb_trader_stock)).setText("x" + esc.getStock().getTraderCount());
+        ((CircleView)dial.findViewById(R.id.color_merchant_stock)).setCircleFillColor(player.getPlayerColor().getColor());
+        ((TextView) dial.findViewById(R.id.nb_merchant_stock)).setText("x" + esc.getStock().getMerchantCount());
+
+        //Settings of the player Supply
+        dial.findViewById(R.id.color_trader_supply).setBackgroundColor(player.getPlayerColor().getColor());
+        ((TextView) dial.findViewById(R.id.nb_trader_supply)).setText("x" + esc.getSupply().getTraderCount());
+        ((CircleView)dial.findViewById(R.id.color_merchant_supply)).setCircleFillColor(player.getPlayerColor().getColor());
+        ((TextView) dial.findViewById(R.id.nb_merchant_supply)).setText("x" + esc.getSupply().getMerchantCount());
 
         ((TextView) dial.findViewById(R.id.nb_clavis_urbis)).setText("" + esc.clavisUrbisLevel());
         dial.findViewById(R.id.color_privilegium).setBackgroundColor(esc.privilegiumLevel().getColor());
