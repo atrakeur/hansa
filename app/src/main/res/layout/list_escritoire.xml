@@ -1,239 +1,235 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:circleview="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
-    <!--Stock Joueur-->
+    <!--**********************PLAYER STOCK******************************-->
+
     <TextView
-        style="@style/EscritoireFont"
         android:id="@+id/txt_stock"
-
-        android:text="@string/esc_stock"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
+        style="@style/DialogFont"
         android:layout_alignParentLeft="true"
+
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="@dimen/dialog_escritoire_margin"
+
         android:layout_marginStart="@dimen/dialog_escritoire_margin"
-        android:layout_marginLeft="@dimen/dialog_escritoire_margin" />
+        android:text="@string/esc_stock" />
 
-
+    <!--There isn't any SquareView.
+        Instead, we use Empty TextView to display the color of the player. -->
     <TextView
         android:id="@+id/color_trader_stock"
 
-        android:layout_alignTop="@id/txt_stock"
-        android:layout_toEndOf="@id/txt_stock"
-        android:layout_toRightOf="@id/txt_stock"
-
-        android:layout_marginStart="@dimen/space_between_pawn_component"
-        android:layout_marginLeft="@dimen/space_between_pawn_component"
         android:layout_width="@dimen/size_player_color_view"
-        android:layout_height="@dimen/size_player_color_view" />
+        android:layout_height="@dimen/size_player_color_view"
+        android:layout_alignTop="@id/txt_stock"
+
+        android:layout_marginLeft="@dimen/space_between_pawn_component"
+        android:layout_marginStart="@dimen/space_between_pawn_component"
+        android:layout_toEndOf="@id/txt_stock"
+        android:layout_toRightOf="@id/txt_stock" />
 
     <TextView
-        style="@style/EscritoireFont"
         android:id="@+id/nb_trader_stock"
+        style="@style/DialogFont"
 
         android:layout_alignTop="@id/txt_stock"
-        android:layout_toEndOf="@id/color_trader_stock"
-        android:layout_toRightOf="@id/color_trader_stock"
-
+        android:layout_marginLeft="@dimen/space_between_component"
         android:layout_marginStart="@dimen/space_between_component"
-        android:layout_marginLeft="@dimen/space_between_component"/>
+
+        android:layout_toEndOf="@id/color_trader_stock"
+        android:layout_toRightOf="@id/color_trader_stock" />
 
 
+    <!-- Display the color of the player's merchant-->
     <fr.univ_rouen.hansa.view.CircleView
         android:id="@+id/color_merchant_stock"
+        android:layout_width="wrap_content"
 
-        circleview:cRadius="@integer/esc_merchant_radius"
-
+        android:layout_height="wrap_content"
         android:layout_alignTop="@id/txt_stock"
+        android:layout_marginLeft="@dimen/space_between_pawn_component"
+        android:layout_marginStart="@dimen/space_between_pawn_component"
         android:layout_toEndOf="@id/nb_trader_stock"
         android:layout_toRightOf="@id/nb_trader_stock"
-        android:layout_marginStart="@dimen/space_between_pawn_component"
-        android:layout_marginLeft="@dimen/space_between_pawn_component"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        circleview:cRadius="@integer/esc_merchant_radius" />
 
     <TextView
-        style="@style/EscritoireFont"
         android:id="@+id/nb_merchant_stock"
+        style="@style/DialogFont"
         android:layout_alignTop="@id/txt_stock"
+        android:layout_marginLeft="@dimen/space_between_component"
+        android:layout_marginStart="@dimen/space_between_component"
         android:layout_toEndOf="@id/color_merchant_stock"
-        android:layout_toRightOf="@id/color_merchant_stock"
-        android:layout_marginStart="@dimen/space_between_component"
-        android:layout_marginLeft="@dimen/space_between_component" />
+        android:layout_toRightOf="@id/color_merchant_stock" />
 
-    <!-- Titles 1st column Competence-->
-
+    <!--Display an Horizontal Line-->
     <View
-        style="@style/HorizontalLine"
         android:id="@+id/separator_stock_comp"
-        android:layout_below="@id/txt_stock"/>
+        style="@style/HorizontalLine"
+        android:layout_below="@id/txt_stock" />
 
+    <!--**********************PLAYER COMPETENCES******************************-->
 
+    <!--************FIRST COLUMNS TITLES******************-->
     <TextView
-        style="@style/EscritoireFont"
         android:id="@+id/txt_clavis_urbis"
-        android:text="@string/esc_clavis_urbis"
+        style="@style/DialogFont"
+        android:layout_alignLeft="@id/txt_stock"
+        android:layout_alignStart="@id/txt_stock"
         android:layout_below="@id/separator_stock_comp"
-        android:layout_alignStart="@id/txt_stock"
-        android:layout_alignLeft="@id/txt_stock" />
+        android:text="@string/esc_clavis_urbis" />
 
 
     <TextView
-        style="@style/EscritoireFont"
         android:id="@+id/txt_privilegium"
-        android:text="@string/esc_privilegium"
+        style="@style/DialogFont"
+        android:layout_alignLeft="@id/txt_stock"
+        android:layout_alignStart="@id/txt_stock"
         android:layout_below="@id/txt_clavis_urbis"
-        android:layout_alignStart="@id/txt_stock"
-        android:layout_alignLeft="@id/txt_stock"/>
+        android:text="@string/esc_privilegium" />
 
 
     <TextView
-        style="@style/EscritoireFont"
         android:id="@+id/txt_liber_sophia"
-        android:text="@string/esc_liber_sophia"
-        android:layout_below="@id/txt_privilegium"
+        style="@style/DialogFont"
+        android:layout_alignLeft="@id/txt_stock"
         android:layout_alignStart="@id/txt_stock"
-        android:layout_alignLeft="@id/txt_stock"/>
+        android:layout_below="@id/txt_privilegium"
+        android:text="@string/esc_liber_sophia" />
 
-
-    <!--Values 1st Column-->
-
-
+    <!--************FIRST COLUMNS VALUES******************-->
     <TextView
-        style="@style/EscritoireFont"
         android:id="@+id/nb_clavis_urbis"
+        style="@style/DialogFont"
         android:layout_alignTop="@id/txt_clavis_urbis"
-        android:layout_toEndOf="@id/txt_clavis_urbis"
-        android:layout_toRightOf="@id/txt_clavis_urbis"
+        android:layout_marginLeft="@dimen/space_between_component"
         android:layout_marginStart="@dimen/space_between_component"
-        android:layout_marginLeft="@dimen/space_between_component" />
+        android:layout_toEndOf="@id/txt_clavis_urbis"
+        android:layout_toRightOf="@id/txt_clavis_urbis" />
 
 
     <TextView
         android:id="@+id/color_privilegium"
-        android:layout_below="@id/nb_clavis_urbis"
-        android:layout_alignStart="@id/nb_clavis_urbis"
-        android:layout_alignLeft="@id/nb_clavis_urbis"
         android:layout_width="@dimen/size_color_view"
-        android:layout_height="@dimen/size_color_view" />
-
-    <TextView
-        style="@style/EscritoireFont"
-        android:id="@+id/nb_liber_sophia"
-        android:layout_below="@id/txt_privilegium"
+        android:layout_height="@dimen/size_color_view"
+        android:layout_alignLeft="@id/nb_clavis_urbis"
         android:layout_alignStart="@id/nb_clavis_urbis"
-        android:layout_alignLeft="@id/nb_clavis_urbis"/>
-
-    <!-- Values 2nd Column -->
+        android:layout_below="@id/nb_clavis_urbis" />
 
     <TextView
-        style="@style/EscritoireFont"
+        android:id="@+id/nb_liber_sophia"
+        style="@style/DialogFont"
+        android:layout_alignLeft="@id/nb_clavis_urbis"
+        android:layout_alignStart="@id/nb_clavis_urbis"
+        android:layout_below="@id/txt_privilegium" />
+
+
+    <!--************SECOND COLUMNS VALUES******************-->
+    <TextView
         android:id="@+id/nb_actiones"
-        android:layout_alignTop="@id/txt_clavis_urbis"
+        style="@style/DialogFont"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginStart="@dimen/space_between_component"
-        android:layout_marginLeft="@dimen/space_between_component"
-        android:layout_marginEnd="@dimen/dialog_escritoire_margin"
-        android:layout_marginRight="@dimen/dialog_escritoire_margin"/>
-
-
-
-    <TextView
-        style="@style/EscritoireFont"
-        android:id="@+id/nb_bursa"
-        android:layout_below="@id/nb_actiones"
-        android:layout_alignStart="@id/nb_actiones"
-        android:layout_alignLeft="@id/nb_actiones"/>
-
-
-    <!-- Titles 2nd Column -->
-
-    <TextView
-        style="@style/EscritoireFont"
-        android:id="@+id/txt_actiones"
-        android:text="@string/esc_actiones"
         android:layout_alignTop="@id/txt_clavis_urbis"
-        android:layout_toStartOf="@id/nb_actiones"
-        android:layout_toLeftOf="@id/nb_actiones"
+        android:layout_marginEnd="@dimen/dialog_escritoire_margin"
+        android:layout_marginLeft="@dimen/space_between_component"
+        android:layout_marginRight="@dimen/dialog_escritoire_margin"
+        android:layout_marginStart="@dimen/space_between_component" />
+
+
+    <TextView
+        android:id="@+id/nb_bursa"
+        style="@style/DialogFont"
+        android:layout_alignLeft="@id/nb_actiones"
+        android:layout_alignStart="@id/nb_actiones"
+        android:layout_below="@id/nb_actiones" />
+
+
+    <!--************SECOND COLUMNS TITLES******************-->
+    <TextView
+        android:id="@+id/txt_actiones"
+        style="@style/DialogFont"
+        android:layout_alignTop="@id/txt_clavis_urbis"
+        android:layout_marginLeft="@dimen/space_between_column"
         android:layout_marginStart="@dimen/space_between_column"
-        android:layout_marginLeft="@dimen/space_between_column"/>
-
+        android:layout_toLeftOf="@id/nb_actiones"
+        android:layout_toStartOf="@id/nb_actiones"
+        android:text="@string/esc_actiones" />
 
     <TextView
-        style="@style/EscritoireFont"
         android:id="@+id/txt_bursa"
-        android:text="@string/esc_bursa"
-        android:layout_below="@id/txt_actiones"
+        style="@style/DialogFont"
+        android:layout_alignLeft="@id/txt_actiones"
         android:layout_alignStart="@id/txt_actiones"
-        android:layout_alignLeft="@id/txt_actiones"/>
+        android:layout_below="@id/txt_actiones"
+        android:text="@string/esc_bursa" />
 
-
+    <!--Another Horizontal Line-->
     <View
-        style="@style/HorizontalLine"
         android:id="@+id/separator_comp_supply"
-        android:layout_below="@id/txt_liber_sophia"/>
+        style="@style/HorizontalLine"
+        android:layout_below="@id/txt_liber_sophia" />
 
 
-    <!---Reserve du Joueur -->
+    <!--**********************PLAYER SUPPLY******************************-->
     <TextView
-        style="@style/EscritoireFont"
         android:id="@+id/txt_supply"
-        android:text="@string/esc_supply"
-        android:paddingBottom="5dp"
-        android:layout_below="@id/separator_comp_supply"
-        android:layout_alignParentStart="true"
+        style="@style/DialogFont"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/separator_comp_supply"
+        android:layout_marginLeft="@dimen/dialog_escritoire_margin"
         android:layout_marginStart="@dimen/dialog_escritoire_margin"
-        android:layout_marginLeft="@dimen/dialog_escritoire_margin" />
+        android:paddingBottom="5dp"
+        android:text="@string/esc_supply" />
 
 
     <TextView
         android:id="@+id/color_trader_supply"
-        android:layout_alignTop="@id/txt_supply"
-        android:layout_toEndOf="@id/txt_supply"
-        android:layout_toRightOf="@id/txt_supply"
-        android:layout_marginStart="@dimen/space_between_pawn_component"
-        android:layout_marginLeft="@dimen/space_between_pawn_component"
         android:layout_width="@dimen/size_player_color_view"
-        android:layout_height="@dimen/size_player_color_view" />
+        android:layout_height="@dimen/size_player_color_view"
+        android:layout_alignTop="@id/txt_supply"
+        android:layout_marginLeft="@dimen/space_between_pawn_component"
+        android:layout_marginStart="@dimen/space_between_pawn_component"
+        android:layout_toEndOf="@id/txt_supply"
+        android:layout_toRightOf="@id/txt_supply" />
 
     <TextView
-        style="@style/EscritoireFont"
         android:id="@+id/nb_trader_supply"
+        style="@style/DialogFont"
 
         android:layout_alignTop="@id/txt_supply"
-        android:layout_toEndOf="@id/color_trader_supply"
-        android:layout_toRightOf="@id/color_trader_supply"
-
+        android:layout_marginLeft="@dimen/space_between_component"
         android:layout_marginStart="@dimen/space_between_component"
-        android:layout_marginLeft="@dimen/space_between_component"/>
 
+        android:layout_toEndOf="@id/color_trader_supply"
+        android:layout_toRightOf="@id/color_trader_supply" />
 
     <fr.univ_rouen.hansa.view.CircleView
         android:id="@+id/color_merchant_supply"
 
-        circleview:cRadius="@integer/esc_merchant_radius"
+        android:layout_width="wrap_content"
 
+        android:layout_height="wrap_content"
         android:layout_alignTop="@id/txt_supply"
+        android:layout_marginLeft="@dimen/space_between_pawn_component"
+        android:layout_marginStart="@dimen/space_between_pawn_component"
         android:layout_toEndOf="@id/nb_trader_supply"
         android:layout_toRightOf="@id/nb_trader_supply"
-        android:layout_marginStart="@dimen/space_between_pawn_component"
-        android:layout_marginLeft="@dimen/space_between_pawn_component"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        circleview:cRadius="@integer/esc_merchant_radius" />
 
     <TextView
-        style="@style/EscritoireFont"
         android:id="@+id/nb_merchant_supply"
+        style="@style/DialogFont"
         android:layout_alignTop="@id/txt_supply"
-        android:layout_toEndOf="@id/color_merchant_supply"
-        android:layout_toRightOf="@id/color_merchant_supply"
+        android:layout_marginLeft="@dimen/space_between_component"
         android:layout_marginStart="@dimen/space_between_component"
-        android:layout_marginLeft="@dimen/space_between_component" />
+        android:layout_toEndOf="@id/color_merchant_supply"
+        android:layout_toRightOf="@id/color_merchant_supply" />
 
 </RelativeLayout>

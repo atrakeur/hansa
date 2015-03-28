@@ -7,12 +7,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import com.google.common.collect.Lists;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,8 +38,8 @@ public class GameActivity extends Activity {
         TurnManager.getInstance().addPlayers(Arrays.asList(PlayerColor.values()));
         IHTPlayer player = TurnManager.getInstance().getCurrentPlayer();
 
-        //TODO just pour la présentation, à enlever après ;)
-        List<Pawn> pawns = new ArrayList<>();
+        //TODO remove these lines later
+        List<Pawn> pawns = Lists.newArrayList();
         pawns.add(new Merchant(player));
         pawns.add(new Merchant(player));
         pawns.add(new Merchant(player));
@@ -48,8 +48,6 @@ public class GameActivity extends Activity {
         pawns.add(new Merchant(player));
 
         player.getEscritoire().addToStock(pawns);
-
-        this.displayEscritoire(new Button(this));
     }
 
     @Override
@@ -63,12 +61,7 @@ public class GameActivity extends Activity {
         for (int i = 0; i < sideMenu.getChildCount(); i++) {
             sideMenu.getChildAt(i).setBackgroundColor(player.getPlayerColor().getColor());
         }
-/*
-        findViewById(R.id.button_cancel).setBackgroundColor(player.getPlayerColor().getColor());
-        findViewById(R.id.button_bursa).setBackgroundColor(player.getPlayerColor().getColor());
-        findViewById(R.id.button_bonus_marker).setBackgroundColor(player.getPlayerColor().getColor());
-        findViewById(R.id.button_submit).setBackgroundColor(player.getPlayerColor().getColor());
-        findViewById(R.id.button_pause).setBackgroundColor(player.getPlayerColor().getColor());*/
+
     }
 
     public void toasty(View v) {
@@ -144,35 +137,45 @@ public class GameActivity extends Activity {
         this.onResume();
     }
 
+    /**
+     * This method display a dialog containing the information about the player's escritoire
+     */
     public void displayEscritoire(View view) {
 
-        Dialog dial = new Dialog(context, android.R.style.Theme_Material_Dialog_Alert);
+        //Setting up the dialog.
+        Dialog dial = new Dialog(context);
         dial.setTitle(R.string.esc_title);
         dial.setContentView(R.layout.list_escritoire);
 
-        IHTPlayer player = TurnManager.getInstance().getCurrentPlayer();
-        IEscritoire esc = player.getEscritoire();
+        int color = TurnManager.getInstance().getCurrentPlayer().getPlayerColor().getColor();
+        IEscritoire esc = TurnManager.getInstance().getCurrentPlayer().getEscritoire();
 
-        //Settings of the player Stock
-        dial.findViewById(R.id.color_trader_stock).setBackgroundColor(player.getPlayerColor().getColor());
+        //Info about the Player's Stock.
+        dial.findViewById(R.id.color_trader_stock).setBackgroundColor(color);
         ((TextView) dial.findViewById(R.id.nb_trader_stock)).setText("x" + esc.getStock().getTraderCount());
-        ((CircleView)dial.findViewById(R.id.color_merchant_stock)).setCircleFillColor(player.getPlayerColor().getColor());
+        ((CircleView) dial.findViewById(R.id.color_merchant_stock)).setCircleFillColor(color);
         ((TextView) dial.findViewById(R.id.nb_merchant_stock)).setText("x" + esc.getStock().getMerchantCount());
 
-        //Settings of the player Supply
-        dial.findViewById(R.id.color_trader_supply).setBackgroundColor(player.getPlayerColor().getColor());
+        //Info about the Player's Supply.
+        dial.findViewById(R.id.color_trader_supply).setBackgroundColor(color);
         ((TextView) dial.findViewById(R.id.nb_trader_supply)).setText("x" + esc.getSupply().getTraderCount());
-        ((CircleView)dial.findViewById(R.id.color_merchant_supply)).setCircleFillColor(player.getPlayerColor().getColor());
+        ((CircleView) dial.findViewById(R.id.color_merchant_supply)).setCircleFillColor(color);
         ((TextView) dial.findViewById(R.id.nb_merchant_supply)).setText("x" + esc.getSupply().getMerchantCount());
 
+        //Info about the Player's Competence.
         ((TextView) dial.findViewById(R.id.nb_clavis_urbis)).setText("" + esc.clavisUrbisLevel());
         dial.findViewById(R.id.color_privilegium).setBackgroundColor(esc.privilegiumLevel().getColor());
         ((TextView) dial.findViewById(R.id.nb_liber_sophia)).setText("" + esc.liberSophiaLevel());
         ((TextView) dial.findViewById(R.id.nb_actiones)).setText("" + esc.actionesLevel());
 
+        /*
+            Special Case : Bursa Level.
+            If it's at its maximum, then display the infinity symbol.
+        */
         String bursa = (esc.bursaLevel() == Integer.MAX_VALUE) ? "\u221e" : "" + esc.bursaLevel();
         ((TextView) dial.findViewById(R.id.nb_bursa)).setText(bursa);
 
+        //Display the dialog
         dial.show();
 
     }
