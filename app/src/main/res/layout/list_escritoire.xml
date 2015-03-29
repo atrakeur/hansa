@@ -17,7 +17,7 @@
         android:layout_marginLeft="@dimen/dialog_escritoire_margin"
 
         android:layout_marginStart="@dimen/dialog_escritoire_margin"
-        android:text="@string/esc_stock" />
+        android:text="@string/stock" />
 
     <!--There isn't any SquareView.
         Instead, we use Empty TextView to display the color of the player. -->
@@ -82,7 +82,7 @@
         android:layout_alignLeft="@id/txt_stock"
         android:layout_alignStart="@id/txt_stock"
         android:layout_below="@id/separator_stock_comp"
-        android:text="@string/esc_clavis_urbis" />
+        android:text="@string/clavis_urbis" />
 
 
     <TextView
@@ -91,7 +91,7 @@
         android:layout_alignLeft="@id/txt_stock"
         android:layout_alignStart="@id/txt_stock"
         android:layout_below="@id/txt_clavis_urbis"
-        android:text="@string/esc_privilegium" />
+        android:text="@string/privilegium" />
 
 
     <TextView
@@ -100,7 +100,7 @@
         android:layout_alignLeft="@id/txt_stock"
         android:layout_alignStart="@id/txt_stock"
         android:layout_below="@id/txt_privilegium"
-        android:text="@string/esc_liber_sophia" />
+        android:text="@string/liber_sophia" />
 
     <!--************FIRST COLUMNS VALUES******************-->
     <TextView
@@ -159,7 +159,7 @@
         android:layout_marginStart="@dimen/space_between_column"
         android:layout_toLeftOf="@id/nb_actiones"
         android:layout_toStartOf="@id/nb_actiones"
-        android:text="@string/esc_actiones" />
+        android:text="@string/actiones" />
 
     <TextView
         android:id="@+id/txt_bursa"
@@ -167,7 +167,7 @@
         android:layout_alignLeft="@id/txt_actiones"
         android:layout_alignStart="@id/txt_actiones"
         android:layout_below="@id/txt_actiones"
-        android:text="@string/esc_bursa" />
+        android:text="@string/bursa" />
 
     <!--Another Horizontal Line-->
     <View
@@ -186,7 +186,7 @@
         android:layout_marginLeft="@dimen/dialog_escritoire_margin"
         android:layout_marginStart="@dimen/dialog_escritoire_margin"
         android:paddingBottom="5dp"
-        android:text="@string/esc_supply" />
+        android:text="@string/supply" />
 
 
     <TextView

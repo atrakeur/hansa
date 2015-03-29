@@ -2,7 +2,6 @@ package fr.univ_rouen.hansa.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -21,11 +20,10 @@ import fr.univ_rouen.hansa.actions.MovementManager;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
-import fr.univ_rouen.hansa.gameboard.player.escritoire.IEscritoire;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
-import fr.univ_rouen.hansa.view.CircleView;
 import fr.univ_rouen.hansa.view.interactions.AlertDialogBursa;
+import fr.univ_rouen.hansa.view.interactions.DialogEscritoire;
 
 public class GameActivity extends Activity {
 
@@ -142,40 +140,7 @@ public class GameActivity extends Activity {
      */
     public void displayEscritoire(View view) {
 
-        //Setting up the dialog.
-        Dialog dial = new Dialog(context);
-        dial.setTitle(R.string.esc_title);
-        dial.setContentView(R.layout.list_escritoire);
-
-        int color = TurnManager.getInstance().getCurrentPlayer().getPlayerColor().getColor();
-        IEscritoire esc = TurnManager.getInstance().getCurrentPlayer().getEscritoire();
-
-        //Info about the Player's Stock.
-        dial.findViewById(R.id.color_trader_stock).setBackgroundColor(color);
-        ((TextView) dial.findViewById(R.id.nb_trader_stock)).setText("x" + esc.getStock().getTraderCount());
-        ((CircleView) dial.findViewById(R.id.color_merchant_stock)).setCircleFillColor(color);
-        ((TextView) dial.findViewById(R.id.nb_merchant_stock)).setText("x" + esc.getStock().getMerchantCount());
-
-        //Info about the Player's Supply.
-        dial.findViewById(R.id.color_trader_supply).setBackgroundColor(color);
-        ((TextView) dial.findViewById(R.id.nb_trader_supply)).setText("x" + esc.getSupply().getTraderCount());
-        ((CircleView) dial.findViewById(R.id.color_merchant_supply)).setCircleFillColor(color);
-        ((TextView) dial.findViewById(R.id.nb_merchant_supply)).setText("x" + esc.getSupply().getMerchantCount());
-
-        //Info about the Player's Competence.
-        ((TextView) dial.findViewById(R.id.nb_clavis_urbis)).setText("" + esc.clavisUrbisLevel());
-        dial.findViewById(R.id.color_privilegium).setBackgroundColor(esc.privilegiumLevel().getColor());
-        ((TextView) dial.findViewById(R.id.nb_liber_sophia)).setText("" + esc.liberSophiaLevel());
-        ((TextView) dial.findViewById(R.id.nb_actiones)).setText("" + esc.actionesLevel());
-
-        /*
-            Special Case : Bursa Level.
-            If it's at its maximum, then display the infinity symbol.
-        */
-        String bursa = (esc.bursaLevel() == Integer.MAX_VALUE) ? "\u221e" : "" + esc.bursaLevel();
-        ((TextView) dial.findViewById(R.id.nb_bursa)).setText(bursa);
-
-        //Display the dialog
+        DialogEscritoire dial = new DialogEscritoire(context, TurnManager.getInstance().getCurrentPlayer());
         dial.show();
 
     }
