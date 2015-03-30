@@ -78,8 +78,10 @@ public class KeepKontor implements IMovement {
         if (kontor.hasVictoryPoint()) {
             player.increaseScore();
         }
-        for(ICity cities : village.getRoute().getCities()){
-            cities.getOwner().increaseScore();
+        for(ICity city : village.getRoute().getCities()){
+            if (city.getOwner() != null) {
+                city.getOwner().increaseScore();
+            }
         }
         kontor.pushPawn(pawn);
 
@@ -116,7 +118,9 @@ public class KeepKontor implements IMovement {
 
         pawns.clear();
         for(ICity city : village.getRoute().getCities()){
-            city.getOwner().decreaseScore();
+            if (city.getOwner() != null) {
+                city.getOwner().decreaseScore();
+            }
         }
         actionDone = false;
     }

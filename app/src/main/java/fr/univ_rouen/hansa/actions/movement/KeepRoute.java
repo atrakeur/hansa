@@ -49,8 +49,10 @@ public class KeepRoute implements IMovement {
             throw new GameException("Action not available, the root didn't own by the player");
         }
 
-        for(ICity cities : route.getCities()){
-            cities.getOwner().increaseScore();
+        for(ICity city : route.getCities()){
+            if (city.getOwner() != null) {
+                city.getOwner().increaseScore();
+            }
         }
         for (IVillage village : route.getVillages()) {
             pawns.add(village.pullPawn());
@@ -76,8 +78,10 @@ public class KeepRoute implements IMovement {
         }
 
         pawns.clear();
-        for(ICity cities : route.getCities()){
-            cities.getOwner().decreaseScore();
+        for(ICity city : route.getCities()){
+            if (city.getOwner() != null) {
+                city.getOwner().decreaseScore();
+            }
         }
         actionDone = false;
     }
