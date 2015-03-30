@@ -19,7 +19,9 @@ public class TurnManager {
     private static TurnManager ourInstance = new TurnManager();
 
     private final List<IHTPlayer> players;
+
     private int position;
+    private IHTPlayer specialPlayer;
 
     public static TurnManager getInstance() {
         return ourInstance;
@@ -48,15 +50,19 @@ public class TurnManager {
     }
 
     public void nextPlayer(boolean force) {
-        if (isNextTurnAvailible() != nextTurnRequire.none && !force) {
-            throw new UnfinishedRoundException();
-        }
+        if (specialPlayer != null) {
+            specialPlayer = null;
+        } else {
+            if (isNextTurnAvailible() != nextTurnRequire.none && !force) {
+                throw new UnfinishedRoundException();
+            }
 
-        if (++position >= players.size()) {
-            position = 0;
-        }
+            if (++position >= players.size()) {
+                position = 0;
+            }
 
-        getCurrentPlayer().newTurn();
+            getCurrentPlayer().newTurn();
+        }
     }
 
     public nextTurnRequire isNextTurnAvailible() {
@@ -67,5 +73,14 @@ public class TurnManager {
         }
 
         return nextTurnRequire.none;
+    }
+
+    /**
+     * Methode use for replace pawn of other player
+     *
+     * @param player of the pawn who need to be replace
+     */
+    public void setSpecialPlayer(IHTPlayer player) {
+        this.specialPlayer = player;
     }
 }
