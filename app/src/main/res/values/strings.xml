@@ -29,6 +29,13 @@
     <string name="ab_too_much_bursa">Votre pouvoir Bursa n\'est pas assez élevé.</string>
     <string name="ab_too_much_mer">Vous n\'avez pas autant de Marchand dans votre Stock.</string>
 
+    <!--DIALOG PAUSE-->
+    <string name="pause_title">Pause</string>
+    <string name="pause_continue">Continuer</string>
+    <string name="pause_save">Sauvegarder</string>
+    <string name="pause_rules">Règles</string>
+    <string name="pause_quit">Quitter</string>
+
 
 
 </resources>

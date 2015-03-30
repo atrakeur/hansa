@@ -78,7 +78,7 @@
             android:contentDescription="@string/button_pause"
 
             android:background="#000000"
-            android:onClick="toasty"
+            android:onClick="pauseGame"
             />
 
     </LinearLayout>
