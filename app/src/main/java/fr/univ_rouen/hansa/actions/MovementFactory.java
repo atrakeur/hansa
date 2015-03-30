@@ -7,11 +7,13 @@ import fr.univ_rouen.hansa.actions.movement.KeepRoute;
 import fr.univ_rouen.hansa.actions.movement.LiberSophia;
 import fr.univ_rouen.hansa.actions.movement.MovePawnRtoGB;
 import fr.univ_rouen.hansa.exceptions.GameException;
+import fr.univ_rouen.hansa.exceptions.ReplaceMovedPawn;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
+import fr.univ_rouen.hansa.gameboard.routes.Village;
 import fr.univ_rouen.hansa.view.interactions.IClickableArea;
 
 public class MovementFactory {
@@ -40,7 +42,11 @@ public class MovementFactory {
             throw new UnsupportedOperationException();
         } else if (source.getType() == IClickableArea.Type.supply && destination.getType() == IClickableArea.Type.village ) {
             //TODO enlever trader en dur
-            return new MovePawnRtoGB(player, (IVillage) destination.getSubject(), Trader.class);
+            if (((Village)destination.getSubject()).isEmpty()) {
+                return new MovePawnRtoGB(player, (IVillage) destination.getSubject(), Trader.class);
+            } else {
+                throw new ReplaceMovedPawn(destination);
+            }
         } else if (source.getType() == IClickableArea.Type.village && destination.getType() == IClickableArea.Type.city ) {
             return new KeepKontor(player, (ICity) destination.getSubject(), (IVillage) source.getSubject());
         }

@@ -13,6 +13,8 @@ import android.widget.Toast;
 import java.util.Collections;
 
 import fr.univ_rouen.hansa.exceptions.GameException;
+import fr.univ_rouen.hansa.exceptions.NoPlaceException;
+import fr.univ_rouen.hansa.exceptions.ReplaceMovedPawn;
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
 import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
 import fr.univ_rouen.hansa.view.utils.DrawingThread;
@@ -113,6 +115,8 @@ public class GameBoardView extends SurfaceView {
                     }
                 }
             }
+        } catch (ReplaceMovedPawn e) {
+            //TODO
         } catch (GameException e) {
             this.showErrorMsg(e.getMessage());
             e.printStackTrace();
