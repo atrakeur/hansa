@@ -36,7 +36,7 @@ public class MovePawnRtoGB implements IMovement {
 
     @Override
     public void doMovement() {
-        if (actionDone == true) {
+        if (actionDone) {
             throw new IllegalStateException();
         }
 
@@ -59,7 +59,7 @@ public class MovePawnRtoGB implements IMovement {
 
     @Override
     public void doRollback() {
-        if (actionDone == false) {
+        if (!actionDone) {
             throw new IllegalStateException();
         }
 
@@ -70,5 +70,15 @@ public class MovePawnRtoGB implements IMovement {
         player.getEscritoire().addToSupply(Lists.newArrayList(village.pullPawn()));
 
         actionDone = false;
+    }
+
+    @Override
+    public int getPawnReplaceMove() {
+        return 0;
+    }
+
+    @Override
+    public int getMergeableMove() {
+        return 0;
     }
 }

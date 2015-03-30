@@ -1,7 +1,7 @@
 package fr.univ_rouen.hansa.exceptions;
 
 /**
- * Erreur générée a cause d'une opération en attente
+ * Exception triggered by a pending operation not terminated prior to requested action
  */
 public class WaitingOperationException extends Exception {
 

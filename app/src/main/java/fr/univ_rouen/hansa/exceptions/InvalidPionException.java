@@ -1,5 +1,8 @@
 package fr.univ_rouen.hansa.exceptions;
 
+/**
+ * Exception triggered by an invalid Pawn
+ */
 public class InvalidPionException extends GameException{
 
     public InvalidPionException() {

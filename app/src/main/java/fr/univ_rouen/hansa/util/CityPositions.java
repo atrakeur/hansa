@@ -4,7 +4,6 @@ import fr.univ_rouen.hansa.view.IPosition;
 import fr.univ_rouen.hansa.view.Position;
 
 public class CityPositions {
-
     //ok
     public static IPosition GRONINGEN = new Position(0.062f, 0.156f);
     // ok
@@ -39,7 +38,7 @@ public class CityPositions {
     public static IPosition STENDAL = new Position(0.932f, 0.532f);
     //ok
     public static IPosition DUISBURG = new Position(0.082f, 0.764f);
-    // ok, a retest avec une tablette
+    // ok
     public static IPosition DORTMUND = new Position(0.247f, 0.759f);
     //ok
     public static IPosition PADERBORN = new Position(0.460f, 0.786f);

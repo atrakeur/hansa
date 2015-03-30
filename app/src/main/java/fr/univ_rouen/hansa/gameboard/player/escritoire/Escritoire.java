@@ -7,6 +7,7 @@ import java.util.List;
 import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.exceptions.NotEnoughSupplyException;
 import fr.univ_rouen.hansa.gameboard.Privillegium;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusState;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
@@ -15,8 +16,6 @@ import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 
 public class Escritoire implements IEscritoire {
-    private final IHTPlayer owner;
-
     private List<Trader> clavisUrbis;
     private List<Trader> actiones;
     private List<Trader> privilegium;
@@ -29,8 +28,6 @@ public class Escritoire implements IEscritoire {
     private IPawnList supply;
 
     public Escritoire(IHTPlayer owner, int startingPlace) {
-        this.owner = owner;
-
         clavisUrbis = Lists.newArrayList();
         actiones = Lists.newArrayList();
         privilegium = Lists.newArrayList();
@@ -81,23 +78,48 @@ public class Escritoire implements IEscritoire {
     }
 
     @Override
+    public List<IBonusMarker> getBonusMarker() {
+        return Lists.newArrayList(bonusMarkers);
+    }
+
+    @Override
     public List<IBonusMarker> getTinPlateContent() {
-        return tinPlate;
+        return Lists.newArrayList(tinPlate);
     }
 
     @Override
     public List<IBonusMarker> getUnusedBonusMarker() {
-        return null;
+        List<IBonusMarker> tmp = Lists.newArrayList();
+        for (IBonusMarker bonus : getBonusMarker()) {
+            if (bonus.getState() == BonusState.unused) {
+                tmp.add(bonus);
+            }
+        }
+        return tmp;
     }
 
     @Override
     public List<IBonusMarker> getUsedBonusMarker() {
-        return null;
+        List<IBonusMarker> tmp = Lists.newArrayList();
+        for (IBonusMarker bonus : getBonusMarker()) {
+            if (bonus.getState() == BonusState.used) {
+                tmp.add(bonus);
+            }
+        }
+        return tmp;
+    }
+    
+    @Override
+    public void addBonusMarker(IBonusMarker bonus) {
+        if (bonus == null) {
+            throw new IllegalArgumentException();
+        }
+        bonusMarkers.add(bonus);
     }
 
     @Override
     public int bonusMarkerCount() {
-        return bonusMarkers.size();
+        return getBonusMarker().size();
     }
 
     @Override
@@ -157,8 +179,6 @@ public class Escritoire implements IEscritoire {
 
     @Override
     public void increasePower(Power power) {
-        Pawn pawn;
-
         switch (power) {
             case Actiones:
                 increasePower(actiones);

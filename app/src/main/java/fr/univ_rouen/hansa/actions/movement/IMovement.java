@@ -2,6 +2,11 @@ package fr.univ_rouen.hansa.actions.movement;
 
 import fr.univ_rouen.hansa.actions.Actions;
 
+/**
+ * Represents a movement that is done by a player on the GameBoard
+ * The player can be anything (real player or AI)
+ * Any movement can be undone/redone and track it's state internally.
+ */
 public interface IMovement {
 
     /**
@@ -31,4 +36,16 @@ public interface IMovement {
      * @pre isDone == true
      */
     public void doRollback();
+
+    /**
+     * Do this movement force a replace move later?
+     * @return
+     */
+    public int getPawnReplaceMove();
+
+    /**
+     * How many movements of this type can be merged inside one action
+     * @return
+     */
+    public int getMergeableMove();
 }

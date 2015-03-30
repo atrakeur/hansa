@@ -1,5 +1,7 @@
 package fr.univ_rouen.hansa.actions;
 
+import com.google.common.collect.Lists;
+
 import java.util.LinkedList;
 
 /**
@@ -11,7 +13,7 @@ public class Stack<E> {
     private LinkedList<E> stack;
 
     public Stack(){
-        stack = new LinkedList<>();
+        stack = Lists.newLinkedList();
     }
 
     public E pop(){
