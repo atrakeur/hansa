@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -23,7 +24,6 @@ import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.view.interactions.AlertDialogBursa;
-import fr.univ_rouen.hansa.view.interactions.DialogEscritoire;
 
 public class GameActivity extends Activity {
 
@@ -140,8 +140,10 @@ public class GameActivity extends Activity {
      */
     public void displayEscritoire(View view) {
 
-        DialogEscritoire dial = new DialogEscritoire(context, TurnManager.getInstance().getCurrentPlayer());
-        dial.show();
+        //EscritoireActivity dial = new EscritoireActivity(context, TurnManager.getInstance().getCurrentPlayer());
+        //dial.show();
+        Intent intent = new Intent(this, EscritoireActivity.class);
+        startActivity(intent);
 
     }
 

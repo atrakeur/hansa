@@ -2,6 +2,7 @@ package fr.univ_rouen.hansa.gameboard;
 
 import com.google.common.collect.Lists;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.univ_rouen.hansa.gameboard.player.HTPlayer;
@@ -44,5 +45,15 @@ public class TurnManager {
         if (++position >= players.size()) {
             position = 0;
         }
+    }
+
+    /**
+     * Return a copy of the list of the players
+     * @return a copy of the list of the players
+     */
+    public List<IHTPlayer> getPlayers() {return new ArrayList<>(players);}
+
+    public int getPosition() {
+        return position;
     }
 }
