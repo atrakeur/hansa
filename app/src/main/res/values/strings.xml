@@ -7,6 +7,7 @@
     <!--MAIN MENU-->
     <string name="new_game">Nouvelle Partie</string>
     <string name="load_game">Charger Partie</string>
+    <string name="options">Options</string>
 
     <!--ACCESSIBILITY-->
     <string name="gameboard">Plateau de Jeu</string>

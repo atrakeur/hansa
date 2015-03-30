@@ -20,4 +20,11 @@
         android:layout_height="wrap_content"
         android:onClick="loadGame"/>
 
+    <Button
+        android:id="@+id/b_options"
+        android:text="@string/options"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="options"/>
+
 </LinearLayout>
