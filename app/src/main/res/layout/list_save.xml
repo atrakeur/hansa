@@ -15,7 +15,6 @@
         android:layout_marginTop="5dp"
         android:background="@android:drawable/ic_menu_delete"
         android:clickable="true"
-        android:translationZ="@dimen/abc_dropdownitem_text_padding_left"
         android:visibility="visible" />
 
     <TextView

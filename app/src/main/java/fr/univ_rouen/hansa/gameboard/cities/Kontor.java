@@ -1,5 +1,7 @@
 package fr.univ_rouen.hansa.gameboard.cities;
 
+import com.google.gson.annotations.Expose;
+
 import fr.univ_rouen.hansa.gameboard.Privillegium;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
@@ -9,6 +11,7 @@ public class Kontor<E extends Pawn> implements IKontor<E> {
 
     private final Class<E> pawnClass;
     private final boolean victoryPoint;
+    @Expose
     private E pawn;
     private Privillegium privillegium;
 

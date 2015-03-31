@@ -17,32 +17,20 @@ import fr.univ_rouen.hansa.view.interactions.IClickableArea;
 
 public class GameBoard extends PlayersBoard implements IDrawable {
 
-    private static IDrawer drawer;
-
+    private final IDrawer drawer;
     private TurnManager manager;
 
     GameBoard(List<PlayerColor> playersColors) {
         super();
-
         drawer = new HansaGameBoardDrawer(this);
         manager = TurnManager.getInstance();
         manager.addPlayers(playersColors);
+
     }
 
     @Override
     public IDrawer getDrawer() {
         return this.drawer;
-    }
-
-    public void setDrawer(IDrawer drawer) {
-        if (drawer == null) {
-            throw new IllegalArgumentException();
-        }
-        this.drawer = drawer;
-    }
-
-    public TurnManager getManager() {
-        return manager;
     }
 
     public IClickable[] getClickables() {

@@ -1,6 +1,7 @@
 package fr.univ_rouen.hansa.gameboard.player.escritoire;
 
 import com.google.common.collect.Lists;
+import com.google.gson.annotations.Expose;
 
 import java.util.List;
 
@@ -15,15 +16,23 @@ import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 
 public class Escritoire implements IEscritoire {
+    @Expose
     private List<Trader> clavisUrbis;
+    @Expose
     private List<Trader> actiones;
+    @Expose
     private List<Trader> privilegium;
+    @Expose
     private List<Merchant> liberSophiae;
+    @Expose
     private List<Trader> bursa;
+    @Expose
     private List<IBonusMarker> tinPlate;
+    @Expose
     private List<IBonusMarker> bonusMarkers;
-
+    @Expose
     private IPawnList stock;
+    @Expose
     private IPawnList supply;
 
     public Escritoire(IHTPlayer owner, int startingPlace) {
@@ -74,6 +83,26 @@ public class Escritoire implements IEscritoire {
         initSupply.add(new Merchant(owner));
 
         supply.addPawns(initSupply);
+    }
+
+    public void loadPlayer(IHTPlayer player) {
+        for (Trader t : clavisUrbis) {
+            t.setPlayer(player);
+        }
+
+        for (Trader t : actiones) {
+            t.setPlayer(player);
+        }
+
+        for (Trader t : privilegium) {
+            t.setPlayer(player);
+        }
+
+        for (Merchant m : liberSophiae) {
+            m.setPlayer(player);
+        }
+        stock.loadPlayer(player);
+        supply.loadPlayer(player);
     }
 
     @Override

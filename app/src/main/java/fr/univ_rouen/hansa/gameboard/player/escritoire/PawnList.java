@@ -1,24 +1,30 @@
 package fr.univ_rouen.hansa.gameboard.player.escritoire;
 
 import com.google.common.collect.Lists;
+import com.google.gson.annotations.Expose;
 
 import java.util.Iterator;
 import java.util.List;
 
 import fr.univ_rouen.hansa.exceptions.InvalidPionException;
 import fr.univ_rouen.hansa.exceptions.NotEnoughSupplyException;
+import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 
 public class PawnList implements IPawnList {
+    @Expose
     List<Trader> traders;
+    @Expose
     List<Merchant> merchants;
 
     public PawnList() {
         traders = Lists.newArrayList();
         merchants = Lists.newArrayList();
     }
+
+
 
     @Override
     public void addPawns(List<Pawn> pawns) {
@@ -99,4 +105,15 @@ public class PawnList implements IPawnList {
     public int getMerchantCount() {
         return merchants.size();
     }
+
+    @Override
+    public void loadPlayer(IHTPlayer player) {
+        for (Trader t : traders) {
+            t.setPlayer(player);
+        }
+        for (Merchant m : merchants) {
+            m.setPlayer(player);
+        }
+    }
+
 }

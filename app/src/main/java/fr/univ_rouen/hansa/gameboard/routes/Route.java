@@ -1,6 +1,7 @@
 package fr.univ_rouen.hansa.gameboard.routes;
 
 import com.google.common.collect.Lists;
+import com.google.gson.annotations.Expose;
 
 import java.util.List;
 
@@ -15,12 +16,14 @@ import fr.univ_rouen.hansa.view.display.IDrawer;
 
 public class Route implements IRoute {
 
-    private static IDrawer drawer;
-
+    private final  IDrawer drawer;
+    @Expose
     private final List<IVillage> villages;
-    private final ICity[] cities;
-    private final IPosition tavernPosition;
 
+    private final ICity[] cities;
+
+    private final IPosition tavernPosition;
+    @Expose
     private IBonusMarker bonusMarker;
 
     public Route(List<IVillage> villages, ICity[] cities, IPosition tavernPosition) {
@@ -43,13 +46,6 @@ public class Route implements IRoute {
         }
 
         this.bonusMarker = null;
-    }
-    public void setDrawer(IDrawer drawer){
-        if(drawer ==null){
-            throw new IllegalArgumentException();
-        }
-        this.drawer = drawer;
-
     }
 
     public Route(List<IVillage> villages, ICity[] cities, IPosition tavernPosition, IBonusMarker bonusMarker) {

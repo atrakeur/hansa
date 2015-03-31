@@ -1,6 +1,7 @@
 package fr.univ_rouen.hansa.gameboard;
 
 import com.google.common.collect.Lists;
+import com.google.gson.annotations.Expose;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,13 +12,18 @@ import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 
 public class TurnManager implements Serializable {
     private static TurnManager ourInstance = new TurnManager();
-
+    @Expose
     private final List<IHTPlayer> players;
+    @Expose
     private int position;
 
     public static TurnManager getInstance() {
         return ourInstance;
     }
+
+    public static void loadInstance(TurnManager manager){ourInstance = manager;}
+
+    public  List<IHTPlayer> getPlayers(){ return players;}
 
     private TurnManager() {
         players = Lists.newArrayList();

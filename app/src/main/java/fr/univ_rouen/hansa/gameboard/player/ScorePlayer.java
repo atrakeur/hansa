@@ -1,6 +1,9 @@
 package fr.univ_rouen.hansa.gameboard.player;
 
+import com.google.gson.annotations.Expose;
+
 public class ScorePlayer implements IScorePlayer {
+    @Expose
     private int score;
 
     public ScorePlayer() {

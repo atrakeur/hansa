@@ -3,6 +3,7 @@ package fr.univ_rouen.hansa.gameboard.player.pawns;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 
 public class Trader implements Pawn {
+
     private IHTPlayer player;
 
     public Trader(IHTPlayer player) {
@@ -12,5 +13,10 @@ public class Trader implements Pawn {
     @Override
     public IHTPlayer getPlayer() {
         return player;
+    }
+
+    @Override
+    public void setPlayer(IHTPlayer player) {
+        this.player= player;
     }
 }

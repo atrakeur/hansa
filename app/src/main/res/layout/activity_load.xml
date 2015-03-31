@@ -25,7 +25,6 @@
         android:layout_width="400dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/titre"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/abc_ab_share_pack_holo_dark" />
+        android:layout_marginTop="10dp" />
 
 </RelativeLayout>

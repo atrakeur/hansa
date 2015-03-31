@@ -1,7 +1,9 @@
 package fr.univ_rouen.hansa.view;
 
 public class Position implements IPosition {
+
     private final float x;
+
     private final float y;
 
     public Position(float x, float y) {

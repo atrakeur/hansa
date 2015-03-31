@@ -1,10 +1,14 @@
 package fr.univ_rouen.hansa.gameboard.player;
 
+import com.google.gson.annotations.Expose;
+
 import fr.univ_rouen.hansa.gameboard.player.escritoire.Escritoire;
 import fr.univ_rouen.hansa.gameboard.player.escritoire.IEscritoire;
 
 public class HTPlayer extends ScorePlayer implements IHTPlayer {
+    @Expose
     private final PlayerColor color;
+    @Expose
     private final IEscritoire escritoire;
 
     public HTPlayer(PlayerColor color, int startingPlace) {

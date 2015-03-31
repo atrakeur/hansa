@@ -1,19 +1,19 @@
 package fr.univ_rouen.hansa.gameboard.routes;
 
-import fr.univ_rouen.hansa.gameboard.player.HTPlayer;
+import com.google.gson.annotations.Expose;
+
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
-import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
-import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.view.IPosition;
 import fr.univ_rouen.hansa.view.interactions.HansaVillageClickableArea;
-import fr.univ_rouen.hansa.view.interactions.IClickable;
 import fr.univ_rouen.hansa.view.interactions.IClickableArea;
 
 public class Village implements IVillage {
 
     private final IPosition position;
+    @Expose
     private Pawn pawn;
+
     private IRoute route;
 
     private IClickableArea clickableArea;

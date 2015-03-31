@@ -12,12 +12,28 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.util.List;
+
 import fr.univ_rouen.hansa.R;
 import fr.univ_rouen.hansa.activity.GameActivity;
 import fr.univ_rouen.hansa.activity.LoadActivity;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
+import fr.univ_rouen.hansa.gameboard.cities.ICity;
+import fr.univ_rouen.hansa.gameboard.cities.IKontor;
+import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
+import fr.univ_rouen.hansa.gameboard.player.escritoire.IEscritoire;
+import fr.univ_rouen.hansa.gameboard.player.escritoire.IPawnList;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.routes.IRoute;
+import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 
 
 public class ModelListSave extends BaseAdapter {
@@ -75,8 +91,10 @@ public class ModelListSave extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("board", data.get(position).getBoard());
+                    String s = serialiseGamesave(data.get(position).getBoard());
+                    bundle.putString("board", s);
                     game.putExtras(bundle);
+
                     Toast toast = Toast.makeText(context, R.string.load_toast, Toast.LENGTH_SHORT);
                     toast.show();
                     context.startActivity(game);
@@ -126,6 +144,32 @@ public class ModelListSave extends BaseAdapter {
         });
         builder.setNegativeButton(R.string.alert_cancel, null);
         builder.show();
+    }
+
+    private String serialiseGamesave(GameBoardSave boardSave) {
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(IRoute.class,
+                        new GameBoardSaveSerializer())
+                .registerTypeAdapter(IHTPlayer.class,
+                        new GameBoardSaveSerializer())
+                .registerTypeAdapter(IVillage.class,
+                        new GameBoardSaveSerializer())
+                .registerTypeAdapter(Pawn.class,
+                        new GameBoardSaveSerializer())
+                .registerTypeAdapter(IKontor.class,
+                        new GameBoardSaveSerializer())
+                .registerTypeAdapter(IEscritoire.class,
+                        new GameBoardSaveSerializer())
+                .registerTypeAdapter(IBonusMarker.class,
+                        new GameBoardSaveSerializer())
+                .registerTypeAdapter(IPawnList.class,
+                        new GameBoardSaveSerializer())
+                .registerTypeAdapter(ICity.class,
+                        new GameBoardSaveSerializer()).excludeFieldsWithoutExposeAnnotation().create();
+
+        Type typeSave = new TypeToken<GameBoardSave>() {
+        }.getType();
+        return gson.toJson(boardSave, typeSave);
     }
 
 

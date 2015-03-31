@@ -1,19 +1,17 @@
 package fr.univ_rouen.hansa.gameboard.save;
 
 
-import java.io.Serializable;
+import com.google.gson.annotations.Expose;
+
 import java.util.Date;
 
-import fr.univ_rouen.hansa.gameboard.board.GameBoard;
-
-public class Save implements Serializable {
-
-    private static final long serialVersionUID = 7944125519864616L;
-
-    private final GameBoard board;
+public class Save {
+    @Expose
+    private final GameBoardSave board;
+    @Expose
     private final Date date;
 
-    public Save(GameBoard b, Date d) {
+    public Save(GameBoardSave b, Date d) {
         if (b == null || d == null) {
             throw new IllegalArgumentException();
         }
@@ -22,7 +20,7 @@ public class Save implements Serializable {
         this.date = d;
     }
 
-    public GameBoard getBoard() {
+    public GameBoardSave getBoard() {
         return board;
     }
 

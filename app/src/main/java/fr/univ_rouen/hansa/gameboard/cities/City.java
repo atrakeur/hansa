@@ -1,6 +1,8 @@
 package fr.univ_rouen.hansa.gameboard.cities;
 
 
+import com.google.gson.annotations.Expose;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,12 +16,15 @@ import fr.univ_rouen.hansa.view.interactions.IClickableArea;
 
 public class City implements ICity {
 
-    private static IDrawer drawer;
+    private final  IDrawer drawer;
+
     private final IClickableArea clickableArea;
 
     private final IPosition position;
     private final Power power;
+    @Expose
     private final List<IKontor<? extends Pawn>> kontors;
+
     private final List<IRoute> routes;
 
     public City(IPosition position, Power power, List<IKontor<? extends Pawn>> kontors) {
@@ -36,13 +41,7 @@ public class City implements ICity {
 
         this.routes = new ArrayList<>();
     }
-    public void setDrawer(IDrawer drawer){
-        if(drawer ==null){
-            throw new IllegalArgumentException();
-        }
-        this.drawer = drawer;
 
-    }
 
     @Override
     public void setRoute(IRoute route) {

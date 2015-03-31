@@ -1,13 +1,10 @@
 package fr.univ_rouen.hansa.view.interactions;
 
 import android.graphics.Canvas;
-import android.view.MotionEvent;
-
-import java.io.Serializable;
 
 import fr.univ_rouen.hansa.view.utils.ResourceRepository;
 
-public interface IClickableArea extends Serializable {
+public interface IClickableArea {
 
     public enum Type {
         village,

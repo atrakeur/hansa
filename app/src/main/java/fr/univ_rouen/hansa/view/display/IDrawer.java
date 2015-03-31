@@ -2,11 +2,9 @@ package fr.univ_rouen.hansa.view.display;
 
 import android.graphics.Canvas;
 
-import java.io.Serializable;
-
 import fr.univ_rouen.hansa.view.utils.ResourceRepository;
 
-public interface IDrawer extends Serializable {
+public interface IDrawer {
 
     /**
      * Tell the drawer to load his resources
