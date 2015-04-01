@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 
 import java.util.List;
 
+import fr.univ_rouen.hansa.actions.MovementManager;
 import fr.univ_rouen.hansa.exceptions.UnfinishedRoundException;
 import fr.univ_rouen.hansa.gameboard.player.HTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
@@ -57,15 +58,25 @@ public class TurnManager {
         }
 
         getCurrentPlayer().newTurn();
+        MovementManager.getInstance().nextTurn();
     }
 
     public nextTurnRequire isNextTurnAvailible() {
-        if (getCurrentPlayer().getActionNumber() > 0) {
+        if (actionLeft() > 0) {
             return nextTurnRequire.actiones;
         } else if (getCurrentPlayer().getEscritoire().getTinPlateContent().size() > 0) {
             return nextTurnRequire.bonusMarkers;
         }
 
         return nextTurnRequire.none;
+    }
+
+    /**
+     * Return the number of action left of the current player
+     *
+     * @return int represent the number of action left
+     */
+    private int actionLeft() {
+        return getCurrentPlayer().getActionNumber() - MovementManager.getInstance().actionCounter();
     }
 }

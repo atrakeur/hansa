@@ -1,28 +1,35 @@
 package fr.univ_rouen.hansa.actions;
 
+import fr.univ_rouen.hansa.actions.actions.ActionFactory;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
 
-/**
- * Created by Valentin on 11/02/2015.
- */
 public class MovementManager {
 
-    private Stack<IMovement> stack;
-    private static MovementManager instance= new MovementManager();
+    private static MovementManager instance = new MovementManager();
 
-    private MovementManager(){stack = new Stack<IMovement>();}
+    private final Stack<IMovement> stack;
+    private ActionFactory actionFactory;
 
-    public static MovementManager getInstance(){return instance;}
+    private MovementManager() {
+        stack = new Stack<IMovement>();
+
+        actionFactory = new ActionFactory();
+    }
+
+    public static MovementManager getInstance() {
+        return instance;
+    }
 
     public void doMove(IMovement m) {
         if (m.isDone()) {
             throw new IllegalStateException("Can't do the same Movement twice");
         }
+
         m.doMovement();
         stack.push(m);
     }
 
-    public IMovement rollbackMove(){
+    public IMovement rollbackMove() {
         IMovement m = stack.pop();
         if (!m.isDone()) {
             stack.push(m);
@@ -33,6 +40,17 @@ public class MovementManager {
         return m;
     }
 
-    public boolean isEmpty(){return stack.isEmpty();}
+    public boolean isEmpty() {
+        return stack.isEmpty();
+    }
+
+    public void nextTurn() {
+        stack.clear();
+        actionFactory = new ActionFactory();
+    }
+
+    public int actionCounter() {
+        return actionFactory.getActions(stack.getStackContent()).size();
+    }
 
 }

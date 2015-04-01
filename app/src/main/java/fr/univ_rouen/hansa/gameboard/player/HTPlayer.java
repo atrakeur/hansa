@@ -36,7 +36,6 @@ public class HTPlayer extends ScorePlayer implements IHTPlayer {
     @Override
     public void setActionNumber(int i) {
         action = action + i;
-
     }
 
     @Override

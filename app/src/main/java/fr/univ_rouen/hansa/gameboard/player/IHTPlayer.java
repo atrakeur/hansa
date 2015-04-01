@@ -20,15 +20,15 @@ public interface IHTPlayer extends IScorePlayer {
 
     /**
      * Get the real actionNumber of the player
-     * @return
-     * The new number action
+     *
+     * @return The new number action
      */
     public int getActionNumber();
 
     /**
      * Set the real actionNumber (Use with the bonusmarkers)
-     * @param i
-     * The value to add to the actionNumber
+     *
+     * @param i The value to add to the actionNumber
      */
     public void setActionNumber(int i);
 
