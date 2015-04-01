@@ -10,6 +10,7 @@ import fr.univ_rouen.hansa.view.GameBoardView;
 public class DrawingThread extends Thread {
 
     private volatile boolean isRunning;
+    private volatile Thread threadInstance;
 
     private GameBoardView view;
     private SurfaceHolder holder;
@@ -18,16 +19,18 @@ public class DrawingThread extends Thread {
         this.view = view;
         this.holder = holder;
 
-        final DrawingThread threadInstance = this;
+        final DrawingThread controlThread = this;
+
         view.getHolder().addCallback(new SurfaceHolder.Callback() {
             public void surfaceCreated(SurfaceHolder holder) {
-                threadInstance.setRunning(true);
+                threadInstance = new Thread(DrawingThread.this);
+                controlThread.setRunning(true);
                 threadInstance.start();
             }
             public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {}
             public void surfaceDestroyed(SurfaceHolder holder) {
                 boolean retry = true;
-                threadInstance.setRunning(false);
+                controlThread.setRunning(false);
                 while (retry) {
                     try {
                         threadInstance.join();
