@@ -48,27 +48,7 @@ public class SaveGame {
 
         Type typeSave = new TypeToken<List<Save>>() {
         }.getType();
-
-        Gson gson = new GsonBuilder()
-                .registerTypeAdapter(IRoute.class,
-                        new GameBoardSaveSerializer())
-                .registerTypeAdapter(IHTPlayer.class,
-                        new GameBoardSaveSerializer())
-                .registerTypeAdapter(IVillage.class,
-                        new GameBoardSaveSerializer())
-                .registerTypeAdapter(Pawn.class,
-                        new GameBoardSaveSerializer())
-                .registerTypeAdapter(IKontor.class,
-                        new GameBoardSaveSerializer())
-                .registerTypeAdapter(IEscritoire.class,
-                        new GameBoardSaveSerializer())
-                .registerTypeAdapter(IBonusMarker.class,
-                        new GameBoardSaveSerializer())
-                .registerTypeAdapter(IPawnList.class,
-                        new GameBoardSaveSerializer())
-                .registerTypeAdapter(ICity.class,
-                        new GameBoardSaveSerializer()).excludeFieldsWithoutExposeAnnotation().create();
-
+        Gson  gson =createGsonGame();
 
         try {
 
@@ -123,6 +103,22 @@ public class SaveGame {
 
     private void saveFile(Context context) {
 
+        Gson gson =createGsonGame();
+        Type typeSave = new TypeToken<List<Save>>() {
+        }.getType();
+
+
+        try {
+            FileOutputStream fos = context.openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
+            ObjectOutputStream os = new ObjectOutputStream(fos);
+            os.writeObject((String)gson.toJson(this.getSaves(), typeSave));
+            os.close();
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static Gson createGsonGame() {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(IRoute.class,
                         new GameBoardSaveSerializer())
@@ -143,19 +139,7 @@ public class SaveGame {
                 .registerTypeAdapter(ICity.class,
                         new GameBoardSaveSerializer()).excludeFieldsWithoutExposeAnnotation().create();
 
-        Type typeSave = new TypeToken<List<Save>>() {
-        }.getType();
-
-
-        try {
-            FileOutputStream fos = context.openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
-            ObjectOutputStream os = new ObjectOutputStream(fos);
-            os.writeObject(gson.toJson(this.getSaves(), typeSave));
-            os.close();
-            fos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        return gson;
     }
 
 

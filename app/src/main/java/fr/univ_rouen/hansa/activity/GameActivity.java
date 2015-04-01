@@ -9,12 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,20 +20,11 @@ import fr.univ_rouen.hansa.actions.MovementManager;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
-import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
-import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
-import fr.univ_rouen.hansa.gameboard.cities.ICity;
-import fr.univ_rouen.hansa.gameboard.cities.IKontor;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
-import fr.univ_rouen.hansa.gameboard.player.escritoire.IEscritoire;
-import fr.univ_rouen.hansa.gameboard.player.escritoire.IPawnList;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
-import fr.univ_rouen.hansa.gameboard.routes.IRoute;
-import fr.univ_rouen.hansa.gameboard.routes.IVillage;
-import fr.univ_rouen.hansa.gameboard.save.GameBoardSave;
-import fr.univ_rouen.hansa.gameboard.save.GameBoardSaveSerializer;
+import fr.univ_rouen.hansa.gameboard.save.LoadGame;
 import fr.univ_rouen.hansa.gameboard.save.SaveGame;
 import fr.univ_rouen.hansa.view.GameBoardView;
 import fr.univ_rouen.hansa.view.interactions.AlertDialogBursa;
@@ -207,95 +193,14 @@ public class GameActivity extends Activity {
     private void charger() {
 
         if (getIntent().getExtras() != null) {
-            String s = getIntent().getExtras().getString("board");
-            board = this.loadBoard(deserializeBoard(s));
+            String boardSerialized = getIntent().getExtras().getString("board");
+            board = LoadGame.loadBoard(boardSerialized);
             GameBoardView boardView = (GameBoardView) findViewById(R.id.dynamic_ui);
             boardView.setBoardLoad(board);
 
         }
     }
 
-    private GameBoardSave deserializeBoard(String s) {
-        Type typeSave = new TypeToken<GameBoardSave>() {
-        }.getType();
-        Gson gson = new GsonBuilder()
-                .registerTypeAdapter(IRoute.class,
-                        new GameBoardSaveSerializer())
-                .registerTypeAdapter(IHTPlayer.class,
-                        new GameBoardSaveSerializer())
-                .registerTypeAdapter(IVillage.class,
-                        new GameBoardSaveSerializer())
-                .registerTypeAdapter(Pawn.class,
-                        new GameBoardSaveSerializer())
-                .registerTypeAdapter(IKontor.class,
-                        new GameBoardSaveSerializer())
-                .registerTypeAdapter(IEscritoire.class,
-                        new GameBoardSaveSerializer())
-                .registerTypeAdapter(IBonusMarker.class,
-                        new GameBoardSaveSerializer())
-                .registerTypeAdapter(IPawnList.class,
-                        new GameBoardSaveSerializer())
-                .registerTypeAdapter(ICity.class,
-                        new GameBoardSaveSerializer()).excludeFieldsWithoutExposeAnnotation().create();
-        return gson.fromJson(s, typeSave);
-    }
 
-
-    private GameBoard loadBoard(GameBoardSave boardSave) {
-        GameBoard board;
-
-        if (boardSave.getBackground() == R.drawable.plateau23) {
-            board = GameBoardFactory.getInstance().createGameBoard(1);
-        } else {
-            board = GameBoardFactory.getInstance().createGameBoard(2);
-        }
-        for (int i = 0; i < boardSave.getCities().size(); i++) {
-            for (int j = 0; j < boardSave.getCities().get(i).getKontors().size(); j++)
-                if (!boardSave.getCities().get(i).getKontors().get(j).isEmpty()) {
-
-                    IKontor k = boardSave.getCities().get(i).getKontors().get(j);
-
-                    IKontor k1 = board.getCities().get(i).getKontors().get(j);
-
-                    Pawn t = k.popPawn();
-                    for (IHTPlayer player : boardSave.getPawns().keySet()) {
-                        List<Pawn> l = boardSave.getPawns().get(player);
-                        if (l.contains(t)) {
-                            t.setPlayer(player);
-                        }
-                    }
-                    k1.pushPawn(t);
-
-
-                }
-        }
-        for (int i = 0; i < boardSave.getRoutes().size(); i++) {
-            System.out.println("\ni= " + i);
-            for (int j = 0; j < boardSave.getRoutes().get(i).getVillages().size(); j++) {
-                System.out.print("j= " + j + ", ");
-                if (!boardSave.getRoutes().get(i).getVillages().get(j).isEmpty()) {
-
-                    IVillage k = boardSave.getRoutes().get(i).getVillages().get(j);
-
-                    IVillage k1 = board.getRoutes().get(i).getVillages().get(j);
-
-                    Pawn t = k.pullPawn();
-                    for (IHTPlayer player : boardSave.getPawns().keySet()) {
-                        List<Pawn> l = boardSave.getPawns().get(player);
-                        if (l.contains(t)) {
-                            t.setPlayer(player);
-                        }
-                    }
-                    k1.pushPawn(t);
-                }
-            }
-        }
-
-        TurnManager.loadInstance(boardSave.getManager());
-        for (IHTPlayer player : TurnManager.getInstance().getPlayers()) {
-            player.getEscritoire().loadPlayer(player);
-        }
-        return board;
-    }
 
 }

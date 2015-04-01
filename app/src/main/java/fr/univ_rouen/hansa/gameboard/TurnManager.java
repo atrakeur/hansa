@@ -3,14 +3,13 @@ package fr.univ_rouen.hansa.gameboard;
 import com.google.common.collect.Lists;
 import com.google.gson.annotations.Expose;
 
-import java.io.Serializable;
 import java.util.List;
 
 import fr.univ_rouen.hansa.gameboard.player.HTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 
-public class TurnManager implements Serializable {
+public class TurnManager {
     private static TurnManager ourInstance = new TurnManager();
     @Expose
     private final List<IHTPlayer> players;
