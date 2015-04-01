@@ -27,7 +27,7 @@ public class HansaRouteDrawer implements IDrawer {
     public final float KONTOR_TRADER_SIZE_X = 0.014f;
     public final float KONTOR_TRADER_SIZE_Y = 0.018f;
 
-    public final float TAVERN_SIZE = 0.040f;
+    public final float TAVERN_SIZE = 0.060f;
 
     private final IRoute route;
 
@@ -40,6 +40,9 @@ public class HansaRouteDrawer implements IDrawer {
         resources.addResource("bonusactiones3", R.drawable.bonusactiones3, TAVERN_SIZE, TAVERN_SIZE);
         resources.addResource("bonusactiones4", R.drawable.bonusactiones4, TAVERN_SIZE, TAVERN_SIZE);
         resources.addResource("bonusescritoire", R.drawable.bonusescritoire, TAVERN_SIZE, TAVERN_SIZE);
+        resources.addResource("bonuskontor", R.drawable.bonuskontor, TAVERN_SIZE, TAVERN_SIZE);
+        resources.addResource("bonuspermutation", R.drawable.bonuspermutation, TAVERN_SIZE, TAVERN_SIZE);
+        resources.addResource("bonusremovepawn", R.drawable.bonusremovepawn, TAVERN_SIZE, TAVERN_SIZE);
     }
 
     @Override
@@ -97,8 +100,13 @@ public class HansaRouteDrawer implements IDrawer {
         }
 
         if (debug == true || this.route.getBonusMarker() != null) {
-            //String image = "bonus" + this.route.getBonusMarker().getType();
-            String image = "bonusactiones3";
+            String image;
+            if (debug == true) {
+                image = "bonusactiones3";
+            } else {
+                image = "bonus" + this.route.getBonusMarker().getType();
+            }
+
             IPosition bonusPosition= this.route.getTavernPosition();
 
             Bitmap pict = resources.getScaledResource(image);
