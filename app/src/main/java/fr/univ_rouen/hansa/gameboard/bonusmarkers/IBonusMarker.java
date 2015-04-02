@@ -30,4 +30,6 @@ public interface IBonusMarker {
      * Undo the action of the bonusmarkers
      */
     public void undoAction();
+
+    String getType();
 }

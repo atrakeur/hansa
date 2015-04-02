@@ -30,6 +30,11 @@ public class PlayBonusTest extends TestCase {
         public void undoAction() {
             setState(BonusState.onHand);
         }
+
+        @Override
+        public String getType() {
+            throw new UnsupportedOperationException();
+        }
     }
 
     public void testConstructorWithValidParameter() throws Exception {

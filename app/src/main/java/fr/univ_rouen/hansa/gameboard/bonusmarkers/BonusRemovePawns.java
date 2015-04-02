@@ -2,16 +2,13 @@ package fr.univ_rouen.hansa.gameboard.bonusmarkers;
 
 import com.google.common.collect.Lists;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
-import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 
-public class BonusRemovePawns extends StatedBonus implements IBonusMarker {
+public class BonusRemovePawns extends AbstractBonus implements IBonusMarker {
 
     // La liste des villages concernés
     private List<IVillage> villages;
@@ -21,7 +18,7 @@ public class BonusRemovePawns extends StatedBonus implements IBonusMarker {
     private List<Pawn> pawn;
 
     public BonusRemovePawns() {
-        super();
+        super("removepawn");
     }
 
     public List<IHTPlayer> getPlayers() {

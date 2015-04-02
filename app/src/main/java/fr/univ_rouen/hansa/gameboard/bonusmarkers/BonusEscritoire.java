@@ -1,6 +1,5 @@
 package fr.univ_rouen.hansa.gameboard.bonusmarkers;
 
-import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.escritoire.IEscritoire;
@@ -9,12 +8,12 @@ import fr.univ_rouen.hansa.gameboard.player.escritoire.IEscritoire;
 /**
  * Bonus which upgrade one of your Power
  */
-public class BonusEscritoire extends StatedBonus implements IBonusMarker {
+public class BonusEscritoire extends AbstractBonus implements IBonusMarker {
     private Power power;
     private IHTPlayer player;
 
     public BonusEscritoire() {
-        super();
+        super("escritoire");
     }
 
     @Override
