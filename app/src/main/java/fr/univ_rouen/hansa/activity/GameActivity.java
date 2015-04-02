@@ -18,6 +18,7 @@ import fr.univ_rouen.hansa.R;
 import fr.univ_rouen.hansa.actions.MovementFactory;
 import fr.univ_rouen.hansa.actions.MovementManager;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
+import fr.univ_rouen.hansa.exceptions.UnfinishedRoundException;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
@@ -130,6 +131,7 @@ public class GameActivity extends Activity {
 
     }
 
+    //TODO refactor dat method man !
     public void pauseAction(View view){
         if(!MovementManager.getInstance().isEmpty()){
             MovementManager.getInstance().rollbackMove();
@@ -137,8 +139,23 @@ public class GameActivity extends Activity {
     }
 
     public void submitAction(View v){
-        TurnManager.getInstance().nextPlayer(false);
-        this.onResume();
+        try{
+            TurnManager.getInstance().nextPlayer(false);
+            this.onResume();
+        }catch (UnfinishedRoundException ex){
+            AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+            alertDialog.setTitle("Attention");
+            alertDialog.setMessage(ex.getMessage() + "\nQue voulez-vous faire ?");
+
+            this.onResume();
+        }
     }
 
+    public void moveStockTrader(View view) {
+
+    }
+
+    public void moveStockMerchant(View view) {
+
+    }
 }

@@ -31,6 +31,27 @@
             android:background="#000000"
             android:onClick="pauseAction"/>
 
+
+        <!--TODO mod these intoImageButton-->
+        <Button
+            android:id="@+id/button_stock_trader"
+            android:text="@string/button_stock_trader"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:scaleType="fitCenter"
+            android:onClick="moveStockTrader"
+            />
+
+        <Button
+            android:id="@+id/button_stock_merchant"
+            android:text="@string/button_stock_merchant"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:scaleType="fitCenter"
+            android:onClick="moveStockMerchant"/>
+
         <ImageButton
             android:id="@+id/button_bursa"
             android:layout_weight="1"
@@ -42,6 +63,7 @@
 
             android:background="#000000"
             android:onClick="bursaAction" />
+
         <ImageButton
             android:id="@+id/button_bonus_marker"
             android:layout_weight="1"

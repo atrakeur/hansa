@@ -10,10 +10,18 @@ import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 
 public class TurnManager {
-    public enum nextTurnRequire {
-        actiones,
-        bonusMarkers,
-        none
+    public enum NextTurnRequire {
+        actiones("Il vous reste des Actions"),
+        bonusMarkers("Il vous restes des Jetons Bonus à placer"),
+        none("");
+
+        private String message;
+        NextTurnRequire(String message){
+            this.message = message;
+        }
+        public String getMessage(){
+            return message;
+        }
     }
 
     private static TurnManager ourInstance = new TurnManager();
@@ -48,8 +56,9 @@ public class TurnManager {
     }
 
     public void nextPlayer(boolean force) {
-        if (isNextTurnAvailible() != nextTurnRequire.none && !force) {
-            throw new UnfinishedRoundException();
+        NextTurnRequire req;
+        if ((req = isNextTurnAvailible()) != NextTurnRequire.none && !force) {
+            throw new UnfinishedRoundException(req.getMessage());
         }
 
         if (++position >= players.size()) {
@@ -59,13 +68,13 @@ public class TurnManager {
         getCurrentPlayer().newTurn();
     }
 
-    public nextTurnRequire isNextTurnAvailible() {
+    public NextTurnRequire isNextTurnAvailible() {
         if (getCurrentPlayer().getActionNumber() > 0) {
-            return nextTurnRequire.actiones;
+            return NextTurnRequire.actiones;
         } else if (getCurrentPlayer().getEscritoire().getTinPlateContent().size() > 0) {
-            return nextTurnRequire.bonusMarkers;
+            return NextTurnRequire.bonusMarkers;
         }
 
-        return nextTurnRequire.none;
+        return NextTurnRequire.none;
     }
 }

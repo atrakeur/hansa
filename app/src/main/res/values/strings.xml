@@ -11,6 +11,8 @@
     <string name="button_bonus_marker">Bouton Jeton Bonus</string>
     <string name="button_submit">Bouton Valider</string>
     <string name="button_pause">Bouton Pause</string>
+    <string name="button_stock_trader">Trader</string>
+    <string name="button_stock_merchant">Merchant</string>
 
     <!--ALERT STRING-->
     <string name="alert_confirm">Confirmer</string>
