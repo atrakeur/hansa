@@ -7,6 +7,7 @@
     <!--ACCESSIBILITY-->
     <string name="gameboard">Plateau de Jeu</string>
     <string name="button_cancel">Bouton Annuler</string>
+    <string name="button_escritoire">Bouton Escritoire</string>
     <string name="button_bursa">Bouton Bursa</string>
     <string name="button_bonus_marker">Bouton Jeton Bonus</string>
     <string name="button_submit">Bouton Valider</string>
@@ -24,11 +25,20 @@
     <string name="ab_merchant">M:</string>
     <string name="ab_trader">T:</string>
     <string name="ab_summary">Etat de la Réserve après mouvement</string>
-
     <string name="ab_too_low">Le nombre de Commerçants doit être supérieur ou égal à 0.</string>
     <string name="ab_too_much_bursa">Votre pouvoir Bursa n\'est pas assez élevé.</string>
     <string name="ab_too_much_mer">Vous n\'avez pas autant de Marchand dans votre Stock.</string>
 
+    <!--Competences-->
+    <string name="stock">Stock</string>
+    <string name="supply">Réserve</string>
+    <string name="clavis_urbis">Clavis Urbis</string>
+    <string name="privilegium">Privilegium</string>
+    <string name="liber_sophia">Liber Sophia</string>
+    <string name="actiones">Actiones</string>
+    <string name="bursa">Bursa</string>
 
+    <!--DIALOG ESCRITOIRE-->
+    <string name="esc_title">Escritoire</string>
 
 </resources>

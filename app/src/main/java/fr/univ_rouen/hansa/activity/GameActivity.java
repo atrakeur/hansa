@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -78,15 +80,15 @@ public class GameActivity extends Activity {
         this.setPanelColor(player.getPlayerColor().getColor());
     }
 
-    public void toasty(View v){
+    public void toasty(View v) {
         Toast.makeText(getApplicationContext(), "Toasty", Toast.LENGTH_SHORT).show();
     }
 
-    public void bursaAction(View v){
+    public void bursaAction(View v) {
         final IHTPlayer player = TurnManager.getInstance().getCurrentPlayer();
 
-        if(player.getEscritoire().getStock().getMerchantCount() == 0 &&
-                player.getEscritoire().getStock().getTraderCount() == 0){
+        if (player.getEscritoire().getStock().getMerchantCount() == 0 &&
+                player.getEscritoire().getStock().getTraderCount() == 0) {
             Toast.makeText(context, "Action Impossible : Pas de pions à déplacer.", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -106,7 +108,7 @@ public class GameActivity extends Activity {
             return;
         }
 
-        AlertDialogBursa dialog = new AlertDialogBursa(context, getLayoutInflater(), player );
+        AlertDialogBursa dialog = new AlertDialogBursa(context, getLayoutInflater(), player);
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
@@ -144,8 +146,8 @@ public class GameActivity extends Activity {
         alertDialog.show();
     }
 
-    public void pauseAction(View view){
-        if(!MovementManager.getInstance().isEmpty()){
+    public void rollbackAction(View view) {
+        if (!MovementManager.getInstance().isEmpty()) {
             MovementManager.getInstance().rollbackMove();
         }
     }
@@ -179,11 +181,23 @@ public class GameActivity extends Activity {
     }
 
     public void setPanelColor(int color) {
-        findViewById(R.id.button_cancel).setBackgroundColor(color);
-        findViewById(R.id.button_bursa).setBackgroundColor(color);
-        findViewById(R.id.button_bonus_marker).setBackgroundColor(color);
-        findViewById(R.id.button_submit).setBackgroundColor(color);
-        findViewById(R.id.button_pause).setBackgroundColor(color);
+        LinearLayout sideMenu = (LinearLayout) findViewById(R.id.side_menu);
+
+        for (int i = 0; i < sideMenu.getChildCount(); i++) {
+            sideMenu.getChildAt(i).setBackgroundColor(color);
+        }
+    }
+
+    /**
+     * This method display a dialog containing the information about the player's escritoire
+     */
+    public void displayEscritoire(View view) {
+
+        //EscritoireActivity dial = new EscritoireActivity(context, TurnManager.getInstance().getCurrentPlayer());
+        //dial.show();
+        Intent intent = new Intent(this, EscritoireActivity.class);
+        startActivity(intent);
+
     }
 
 }
