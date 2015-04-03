@@ -49,7 +49,7 @@ public class TurnManager {
     }
 
     public void nextPlayer(boolean force) {
-        if (isNextTurnAvailible() != nextTurnRequire.none && !force) {
+        if (isNextTurnAvailable() != nextTurnRequire.none && !force) {
             throw new UnfinishedRoundException();
         }
 
@@ -61,7 +61,7 @@ public class TurnManager {
         MovementManager.getInstance().nextTurn();
     }
 
-    public nextTurnRequire isNextTurnAvailible() {
+    public nextTurnRequire isNextTurnAvailable() {
         if (actionLeft() > 0) {
             return nextTurnRequire.actiones;
         } else if (getCurrentPlayer().getEscritoire().getTinPlateContent().size() > 0) {
