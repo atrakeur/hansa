@@ -18,6 +18,7 @@ import fr.univ_rouen.hansa.R;
 import fr.univ_rouen.hansa.actions.MovementFactory;
 import fr.univ_rouen.hansa.actions.MovementManager;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
+import fr.univ_rouen.hansa.exceptions.UnfinishedRoundException;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
@@ -54,13 +55,9 @@ public class GameActivity extends Activity {
     protected void onResume() {
         super.onResume();
 
-        IHTPlayer player =TurnManager.getInstance().getCurrentPlayer();
+        IHTPlayer player = TurnManager.getInstance().getCurrentPlayer();
 
-        findViewById(R.id.button_cancel).setBackgroundColor(player.getPlayerColor().getColor());
-        findViewById(R.id.button_bursa).setBackgroundColor(player.getPlayerColor().getColor());
-        findViewById(R.id.button_bonus_marker).setBackgroundColor(player.getPlayerColor().getColor());
-        findViewById(R.id.button_submit).setBackgroundColor(player.getPlayerColor().getColor());
-        findViewById(R.id.button_pause).setBackgroundColor(player.getPlayerColor().getColor());
+        this.setPanelColor(player.getPlayerColor().getColor());
     }
 
     public void toasty(View v){
@@ -127,7 +124,6 @@ public class GameActivity extends Activity {
 
         // show it
         alertDialog.show();
-
     }
 
     public void pauseAction(View view){
@@ -137,8 +133,39 @@ public class GameActivity extends Activity {
     }
 
     public void submitAction(View v){
-        TurnManager.getInstance().nextPlayer(false);
+        try {
+            TurnManager.getInstance().nextPlayer(false);
+        } catch (UnfinishedRoundException ex) {
+            AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+            alertDialog.setTitle("Actions restantes");
+            alertDialog.setMessage("Vous avez toujours des actions, voulez vous quand même terminer votre tour?");
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Oui",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            TurnManager.getInstance().nextPlayer(true);
+                            dialog.dismiss();
+                            onResume();
+                        }
+                    });
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Non",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            onResume();
+                        }
+                    });
+            alertDialog.show();
+        }
+
         this.onResume();
+    }
+
+    public void setPanelColor(int color) {
+        findViewById(R.id.button_cancel).setBackgroundColor(color);
+        findViewById(R.id.button_bursa).setBackgroundColor(color);
+        findViewById(R.id.button_bonus_marker).setBackgroundColor(color);
+        findViewById(R.id.button_submit).setBackgroundColor(color);
+        findViewById(R.id.button_pause).setBackgroundColor(color);
     }
 
 }
