@@ -25,75 +25,47 @@
 
 
             <ImageButton
+                style="@style/MenuButton"
                 android:id="@+id/button_cancel"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:scaleType="fitCenter"
                 android:src="@drawable/annuler"
                 android:contentDescription="@string/button_cancel"
-
-                android:background="#000000"
-
-                android:onClick="pauseAction"/>
-            <Button
-                android:id="@+id/button_escritoire"
-                android:layout_weight="1"
-                android:text="Esc"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:onClick="displayEscritoire">
-            </Button>
+                android:onClick="rollbackAction"/>
 
             <ImageButton
+                style="@style/MenuButton"
+                android:id="@+id/button_escritoire"
+                android:onClick="displayEscritoire"
+                android:src="@drawable/escritoire"
+                android:contentDescription="@string/button_escritoire"/>
+
+
+            <ImageButton
+                style="@style/MenuButton"
                 android:id="@+id/button_bursa"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:scaleType="fitCenter"
                 android:src="@drawable/bursa"
                 android:contentDescription="@string/button_bursa"
-
-                android:background="#000000"
                 android:onClick="bursaAction" />
+
             <ImageButton
+                style="@style/MenuButton"
                 android:id="@+id/button_bonus_marker"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:scaleType="fitCenter"
                 android:src="@drawable/jb"
                 android:contentDescription="@string/button_bonus_marker"
-
-                android:onClick="toasty"
-                android:background="#000000"
-                />
+                android:onClick="toasty"/>
 
             <ImageButton
+                style="@style/MenuButton"
                 android:id="@+id/button_submit"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:scaleType="fitCenter"
                 android:src="@drawable/valider"
                 android:contentDescription="@string/button_submit"
-
-                android:background="#000000"
-                android:onClick="submitAction"
-                />
+                android:onClick="submitAction"/>
 
             <ImageButton
+                style="@style/MenuButton"
                 android:id="@+id/button_pause"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:scaleType="fitCenter"
                 android:src="@drawable/pause"
                 android:contentDescription="@string/button_pause"
-
-                android:background="#000000"
-                android:onClick="toasty"
-                />
+                android:onClick="toasty"/>
 
         </LinearLayout>
 

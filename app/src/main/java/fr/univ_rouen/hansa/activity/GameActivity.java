@@ -59,7 +59,6 @@ public class GameActivity extends Activity {
         for (int i = 0; i < sideMenu.getChildCount(); i++) {
             sideMenu.getChildAt(i).setBackgroundColor(player.getPlayerColor().getColor());
         }
-
     }
 
     public void toasty(View v) {
@@ -124,7 +123,7 @@ public class GameActivity extends Activity {
 
     }
 
-    public void pauseAction(View view) {
+    public void rollbackAction(View view) {
         if (!MovementManager.getInstance().isEmpty()) {
             MovementManager.getInstance().rollbackMove();
         }
