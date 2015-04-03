@@ -1,7 +1,7 @@
 package fr.univ_rouen.hansa.exceptions;
 
 /**
- * Erreur déclenchée si il n'y a plus de place dans la ville ou sur la route
+ * Exception created when there is no more space available on a route
  */
 public class NoPlaceException extends GameException {
 

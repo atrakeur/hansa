@@ -92,4 +92,14 @@ public class IncreasePower implements IMovement {
 
         actionDone = false;
     }
+
+    @Override
+    public int getPawnReplaceMove() {
+        return 0;
+    }
+
+    @Override
+    public int getMergeableMove() {
+        return 0;
+    }
 }

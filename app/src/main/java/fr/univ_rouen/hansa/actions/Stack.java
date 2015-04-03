@@ -1,17 +1,16 @@
 package fr.univ_rouen.hansa.actions;
 
-import java.util.LinkedList;
+import com.google.common.collect.Lists;
 
-/**
- * Cette classe représente une pile
- * Created by Valentin on 10/02/2015.
- */
+import java.util.LinkedList;
+import java.util.List;
+
 public class Stack<E> {
 
     private LinkedList<E> stack;
 
     public Stack(){
-        stack = new LinkedList<>();
+        stack = Lists.newLinkedList();
     }
 
     public E pop(){
@@ -37,6 +36,14 @@ public class Stack<E> {
 
     public boolean isEmpty(){
         return this.stack.isEmpty();
+    }
+
+    public void clear() {
+        stack.clear();
+    }
+
+    public List<E> getStackContent() {
+        return Lists.newArrayList(stack);
     }
 
 }

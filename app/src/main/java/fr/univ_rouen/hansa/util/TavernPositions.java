@@ -5,7 +5,7 @@ import fr.univ_rouen.hansa.view.Position;
 
 public class TavernPositions {
 
-    public static IPosition GRONINGEN_EMDEN = new Position(0, 0);
+    public static IPosition GRONINGEN_EMDEN = new Position(0.196f, 0.1187f);
     public static IPosition EMDEN_OSNABRUCK = new Position(0, 0);
     public static IPosition OSNABRUCK_BREMEN = new Position(0, 0);
     public static IPosition BREMEN_HAMBURG = new Position(0, 0);

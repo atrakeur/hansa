@@ -1,15 +1,51 @@
 package fr.univ_rouen.hansa.gameboard.bonusmarkers;
 
-public class BonusActiones implements IBonusMarker {
-    @Override
-    public BonusState getState() {
-        //TODO
-        throw new UnsupportedOperationException();
+import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
+
+/**
+ * Bonus which allow you to do 3 or 4 more Actions
+ */
+public class BonusActiones extends AbstractBonus implements IBonusMarker {
+    private int value;
+    private IHTPlayer player;
+
+    public BonusActiones(int v) {
+        super("actiones");
+        if (v != 3 && v != 4) {
+            throw new IllegalArgumentException("Valeur");
+        }
+        this.value = v;
+    }
+
+    public String getType() {
+        return super.getType()+""+this.value;
     }
 
     @Override
     public void doAction() {
-        //TODO
-        throw new UnsupportedOperationException();
+        super.doAction();
+        player.setActionNumber(getValue());
+    }
+
+    @Override
+    public void undoAction() {
+        super.undoAction();
+        int undo = -getValue();
+        player.setActionNumber(undo);
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public IHTPlayer getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(IHTPlayer p) {
+        if (p == null) {
+            throw new IllegalArgumentException();
+        }
+        player = p;
     }
 }

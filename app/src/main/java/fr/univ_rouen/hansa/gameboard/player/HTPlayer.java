@@ -7,12 +7,15 @@ public class HTPlayer extends ScorePlayer implements IHTPlayer {
     private final PlayerColor color;
     private final IEscritoire escritoire;
 
+    private int action;
+
     public HTPlayer(PlayerColor color, int startingPlace) {
         super();
 
         this.color = color;
-
         this.escritoire = new Escritoire(this, startingPlace);
+
+        this.action = 2;
     }
 
     @Override
@@ -24,4 +27,21 @@ public class HTPlayer extends ScorePlayer implements IHTPlayer {
     public PlayerColor getPlayerColor() {
         return color;
     }
+
+    @Override
+    public int getActionNumber() {
+        return action;
+    }
+
+    @Override
+    public void setActionNumber(int i) {
+        action = action + i;
+    }
+
+    @Override
+    public void newTurn() {
+        action = escritoire.actionesLevel();
+    }
+
+
 }

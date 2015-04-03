@@ -2,6 +2,7 @@ package fr.univ_rouen.hansa.gameboard.cities;
 
 import fr.univ_rouen.hansa.gameboard.Privillegium;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
+import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 
 public class Kontor<E extends Pawn> implements IKontor<E> {
@@ -51,6 +52,14 @@ public class Kontor<E extends Pawn> implements IKontor<E> {
         if (victoryPoint) {
             TurnManager.getInstance().getCurrentPlayer().increaseScore();
         }
+    }
+
+    public IHTPlayer getOwner() {
+        if (isEmpty()) {
+            return null;
+        }
+
+        return this.pawn.getPlayer();
     }
 
 }

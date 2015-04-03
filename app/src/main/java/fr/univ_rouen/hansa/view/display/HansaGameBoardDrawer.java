@@ -7,9 +7,12 @@ import java.util.List;
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
+import fr.univ_rouen.hansa.view.interactions.IClickable;
 import fr.univ_rouen.hansa.view.utils.ResourceRepository;
 
 public class HansaGameBoardDrawer implements IDrawer {
+
+    private boolean debug = false;
 
     GameBoard board;
     List<ICity> cities;
@@ -37,6 +40,12 @@ public class HansaGameBoardDrawer implements IDrawer {
     @Override
     public void draw(ResourceRepository resources, Canvas canvas) {
         canvas.drawBitmap(resources.getScaledResource("background"), 0, 0, null);
+
+        if (debug) {
+            for (IClickable clickable: board.getClickables()) {
+                clickable.getClickableArea().drawDebug(resources, canvas);
+            }
+        }
 
         for (ICity city : cities) {
             city.getDrawer().draw(resources, canvas);
