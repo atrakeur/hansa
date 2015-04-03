@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="fr.univ_rouen.hansa" >
 
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -27,6 +28,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".activity.EscritoireActivity"
+            android:theme="@android:style/Theme.DeviceDefault.Dialog.NoActionBar"
+            android:excludeFromRecents="true">
+        </activity>
+
     </application>
 
 </manifest>

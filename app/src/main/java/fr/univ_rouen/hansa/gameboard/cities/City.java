@@ -70,6 +70,7 @@ public class City implements ICity {
                 return kontor;
             }
         }
+
         return null;
     }
 
@@ -90,10 +91,10 @@ public class City implements ICity {
 
     @Override
     public void pushAdditionalKontors(IKontor<? extends Pawn> kontor) {
-        if (kontor == null || kontor.isEmpty()){
+        if (kontor == null || kontor.isEmpty()) {
             throw new IllegalArgumentException("additionnalKontor null or empty");
         }
-        
+
         additionalKontors.add(kontor);
     }
 

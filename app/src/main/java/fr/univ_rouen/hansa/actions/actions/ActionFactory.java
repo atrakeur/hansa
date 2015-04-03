@@ -2,7 +2,6 @@ package fr.univ_rouen.hansa.actions.actions;
 
 import com.google.common.collect.Lists;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import fr.univ_rouen.hansa.actions.Actions;
@@ -10,19 +9,39 @@ import fr.univ_rouen.hansa.actions.movement.IMovement;
 
 public class ActionFactory {
 
-    private List<IMovement> mouvements;
+    private List<IMovement> movements;
     private List<IAction> actions;
     private int replaceMoves = 0;
 
-    public void compileMouvements(List<IMovement> mouvements) {
+    private IAction createAction(Actions type, List<IMovement> movements) {
+        return new Action(type, movements);
+    }
+
+    public List<IAction> getActions(List<IMovement> movements) {
+        if (!movements.equals(this.movements)) {
+            this.compileMovements(movements);
+        }
+
+        return actions;
+    }
+
+    public int getReplaceMoves(List<IMovement> movements) {
+        if (!movements.equals(this.movements)) {
+            this.compileMovements(movements);
+        }
+
+        return replaceMoves;
+    }
+
+    private void compileMovements(List<IMovement> movements) {
         List<IAction> actions = Lists.newArrayList();
 
         int replaceMoves = 0;
         Actions lastMergeAction = null;
         List<IMovement> mergeableMoves = Lists.newArrayList();
 
-        for (int i = 0; i < mouvements.size(); i++) {
-            IMovement movement = mouvements.get(i);
+        for (int i = 0; i < movements.size(); i++) {
+            IMovement movement = movements.get(i);
 
             replaceMoves += movement.getPawnReplaceMove();
 
@@ -57,28 +76,8 @@ public class ActionFactory {
         }
 
         this.actions = actions;
-        this.mouvements = mouvements;
+        this.movements = movements;
         this.replaceMoves = replaceMoves;
-    }
-
-    private IAction createAction(Actions type, List<IMovement> movements) {
-        return new Action(type, movements);
-    }
-
-    public List<IAction> getActions(List<IMovement> mouvements) {
-        if (!mouvements.equals(this.mouvements)) {
-            this.compileMouvements(mouvements);
-        }
-
-        return actions;
-    }
-
-    public int getReplaceMoves(List<IMovement> mouvements) {
-        if (!mouvements.equals(this.mouvements)) {
-            this.compileMouvements(mouvements);
-        }
-
-        return replaceMoves;
     }
 
 }

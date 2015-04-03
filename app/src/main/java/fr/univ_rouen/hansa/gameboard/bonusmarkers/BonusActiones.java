@@ -1,21 +1,24 @@
 package fr.univ_rouen.hansa.gameboard.bonusmarkers;
 
-import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 
 /**
  * Bonus which allow you to do 3 or 4 more Actions
  */
-public class BonusActiones extends StatedBonus implements IBonusMarker {
+public class BonusActiones extends AbstractBonus implements IBonusMarker {
     private int value;
     private IHTPlayer player;
 
     public BonusActiones(int v) {
-        super();
+        super("actiones");
         if (v != 3 && v != 4) {
             throw new IllegalArgumentException("Valeur");
         }
         this.value = v;
+    }
+
+    public String getType() {
+        return super.getType()+""+this.value;
     }
 
     @Override

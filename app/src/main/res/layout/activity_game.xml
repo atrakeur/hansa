@@ -1,86 +1,74 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_layout"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="fr.univ_rouen.hansa.activity.GameActivity" >
 
-    <fr.univ_rouen.hansa.view.GameBoardView
-        android:id="@+id/dynamic_ui"
-        android:layout_weight="8"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"/>
-
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="match_parent">
+        android:id="@+id/main_layout"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
 
+        <fr.univ_rouen.hansa.view.GameBoardView
+            android:id="@+id/dynamic_ui"
+            android:layout_weight="8"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
 
-        <ImageButton
-            android:id="@+id/button_cancel"
+        <LinearLayout
+            android:id="@+id/side_menu"
+            android:orientation="vertical"
             android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/annuler"
-            android:contentDescription="@string/button_cancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
 
-            android:background="#000000"
-            android:onClick="pauseAction"/>
 
-        <ImageButton
-            android:id="@+id/button_bursa"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/bursa"
-            android:contentDescription="@string/button_bursa"
+            <ImageButton
+                style="@style/MenuButton"
+                android:id="@+id/button_cancel"
+                android:src="@drawable/annuler"
+                android:contentDescription="@string/button_cancel"
+                android:onClick="rollbackAction"/>
 
-            android:background="#000000"
-            android:onClick="bursaAction" />
-        <ImageButton
-            android:id="@+id/button_bonus_marker"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/jb"
-            android:contentDescription="@string/button_bonus_marker"
+            <ImageButton
+                style="@style/MenuButton"
+                android:id="@+id/button_escritoire"
+                android:onClick="displayEscritoire"
+                android:src="@drawable/escritoire"
+                android:contentDescription="@string/button_escritoire"/>
 
-            android:onClick="toasty"
-            android:background="#000000"
-            />
 
-        <ImageButton
-            android:id="@+id/button_submit"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/valider"
-            android:contentDescription="@string/button_submit"
+            <ImageButton
+                style="@style/MenuButton"
+                android:id="@+id/button_bursa"
+                android:src="@drawable/bursa"
+                android:contentDescription="@string/button_bursa"
+                android:onClick="bursaAction" />
 
-            android:background="#000000"
-            android:onClick="submitAction"
-            />
+            <ImageButton
+                style="@style/MenuButton"
+                android:id="@+id/button_bonus_marker"
+                android:src="@drawable/jb"
+                android:contentDescription="@string/button_bonus_marker"
+                android:onClick="toasty"/>
 
-        <ImageButton
-            android:id="@+id/button_pause"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/pause"
-            android:contentDescription="@string/button_pause"
+            <ImageButton
+                style="@style/MenuButton"
+                android:id="@+id/button_submit"
+                android:src="@drawable/valider"
+                android:contentDescription="@string/button_submit"
+                android:onClick="submitAction"/>
 
-            android:background="#000000"
-            android:onClick="toasty"
-            />
+            <ImageButton
+                style="@style/MenuButton"
+                android:id="@+id/button_pause"
+                android:src="@drawable/pause"
+                android:contentDescription="@string/button_pause"
+                android:onClick="toasty"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</FrameLayout>

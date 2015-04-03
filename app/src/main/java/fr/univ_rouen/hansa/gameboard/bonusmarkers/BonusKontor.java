@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import fr.univ_rouen.hansa.gameboard.Privillegium;
-import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.IKontor;
 import fr.univ_rouen.hansa.gameboard.cities.Kontor;
@@ -19,7 +18,7 @@ import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 /**
  * Bonus which allow you to add a Kontor on the left of a City
  */
-public class BonusKontor extends StatedBonus implements IBonusMarker {
+public class BonusKontor extends AbstractBonus implements IBonusMarker {
     private ICity city;
     private IHTPlayer player;
     private IVillage village;
@@ -28,7 +27,7 @@ public class BonusKontor extends StatedBonus implements IBonusMarker {
     private List<Pawn> pawns;
 
     public BonusKontor() {
-        super();
+        super("kontor");
     }
 
     /**
