@@ -16,6 +16,8 @@ public class MovePawnRtoGB implements IMovement {
 
     private boolean actionDone;
 
+    private Pawn pawnToReplace;
+
     public MovePawnRtoGB(IHTPlayer player, IVillage village, Class<? extends Pawn> type) {
         this.player = player;
         this.village = village;
@@ -41,7 +43,7 @@ public class MovePawnRtoGB implements IMovement {
         }
 
         if (!village.isEmpty()) {
-            throw new NoPlaceException();
+            pawnToReplace = village.pullPawn();
         }
 
         Pawn pawn;
@@ -73,8 +75,8 @@ public class MovePawnRtoGB implements IMovement {
     }
 
     @Override
-    public int getPawnReplaceMove() {
-        return 0;
+    public Pawn getPawnToReplace() {
+        return pawnToReplace;
     }
 
     @Override

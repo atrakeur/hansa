@@ -1,6 +1,7 @@
 package fr.univ_rouen.hansa.actions.movement;
 
 import fr.univ_rouen.hansa.actions.Actions;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 
 /**
  * Represents a movement that is done by a player on the GameBoard
@@ -41,7 +42,7 @@ public interface IMovement {
      * Do this movement force a replace move later?
      * @return
      */
-    public int getPawnReplaceMove();
+    public Pawn getPawnToReplace();
 
     /**
      * How many movements of this type can be merged inside one action

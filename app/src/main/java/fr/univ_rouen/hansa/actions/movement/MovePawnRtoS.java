@@ -3,6 +3,7 @@ package fr.univ_rouen.hansa.actions.movement;
 import fr.univ_rouen.hansa.actions.Actions;
 import fr.univ_rouen.hansa.exceptions.NotEnoughSupplyException;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 
 /**
  * Move Supply (accessible) to Stock (unaccessible)
@@ -55,8 +56,8 @@ public class MovePawnRtoS implements IMovement {
     }
 
     @Override
-    public int getPawnReplaceMove() {
-        return 0;
+    public Pawn getPawnToReplace() {
+        return null;
     }
 
     @Override
