@@ -30,8 +30,7 @@
 
         <activity
             android:name=".activity.EscritoireActivity"
-            android:theme="@android:style/Theme.Dialog"
-            android:label="@string/esc_title"
+            android:theme="@android:style/Theme.DeviceDefault.Dialog.NoActionBar"
             android:excludeFromRecents="true">
         </activity>
 
