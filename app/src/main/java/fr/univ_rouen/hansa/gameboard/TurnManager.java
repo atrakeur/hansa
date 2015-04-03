@@ -9,6 +9,7 @@ import fr.univ_rouen.hansa.exceptions.UnfinishedRoundException;
 import fr.univ_rouen.hansa.gameboard.player.HTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 
 public class TurnManager {
     public enum nextTurnRequire {
@@ -46,6 +47,15 @@ public class TurnManager {
 
     public IHTPlayer getCurrentPlayer() {
         return players.get(position);
+    }
+
+    public IHTPlayer getCurrentPlayingPlayer() {
+        //Special case when there is a pawn to replace
+        if (MovementManager.getInstance().hasPawnToReplace()) {
+            return MovementManager.getInstance().getPawnToReplace().getPlayer();
+        }
+
+        return this.getCurrentPlayer();
     }
 
     public void nextPlayer(boolean force) {

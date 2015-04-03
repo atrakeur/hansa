@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import java.util.Collections;
 
+import fr.univ_rouen.hansa.activity.GameActivity;
 import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
 import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
@@ -67,7 +68,9 @@ public class GameBoardView extends SurfaceView {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return this.eventManager.onTouchEvent(event);
+        boolean result = this.eventManager.onTouchEvent(event);
+        GameActivity.getInstance().onResume();
+        return result;
     }
 
 }

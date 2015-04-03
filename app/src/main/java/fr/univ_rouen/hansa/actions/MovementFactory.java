@@ -25,7 +25,7 @@ public class MovementFactory {
     }
 
     public IMovement makeMovement(IClickableArea source, IClickableArea destination) {
-        IHTPlayer player = TurnManager.getInstance().getCurrentPlayer();
+        IHTPlayer player = TurnManager.getInstance().getCurrentPlayingPlayer();
 
         if (source.getType() == IClickableArea.Type.bonus && destination == null ) {
             //TODO PlayBonus Bonus -> null

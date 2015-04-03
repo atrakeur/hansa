@@ -28,14 +28,32 @@ import fr.univ_rouen.hansa.view.interactions.AlertDialogBursa;
 
 public class GameActivity extends Activity {
 
+    //TODO remove singleton (c'est degeu!)
+    private static GameActivity instance;
+    public static GameActivity getInstance() {
+        return instance;
+    }
+
     private Context context = this;
+
+    public GameActivity() {
+        //TODO remove singleton (c'est degeu!)
+        instance = this;
+    }
+
+    public GameActivity(Context context) {
+        this.context = context;
+
+        //TODO remove singleton (c'est degeu!)
+        instance = this;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         TurnManager.getInstance().addPlayers(Arrays.asList(PlayerColor.values()));
-        IHTPlayer player =TurnManager.getInstance().getCurrentPlayer();
+        IHTPlayer player = TurnManager.getInstance().getCurrentPlayer();
 
 
         //TODO just pour la présentation, à enlever après ;)
@@ -52,10 +70,10 @@ public class GameActivity extends Activity {
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
 
-        IHTPlayer player = TurnManager.getInstance().getCurrentPlayer();
+        IHTPlayer player = TurnManager.getInstance().getCurrentPlayingPlayer();
 
         this.setPanelColor(player.getPlayerColor().getColor());
     }

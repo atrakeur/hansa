@@ -2,6 +2,7 @@ package fr.univ_rouen.hansa.actions;
 
 import fr.univ_rouen.hansa.actions.actions.ActionFactory;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 
 public class MovementManager {
 
@@ -51,6 +52,14 @@ public class MovementManager {
 
     public int actionCounter() {
         return actionFactory.getActions(stack.getStackContent()).size();
+    }
+
+    public Pawn getPawnToReplace() {
+        return this.actionFactory.getPawnToReplace(stack.getStackContent());
+    }
+
+    public boolean hasPawnToReplace() {
+        return this.actionFactory.hasPawnToReplace(stack.getStackContent());
     }
 
 }
