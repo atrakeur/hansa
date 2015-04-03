@@ -17,7 +17,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import fr.univ_rouen.hansa.R;
+import fr.univ_rouen.hansa.actions.MovementFactory;
 import fr.univ_rouen.hansa.actions.MovementManager;
+import fr.univ_rouen.hansa.actions.movement.IMovement;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
@@ -137,7 +139,7 @@ public class GameActivity extends Activity {
     }
 
     public void submitAction(View v){
-        TurnManager.getInstance().nextPlayer(false);
+        TurnManager.getInstance().nextPlayer(true);
         this.onResume();
     }
 

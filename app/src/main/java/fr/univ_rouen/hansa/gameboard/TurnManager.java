@@ -2,7 +2,6 @@ package fr.univ_rouen.hansa.gameboard;
 
 import com.google.common.collect.Lists;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import fr.univ_rouen.hansa.actions.MovementManager;
@@ -83,9 +82,12 @@ public class TurnManager {
 
     /**
      * Return a copy of the list of the players
+     *
      * @return a copy of the list of the players
      */
-    public List<IHTPlayer> getPlayers() {return new ArrayList<>(players);}
+    public List<IHTPlayer> getPlayers() {
+        return Lists.newArrayList(players);
+    }
 
     public int getPosition() {
         return position;
