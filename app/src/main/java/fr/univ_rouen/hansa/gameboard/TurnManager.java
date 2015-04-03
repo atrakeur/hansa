@@ -79,4 +79,17 @@ public class TurnManager {
     private int actionLeft() {
         return getCurrentPlayer().getActionNumber() - MovementManager.getInstance().actionCounter();
     }
+
+    /**
+     * Return a copy of the list of the players
+     *
+     * @return a copy of the list of the players
+     */
+    public List<IHTPlayer> getPlayers() {
+        return Lists.newArrayList(players);
+    }
+
+    public int getPosition() {
+        return position;
+    }
 }

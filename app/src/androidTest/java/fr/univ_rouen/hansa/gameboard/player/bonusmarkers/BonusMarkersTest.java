@@ -2,14 +2,12 @@ package fr.univ_rouen.hansa.gameboard.player.bonusmarkers;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
-import android.util.Log;
 
 import com.google.common.collect.Lists;
 
 import java.util.List;
 
 import fr.univ_rouen.hansa.gameboard.Privillegium;
-import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusActiones;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusEscritoire;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusKontor;
@@ -29,7 +27,6 @@ import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 import fr.univ_rouen.hansa.gameboard.routes.Village;
-import fr.univ_rouen.hansa.view.IPosition;
 import fr.univ_rouen.hansa.view.Position;
 
 public class BonusMarkersTest extends ApplicationTestCase<Application> {
