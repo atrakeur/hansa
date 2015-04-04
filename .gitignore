@@ -1,12 +1,21 @@
+#Idea : User-specific stuff
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+
+#Gradle
 .gradle
-/local.properties
-/.idea/
+.idea/libraries
+.idea/gradle.xml
+
+#OS
 Thumbs.db
 .DS_Store
+
+#Other
+/local.properties
 /build
 /app/app.iml
-
 *.apk
 *.ap_
-
 *.class
