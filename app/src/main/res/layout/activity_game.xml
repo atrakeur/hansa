@@ -65,8 +65,7 @@
             android:contentDescription="@string/button_submit"
 
             android:background="#000000"
-            android:onClick="submitAction"
-            />
+            android:onClick="submitAction"/>
 
         <ImageButton
             android:id="@+id/button_pause"
@@ -77,18 +76,6 @@
             android:src="@drawable/pause"
             android:contentDescription="@string/button_pause"
             android:background="#000000"
-            android:onClick="toasty"
-            />
-
+            android:onClick="toasty" />
     </LinearLayout>
-    <ListView
-        android:id="@+id/list"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"  />
-    <Button
-        android:id="@+id/valider"
-        android:text="@string/validate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
 </LinearLayout>
