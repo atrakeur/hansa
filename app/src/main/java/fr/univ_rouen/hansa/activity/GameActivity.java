@@ -6,8 +6,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,8 +72,14 @@ public class GameActivity extends Activity {
         /**************** Create Custom Adapter *********/
         adapter = new CustomAdapter(CustomListView, CustomListViewValuesArr,res);
         list.setAdapter(adapter);
-
-
+        /**
+         * Le spinner est a nul et ça pose probleme.
+        Spinner spinner = (Spinner) findViewById(R.id.player);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+        this.setSpinnerListener(spinner);
+        */
     }
 
     /****** Function to set data in ArrayList *************/
@@ -87,6 +97,32 @@ public class GameActivity extends Activity {
             CustomListViewValuesArr.add(sched);
         }
     }
+
+    /**
+     * Methode de creation des listener a l'exterieur. Possible de le stocker dans une classe
+     * @param spinner
+     */
+    public void setSpinnerListener(Spinner spinner) {
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Spinner p1 = (Spinner) findViewById(R.id.player);
+                Spinner color1 = (Spinner) findViewById(R.id.color);
+                p1.setOnItemSelectedListener(this);
+                color1.setOnItemSelectedListener(this);
+                String s1 = (String) p1.getSelectedItem();
+                String s2 = (String) color1.getSelectedItem();
+                Log.w("Joueur 1 : ", s1);
+                Log.w("Couleur 1 :" , s2);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
 
 
     @Override
