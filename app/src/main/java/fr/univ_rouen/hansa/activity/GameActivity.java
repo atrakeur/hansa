@@ -4,13 +4,16 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.common.collect.Lists;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,16 +21,23 @@ import fr.univ_rouen.hansa.R;
 import fr.univ_rouen.hansa.actions.MovementFactory;
 import fr.univ_rouen.hansa.actions.MovementManager;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
+import fr.univ_rouen.hansa.adapter.CustomAdapter;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.view.interactions.AlertDialogBursa;
+import fr.univ_rouen.hansa.view.utils.ListModel;
 
 public class GameActivity extends Activity {
 
     private Context context = this;
+    ListView list;
+    CustomAdapter adapter;
+    public  GameActivity CustomListView = null;
+    public ArrayList<ListModel> CustomListViewValuesArr = new ArrayList<ListModel>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +57,37 @@ public class GameActivity extends Activity {
         pawns.add(new Merchant(player));
 
         player.getEscritoire().addToStock(pawns);
+        CustomListView = this;
+
+        /******** Take some data in Arraylist ( CustomListViewValuesArr ) ***********/
+        setListData();
+
+        Resources res =getResources();
+        list = (ListView)findViewById(R.id.list);
+
+        /**************** Create Custom Adapter *********/
+        adapter = new CustomAdapter(CustomListView, CustomListViewValuesArr,res);
+        list.setAdapter(adapter);
+
 
     }
+
+    /****** Function to set data in ArrayList *************/
+    public void setListData() {
+
+        for (int i = 0; i < 5; i++) {
+
+            final ListModel sched = new ListModel();
+
+            /******* Firstly take data in model object ******/
+            sched.setColor("Red");
+            sched.setPlayer("Player");
+
+            /******** Take Model Object in ArrayList **********/
+            CustomListViewValuesArr.add(sched);
+        }
+    }
+
 
     @Override
     protected void onResume() {
@@ -141,4 +180,7 @@ public class GameActivity extends Activity {
         this.onResume();
     }
 
+    public void onItemClick(int mPosition) {
+
+    }
 }
