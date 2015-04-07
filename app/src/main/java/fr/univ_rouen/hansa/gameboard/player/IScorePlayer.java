@@ -8,6 +8,11 @@ public interface IScorePlayer {
      * @post if the score is upper 20, EndOfGameException is launch
      */
     public void increaseScore();
+    
+    /**
+     * Decrease score of the player
+     */
+    public void decreaseScore();
 
     /**
      * Return the current score of the player

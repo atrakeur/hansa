@@ -1,9 +1,13 @@
 package fr.univ_rouen.hansa.gameboard.cities;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 import fr.univ_rouen.hansa.view.IPosition;
@@ -27,7 +31,7 @@ public class City implements ICity {
         if (kontors == null) {
             throw new IllegalArgumentException();
         }
-
+        
         this.additionalKontors = Lists.newArrayList();
 
         this.drawer = new HansaCityDrawer(this);
@@ -119,5 +123,48 @@ public class City implements ICity {
     @Override
     public IClickableArea getClickableArea() {
         return this.clickableArea;
+    }
+
+    @Override
+    public IHTPlayer getOwner(){
+        if (this.getKontors().size() == 0){
+            return null;
+        }
+        IHTPlayer cityOwner = null;
+        int kontorsOwnedMax = 0;
+        Map<IHTPlayer,Integer> score = Maps.newHashMap();
+        for (IKontor<? extends Pawn> kontor : getAdditionalKontors()){
+            IHTPlayer kontorOwner = kontor.getOwner();
+            Integer kontorsOwned = score.get(kontorOwner);
+            if (kontorsOwned == null){
+                kontorsOwned = 1;
+                score.put(kontorOwner,kontorsOwned);
+            } else {
+                kontorsOwned++;
+            }
+            score.put(kontorOwner,kontorsOwned);
+            if(kontorsOwned >= kontorsOwnedMax){
+                cityOwner = kontorOwner;
+                kontorsOwnedMax = kontorsOwned;
+            }
+        }
+        for (IKontor<? extends Pawn> kontor : getKontors()){
+            if(!kontor.isEmpty()) {
+                IHTPlayer kontorOwner = kontor.getOwner();
+                Integer kontorsOwned = score.get(kontorOwner);
+                if (kontorsOwned == null) {
+                    kontorsOwned = 1;
+                    score.put(kontorOwner, kontorsOwned);
+                } else {
+                    kontorsOwned++;
+                }
+                score.put(kontorOwner, kontorsOwned);
+                if (kontorsOwned >= kontorsOwnedMax) {
+                    cityOwner = kontorOwner;
+                    kontorsOwnedMax = kontorsOwned;
+                }
+            }
+        }
+        return cityOwner;
     }
 }
