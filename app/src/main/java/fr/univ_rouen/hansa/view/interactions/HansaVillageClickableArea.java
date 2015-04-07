@@ -38,7 +38,7 @@ public class HansaVillageClickableArea extends ClickableArea {
         Log.w("Village", "onClick");
 
         try {
-            IMovement m = MovementFactory.getInstance().makeMovement(this, null);
+            IMovement m = MovementFactory.getInstance().makeMovement(this, null, null);
             MovementManager.getInstance().doMove(m);
         } catch(GameException e) {
             e.printStackTrace();
@@ -55,7 +55,7 @@ public class HansaVillageClickableArea extends ClickableArea {
         Log.w("Village", "onDragFrom" + from);
 
         try {
-            IMovement m = MovementFactory.getInstance().makeMovement(from, this);
+            IMovement m = MovementFactory.getInstance().makeMovement(from, this, null);
 
             Log.w("Important!", m.toString());
             Log.w("Important!", ""+ village.isEmpty());

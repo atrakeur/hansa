@@ -31,7 +31,7 @@ public class HansaSupplyClickableArea extends ClickableArea {
         Log.w("Supply", "onClick");
 
         try {
-            IMovement m = MovementFactory.getInstance().makeMovement(this, null);
+            IMovement m = MovementFactory.getInstance().makeMovement(this, null, null);
             MovementManager.getInstance().doMove(m);
         } catch(GameException e) {
             e.printStackTrace();
@@ -48,7 +48,7 @@ public class HansaSupplyClickableArea extends ClickableArea {
         Log.w("Supply", "onDragFrom" + from);
 
         try {
-            IMovement m = MovementFactory.getInstance().makeMovement(from, this);
+            IMovement m = MovementFactory.getInstance().makeMovement(from, this, null);
             MovementManager.getInstance().doMove(m);
         } catch(GameException e) {
             e.printStackTrace();
