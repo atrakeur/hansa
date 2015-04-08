@@ -13,18 +13,30 @@ import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 import fr.univ_rouen.hansa.view.interactions.IClickableArea;
 
 public class MovementFactory {
     private static MovementFactory ourInstance = new MovementFactory();
-
     public static MovementFactory getInstance() {
         return ourInstance;
     }
 
+    private Class<? extends Pawn> pawnType;
+
     private MovementFactory() {
+        pawnType = Trader.class;
+    }
+
+    public void setPawnType(Class<? extends Pawn> pawnType) {
+        this.pawnType = pawnType;
+    }
+
+    public Class<? extends Pawn> getPawnType() {
+        return pawnType;
     }
 
     /**
@@ -32,11 +44,10 @@ public class MovementFactory {
      *
      * @param source      IClickableArea source
      * @param destination IClickableArea destination
-     * @param pawnType    (optional) Pawn type for the movement MovePawnRtoGB
      * @return The movement made with Source and Destination
      * @throws PopupException when the action need a pawnType for the movePawnRtoGB movement
      */
-    public IMovement makeMovement(IClickableArea source, IClickableArea destination, Class<? extends Pawn> pawnType) throws PopupException {
+    public IMovement makeMovement(IClickableArea source, IClickableArea destination) throws PopupException {
         IHTPlayer player = TurnManager.getInstance().getCurrentPlayer();
 
         if (source.getType() == IClickableArea.Type.village && destination == null) {

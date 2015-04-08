@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.view.interactions.AlertDialogBursa;
 
 public class GameActivity extends Activity {
@@ -63,10 +65,25 @@ public class GameActivity extends Activity {
         for (int i = 0; i < sideMenu.getChildCount(); i++) {
             sideMenu.getChildAt(i).setBackgroundColor(player.getPlayerColor().getColor());
         }
+
+        if (MovementFactory.getInstance().getPawnType() == Trader.class) {
+            ((ImageButton)findViewById(R.id.button_pawntype)).setImageResource(R.drawable.trader);
+        } else {
+            ((ImageButton)findViewById(R.id.button_pawntype)).setImageResource(R.drawable.merchant);
+        }
     }
 
     public void toasty(View v) {
         Toast.makeText(getApplicationContext(), "Toasty", Toast.LENGTH_SHORT).show();
+    }
+
+    public void changePawnType(View v) {
+        if (MovementFactory.getInstance().getPawnType() == Trader.class) {
+            MovementFactory.getInstance().setPawnType(Merchant.class);
+        } else {
+            MovementFactory.getInstance().setPawnType(Trader.class);
+        }
+        this.onResume();
     }
 
     public void bursaAction(View v) {
