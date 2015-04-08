@@ -9,12 +9,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
 
 import fr.univ_rouen.hansa.R;
+import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 
 /**
  * ****** Adapter class extends with BaseAdapter and implements with OnClickListener ***********
@@ -67,6 +69,7 @@ public class CustomAdapter extends BaseAdapter implements OnClickListener {
         }
 
         final Spinner spiColor = (Spinner) convertView.findViewById(R.id.color);
+        spiColor.setAdapter(new PlayerColorAdapter(activity, R.layout.list_player_color, PlayerColor.values()));
         spiColor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
