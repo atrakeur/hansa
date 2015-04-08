@@ -33,11 +33,16 @@
 
             <ImageButton
                 style="@style/MenuButton"
+                android:id="@+id/button_pawntype"
+                android:onClick="changePawnType"
+                android:contentDescription="@string/button_escritoire"/>
+
+            <ImageButton
+                style="@style/MenuButton"
                 android:id="@+id/button_escritoire"
                 android:onClick="displayEscritoire"
                 android:src="@drawable/escritoire"
                 android:contentDescription="@string/button_escritoire"/>
-
 
             <ImageButton
                 style="@style/MenuButton"
