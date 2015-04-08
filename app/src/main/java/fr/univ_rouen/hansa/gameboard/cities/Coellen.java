@@ -2,7 +2,6 @@ package fr.univ_rouen.hansa.gameboard.cities;
 
 import com.google.common.collect.Lists;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import fr.univ_rouen.hansa.gameboard.Privillegium;
@@ -26,9 +25,9 @@ public class Coellen extends City {
         return victories;
     }
 
-    public VictoryCoellen getVictoryCoellen(Privillegium privillegium){
-        for (VictoryCoellen victory : victories){
-            if(victory.getPrivillegiumRequis() == privillegium){
+    public VictoryCoellen getVictoryCoellen(Privillegium privillegium) {
+        for (VictoryCoellen victory : victories) {
+            if (victory.getPrivillegiumRequis() == privillegium) {
                 return victory;
             }
         }

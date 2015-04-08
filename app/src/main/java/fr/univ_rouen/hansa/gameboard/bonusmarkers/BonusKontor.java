@@ -1,11 +1,18 @@
 package fr.univ_rouen.hansa.gameboard.bonusmarkers;
 
+import com.google.common.collect.Lists;
+
+import java.util.Iterator;
+import java.util.List;
+
 import fr.univ_rouen.hansa.gameboard.Privillegium;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.IKontor;
 import fr.univ_rouen.hansa.gameboard.cities.Kontor;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.routes.IRoute;
+import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 
 
 /**
@@ -13,8 +20,11 @@ import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
  */
 public class BonusKontor extends AbstractBonus implements IBonusMarker {
     private ICity city;
-    private Pawn pawn;
     private IHTPlayer player;
+    private IVillage village;
+    private Pawn pawn;
+    private IKontor kontor;
+    private List<Pawn> pawns;
 
     public BonusKontor() {
         super("kontor");
@@ -37,14 +47,14 @@ public class BonusKontor extends AbstractBonus implements IBonusMarker {
     /**
      * initialise the pawn which will be in the Bonus Kontor
      */
-    public void setPawn(Pawn pawn) {
-        if (pawn == null) {
+    public void setVillage(IVillage village) {
+        if (village == null) {
             throw new IllegalArgumentException();
         }
-        if (!pawn.getPlayer().getEscritoire().getBonusMarker().contains(this)) {
+        if (!village.getOwner().getEscritoire().getBonusMarker().contains(this)) {
             throw new IllegalStateException("The pawn's player differs of the marker's owner");
         }
-        this.pawn = pawn;
+        this.village = village;
     }
 
     public void setPlayer(IHTPlayer p) {
@@ -66,8 +76,8 @@ public class BonusKontor extends AbstractBonus implements IBonusMarker {
             throw new IllegalStateException("a city must have been set");
         }
 
-        if (pawn == null) {
-            throw new IllegalStateException("a pawn must have been set");
+        if (village == null) {
+            throw new IllegalStateException("a village must have been set");
         }
 
         IHTPlayer p = getPlayer();
@@ -76,10 +86,26 @@ public class BonusKontor extends AbstractBonus implements IBonusMarker {
             throw new IllegalStateException("The current player differs of the marker's owner");
         }
 
-        IKontor<Pawn> k = new Kontor(pawn.getClass(), false, Privillegium.White);
-        //TODO enlever le pion de la reserve du joueur ? (cf undo)
-        k.pushPawn(pawn);
+        for (ICity city : village.getRoute().getCities()) {
+            city.getOwner().increaseScore();
+        }
+        IKontor<Pawn> k = new Kontor(village.getPawnType(), false, Privillegium.White);
+        kontor = k;
+        Pawn pa = village.pullPawn();
+        //pawn use to remember which pawn is used ( for undo )
+        pawn = pa;
+        k.pushPawn(pa);
         city.pushAdditionalKontors(k);
+        List<Pawn> ps = Lists.newArrayList();
+        for (IVillage otherVillage : village.getRoute().getVillages()) {
+            if (!otherVillage.equals(village)) {
+                ps.add(otherVillage.pullPawn());
+            }
+        }
+        pawns = ps;
+        player.getEscritoire().getStock().addPawns(ps);
+        player.setActionNumber(-1);
+
     }
 
     public void undoAction() {
@@ -89,8 +115,8 @@ public class BonusKontor extends AbstractBonus implements IBonusMarker {
             throw new IllegalStateException("a city must have been set");
         }
 
-        if (pawn == null) {
-            throw new IllegalStateException("a pawn must have been set");
+        if (village == null) {
+            throw new IllegalStateException("a village must have been set");
         }
 
         IHTPlayer p = getPlayer();
@@ -98,8 +124,22 @@ public class BonusKontor extends AbstractBonus implements IBonusMarker {
         if (!p.getEscritoire().getBonusMarker().contains(this)) {
             throw new IllegalStateException("The current player differs of the marker's owner");
         }
+        village.pushPawn(kontor.popPawn());
+        city.getAdditionalKontors().remove(kontor);
+        player.getEscritoire().getStock().removePawns(pawns);
 
-        //TODO remettre le pion dans la reserve du joueur ? (cf do)
-        city.getAdditionalKontors().remove(city.getAdditionalKontors().size() - 1);
+        Iterator<Pawn> pawnIterator = pawns.iterator();
+
+        for (IVillage otherVillage : village.getRoute().getVillages()) {
+            if (!otherVillage.equals(village)) {
+                otherVillage.pushPawn(pawnIterator.next());
+            }
+        }
+
+        pawns.clear();
+        for (ICity cities : village.getRoute().getCities()) {
+            cities.getOwner().decreaseScore();
+        }
+        player.setActionNumber(1);
     }
 }

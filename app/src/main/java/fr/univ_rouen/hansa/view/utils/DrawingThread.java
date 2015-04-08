@@ -1,9 +1,7 @@
 package fr.univ_rouen.hansa.view.utils;
 
 import android.graphics.Canvas;
-import android.util.Log;
 import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 
 import fr.univ_rouen.hansa.view.GameBoardView;
 
@@ -27,7 +25,10 @@ public class DrawingThread extends Thread {
                 controlThread.setRunning(true);
                 threadInstance.start();
             }
-            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {}
+
+            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+            }
+
             public void surfaceDestroyed(SurfaceHolder holder) {
                 boolean retry = true;
                 controlThread.setRunning(false);
@@ -47,7 +48,7 @@ public class DrawingThread extends Thread {
     }
 
     public void run() {
-        while(isRunning) {
+        while (isRunning) {
             Canvas c = null;
             try {
                 //Lock canvas and draw view in backbuffer
@@ -59,7 +60,7 @@ public class DrawingThread extends Thread {
                 }
                 //Wait
                 sleep(100);
-            } catch(InterruptedException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             } finally {
                 //Unlock and draw canvas on top buffer

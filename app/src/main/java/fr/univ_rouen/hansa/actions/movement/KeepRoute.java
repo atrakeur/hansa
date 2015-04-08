@@ -7,6 +7,7 @@ import java.util.List;
 
 import fr.univ_rouen.hansa.actions.Actions;
 import fr.univ_rouen.hansa.exceptions.GameException;
+import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
@@ -48,6 +49,11 @@ public class KeepRoute implements IMovement {
             throw new GameException("Action not available, the root didn't own by the player");
         }
 
+        for(ICity city : route.getCities()){
+            if (city.getOwner() != null) {
+                city.getOwner().increaseScore();
+            }
+        }
         for (IVillage village : route.getVillages()) {
             pawns.add(village.pullPawn());
         }
@@ -72,7 +78,11 @@ public class KeepRoute implements IMovement {
         }
 
         pawns.clear();
-
+        for(ICity city : route.getCities()){
+            if (city.getOwner() != null) {
+                city.getOwner().decreaseScore();
+            }
+        }
         actionDone = false;
     }
 

@@ -12,5 +12,6 @@ public interface IKontor<E extends Pawn> {
     public E popPawn();
     public IHTPlayer getOwner();
     public Privillegium getPrivillegium();
+    public boolean hasVictoryPoint();
 
 }

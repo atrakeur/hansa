@@ -66,7 +66,11 @@ public class IncreasePower implements IMovement {
         player.getEscritoire().addToStock(pawns);
 
         player.getEscritoire().increasePower(power);
-
+        for(ICity city : route.getCities()){
+            if (city.getOwner() != null) {
+                city.getOwner().increaseScore();
+            }
+        }
         actionDone = true;
     }
 
@@ -88,6 +92,11 @@ public class IncreasePower implements IMovement {
             player.getEscritoire().decreasePower(power);
         } catch (Exception e) {
             throw new NotAvailableActionException();
+        }
+        for(ICity city : route.getCities()){
+            if (city.getOwner() != null) {
+                city.getOwner().decreaseScore();
+            }
         }
 
         actionDone = false;
