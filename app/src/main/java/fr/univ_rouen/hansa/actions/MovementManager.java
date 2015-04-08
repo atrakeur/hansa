@@ -47,7 +47,7 @@ public class MovementManager {
 
     public void nextTurn() {
         stack.clear();
-        actionFactory = new ActionFactory();
+
     }
 
     public int actionCounter() {

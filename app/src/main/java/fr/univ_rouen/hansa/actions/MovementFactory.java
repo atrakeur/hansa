@@ -6,6 +6,8 @@ import fr.univ_rouen.hansa.actions.movement.KeepKontor;
 import fr.univ_rouen.hansa.actions.movement.KeepRoute;
 import fr.univ_rouen.hansa.actions.movement.LiberSophia;
 import fr.univ_rouen.hansa.actions.movement.MovePawnRtoGB;
+import fr.univ_rouen.hansa.actions.movement.ReplaceMovedPawn;
+import fr.univ_rouen.hansa.actions.movement.ValidateMovedPawn;
 import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
@@ -27,7 +29,31 @@ public class MovementFactory {
     public IMovement makeMovement(IClickableArea source, IClickableArea destination) {
         IHTPlayer player = TurnManager.getInstance().getCurrentPlayingPlayer();
 
-        if (source.getType() == IClickableArea.Type.bonus && destination == null ) {
+        //Sépare le cas ou on joue normal du cas ou on joue pas normal
+        if (TurnManager.getInstance().getCurrentPlayingPlayer() == TurnManager.getInstance().getCurrentPlayer()) {
+            return makeNormalMove(source, destination, player);
+        } else {
+            return makeReplaceMove(source, destination, player);
+        }
+    }
+
+    private IMovement makeReplaceMove(IClickableArea source, IClickableArea destination, IHTPlayer player) {
+        if (source == null && destination == null) {
+            return new ValidateMovedPawn();
+        }
+        else if (source.getType() == IClickableArea.Type.supply && destination.getType() == IClickableArea.Type.village ) {
+            //TODO enlever trader en dur
+            return new ReplaceMovedPawn(player, (IVillage) destination.getSubject(), Trader.class);
+        }
+
+        throw new GameException("Invalid movement");
+    }
+
+    private IMovement makeNormalMove(IClickableArea source, IClickableArea destination, IHTPlayer player) {
+        if (source == null && destination == null) {
+            //TODO Fin de partie
+            throw new UnsupportedOperationException();
+        } else if (source.getType() == IClickableArea.Type.bonus && destination == null ) {
             //TODO PlayBonus Bonus -> null
             throw new UnsupportedOperationException();
         } else if (source.getType() == IClickableArea.Type.village && destination == null ) {

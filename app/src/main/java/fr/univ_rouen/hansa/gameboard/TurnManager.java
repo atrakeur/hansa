@@ -4,7 +4,9 @@ import com.google.common.collect.Lists;
 
 import java.util.List;
 
+import fr.univ_rouen.hansa.actions.MovementFactory;
 import fr.univ_rouen.hansa.actions.MovementManager;
+import fr.univ_rouen.hansa.actions.movement.IMovement;
 import fr.univ_rouen.hansa.exceptions.UnfinishedRoundException;
 import fr.univ_rouen.hansa.gameboard.player.HTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
@@ -63,12 +65,18 @@ public class TurnManager {
             throw new UnfinishedRoundException();
         }
 
-        if (++position >= players.size()) {
-            position = 0;
-        }
+        //Cas spécial si on est en train de replacer les pions d'un autre joueur
+        if (getCurrentPlayer() != getCurrentPlayingPlayer()) {
+            IMovement m = MovementFactory.getInstance().makeMovement(null, null);
+            MovementManager.getInstance().doMove(m);
+        } else {
+            if (++position >= players.size()) {
+                position = 0;
+            }
 
-        getCurrentPlayer().newTurn();
-        MovementManager.getInstance().nextTurn();
+            getCurrentPlayer().newTurn();
+            MovementManager.getInstance().nextTurn();
+        }
     }
 
     public nextTurnRequire isNextTurnAvailable() {

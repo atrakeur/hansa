@@ -101,9 +101,13 @@ public class ActionFactory {
                 for (int j = i + 1; j < movements.size(); j++) {
                     //On merge tous les replace qui suivent
                     if (movements.get(j).getActionDone() == Actions.replaceMovedPawn) {
-                        mergeableMoves.add(movements.get(j));   //On merge
-                        pawnToReplace = null;                   //On considére le pawn comme replacé
-                        i = j;                                  //On skip dans la boucle principale
+                        mergeableMoves.add(movements.get(j));  //On merge
+                    }
+                    if (movements.get(j).getActionDone() == Actions.validateMovedPawn) {
+                        mergeableMoves.add(movements.get(j));  //On merge
+                        pawnToReplace = null;                  //On considére le pawn comme replacé
+                        i = j + 1;                             //On skip dans la boucle principale
+                        break;
                     }
                 }
             }

@@ -53,7 +53,7 @@ public class GameActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         TurnManager.getInstance().addPlayers(Arrays.asList(PlayerColor.values()));
-        IHTPlayer player = TurnManager.getInstance().getCurrentPlayer();
+        IHTPlayer player = TurnManager.getInstance().getCurrentPlayingPlayer();
 
 
         //TODO just pour la présentation, à enlever après ;)
@@ -148,11 +148,13 @@ public class GameActivity extends Activity {
         if(!MovementManager.getInstance().isEmpty()){
             MovementManager.getInstance().rollbackMove();
         }
+        this.onResume();
     }
 
     public void submitAction(View v){
         try {
             TurnManager.getInstance().nextPlayer(false);
+            this.onResume();
         } catch (UnfinishedRoundException ex) {
             AlertDialog alertDialog = new AlertDialog.Builder(context).create();
             alertDialog.setTitle("Actions restantes");
@@ -174,8 +176,6 @@ public class GameActivity extends Activity {
                     });
             alertDialog.show();
         }
-
-        this.onResume();
     }
 
     public void setPanelColor(int color) {

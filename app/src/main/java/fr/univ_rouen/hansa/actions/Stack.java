@@ -2,6 +2,7 @@ package fr.univ_rouen.hansa.actions;
 
 import com.google.common.collect.Lists;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -43,7 +44,9 @@ public class Stack<E> {
     }
 
     public List<E> getStackContent() {
-        return Lists.newArrayList(stack);
+        List<E> list = Lists.newArrayList(stack);
+        Collections.reverse(list);
+        return list;
     }
 
 }
