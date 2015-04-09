@@ -103,8 +103,8 @@ public class IncreasePower implements IMovement {
     }
 
     @Override
-    public int getPawnReplaceMove() {
-        return 0;
+    public Pawn getPawnToReplace() {
+        return null;
     }
 
     @Override

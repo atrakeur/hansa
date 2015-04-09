@@ -8,6 +8,10 @@ import java.util.List;
 
 import fr.univ_rouen.hansa.actions.Actions;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
+import fr.univ_rouen.hansa.gameboard.player.HTPlayer;
+import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 
 public class ActionFactoryTest extends TestCase {
 
@@ -111,7 +115,7 @@ public class ActionFactoryTest extends TestCase {
         ActionFactory factory = new ActionFactory();
 
         //When
-        int replaces = factory.getReplaceMoves(moves);
+        int replaces = factory.getMaxReplaceMoves(moves);
 
         //Then
         assertEquals(1, replaces);
@@ -138,6 +142,9 @@ public class ActionFactoryTest extends TestCase {
             }
             public void doRollback() {
                 throw new UnsupportedOperationException();
+            }
+            public Pawn getPawnToReplace() {
+                return new Trader(new HTPlayer(PlayerColor.blue, 1));
             }
             public int getPawnReplaceMove() {
                 return replaceMove;

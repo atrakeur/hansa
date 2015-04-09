@@ -10,9 +10,6 @@ import android.widget.Toast;
 import fr.univ_rouen.hansa.R;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 
-/**
- * Created by Valentin on 09/02/2015.
- */
 public class AlertDialogBursa {
 
     private final Context context;

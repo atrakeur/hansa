@@ -9,9 +9,15 @@ import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.widget.Toast;
 
+import java.util.Collections;
+
+import fr.univ_rouen.hansa.activity.GameActivity;
 import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
 import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
+import fr.univ_rouen.hansa.view.display.HansaGameBoardDrawer;
+import fr.univ_rouen.hansa.view.interactions.HansaGameBoardEventManager;
+import fr.univ_rouen.hansa.view.utils.DrawingThread;
 import fr.univ_rouen.hansa.view.interactions.IClickable;
 import fr.univ_rouen.hansa.view.interactions.IClickableArea;
 import fr.univ_rouen.hansa.view.utils.DrawingThread;
@@ -24,8 +30,7 @@ public class GameBoardView extends SurfaceView {
     private GameBoard board;
     private ResourceRepository resources;
 
-    private IClickableArea touchStart;
-    private IClickableArea touchEnd;
+    private HansaGameBoardEventManager eventManager;
 
     public GameBoardView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -37,6 +42,8 @@ public class GameBoardView extends SurfaceView {
 
         //TODO change that using a cute menu to select map
         setBoard(GameBoardFactory.getInstance().createGameBoard(1));
+
+        eventManager = new HansaGameBoardEventManager(this, board, resources);
 
         thread = new DrawingThread(this, getHolder());
     }
@@ -61,73 +68,9 @@ public class GameBoardView extends SurfaceView {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        //On touchdown, reset
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            this.touchStart = null;
-            this.touchEnd = null;
-        }
-
-        //Get the area below the touch area
-        IClickableArea touchedArea = null;
-        IClickable[] clickables = board.getClickables();
-        float percentX = resources.getScreenWidthToPercent(event.getX());
-        float percentY = resources.getScreenHeigthToPercent(event.getY());
-        for (IClickable clickable: clickables) {
-            if (clickable.getClickableArea().isClicked(percentX, percentY)) {
-                touchedArea = clickable.getClickableArea();
-            }
-        }
-
-        //Early out if nothing touched
-        if (touchedArea == null) {
-            return false;
-        }
-
-        //Touchdown, start drag & drop? or just click?
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            this.touchStart = touchedArea;
-        }
-        //Touch ended
-        else if (event.getAction() == MotionEvent.ACTION_UP) {
-            this.touchEnd = touchedArea;
-        }
-        //Event bidon qu'on gére pas!
-        else {
-            return false;
-        }
-
-        //Dispatch events correctly (Simple click, drag from and drag to)
-        try {
-            if (event.getAction() == MotionEvent.ACTION_UP) {
-                if (this.touchStart == this.touchEnd) {
-                    this.touchEnd.onClick();
-                } else {
-                    if (touchStart != null) {
-                        this.touchStart.onDragTo(this.touchEnd);
-                    }
-                    if (touchEnd != null) {
-                        this.touchEnd.onDragFrom(this.touchStart);
-                    }
-                }
-            }
-        } catch (GameException e) {
-            this.showErrorMsg(e.getMessage());
-            e.printStackTrace();
-        } catch (UnsupportedOperationException e) {
-            this.showErrorMsg("Action not implemented (yet?)");
-            e.printStackTrace();
-        } catch (Exception e) {
-            this.showErrorMsg("General exception (should never happen, time to debug)");
-            e.printStackTrace();
-        }
-
-        return true;
-    }
-
-    /**Display the error message as a toast
-     * @param msg message to be displayed*/
-    public void showErrorMsg(String msg){
-        Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
+        boolean result = this.eventManager.onTouchEvent(event);
+        GameActivity.getInstance().onResume();
+        return result;
     }
 
 }
