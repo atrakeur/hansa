@@ -40,7 +40,8 @@
             <ImageButton
                 style="@style/MenuButton"
                 android:id="@+id/button_escritoire"
-                android:onClick="displayEscritoire"
+                android:onClick="displayEs
+                critoire"
                 android:src="@drawable/escritoire"
                 android:contentDescription="@string/button_escritoire"/>
 
@@ -71,9 +72,6 @@
                 android:src="@drawable/pause"
                 android:contentDescription="@string/button_pause"
                 android:onClick="toasty"/>
-
         </LinearLayout>
-
     </LinearLayout>
-
 </FrameLayout>

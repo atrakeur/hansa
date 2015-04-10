@@ -70,7 +70,6 @@ public class GameActivity extends Activity {
         pawns.add(new Merchant(player));
 
         player.getEscritoire().addToStock(pawns);
-
     }
 
     @Override
@@ -115,17 +114,17 @@ public class GameActivity extends Activity {
         }
 
 
-        if(player.getEscritoire().getStock().getMerchantCount() <= 0){
+        if (player.getEscritoire().getStock().getMerchantCount() <= 0) {
             IMovement m = MovementFactory.getInstance().makeBursaMovement(0);
             MovementManager.getInstance().doMove(m);
-            Toast.makeText(context, "Nombre de trader : "+TurnManager.getInstance().getCurrentPlayer().getEscritoire().getSupply().getTraderCount(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Nombre de trader : " + TurnManager.getInstance().getCurrentPlayer().getEscritoire().getSupply().getTraderCount(), Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if(player.getEscritoire().bursaLevel() == Integer.MAX_VALUE){
+        if (player.getEscritoire().bursaLevel() == Integer.MAX_VALUE) {
             IMovement m = MovementFactory.getInstance().makeBursaMovement();
             MovementManager.getInstance().doMove(m);
-            Toast.makeText(context, "Nombre de trader : "+TurnManager.getInstance().getCurrentPlayer().getEscritoire().getSupply().getTraderCount(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Nombre de trader : " + TurnManager.getInstance().getCurrentPlayer().getEscritoire().getSupply().getTraderCount(), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -139,26 +138,26 @@ public class GameActivity extends Activity {
         final TextView tex = dialog.getResult();
         // set dialog message
         alertDialogBuilder
-            .setView(dialog.getView())
-            .setCancelable(false)
-            .setPositiveButton(R.string.alert_confirm, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    //Generate mouvement and do it!
-                    int merchants = Integer.parseInt( tex.getText()+"" );
-                    IMovement m = MovementFactory.getInstance().makeBursaMovement(merchants);
-                    MovementManager.getInstance().doMove(m);
-                    Toast.makeText(context, "Vous avez "+player.getEscritoire().getSupply().getTraderCount()+" Traders, et "
-                            +player.getEscritoire().getSupply().getMerchantCount()+" Marchants", Toast.LENGTH_SHORT).show();
-                    dialog.dismiss();
-                }
-            })
-            .setNegativeButton(R.string.alert_cancel, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    // if this button is clicked, just close
-                    // the dialog box and do nothing
-                    dialog.cancel();
-                }
-            });
+                .setView(dialog.getView())
+                .setCancelable(false)
+                .setPositiveButton(R.string.alert_confirm, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //Generate mouvement and do it!
+                        int merchants = Integer.parseInt(tex.getText() + "");
+                        IMovement m = MovementFactory.getInstance().makeBursaMovement(merchants);
+                        MovementManager.getInstance().doMove(m);
+                        Toast.makeText(context, "Vous avez " + player.getEscritoire().getSupply().getTraderCount() + " Traders, et "
+                                + player.getEscritoire().getSupply().getMerchantCount() + " Marchants", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton(R.string.alert_cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // if this button is clicked, just close
+                        // the dialog box and do nothing
+                        dialog.cancel();
+                    }
+                });
 
         // create alert dialog
         AlertDialog alertDialog = alertDialogBuilder.create();
@@ -167,15 +166,15 @@ public class GameActivity extends Activity {
         alertDialog.show();
     }
 
-    public void rollbackAction(View view) {
+    public void pauseAction(View view) {
         if (!MovementManager.getInstance().isEmpty()) {
             MovementManager.getInstance().rollbackMove();
         }
         this.onResume();
     }
 
-    public void submitAction(View v){
-        TurnManager.getInstance().nextPlayer(true);
+    public void submitAction(View v) {
+        TurnManager.getInstance().nextPlayer(false);
         this.onResume();
     }
 
@@ -214,5 +213,4 @@ public class GameActivity extends Activity {
             alertDialog.show();
         }
     }
-
 }

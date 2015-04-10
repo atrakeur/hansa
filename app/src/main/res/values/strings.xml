@@ -26,10 +26,27 @@
     <string name="ab_merchant">M:</string>
     <string name="ab_trader">T:</string>
     <string name="ab_summary">Etat de la Réserve après mouvement</string>
+
     <string name="ab_too_low">Le nombre de Commerçants doit être supérieur ou égal à 0.</string>
     <string name="ab_too_much_bursa">Votre pouvoir Bursa n\'est pas assez élevé.</string>
     <string name="ab_too_much_mer">Vous n\'avez pas autant de Marchand dans votre Stock.</string>
 
+    <string name="new_game">Nouvelle Partie</string>
+    <string name="start_new_game">Commencer une nouvelle partie</string>
+    <string name="player">Joueur</string>
+
+    <string-array name="player">
+        <item>Player</item>
+        <item>IA</item>
+        <item>Aucun</item>
+    </string-array>
+    <string-array name="color">
+        <item>Red</item>
+        <item>Yellow</item>
+        <item>Blue</item>
+        <item>Purple</item>
+        <item>Green</item>
+    </string-array>
     <!--Competences-->
     <string name="stock">Stock</string>
     <string name="supply">Réserve</string>
