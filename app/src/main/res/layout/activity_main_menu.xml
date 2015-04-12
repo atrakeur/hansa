@@ -2,42 +2,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bk_menu"
     android:gravity="center_vertical|center_horizontal"
     android:orientation="vertical"
-    tools:context="fr.univ_rouen.hansa.activity.MainMenuActivity"
-    android:background="@drawable/bk_menu">
+    tools:context="fr.univ_rouen.hansa.activity.MainMenuActivity">
 
     <Button
         android:id="@+id/new_game"
-        android:text="@string/new_game"
+        style="@style/MyStyleMenu"
         android:layout_width="300dp"
         android:layout_height="30dp"
         android:layout_marginTop="80dp"
-        style="@style/MyStyleMenu" />
+        android:text="@string/new_game" />
 
     <Button
         android:id="@+id/load_game"
-        android:text="@string/load_game"
+        style="@style/MyStyleMenu"
         android:layout_width="300dp"
         android:layout_height="30dp"
         android:layout_marginTop="10dp"
-        style="@style/MyStyleMenu" />
+        android:text="@string/load_game" />
 
     <Button
         android:id="@+id/options_game"
-        android:text="@string/options_game"
+        style="@style/MyStyleMenu"
         android:layout_width="300dp"
         android:layout_height="30dp"
         android:layout_marginTop="10dp"
-        style="@style/MyStyleMenu" />
+        android:text="@string/options_game" />
 
     <Button
         android:id="@+id/exit_game"
-        android:text="@string/exit_game"
+        style="@style/MyStyleMenu"
         android:layout_width="300dp"
         android:layout_height="30dp"
         android:layout_marginTop="10dp"
-        style="@style/MyStyleMenu" />
+        android:text="@string/exit_game" />
 
 
 </LinearLayout>

@@ -33,7 +33,7 @@
     <style name="MyStyleMenu">
         <item name="android:layout_width">300dp</item>
         <item name="android:layout_height">30dp</item>
-        <item name="android:background">#ff2e79bd</item>
+        <item name="android:background">#5398f8</item>
         <item name="android:textStyle">bold|italic</item>
         <item name="android:typeface">serif</item>
         <item name="android:alpha">0.9</item>
