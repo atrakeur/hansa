@@ -9,20 +9,12 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.common.collect.Lists;
-
-import java.util.Arrays;
-import java.util.List;
-
 import fr.univ_rouen.hansa.R;
 import fr.univ_rouen.hansa.actions.MovementFactory;
 import fr.univ_rouen.hansa.actions.MovementManager;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
-import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
-import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
-import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.view.interactions.AlertDialogBursa;
 
 public class GameActivity extends Activity {
@@ -33,20 +25,6 @@ public class GameActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        TurnManager.getInstance().addPlayers(Arrays.asList(PlayerColor.values()));
-        IHTPlayer player = TurnManager.getInstance().getCurrentPlayer();
-
-
-        //TODO just pour la présentation, à enlever après ;)
-        List<Pawn> pawns = Lists.newArrayList();
-        pawns.add(new Merchant(player));
-        pawns.add(new Merchant(player));
-        pawns.add(new Merchant(player));
-        pawns.add(new Merchant(player));
-        pawns.add(new Merchant(player));
-        pawns.add(new Merchant(player));
-
-        player.getEscritoire().addToStock(pawns);
     }
 
     @Override
@@ -136,7 +114,11 @@ public class GameActivity extends Activity {
     }
 
     public void submitAction(View v) {
-        TurnManager.getInstance().nextPlayer(false);
+        TurnManager.getInstance().nextPlayer(true);
         this.onResume();
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 }

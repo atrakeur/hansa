@@ -20,12 +20,13 @@ public class PlayerColorAdapter extends ArrayAdapter {
         activity = (Activity) context;
     }
 
-    public View getCustomView(int position, View convertView, ViewGroup parent){
+    public View getCustomView(int position, View convertView, ViewGroup parent) {
 
         LayoutInflater inflater = activity.getLayoutInflater();
         View layout = inflater.inflate(R.layout.list_player_color, parent, false);
 
-        TextView color = (TextView)layout.findViewById(R.id.player_color);
+        TextView color = (TextView) layout.findViewById(R.id.player_color);
+        color.setTag(PlayerColor.values()[position]);
         color.setBackgroundColor(PlayerColor.values()[position].getColor());
         color.setMinHeight(50);
 
