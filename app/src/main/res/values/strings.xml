@@ -33,6 +33,10 @@
     <string name="start_new_game">Commencer une nouvelle partie</string>
     <string name="player">Joueur</string>
 
+    <string name="color_already_use">Une couleur ne peut pas être utilisé pour deux joueur</string>
+    <string name="not_enough_player">Veuillez séléctionner au moins trois joueur pour démarrer la partie</string>
+
+
     <string-array name="player">
         <item>Player</item>
         <item>IA</item>
