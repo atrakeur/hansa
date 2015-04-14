@@ -41,5 +41,12 @@
 
     <!--DIALOG ESCRITOIRE-->
     <string name="esc_title">Escritoire</string>
+    <string name="title_activity_main_menu">Menu Principal</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="new_game">Nouvelle partie</string>
+    <string name="load_game">Charger une partie</string>
+    <string name="options_game">Options</string>
+    <string name="exit_game">Quitter</string>
 
 </resources>
