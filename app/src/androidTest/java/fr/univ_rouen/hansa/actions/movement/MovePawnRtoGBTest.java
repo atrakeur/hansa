@@ -53,11 +53,8 @@ public class MovePawnRtoGBTest extends TestCase {
 
         assertFalse(village.isEmpty());
 
-        try {
-            MovePawnRtoGB action2 = new MovePawnRtoGB(player2, village, Trader.class);
-            action2.doMovement();
-            fail("doMovement need to throw an exception when the village is already taken");
-        } catch (NoPlaceException ignored) {
-        }
+        MovePawnRtoGB action2 = new MovePawnRtoGB(player2, village, Trader.class);
+        action2.doMovement();
+        assertNotNull(action2.getPawnToReplace());
     }
 }

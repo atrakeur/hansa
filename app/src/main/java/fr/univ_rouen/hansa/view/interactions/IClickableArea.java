@@ -1,13 +1,12 @@
 package fr.univ_rouen.hansa.view.interactions;
 
 import android.graphics.Canvas;
-import android.view.MotionEvent;
 
 import fr.univ_rouen.hansa.view.utils.ResourceRepository;
 
 public interface IClickableArea {
 
-    public enum Type {
+    enum Type {
         village,
         city,
         power,
@@ -16,18 +15,18 @@ public interface IClickableArea {
         bonus
     }
 
-    public Type getType();
+    Type getType();
 
-    public boolean isClicked(float x, float y);
+    boolean isClicked(float x, float y);
 
-    public void onClick();
+    void onClick();
 
-    public void onDragTo(IClickableArea to);
+    void onDragTo(IClickableArea to);
 
-    public void onDragFrom(IClickableArea from);
+    void onDragFrom(IClickableArea from);
 
-    public void drawDebug(ResourceRepository resources, Canvas canvas);
+    void drawDebug(ResourceRepository resources, Canvas canvas);
 
-    public Object getSubject();
-    
+    Object getSubject();
+
 }

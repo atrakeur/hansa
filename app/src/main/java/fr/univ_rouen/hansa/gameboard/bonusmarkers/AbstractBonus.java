@@ -3,12 +3,21 @@ package fr.univ_rouen.hansa.gameboard.bonusmarkers;
 /**
  * abstract Bonus which handle states
  */
-public abstract class StatedBonus implements IBonusMarker {
+public abstract class AbstractBonus implements IBonusMarker {
+    private final String type;
     private BonusState state;
 
-    public StatedBonus() {
-        state = BonusState.unused;
+    public AbstractBonus(String type) {
+        this.type = type;
+        this.state = BonusState.unused;
+    }
 
+    public String getType() {
+        return this.type;
+    }
+
+    public String getImage() {
+        return "bonus"+this.getType();
     }
 
     @Override

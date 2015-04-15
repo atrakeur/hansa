@@ -3,16 +3,12 @@ package fr.univ_rouen.hansa.view.interactions;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.os.Debug;
 import android.util.Log;
-import android.view.MotionEvent;
 
 import fr.univ_rouen.hansa.actions.MovementFactory;
 import fr.univ_rouen.hansa.actions.MovementManager;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
-import fr.univ_rouen.hansa.actions.movement.MovePawnRtoGB;
 import fr.univ_rouen.hansa.exceptions.GameException;
-import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 import fr.univ_rouen.hansa.view.utils.ResourceRepository;
 

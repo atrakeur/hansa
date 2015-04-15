@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,13 +16,36 @@ import fr.univ_rouen.hansa.R;
 import fr.univ_rouen.hansa.actions.MovementFactory;
 import fr.univ_rouen.hansa.actions.MovementManager;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
+import fr.univ_rouen.hansa.exceptions.UnfinishedRoundException;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
+import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.view.interactions.AlertDialogBursa;
 
 public class GameActivity extends Activity {
 
+    //TODO remove singleton (c'est degeu!)
+    private static GameActivity instance;
+    public static GameActivity getInstance() {
+        return instance;
+    }
+
     private Context context = this;
+
+    public GameActivity() {
+        //TODO remove singleton (c'est degeu!)
+        instance = this;
+    }
+
+    public GameActivity(Context context) {
+        this.context = context;
+
+        //TODO remove singleton (c'est degeu!)
+        instance = this;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,20 +54,35 @@ public class GameActivity extends Activity {
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
 
-        IHTPlayer player = TurnManager.getInstance().getCurrentPlayer();
+        IHTPlayer player = TurnManager.getInstance().getCurrentPlayingPlayer();
 
-        findViewById(R.id.button_cancel).setBackgroundColor(player.getPlayerColor().getColor());
-        findViewById(R.id.button_bursa).setBackgroundColor(player.getPlayerColor().getColor());
-        findViewById(R.id.button_bonus_marker).setBackgroundColor(player.getPlayerColor().getColor());
-        findViewById(R.id.button_submit).setBackgroundColor(player.getPlayerColor().getColor());
-        findViewById(R.id.button_pause).setBackgroundColor(player.getPlayerColor().getColor());
+        LinearLayout sideMenu = (LinearLayout) findViewById(R.id.side_menu);
+
+        for (int i = 0; i < sideMenu.getChildCount(); i++) {
+            sideMenu.getChildAt(i).setBackgroundColor(player.getPlayerColor().getColor());
+        }
+
+        if (MovementFactory.getInstance().getPawnType() == Trader.class) {
+            ((ImageButton)findViewById(R.id.button_pawntype)).setImageResource(R.drawable.trader);
+        } else {
+            ((ImageButton)findViewById(R.id.button_pawntype)).setImageResource(R.drawable.merchant);
+        }
     }
 
     public void toasty(View v) {
         Toast.makeText(getApplicationContext(), "Toasty", Toast.LENGTH_SHORT).show();
+    }
+
+    public void changePawnType(View v) {
+        if (MovementFactory.getInstance().getPawnType() == Trader.class) {
+            MovementFactory.getInstance().setPawnType(Merchant.class);
+        } else {
+            MovementFactory.getInstance().setPawnType(Trader.class);
+        }
+        this.onResume();
     }
 
     public void bursaAction(View v) {
@@ -104,18 +145,48 @@ public class GameActivity extends Activity {
 
         // show it
         alertDialog.show();
-
     }
 
-    public void pauseAction(View view) {
+    public void rollbackAction(View view) {
         if (!MovementManager.getInstance().isEmpty()) {
             MovementManager.getInstance().rollbackMove();
         }
+        this.onResume();
     }
 
-    public void submitAction(View v) {
-        TurnManager.getInstance().nextPlayer(true);
-        this.onResume();
+    public void submitAction(View v){
+        try {
+            TurnManager.getInstance().nextPlayer(false);
+            this.onResume();
+        } catch (UnfinishedRoundException ex) {
+            AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+            alertDialog.setTitle("Actions restantes");
+            alertDialog.setMessage("Vous avez toujours des actions, voulez vous quand même terminer votre tour?");
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Oui",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            TurnManager.getInstance().nextPlayer(true);
+                            dialog.dismiss();
+                            onResume();
+                        }
+                    });
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Non",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            onResume();
+                        }
+                    });
+            alertDialog.show();
+        }
+    }
+
+    /**
+     * This method display a dialog containing the information about the player's escritoire
+     */
+    public void displayEscritoire(View view) {
+        Intent intent = new Intent(this, EscritoireActivity.class);
+        startActivity(intent);
     }
 
     @Override
