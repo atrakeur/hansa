@@ -19,14 +19,10 @@ public class GameBoard extends PlayersBoard implements IDrawable {
 
     private final IDrawer drawer;
 
-    private TurnManager manager;
-
-    GameBoard(List<PlayerColor> playersColors) {
+    GameBoard() {
         super();
 
         drawer = new HansaGameBoardDrawer(this);
-        manager = TurnManager.getInstance();
-        manager.addPlayers(playersColors);
     }
 
     @Override
@@ -37,11 +33,11 @@ public class GameBoard extends PlayersBoard implements IDrawable {
     public IClickable[] getClickables() {
         List<IClickable> cliquables = Lists.newArrayList();
 
-        for (IRoute route: getRoutes()) {
+        for (IRoute route : getRoutes()) {
             cliquables.addAll(route.getVillages());
         }
 
-        for (ICity city: getCities()) {
+        for (ICity city : getCities()) {
             cliquables.add(city);
             //TODO add power cliquable area
         }

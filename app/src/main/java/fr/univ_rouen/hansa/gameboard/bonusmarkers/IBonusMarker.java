@@ -12,24 +12,24 @@ public interface IBonusMarker {
      * @return
      * The bonusState of the bonusmarker
      */
-    public BonusState getState();
+    BonusState getState();
 
     /**
      * Set the state of the bonusmarker
      * @param state
      * the new state
      */
-    public void setState(BonusState state);
+    void setState(BonusState state);
 
     /**
      * Do the action of the bonusmarkers
      */
-    public void doAction();
+    void doAction();
 
     /**
      * Undo the action of the bonusmarkers
      */
-    public void undoAction();
+    void undoAction();
 
     String getType();
 }

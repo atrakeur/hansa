@@ -1,6 +1,7 @@
 package fr.univ_rouen.hansa.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -16,8 +17,8 @@ public class MainMenuActivity extends Activity {
     }
 
     public void newGame(View view) {
-
-
+        Intent intent = new Intent(MainMenuActivity.this, NewGameActivity.class);
+        startActivity(intent);
     }
 
     public void loadGame(View view) {
@@ -35,7 +36,6 @@ public class MainMenuActivity extends Activity {
 
     public void exitGame(View view) {
         this.finish();
-
     }
 
 }

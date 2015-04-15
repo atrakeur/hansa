@@ -15,38 +15,38 @@ public interface IMovement {
      *
      * @return true if the movement is done
      */
-    public boolean isDone();
+    boolean isDone();
 
     /**
      * return the action type done by the movement
      *
      * @return Actions done represent by Actions enum
      */
-    public Actions getActionDone();
+    Actions getActionDone();
 
     /**
      * Do the movement in the gameboard model
      *
      * @pre isDone == false
      */
-    public void doMovement();
+    void doMovement();
 
     /**
      * Undo the movement in the gameboard model
      *
      * @pre isDone == true
      */
-    public void doRollback();
+    void doRollback();
 
     /**
      * Do this movement force a replace move later?
      * @return
      */
-    public Pawn getPawnToReplace();
+    Pawn getPawnToReplace();
 
     /**
      * How many movements of this type can be merged inside one action
      * @return
      */
-    public int getMergeableMove();
+    int getMergeableMove();
 }

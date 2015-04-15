@@ -1,11 +1,14 @@
 package fr.univ_rouen.hansa.actions.movement;
 
+import com.google.common.collect.Lists;
+
 import junit.framework.TestCase;
 
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
 import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
+import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
@@ -19,6 +22,7 @@ public class KeepRouteTest extends TestCase {
         super.setUp();
 
         GameBoard gameBoard = GameBoardFactory.getInstance().createGameBoard(1);
+        TurnManager.getInstance().addPlayers(Lists.newArrayList(PlayerColor.values()) );
 
         player = TurnManager.getInstance().getCurrentPlayer();
         route = gameBoard.getRoutes().get(0);
