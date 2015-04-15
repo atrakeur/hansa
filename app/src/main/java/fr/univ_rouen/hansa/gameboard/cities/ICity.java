@@ -90,14 +90,4 @@ public interface ICity extends IDrawable, IClickable {
      * @return the city's owner
      */
     IHTPlayer getOwner();
-
-    /**
-     * The city's owner is the player with the most Kontor in this city.
-     * In case of a tie, the one that occupies the house higher value (the one furthest
-     * to the right) controls the city.
-     *
-     * @return the city's owner
-     */
-    public IHTPlayer getOwner();
-
 }
