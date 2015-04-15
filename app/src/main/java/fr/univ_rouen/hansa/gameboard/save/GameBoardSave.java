@@ -1,117 +1,146 @@
 package fr.univ_rouen.hansa.gameboard.save;
 
+
 import com.google.gson.annotations.Expose;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
-import fr.univ_rouen.hansa.gameboard.cities.IKontor;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
-import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 
+/*
+* la classe POJO
+ */
 public class GameBoardSave {
+    @Expose
+    private List<IHTPlayer> players;
+    @Expose
+    private int currentPlayer;
     @Expose
     private int background;
     @Expose
-    private List<ICity> cities;
-
+    private Map<Pawn, int[]> pawnsCities;
     @Expose
-    private List<IRoute> routes;
-
+    private Map<Pawn, int[]> pawnsRoutes;
     @Expose
-    private TurnManager manager;
-
+    private Map<Pawn, int[]> pawnsKontorsSup;
     @Expose
-    private Map<IHTPlayer, List<Pawn>> pawns;
+    private Map<IBonusMarker, Integer> bonusMarkerRoutes;
 
     public GameBoardSave(GameBoard board) {
-        if (board == null) {
-            throw new IllegalArgumentException();
-        }
-        background = board.getBackground();
-        routes = board.getRoutes();
-        cities = board.getCities();
-        manager = TurnManager.getInstance();
-        pawns = new HashMap<>();
 
-        for (ICity c : board.getCities()) {
-            for (IKontor k : c.getKontors()) {
-                if (!k.isEmpty()) {
-                    Pawn p = k.popPawn();
-                    k.pushPawn(p);
-                    IHTPlayer player = p.getPlayer();
-                    if (!pawns.keySet().contains(player)) {
-                        pawns.put(player, new ArrayList<Pawn>());
-                        pawns.get(player).add(p);
-                    } else {
-                        pawns.get(player).add(p);
-                    }
-                }
-            }
+        this.setBackground(board.getBackground());
+        this.setPlayers(TurnManager.getInstance().getPlayers());
+        IHTPlayer currentPlayer = TurnManager.getInstance().getCurrentPlayer();
+        this.setCurrentPlayer(TurnManager.getInstance().getPlayers().indexOf(currentPlayer));
+        this.setBackground(board.getBackground());
+        this.setPawnsCities(board.getCities());
+        this.setPawnsRoutes(board.getRoutes());
+        this.setbonusMarkerRoutes(board.getRoutes());
 
-        }
+    }
 
-        for (IRoute r : board.getRoutes()) {
-            for (IVillage v : r.getVillages()) {
-                if (!v.isEmpty()) {
-                    Pawn p = v.pullPawn();
-                    v.pushPawn(p);
-                    IHTPlayer player = p.getPlayer();
-                    if (!pawns.keySet().contains(player)) {
-                        pawns.put(player, new ArrayList<Pawn>());
-                        pawns.get(player).add(p);
-                    } else {
-                        pawns.get(player).add(p);
-                    }
-                }
-            }
+    /*
+    * la sauvegarde de player: coleur et escritoire, score
+     */
+    public void setPlayers(List<IHTPlayer> ps) {
+        players = ps;
+    }
 
-        }
+    public List<IHTPlayer> getPlayers() {
+        return players;
+    }
 
+    public void setCurrentPlayer(int player) {
+        currentPlayer = player;
+    }
 
+    public int getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    /**
+     * la sauvegarde de  background pour savoir : le plateau 1 ou 2
+     */
+    public void setBackground(int bk) {
+        background = bk;
     }
 
     public int getBackground() {
         return background;
     }
 
-    public Map<IHTPlayer, List<Pawn>> getPawns() {
-        return pawns;
+    /**
+     * la sauvegarde de pawn ansi sa position dans quel kontor de quelle ville
+     */
+    public void setPawnsCities(List<ICity> cities) {
+        pawnsCities = new HashMap<>();
+        for (int i = 0; i < cities.size(); i++) {
+
+            for (int j = 0; j < cities.get(i).getKontors().size(); j++) {
+                if (!cities.get(i).getKontors().get(j).isEmpty()) {
+                    Pawn p = cities.get(i).getKontors().get(j).popPawn();
+                    int player = TurnManager.getInstance().getPlayers().indexOf(p.getPlayer());
+                    /*
+                    *i: index of city, j:index of kontor, player:index of player.
+                     */
+                    int[] index = new int[]{i, j, player};
+                    pawnsCities.put(p, index);
+                }
+            }
+        }
+
     }
 
-    public List<ICity> getCities() {
-        return cities;
+    public Map<Pawn, int[]> getPawnsCities() {
+        return pawnsCities;
     }
 
-    public void setCities(List<ICity> cts) {
-        cities = cts;
+    /**
+     * la sauvegarde de pawn ansi sa position dans quel village de quelle route
+     */
+    public void setPawnsRoutes(List<IRoute> routes) {
+        pawnsRoutes = new HashMap<>();
+        for (int i = 0; i < routes.size(); i++) {
+            for (int j = 0; j < routes.get(i).getVillages().size(); j++) {
+                if (!routes.get(i).getVillages().get(j).isEmpty()) {
+                    Pawn p = routes.get(i).getVillages().get(j).pullPawn();
+                    int player = TurnManager.getInstance().getPlayers().indexOf(p.getPlayer());
+                    int[] index = new int[]{i, j, player};
+                    pawnsCities.put(p, index);
+                }
+            }
+        }
+
     }
 
-    public List<IRoute> getRoutes() {
-        return routes;
+    public Map<Pawn, int[]> getPawnsRoutes() {
+        return pawnsRoutes;
     }
 
-    public void setRoutes(List<IRoute> rs) {
-        routes = rs;
+    /**
+     * la sauvegarde de bonusMarker de la route ansi sa position dans quelle route
+     */
+    public void setbonusMarkerRoutes(List<IRoute> routes) {
+        bonusMarkerRoutes = new HashMap<>();
+        for (int i = 0; i < routes.size(); i++) {
+
+            if (routes.get(i).getBonusMarker() != null) {
+                bonusMarkerRoutes.put(routes.get(i).getBonusMarker(), i);
+            }
+        }
+
     }
 
-    public TurnManager getManager() {
-        return manager;
+    public Map<IBonusMarker, Integer> getbonusMarkerRoutes() {
+        return bonusMarkerRoutes;
     }
-
-    public void setManager(TurnManager m) {
-        manager = m;
-    }
-
-    public void SetBackground(int b) {
-        background = b;
-    }
-
 }
+

@@ -25,7 +25,6 @@ import fr.univ_rouen.hansa.R;
 import fr.univ_rouen.hansa.activity.GameActivity;
 import fr.univ_rouen.hansa.activity.LoadActivity;
 
-
 public class ModelListSave extends BaseAdapter {
     private LayoutInflater myInflater;
     private Intent game;
@@ -84,7 +83,7 @@ public class ModelListSave extends BaseAdapter {
                     Type typeSave = new TypeToken<GameBoardSave>() {
                     }.getType();
                     Gson gson = SaveGame.createGsonGame();
-                    bundle.putString("board", gson.toJson(data.get(position).getBoard(),typeSave ));
+                    bundle.putString("game", gson.toJson(data.get(position).getGame(), typeSave));
                     game.putExtras(bundle);
 
                     Toast toast = Toast.makeText(context, R.string.load_toast, Toast.LENGTH_SHORT);
@@ -137,6 +136,7 @@ public class ModelListSave extends BaseAdapter {
         builder.setNegativeButton(R.string.alert_cancel, null);
         builder.show();
     }
+
     public static class ViewHolder {
         public TextView item;
         public ImageView delete;

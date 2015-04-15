@@ -21,20 +21,16 @@ import java.util.List;
 
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
-import fr.univ_rouen.hansa.gameboard.cities.ICity;
-import fr.univ_rouen.hansa.gameboard.cities.IKontor;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.escritoire.IEscritoire;
 import fr.univ_rouen.hansa.gameboard.player.escritoire.IPawnList;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
-import fr.univ_rouen.hansa.gameboard.routes.IRoute;
-import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 
 public class SaveGame {
 
     public static final int NB_SAVE_MAX = 5;
 
-    public static final String FILE_NAME = "hansaFile.json";
+    public static final String FILE_NAME = "hansaTFile.json";
     @Expose
     private List<Save> saves;
 
@@ -45,10 +41,9 @@ public class SaveGame {
 
     public static SaveGame getSaveGame(Context context) {
         SaveGame saveGame = new SaveGame();
-
+        Gson gson = createGsonGame();
         Type typeSave = new TypeToken<List<Save>>() {
         }.getType();
-        Gson  gson =createGsonGame();
 
         try {
 
@@ -96,39 +91,37 @@ public class SaveGame {
     }
 
     public void save(GameBoard board, Context context) throws IOException {
-        Save save = new Save(new GameBoardSave(board), new Date());
+        GameBoardSave game = new GameBoardSave(board);
+
+        Save save = new Save(game, new Date());
         saves.add(save);
         saveFile(context);
     }
 
     private void saveFile(Context context) {
 
-        Gson gson =createGsonGame();
+        Gson gson = createGsonGame();
         Type typeSave = new TypeToken<List<Save>>() {
         }.getType();
-
-
+        String s = gson.toJson(this.getSaves(), typeSave);
+        System.out.println(s);
         try {
+
             FileOutputStream fos = context.openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
             ObjectOutputStream os = new ObjectOutputStream(fos);
-            os.writeObject((String)gson.toJson(this.getSaves(), typeSave));
+            os.writeObject(s);
             os.close();
             fos.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     public static Gson createGsonGame() {
         Gson gson = new GsonBuilder()
-                .registerTypeAdapter(IRoute.class,
-                        new GameBoardSaveSerializer())
                 .registerTypeAdapter(IHTPlayer.class,
                         new GameBoardSaveSerializer())
-                .registerTypeAdapter(IVillage.class,
-                        new GameBoardSaveSerializer())
                 .registerTypeAdapter(Pawn.class,
-                        new GameBoardSaveSerializer())
-                .registerTypeAdapter(IKontor.class,
                         new GameBoardSaveSerializer())
                 .registerTypeAdapter(IEscritoire.class,
                         new GameBoardSaveSerializer())
@@ -136,11 +129,9 @@ public class SaveGame {
                         new GameBoardSaveSerializer())
                 .registerTypeAdapter(IPawnList.class,
                         new GameBoardSaveSerializer())
-                .registerTypeAdapter(ICity.class,
-                        new GameBoardSaveSerializer()).excludeFieldsWithoutExposeAnnotation().create();
+                .excludeFieldsWithoutExposeAnnotation().create();
 
         return gson;
     }
-
 
 }

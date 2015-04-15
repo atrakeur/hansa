@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class Save {
     @Expose
-    private final GameBoardSave board;
+    private final GameBoardSave game;
     @Expose
     private final Date date;
 
@@ -16,12 +16,12 @@ public class Save {
             throw new IllegalArgumentException();
         }
 
-        this.board = b;
+        this.game = b;
         this.date = d;
     }
 
-    public GameBoardSave getBoard() {
-        return board;
+    public GameBoardSave getGame() {
+        return game;
     }
 
     public Date getDate() {

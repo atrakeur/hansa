@@ -1,7 +1,6 @@
 package fr.univ_rouen.hansa.gameboard;
 
 import com.google.common.collect.Lists;
-import com.google.gson.annotations.Expose;
 
 import java.util.List;
 
@@ -11,18 +10,26 @@ import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 
 public class TurnManager {
     private static TurnManager ourInstance = new TurnManager();
-    @Expose
-    private final List<IHTPlayer> players;
-    @Expose
+
+    private List<IHTPlayer> players;
+
     private int position;
 
     public static TurnManager getInstance() {
         return ourInstance;
     }
 
-    public static void loadInstance(TurnManager manager){ourInstance = manager;}
+    public List<IHTPlayer> getPlayers() {
+        return players;
+    }
 
-    public  List<IHTPlayer> getPlayers(){ return players;}
+    public void setPlayers(List<IHTPlayer> players) {
+        this.players = players;
+    }
+
+    public void setCurrentPlayer(int position) {
+        this.position = position;
+    }
 
     private TurnManager() {
         players = Lists.newArrayList();

@@ -193,7 +193,7 @@ public class GameActivity extends Activity {
     private void charger() {
 
         if (getIntent().getExtras() != null) {
-            String boardSerialized = getIntent().getExtras().getString("board");
+            String boardSerialized = getIntent().getExtras().getString("game");
             board = LoadGame.loadBoard(boardSerialized);
             GameBoardView boardView = (GameBoardView) findViewById(R.id.dynamic_ui);
             boardView.setBoardLoad(board);
