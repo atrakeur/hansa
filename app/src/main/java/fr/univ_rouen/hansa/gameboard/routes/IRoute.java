@@ -7,6 +7,7 @@ import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.view.IPosition;
 import fr.univ_rouen.hansa.view.display.IDrawable;
+import fr.univ_rouen.hansa.view.display.IDrawer;
 
 public interface IRoute extends IDrawable{
 
