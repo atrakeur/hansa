@@ -9,31 +9,31 @@ public interface IHTPlayer extends IScorePlayer {
      *
      * @return the escritoire
      */
-    public IEscritoire getEscritoire();
+    IEscritoire getEscritoire();
 
     /**
      * Return the color of the player, equivalent of his ID
      *
      * @return PlayerColor, an enum who represent the color
      */
-    public PlayerColor getPlayerColor();
+    PlayerColor getPlayerColor();
 
     /**
      * Get the real actionNumber of the player
-     * @return
-     * The new number action
+     *
+     * @return The new number action
      */
-    public int getActionNumber();
+    int getActionNumber();
 
     /**
      * Set the real actionNumber (Use with the bonusmarkers)
-     * @param i
-     * The value to add to the actionNumber
+     *
+     * @param i The value to add to the actionNumber
      */
-    public void setActionNumber(int i);
+    void setActionNumber(int i);
 
     /**
      * Reinit actions count for a new turn
      */
-    public void newTurn();
+    void newTurn();
 }

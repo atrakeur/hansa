@@ -1,5 +1,7 @@
 package fr.univ_rouen.hansa.actions.movement;
 
+import com.google.common.collect.Lists;
+
 import junit.framework.TestCase;
 
 import java.util.List;
@@ -10,7 +12,9 @@ import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.IKontor;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
+import fr.univ_rouen.hansa.gameboard.player.HTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
+import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
@@ -25,8 +29,7 @@ public class KeepKontorTest extends TestCase {
         super.setUp();
 
         GameBoard gameBoard = GameBoardFactory.getInstance().createGameBoard(1);
-
-        player = TurnManager.getInstance().getCurrentPlayer();
+        player = new HTPlayer(PlayerColor.green, 1);
 
         List<ICity> cities = gameBoard.getCities();
 
@@ -50,27 +53,27 @@ public class KeepKontorTest extends TestCase {
         }
 
         KeepKontor action = new KeepKontor(player, city, route.getVillage(0));
-        
+
         IKontor kontor = city.getNextKontor();
 
         assertFalse(action.isDone());
 
         int stockState = player.getEscritoire().getStock().getMerchantCount()
-                       + player.getEscritoire().getStock().getTraderCount();
+                + player.getEscritoire().getStock().getTraderCount();
 
 
         // ------ Movement ------ //
-        
+
         action.doMovement();
 
         for (IVillage village : route.getVillages()) {
             assertTrue(village.isEmpty());
         }
-        
+
         assertFalse(kontor.isEmpty());
 
         int stockDone = player.getEscritoire().getStock().getMerchantCount()
-                      + player.getEscritoire().getStock().getTraderCount();
+                + player.getEscritoire().getStock().getTraderCount();
 
         assertTrue(stockDone == stockState + route.getVillages().size() - 1);
 
@@ -87,7 +90,7 @@ public class KeepKontorTest extends TestCase {
         assertTrue(kontor.isEmpty());
 
         int stockRB = player.getEscritoire().getStock().getMerchantCount()
-                    + player.getEscritoire().getStock().getTraderCount();
+                + player.getEscritoire().getStock().getTraderCount();
 
         assertTrue(stockRB == stockState);
 
@@ -104,5 +107,5 @@ public class KeepKontorTest extends TestCase {
         } catch (Exception ignored) {
         }
     }
-    
+
 }

@@ -1,0 +1,39 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bk_menu"
+    android:gravity="center_vertical|center_horizontal"
+    android:orientation="vertical"
+    tools:context="fr.univ_rouen.hansa.activity.MainMenuActivity">
+
+    <Button
+        android:id="@+id/new_game"
+        style="@style/MyStyleMenu"
+        android:layout_marginTop="80dp"
+        android:onClick="newGame"
+        android:text="@string/new_game"/>
+
+    <Button
+        android:id="@+id/load_game"
+        style="@style/MyStyleMenu"
+        android:layout_marginTop="10dp"
+        android:onClick="loadGame"
+        android:text="@string/load_game" />
+
+    <Button
+        android:id="@+id/options_game"
+        style="@style/MyStyleMenu"
+        android:layout_marginTop="10dp"
+        android:onClick="optionsGame"
+        android:text="@string/options_game" />
+
+    <Button
+        android:id="@+id/exit_game"
+        style="@style/MyStyleMenu"
+        android:layout_marginTop="10dp"
+        android:onClick="exitGame"
+        android:text="@string/exit_game" />
+
+
+</LinearLayout>

@@ -4,6 +4,7 @@ import fr.univ_rouen.hansa.actions.Actions;
 import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.exceptions.NotAvailableActionException;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 
 public class LiberSophia implements IMovement {
@@ -66,8 +67,8 @@ public class LiberSophia implements IMovement {
     }
 
     @Override
-    public int getPawnReplaceMove() {
-        return 0;
+    public Pawn getPawnToReplace() {
+        return null;
     }
 
     @Override

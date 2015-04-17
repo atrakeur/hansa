@@ -6,7 +6,9 @@ import fr.univ_rouen.hansa.exceptions.NoPlaceException;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
 import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
+import fr.univ_rouen.hansa.gameboard.player.HTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
+import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
@@ -23,9 +25,8 @@ public class MovePawnRtoGBTest extends TestCase {
 
         gameBoard = GameBoardFactory.getInstance().createGameBoard(1);
 
-        player1 = TurnManager.getInstance().getCurrentPlayer();
-        TurnManager.getInstance().nextPlayer(true);
-        player2 = TurnManager.getInstance().getCurrentPlayer();
+        player1 = new HTPlayer(PlayerColor.green, 1);
+        player2 = new HTPlayer(PlayerColor.red, 1);
 
         village = gameBoard.getRoutes().get(0).getVillage(0);
     }
@@ -53,11 +54,8 @@ public class MovePawnRtoGBTest extends TestCase {
 
         assertFalse(village.isEmpty());
 
-        try {
-            MovePawnRtoGB action2 = new MovePawnRtoGB(player2, village, Trader.class);
-            action2.doMovement();
-            fail("doMovement need to throw an exception when the village is already taken");
-        } catch (NoPlaceException ignored) {
-        }
+        MovePawnRtoGB action2 = new MovePawnRtoGB(player2, village, Trader.class);
+        action2.doMovement();
+        assertNotNull(action2.getPawnToReplace());
     }
 }

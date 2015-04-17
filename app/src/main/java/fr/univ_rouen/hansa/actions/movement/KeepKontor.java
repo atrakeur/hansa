@@ -9,6 +9,7 @@ import fr.univ_rouen.hansa.actions.Actions;
 import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.exceptions.NoPlaceException;
 import fr.univ_rouen.hansa.gameboard.Privillegium;
+import fr.univ_rouen.hansa.gameboard.cities.City;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.IKontor;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
@@ -73,6 +74,15 @@ public class KeepKontor implements IMovement {
             throw new GameException("Wrong pawn type for take the kontor");
         }
 
+
+        if (kontor.hasVictoryPoint()) {
+            player.increaseScore();
+        }
+        for(ICity city : village.getRoute().getCities()){
+            if (city.getOwner() != null) {
+                city.getOwner().increaseScore();
+            }
+        }
         kontor.pushPawn(pawn);
 
         for (IVillage otherVillage : village.getRoute().getVillages()) {
@@ -80,7 +90,6 @@ public class KeepKontor implements IMovement {
                 pawns.add(otherVillage.pullPawn());
             }
         }
-
         player.getEscritoire().getStock().addPawns(pawns);
 
         actionDone = true;
@@ -103,15 +112,22 @@ public class KeepKontor implements IMovement {
                 otherVillage.pushPawn(pawnIterator.next());
             }
         }
+        if (kontor.hasVictoryPoint()) {
+            player.decreaseScore();
+        }
 
         pawns.clear();
-
+        for(ICity city : village.getRoute().getCities()){
+            if (city.getOwner() != null) {
+                city.getOwner().decreaseScore();
+            }
+        }
         actionDone = false;
     }
 
     @Override
-    public int getPawnReplaceMove() {
-        return 0;
+    public Pawn getPawnToReplace() {
+        return null;
     }
 
     @Override
