@@ -9,7 +9,9 @@ import fr.univ_rouen.hansa.gameboard.board.GameBoard;
 import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
+import fr.univ_rouen.hansa.gameboard.player.HTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
+import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
@@ -25,7 +27,7 @@ public class IncreasePowerTest extends TestCase {
 
         GameBoard gameBoard = GameBoardFactory.getInstance().createGameBoard(1);
 
-        player = TurnManager.getInstance().getCurrentPlayer();
+        player = new HTPlayer(PlayerColor.green, 1);
 
         List<ICity> cities = gameBoard.getCities();
 
