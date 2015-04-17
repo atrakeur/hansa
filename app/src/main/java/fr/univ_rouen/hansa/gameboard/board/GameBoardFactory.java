@@ -45,7 +45,7 @@ public class GameBoardFactory {
         ICity[] cities;
         IPosition tavernPosition;
 
-        gameBoard.setBackground(R.drawable.plateau45);
+        gameBoard.setBackground(R.drawable.plateau23);
 
 
         // ------------------------------------ //
