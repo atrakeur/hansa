@@ -39,7 +39,7 @@ public class TavernPositions {
     public static IPosition GOTTINGEN_QUEDLINBURG = new Position(0.755f, 0.97f);
 
     //Map 4 - 5
-    public static IPosition EMDEN_STADE = new Position(0.45f, 0.43f);
+    public static IPosition EMDEN_STADE = new Position(0.45f, 0.05f);
     public static IPosition MARBURG_GOTTINGEN = new Position(0.48f, 0.92f);
 
 }
