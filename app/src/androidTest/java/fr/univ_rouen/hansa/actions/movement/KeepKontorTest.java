@@ -12,6 +12,7 @@ import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.IKontor;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
+import fr.univ_rouen.hansa.gameboard.player.HTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
@@ -28,8 +29,7 @@ public class KeepKontorTest extends TestCase {
         super.setUp();
 
         GameBoard gameBoard = GameBoardFactory.getInstance().createGameBoard(1);
-        TurnManager.getInstance().addPlayers(Lists.newArrayList(PlayerColor.values()));
-        player = TurnManager.getInstance().getCurrentPlayer();
+        player = new HTPlayer(PlayerColor.green, 1);
 
         List<ICity> cities = gameBoard.getCities();
 

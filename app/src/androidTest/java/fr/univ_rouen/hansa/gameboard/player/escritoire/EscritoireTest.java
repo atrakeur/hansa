@@ -8,6 +8,9 @@ import java.util.List;
 import fr.univ_rouen.hansa.gameboard.Privillegium;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
+import fr.univ_rouen.hansa.gameboard.player.HTPlayer;
+import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
+import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 
 public class EscritoireTest extends ApplicationTestCase<Application> {
@@ -16,7 +19,8 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
     }
 
     public void testClavisUrbis() throws Exception {
-        Escritoire escritoire = new Escritoire(TurnManager.getInstance().getCurrentPlayer(), 1);
+        IHTPlayer p = new HTPlayer(PlayerColor.green, 1);
+        Escritoire escritoire = new Escritoire(p, 1);
 
         assertEquals(escritoire.clavisUrbisLevel(), 1);
 
@@ -40,7 +44,8 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
     }
 
     public void testActiones() throws Exception {
-        Escritoire escritoire = new Escritoire(TurnManager.getInstance().getCurrentPlayer(), 1);
+        IHTPlayer p = new HTPlayer(PlayerColor.green, 1);
+        Escritoire escritoire = new Escritoire(p, 1);
 
         assertEquals(escritoire.actionesLevel(), 2);
 
@@ -67,7 +72,8 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
     }
 
     public void testPrivilegium() throws Exception {
-        Escritoire escritoire = new Escritoire(TurnManager.getInstance().getCurrentPlayer(), 1);
+        IHTPlayer p = new HTPlayer(PlayerColor.green, 1);
+        Escritoire escritoire = new Escritoire(p, 1);
 
         assertEquals(escritoire.privilegiumLevel(), Privillegium.White);
 
@@ -88,7 +94,8 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
     }
 
     public void testLiberSophia() throws Exception {
-        Escritoire escritoire = new Escritoire(TurnManager.getInstance().getCurrentPlayer(), 1);
+        IHTPlayer p = new HTPlayer(PlayerColor.green, 1);
+        Escritoire escritoire = new Escritoire(p, 1);
 
         assertEquals(escritoire.liberSophiaLevel(), 2);
 
@@ -109,7 +116,8 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
     }
 
     public void testBursa() throws Exception {
-        Escritoire escritoire = new Escritoire(TurnManager.getInstance().getCurrentPlayer(), 1);
+        IHTPlayer p = new HTPlayer(PlayerColor.green, 1);
+        Escritoire escritoire = new Escritoire(p, 1);
 
         assertEquals(escritoire.bursaLevel(), 3);
 
@@ -133,7 +141,8 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
         Escritoire escritoire;
         List<Pawn> supplyPawns;
 
-        escritoire = new Escritoire(TurnManager.getInstance().getCurrentPlayer(), 1);
+        IHTPlayer p = new HTPlayer(PlayerColor.green, 1);
+        escritoire = new Escritoire(p, 1);
         assertTrue(escritoire.moveStockToSupply(0, 6));
 
         try {
@@ -145,7 +154,8 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
         supplyPawns = escritoire.popFromSupply(1, 11);
         assertTrue(supplyPawns.size() == 12);
 
-        escritoire = new Escritoire(TurnManager.getInstance().getCurrentPlayer(), 5);
+        IHTPlayer p2 = new HTPlayer(PlayerColor.red, 5);
+        escritoire = new Escritoire(p2, 5);
         assertTrue(escritoire.moveStockToSupply(0, 2));
 
         try {
@@ -159,7 +169,8 @@ public class EscritoireTest extends ApplicationTestCase<Application> {
     }
 
     public void testDecrease() {
-        Escritoire escritoire = new Escritoire(TurnManager.getInstance().getCurrentPlayer(), 1);
+        IHTPlayer p = new HTPlayer(PlayerColor.green, 1);
+        Escritoire escritoire = new Escritoire(p, 1);
 
         escritoire.increasePower(Power.Bursa);
         escritoire.increasePower(Power.Bursa);
