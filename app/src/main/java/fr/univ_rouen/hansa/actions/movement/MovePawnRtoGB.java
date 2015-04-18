@@ -43,8 +43,17 @@ public class MovePawnRtoGB implements IMovement {
         }
 
         if (!village.isEmpty()) {
+            //Todo : remplir cette partie
+            /**
+             * Si la village est pas vide il faut voir si le joueur a les ressources qu'il faut
+             * pour enlever le pion adverse.
+             * Donc regarder quel pion occupe le village et en fonction voir le joueur peux ou non
+             * faire ce mouvement
+             */
+            // Cette partie reste correcte
             pawnToReplace = village.pullPawn();
         }
+
 
         Pawn pawn;
 
@@ -56,6 +65,11 @@ public class MovePawnRtoGB implements IMovement {
 
         village.pushPawn(pawn);
 
+        /**
+         * A voir avec les autres, a la fin d'un doMovement l'action n'est pas forcement Done.
+         * Il faut voir comment le nombre de mouvement peut etre gerer vis a vis du joueur
+         * Dans le cas d'un MovePawnRtoGB l action sera done mais sinon ce n'est pas toujours le cas
+         */
         actionDone = true;
     }
 
@@ -79,6 +93,7 @@ public class MovePawnRtoGB implements IMovement {
         return pawnToReplace;
     }
 
+    // Todo : Ask what is that
     @Override
     public int getMergeableMove() {
         return 0;
