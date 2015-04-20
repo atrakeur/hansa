@@ -167,4 +167,20 @@ public class City implements ICity {
         }
         return cityOwner;
     }
+
+    @Override
+    public int numberOfKontorsOwned(IHTPlayer player) {
+        int total = 0;
+        for(IKontor kontor : kontors){
+            if (kontor.getOwner() == player){
+                total++;
+            }
+        }
+        for(IKontor kontor : additionalKontors){
+            if (kontor.getOwner() == player){
+                total++;
+            }
+        }
+        return total;
+    }
 }
