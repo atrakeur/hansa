@@ -35,6 +35,16 @@ public class TurnManager {
         players = Lists.newArrayList();
     }
 
+    public void addPlayers(List<PlayerColor> playersColors) {
+        List<Object> playersDefs = Lists.newArrayList();
+
+        for(PlayerColor color: playersColors) {
+            playersDefs.add("Player");
+        }
+
+        this.addPlayers(playersDefs, playersColors);
+    }
+
     public void addPlayers(List<Object> playersDefs, List<PlayerColor> playersColors) {
         if (playersColors.size() != playersDefs.size()) {
             throw new IllegalArgumentException("PlayerDef and players colors must be of the same size");
