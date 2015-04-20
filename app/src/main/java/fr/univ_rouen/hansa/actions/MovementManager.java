@@ -12,6 +12,7 @@ import fr.univ_rouen.hansa.actions.movement.IMovement;
 import fr.univ_rouen.hansa.gameboard.Privillegium;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
+import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
 import fr.univ_rouen.hansa.gameboard.cities.City;
 import fr.univ_rouen.hansa.gameboard.cities.Coellen;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
@@ -80,10 +81,6 @@ public class MovementManager {
 
 
     public void addEndGamePoints(){
-        //TODO after merge un comment
-        /*if(!MovementManager.getInstance().gameIsEnding()){
-            throw new IllegalStateException("try to add en game points without an ending game situation");
-        }*/
         for(IHTPlayer player : TurnManager.getInstance().getPlayers()){
             //skill upgrade to max : +4 point (not for clavis urbis)
             if(player.getEscritoire().actionesLevel() == 5){
@@ -129,16 +126,16 @@ public class MovementManager {
             Map<ICity, Boolean> visited = Maps.newHashMap();
 
             //for each city the owner gain 2 points + init visited
-            for (City city : GameBoard.getInstance().getCities){
+            for (ICity city : GameBoardFactory.getGameBoard().getCities()){
                 if (city.getOwner() == player){
                     player.setScore(player.getScore() + 2);
-                    visited.put(city,false);
                 }
+                visited.put(city,false);
             }
 
-            //addd highestNetwork size * clavis urbis
+            //add highestNetwork size * clavis urbis
             int highestNetworkSize = 0;
-            for (City city : GameBoard.getInstance().getCities){
+            for (ICity city : GameBoardFactory.getGameBoard().getCities()){
                 if (!visited.get(city) && city.numberOfKontorsOwned(player) != 0){
                     LinkedList<ICity> network = Lists.newLinkedList();
                     int networkSize = 0;
@@ -162,7 +159,6 @@ public class MovementManager {
                 }
             }
             player.setScore(player.getScore() + player.getEscritoire().clavisUrbisLevel() * highestNetworkSize);
-
         }
     }
 
