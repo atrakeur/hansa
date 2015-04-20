@@ -2,6 +2,7 @@ package fr.univ_rouen.hansa.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,6 +23,7 @@ import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
+import fr.univ_rouen.hansa.view.DialogPause;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.view.interactions.AlertDialogBursa;
 
@@ -192,4 +194,10 @@ public class GameActivity extends Activity {
     @Override
     public void onBackPressed() {
     }
+
+    public void pauseGame(View view) {
+        Dialog pause = new DialogPause(context);
+        pause.show();
+    }
 }
+

@@ -15,6 +15,7 @@ import java.util.List;
 import fr.univ_rouen.hansa.R;
 import fr.univ_rouen.hansa.adapter.NewGameAdapter;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
+import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 
 public class NewGameActivity extends ActionBarActivity {
@@ -34,6 +35,7 @@ public class NewGameActivity extends ActionBarActivity {
         ListView list = (ListView) findViewById(R.id.list);
 
         List<PlayerColor> colors = Lists.newArrayList();
+        List<Object> players     = Lists.newArrayList();
 
         for (int i = 0; i < PlayerColor.values().length; i++) {
             Spinner sPlayer = (Spinner) list.getChildAt(i).findViewById(R.id.player);
@@ -50,6 +52,7 @@ public class NewGameActivity extends ActionBarActivity {
                 return;
             }
             colors.add(playerColor);
+            players.add(sPlayer.getSelectedItem());
         }
 
         if (colors.size() <= 2) {
@@ -57,7 +60,7 @@ public class NewGameActivity extends ActionBarActivity {
             return;
         }
 
-        TurnManager.getInstance().addPlayers(colors);
+        TurnManager.getInstance().addPlayers(players, colors);
 
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
