@@ -62,9 +62,9 @@ public class TurnManager {
 
             IHTPlayer player = null;
             if (playerDef.equals("Player")) {
-                player = new HTPlayer(color, i);
+                player = new HTPlayer(color, i + 1);
             } else {
-                player = new HTComputer(color, i, new RandomStrategy());
+                player = new HTComputer(color, i + 1, new RandomStrategy());
             }
             players.add(player);
         }
