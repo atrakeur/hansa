@@ -1,4 +1,4 @@
-package fr.univ_rouen.hansa.save.gameboard;
+package fr.univ_rouen.hansa.save.gameboard.cities;
 
 import com.google.common.collect.Lists;
 
@@ -7,13 +7,14 @@ import java.util.List;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.IKontor;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
+import fr.univ_rouen.hansa.save.gameboard.PositionDao;
 
 public class CityDao {
 
-    private final List<KontorDao> kontors;
-    private final List<KontorDao> additionalKontors;
-    private final Power power;
-    private final PositionDao position;
+    private List<KontorDao> kontors;
+    private List<KontorDao> additionalKontors;
+    private Power power;
+    private PositionDao position;
 
     public CityDao(ICity city) {
         this.kontors = Lists.newArrayList();

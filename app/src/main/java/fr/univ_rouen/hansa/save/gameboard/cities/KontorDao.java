@@ -1,16 +1,18 @@
-package fr.univ_rouen.hansa.save.gameboard;
+package fr.univ_rouen.hansa.save.gameboard.cities;
 
 import fr.univ_rouen.hansa.gameboard.Privillegium;
 import fr.univ_rouen.hansa.gameboard.cities.IKontor;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
+import fr.univ_rouen.hansa.save.gameboard.PawnDao;
+import fr.univ_rouen.hansa.save.gameboard.PawnType;
 
 public class KontorDao {
 
-    private final PawnType pawnType;
-    private final boolean victoryPoint;
-    private final PawnDao pawn;
-    private final Privillegium privillegium;
+    private PawnType pawnType;
+    private boolean victoryPoint;
+    private PawnDao pawn;
+    private Privillegium privillegium;
 
     public KontorDao(IKontor<Pawn> kontor) {
         if (kontor.getPawnClass().equals(Trader.class)) {
