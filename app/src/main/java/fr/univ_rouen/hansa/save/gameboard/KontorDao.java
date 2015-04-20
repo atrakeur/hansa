@@ -9,8 +9,8 @@ public class KontorDao {
 
     private final PawnType pawnType;
     private final boolean victoryPoint;
-    private PawnDao pawn;
-    private Privillegium privillegium;
+    private final PawnDao pawn;
+    private final Privillegium privillegium;
 
     public KontorDao(IKontor<Pawn> kontor) {
         if (kontor.getPawnClass().equals(Trader.class)) {
@@ -19,7 +19,7 @@ public class KontorDao {
             this.pawnType = PawnType.Merchant;
         }
 
-        this.victoryPoint = false; //TODO utiliser la méthode de Steeven
+        this.victoryPoint = kontor.hasVictoryPoint();
         this.privillegium = kontor.getPrivillegium();
 
         Pawn kontorPawn = kontor.popPawn();

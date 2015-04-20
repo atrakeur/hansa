@@ -1,6 +1,7 @@
 package fr.univ_rouen.hansa.save.gameboard;
 
-import java.util.ArrayList;
+import com.google.common.collect.Lists;
+
 import java.util.List;
 
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
@@ -11,7 +12,7 @@ public class GameBoardDao {
     private List<CityDao> cities;
 
     public GameBoardDao(GameBoard gameBoard) {
-        cities = new ArrayList<>();
+        cities = Lists.newArrayList();
 
         for (ICity city : gameBoard.getCities()) {
             cities.add(new CityDao(city));
