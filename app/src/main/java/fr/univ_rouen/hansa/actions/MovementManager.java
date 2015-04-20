@@ -1,8 +1,23 @@
 package fr.univ_rouen.hansa.actions;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 import fr.univ_rouen.hansa.actions.actions.ActionFactory;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
+import fr.univ_rouen.hansa.gameboard.Privillegium;
+import fr.univ_rouen.hansa.gameboard.TurnManager;
+import fr.univ_rouen.hansa.gameboard.board.GameBoard;
+import fr.univ_rouen.hansa.gameboard.cities.City;
+import fr.univ_rouen.hansa.gameboard.cities.Coellen;
+import fr.univ_rouen.hansa.gameboard.cities.ICity;
+import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 
 public class MovementManager {
 
@@ -60,6 +75,95 @@ public class MovementManager {
 
     public boolean hasPawnToReplace() {
         return this.actionFactory.hasPawnToReplace(stack.getStackContent());
+    }
+
+
+
+    public void addEndGamePoints(){
+        //TODO after merge un comment
+        /*if(!MovementManager.getInstance().gameIsEnding()){
+            throw new IllegalStateException("try to add en game points without an ending game situation");
+        }*/
+        for(IHTPlayer player : TurnManager.getInstance().getPlayers()){
+            //skill upgrade to max : +4 point (not for clavis urbis)
+            if(player.getEscritoire().actionesLevel() == 5){
+                player.setScore(player.getScore() + 4);
+            }
+            if(player.getEscritoire().bursaLevel() == Integer.MAX_VALUE){
+                player.setScore(player.getScore() + 4);
+            }
+            if(player.getEscritoire().liberSophiaLevel() == 5){
+                player.setScore(player.getScore() + 4);
+            }
+            if(player.getEscritoire().privilegiumLevel() == Privillegium.Black){
+                player.setScore(player.getScore() + 4);
+            }
+
+            //points allowed for bonus markers
+            switch (player.getEscritoire().getBonusMarker().size()){
+                case 0:
+                    break;
+                case 1:
+                    player.setScore(player.getScore() + 1);
+                    break;
+                case 2: case 3:
+                    player.setScore(player.getScore() + 3);
+                    break;
+                case 4: case 5:
+                    player.setScore(player.getScore() + 6);
+                    break;
+                case 6: case 7:
+                    player.setScore(player.getScore() + 10);
+                    break;
+                case 8: case 9:
+                    player.setScore(player.getScore() + 15);
+                    break;
+                default:  // <= 10
+                    player.setScore(player.getScore() + 21);
+                    break;
+            }
+
+            //TODO : Coellen
+
+            //used for biggest network
+            Map<ICity, Boolean> visited = Maps.newHashMap();
+
+            //for each city the owner gain 2 points + init visited
+            for (City city : GameBoard.getInstance().getCities){
+                if (city.getOwner() == player){
+                    player.setScore(player.getScore() + 2);
+                    visited.put(city,false);
+                }
+            }
+
+            //addd highestNetwork size * clavis urbis
+            int highestNetworkSize = 0;
+            for (City city : GameBoard.getInstance().getCities){
+                if (!visited.get(city) && city.numberOfKontorsOwned(player) != 0){
+                    LinkedList<ICity> network = Lists.newLinkedList();
+                    int networkSize = 0;
+                    network.add(city);
+
+                    while(!network.isEmpty()){
+                        ICity tmpCity = network.getFirst();
+                        networkSize += tmpCity.numberOfKontorsOwned(player);
+                        visited.put(tmpCity,true);
+                        for(IRoute route : tmpCity.getRoutes()){
+                            for (ICity crossRoad : route.getCities()){
+                                if (crossRoad != tmpCity && crossRoad.numberOfKontorsOwned(player) != 0){
+                                    network.add(crossRoad);
+                                }
+                            }
+                        }
+                    }
+                    if (highestNetworkSize < networkSize){
+                        highestNetworkSize = networkSize;
+                    }
+                }
+            }
+            player.setScore(player.getScore() + player.getEscritoire().clavisUrbisLevel() * highestNetworkSize);
+
+        }
     }
 
 }
