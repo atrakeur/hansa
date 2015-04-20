@@ -9,7 +9,6 @@ import fr.univ_rouen.hansa.actions.MovementFactory;
 import fr.univ_rouen.hansa.actions.MovementManager;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
 import fr.univ_rouen.hansa.exceptions.GameException;
-import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.view.utils.ResourceRepository;
 
 public class HansaSupplyClickableArea extends ClickableArea {

@@ -45,7 +45,7 @@ public class ReplaceMovedPawn implements IMovement {
 
     @Override
     public Actions getActionDone() {
-        return Actions.replaceMovedPawn;
+        return Actions.movePawnRtoGB;
     }
 
     @Override
@@ -110,5 +110,15 @@ public class ReplaceMovedPawn implements IMovement {
         }
 
         actionDone = false;
+    }
+
+    @Override
+    public Pawn getPawnToReplace() {
+        return null;
+    }
+
+    @Override
+    public int getMergeableMove() {
+        return 0;
     }
 }

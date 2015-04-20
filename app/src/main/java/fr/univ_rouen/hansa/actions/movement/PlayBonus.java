@@ -3,6 +3,7 @@ package fr.univ_rouen.hansa.actions.movement;
 import fr.univ_rouen.hansa.actions.Actions;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusState;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 
 public class PlayBonus implements IMovement {
 
@@ -47,5 +48,15 @@ public class PlayBonus implements IMovement {
 
         bonusMarker.undoAction();
         actionDone = false;
+    }
+
+    @Override
+    public Pawn getPawnToReplace() {
+        return null;
+    }
+
+    @Override
+    public int getMergeableMove() {
+        return 0;
     }
 }

@@ -6,11 +6,12 @@ import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 
 public interface IKontor<E extends Pawn> {
 
-    public boolean isEmpty();
-    public Class<E> getPawnClass();
-    public void pushPawn(E pawn);
-    public E popPawn();
-    public IHTPlayer getOwner();
-    public Privillegium getPrivillegium();
+    boolean isEmpty();
+    Class<E> getPawnClass();
+    void pushPawn(E pawn);
+    E popPawn();
+    IHTPlayer getOwner();
+    Privillegium getPrivillegium();
+    boolean hasVictoryPoint();
 
 }

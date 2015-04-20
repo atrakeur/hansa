@@ -48,10 +48,6 @@ public class Kontor<E extends Pawn> implements IKontor<E> {
         }
 
         this.pawn = pawn;
-
-        if (victoryPoint) {
-            TurnManager.getInstance().getCurrentPlayer().increaseScore();
-        }
     }
 
     public IHTPlayer getOwner() {
@@ -60,6 +56,10 @@ public class Kontor<E extends Pawn> implements IKontor<E> {
         }
 
         return this.pawn.getPlayer();
+    }
+
+    public boolean hasVictoryPoint(){
+        return victoryPoint;
     }
 
 }

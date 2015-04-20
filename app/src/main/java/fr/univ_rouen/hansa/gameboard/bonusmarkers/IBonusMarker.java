@@ -7,11 +7,29 @@ package fr.univ_rouen.hansa.gameboard.bonusmarkers;
  * the bonus Pawn
  */
 public interface IBonusMarker {
-    public BonusState getState();
+    /**
+     * Get the bonusState
+     * @return
+     * The bonusState of the bonusmarker
+     */
+    BonusState getState();
 
-    public void setState(BonusState state);
+    /**
+     * Set the state of the bonusmarker
+     * @param state
+     * the new state
+     */
+    void setState(BonusState state);
 
-    public void doAction();
+    /**
+     * Do the action of the bonusmarkers
+     */
+    void doAction();
 
-    public void undoAction();
+    /**
+     * Undo the action of the bonusmarkers
+     */
+    void undoAction();
+
+    String getType();
 }

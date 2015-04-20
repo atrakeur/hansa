@@ -7,20 +7,25 @@ public interface IScorePlayer {
      *
      * @post if the score is upper 20, EndOfGameException is launch
      */
-    public void increaseScore();
+    void increaseScore();
+
+    /**
+     * Decrease score of the player
+     */
+    void decreaseScore();
 
     /**
      * Return the current score of the player
      *
      * @return the current score
      */
-    public int getScore();
+    int getScore();
 
     /**
      * Return the final score after the end of the game, with all the calculs
      *
      * @return the final score
      */
-    public int getFinalScore();
+    int getFinalScore();
 
 }

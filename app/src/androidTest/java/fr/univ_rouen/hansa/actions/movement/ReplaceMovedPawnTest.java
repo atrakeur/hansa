@@ -4,7 +4,9 @@ import junit.framework.TestCase;
 
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
+import fr.univ_rouen.hansa.gameboard.player.HTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
+import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
@@ -19,8 +21,7 @@ public class ReplaceMovedPawnTest extends TestCase {
     public void setUp() throws java.lang.Exception {
         super.setUp();
 
-        GameBoardFactory.getInstance().createGameBoard(1);
-        player = TurnManager.getInstance().getCurrentPlayer();
+        player = new HTPlayer(PlayerColor.green, 1);
     }
 
     public void testEtape1() throws Exception {
