@@ -194,8 +194,10 @@ public class GameActivity extends Activity {
     @Override
     public void onBackPressed() {
     }
+
     public void pauseGame(View view) {
         Dialog pause = new DialogPause(context);
         pause.show();
     }
 }
+

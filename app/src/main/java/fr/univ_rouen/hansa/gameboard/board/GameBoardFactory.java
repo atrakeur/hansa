@@ -24,10 +24,12 @@ import fr.univ_rouen.hansa.view.IPosition;
 
 public class GameBoardFactory {
     private static GameBoardFactory ourInstance = new GameBoardFactory();
-
     public static GameBoardFactory getInstance() {
         return ourInstance;
     }
+
+    private static GameBoard gameBoard;
+    public static GameBoard getGameBoard() {return gameBoard; }
 
     private GameBoardFactory() {
     }
@@ -635,6 +637,7 @@ public class GameBoardFactory {
             gameBoard.addRoute(new Route(villages, cities, tavernPosition));
         }
 
+        GameBoardFactory.gameBoard = gameBoard;
 
         return gameBoard;
     }
