@@ -74,5 +74,7 @@
     <string name="load_game">Charger une partie</string>
     <string name="options_game">Options</string>
     <string name="exit_game">Quitter</string>
+    <string name="rulesFile">/sdcard/rulesfr.pdf</string>
+    <string name="noApplicationPDF">Aucune application disponible pour visionner du pdf</string>
 
 </resources>
