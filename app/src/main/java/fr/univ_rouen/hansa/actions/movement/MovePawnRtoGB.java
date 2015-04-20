@@ -2,12 +2,19 @@ package fr.univ_rouen.hansa.actions.movement;
 
 import com.google.common.collect.Lists;
 
+import java.util.List;
+
 import fr.univ_rouen.hansa.actions.Actions;
 import fr.univ_rouen.hansa.exceptions.NoPlaceException;
+import fr.univ_rouen.hansa.exceptions.NotAvailableActionException;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
+import fr.univ_rouen.hansa.gameboard.player.escritoire.IPawnList;
+import fr.univ_rouen.hansa.gameboard.player.escritoire.PawnList;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
+import fr.univ_rouen.hansa.gameboard.routes.Village;
 
 public class MovePawnRtoGB implements IMovement {
     private final IHTPlayer player;
@@ -42,18 +49,49 @@ public class MovePawnRtoGB implements IMovement {
             throw new IllegalStateException();
         }
 
+        /**
+         * Commentaire explicatif. Let's go
+         */
+        // si le village est pas ville le mouvement est un remplacement de pion
         if (!village.isEmpty()) {
-            //Todo : remplir cette partie
-            /**
-             * Si la village est pas vide il faut voir si le joueur a les ressources qu'il faut
-             * pour enlever le pion adverse.
-             * Donc regarder quel pion occupe le village et en fonction voir le joueur peux ou non
-             * faire ce mouvement
-             */
-            // Cette partie reste correcte
-            pawnToReplace = village.pullPawn();
-        }
+            // On recupere le pion dans le village
+            Pawn p = village.pullPawn();
+            // Si le pion est un trader
+            if (p.getClass() == Trader.class) {
+                pawnToReplace = p;
+                // On verifie les ressources
+                if (player.getEscritoire().getSupply().enoughPawns(0, 2)) {
+                    player.getEscritoire().moveSupplyToStock(0, 2);
+                } else if (player.getEscritoire().getSupply().enoughPawns(1, 1)) {
+                    player.getEscritoire().moveSupplyToStock(1, 1);
+                } else if (player.getEscritoire().getSupply().enoughPawns(2, 0)) {
+                    player.getEscritoire().moveSupplyToStock(2, 0);
+                } else {
+                    pawnToReplace = null;
+                    throw new NotAvailableActionException();
+                }
+            } else {
+                pawnToReplace = p;
+                // On verifie que le joueur a 3 ressources au moins
+                if (player.getEscritoire().getSupply().enoughPawns(0, 3)) {
+                    player.getEscritoire().moveSupplyToStock(0, 3);
+                } else if (player.getEscritoire().getSupply().enoughPawns(1, 2)) {
+                    player.getEscritoire().moveSupplyToStock(1, 2);
+                } else if (player.getEscritoire().getSupply().enoughPawns(2, 1)) {
+                    player.getEscritoire().moveSupplyToStock(2, 1);
+                } else  if(player.getEscritoire().getSupply().enoughPawns(3,0)) {
+                    player.getEscritoire().moveSupplyToStock(3, 0);
+                } else {
+                    pawnToReplace = null;
+                    throw new NotAvailableActionException();
+                }
 
+            }
+
+            // Ici on as fait la partie remplacement. Il faut donc que le jeu rende la main a l'autre joueur.
+            // Celui qui possède pawnToReplace
+            // Voir les autres comment on peux faire ça. Si c'est la bonne solution
+        }
 
         Pawn pawn;
 
@@ -65,11 +103,6 @@ public class MovePawnRtoGB implements IMovement {
 
         village.pushPawn(pawn);
 
-        /**
-         * A voir avec les autres, a la fin d'un doMovement l'action n'est pas forcement Done.
-         * Il faut voir comment le nombre de mouvement peut etre gerer vis a vis du joueur
-         * Dans le cas d'un MovePawnRtoGB l action sera done mais sinon ce n'est pas toujours le cas
-         */
         actionDone = true;
     }
 
@@ -97,5 +130,24 @@ public class MovePawnRtoGB implements IMovement {
     @Override
     public int getMergeableMove() {
         return 0;
+    }
+
+    /**
+     * A proposer aux autres
+     * @param replace
+     * @param v
+     */
+    public void replacePawn(IPawnList replace,List<Village> v ) {
+        List<Trader> t = replace.getTraders();
+        List<Merchant> m = replace.getMerchants();
+        int trad = t.size();
+        for (int i = 0; i < v.size(); i++) {
+            if (trad != 0) {
+                v.get(i).pushPawn(t.get(i));
+                trad--;
+            } else {
+                v.get(i).pushPawn(m.get(i));
+            }
+        }
     }
 }

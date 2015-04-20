@@ -20,6 +20,16 @@ public class PawnList implements IPawnList {
         merchants = Lists.newArrayList();
     }
 
+
+    @Override
+    public List<Trader> getTraders() {
+        return Lists.newArrayList(traders);
+    }
+
+    @Override
+    public List<Merchant> getMerchants() {
+        return Lists.newArrayList(merchants);
+    }
     @Override
     public void addPawns(List<Pawn> pawns) {
         for (Pawn pawn : pawns) {
@@ -99,4 +109,5 @@ public class PawnList implements IPawnList {
     public int getMerchantCount() {
         return merchants.size();
     }
+
 }

@@ -8,6 +8,19 @@ import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 
 public interface IPawnList {
 
+
+    /**
+     * Return the list of traders
+     * @return the list of traders
+     */
+    public List<Trader> getTraders();
+
+    /**
+     * Return the list of merchants
+     * @return the list of merchants
+     */
+    public List<Merchant> getMerchants();
+
     /**
      * Add the given pawns arguments to the list of pawns
      * @param pawns list of pawns to be added
@@ -56,4 +69,5 @@ public interface IPawnList {
      * @return the number of merchants
      * */
     public int getMerchantCount();
+
 }
