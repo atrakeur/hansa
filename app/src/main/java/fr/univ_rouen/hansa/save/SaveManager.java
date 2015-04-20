@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
-import fr.univ_rouen.hansa.save.gameboard.JSonGameBoard;
+import fr.univ_rouen.hansa.save.gameboard.GameBoardDao;
 
 public class SaveManager {
     private static SaveManager ourInstance = new SaveManager();
@@ -41,8 +41,8 @@ public class SaveManager {
      */
     public boolean save(GameBoard gameBoard, String saveName) {
         //TODO
-        JSonGameBoard jSonGameBoard = new JSonGameBoard(gameBoard);
-        String save = gson.toJson(jSonGameBoard);
+        GameBoardDao gameBoardDao = new GameBoardDao(gameBoard);
+        String save = gson.toJson(gameBoardDao);
 
         return false;
     }

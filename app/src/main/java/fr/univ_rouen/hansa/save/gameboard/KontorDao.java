@@ -5,14 +5,14 @@ import fr.univ_rouen.hansa.gameboard.cities.IKontor;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 
-public class JSonKontor {
+public class KontorDao {
 
     private final PawnType pawnType;
     private final boolean victoryPoint;
-    private JSonPawn pawn;
+    private PawnDao pawn;
     private Privillegium privillegium;
 
-    public JSonKontor(IKontor<Pawn> kontor) {
+    public KontorDao(IKontor<Pawn> kontor) {
         if (kontor.getPawnClass().equals(Trader.class)) {
             this.pawnType = PawnType.Trader;
         } else {
@@ -25,7 +25,7 @@ public class JSonKontor {
         Pawn kontorPawn = kontor.popPawn();
 
         if (kontorPawn != null) {
-            this.pawn = new JSonPawn(kontorPawn);
+            this.pawn = new PawnDao(kontorPawn);
             kontor.pushPawn(kontorPawn);
         } else {
             this.pawn = null;

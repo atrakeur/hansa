@@ -6,15 +6,15 @@ import java.util.List;
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 
-public class JSonGameBoard {
+public class GameBoardDao {
 
-    private List<JSonCity> cities;
+    private List<CityDao> cities;
 
-    public JSonGameBoard(GameBoard gameBoard) {
+    public GameBoardDao(GameBoard gameBoard) {
         cities = new ArrayList<>();
 
         for (ICity city : gameBoard.getCities()) {
-            cities.add(new JSonCity(city));
+            cities.add(new CityDao(city));
         }
     }
 }

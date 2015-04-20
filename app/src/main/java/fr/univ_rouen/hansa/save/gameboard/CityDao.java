@@ -7,16 +7,16 @@ import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.IKontor;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
 
-public class JSonCity {
+public class CityDao {
 
-    private List<JSonKontor> kontors;
+    private List<KontorDao> kontors;
     private Power power;
 
-    public JSonCity(ICity city) {
+    public CityDao(ICity city) {
         kontors = new ArrayList<>();
 
         for (IKontor kontor : city.getKontors()) {
-            kontors.add(new JSonKontor(kontor));
+            kontors.add(new KontorDao(kontor));
         }
     }
 }
