@@ -7,7 +7,6 @@
 .gradle
 .idea/libraries
 .idea/gradle.xml
-app/build.gradle
 
 #OS
 Thumbs.db
