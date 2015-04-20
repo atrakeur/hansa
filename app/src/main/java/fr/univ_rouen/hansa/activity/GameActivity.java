@@ -192,4 +192,8 @@ public class GameActivity extends Activity {
     @Override
     public void onBackPressed() {
     }
+
+    public void runAsInterface(Runnable runnable) {
+        this.runOnUiThread(runnable);
+    }
 }
