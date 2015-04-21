@@ -143,11 +143,12 @@ public class MovementManager {
 
                     while(!network.isEmpty()){
                         ICity tmpCity = network.getFirst();
+                        network.removeFirst();
                         networkSize += tmpCity.numberOfKontorsOwned(player);
                         visited.put(tmpCity,true);
                         for(IRoute route : tmpCity.getRoutes()){
                             for (ICity crossRoad : route.getCities()){
-                                if (crossRoad != tmpCity && crossRoad.numberOfKontorsOwned(player) != 0){
+                                if (crossRoad != tmpCity && !visited.get(crossRoad) && crossRoad.numberOfKontorsOwned(player) != 0){
                                     network.add(crossRoad);
                                 }
                             }

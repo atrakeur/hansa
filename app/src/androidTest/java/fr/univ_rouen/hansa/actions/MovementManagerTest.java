@@ -11,7 +11,9 @@ import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
 import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusActiones;
+import fr.univ_rouen.hansa.gameboard.cities.City;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
+import fr.univ_rouen.hansa.gameboard.cities.IKontor;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
@@ -158,6 +160,39 @@ public class MovementManagerTest extends TestCase {
         playerTest.setScore(0);
 
         //TODO Test Coellen
-        //TODO Test network
+
+        ////////////////////////
+        //test network + owner//
+        ////////////////////////
+
+        ICity city1 = gameBoard.getCities().get(0);
+        IKontor kontor = city1.getKontor(0);
+        kontor.pushPawn(playerTest.getEscritoire().popFromSupply(0,1).get(0));
+
+        // 2point * 1 city controlled (player test is the owner
+        // + 1 * clavis urbis 'cause highest network
+        // + 21 points from bonusMarker
+        // + 16 from skills
+
+        MovementManager.getInstance().addEndGamePoints();
+        assertEquals(2 * 1 + 1 * playerTest.getEscritoire().clavisUrbisLevel() + 21 + 16 , playerTest.getScore());
+        playerTest.setScore(0);
+
+        ICity city2 = null;
+        for(ICity nextCity : city1.getRoutes().get(0).getCities()){
+            if (nextCity != city1){
+                city2 = nextCity;
+            }
+        }
+
+        city2.getKontor(0).pushPawn(playerTest.getEscritoire().popFromSupply(0,1).get(0));
+        city2.getKontor(1).pushPawn(players.get(1).getEscritoire().popFromSupply(0,1).get(0));
+
+        //here city2 next to city1 makes up network but playerTest does not own it
+
+        MovementManager.getInstance().addEndGamePoints();
+        assertEquals(2 * 1 + 2 * playerTest.getEscritoire().clavisUrbisLevel() + 21 + 16 , playerTest.getScore());
+        playerTest.setScore(0);
+
     }
 }
