@@ -4,14 +4,26 @@ import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusState;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 
 public class BonusMarkerDao {
-    private final String type;
+    private IBonusMarker.BonusType type;
     private BonusState state;
+
+    public BonusMarkerDao() {
+    }
 
     public BonusMarkerDao(IBonusMarker bonusMarker) {
         this.type = bonusMarker.getType();
         this.state = bonusMarker.getState();
+    }
 
-        //TODO save other arguments, but need an enum fot the type (!!)
+    public IBonusMarker.BonusType getType() {
+        return type;
+    }
 
+    public BonusState getState() {
+        return state;
+    }
+
+    public void setState(BonusState state) {
+        this.state = state;
     }
 }

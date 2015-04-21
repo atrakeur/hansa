@@ -18,7 +18,7 @@ public class BonusRemovePawns extends AbstractBonus implements IBonusMarker {
     private List<Pawn> pawn;
 
     public BonusRemovePawns() {
-        super("removepawn");
+        super(BonusType.BonusRemovePawns);
     }
 
     public List<IHTPlayer> getPlayers() {

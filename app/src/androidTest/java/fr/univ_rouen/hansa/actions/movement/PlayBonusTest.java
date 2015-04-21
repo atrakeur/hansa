@@ -32,7 +32,7 @@ public class PlayBonusTest extends TestCase {
         }
 
         @Override
-        public String getType() {
+        public BonusType getType() {
             throw new UnsupportedOperationException();
         }
     }

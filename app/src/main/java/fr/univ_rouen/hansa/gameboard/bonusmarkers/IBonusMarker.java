@@ -7,17 +7,26 @@ package fr.univ_rouen.hansa.gameboard.bonusmarkers;
  * the bonus Pawn
  */
 public interface IBonusMarker {
+    public enum BonusType {
+        BonusActiones,
+        BonusEscritoire,
+        BonusKontor,
+        BonusPermutation,
+        BonusRemovePawns,
+        BonusState
+    }
+
     /**
      * Get the bonusState
-     * @return
-     * The bonusState of the bonusmarker
+     *
+     * @return the bonusState of the bonusmarker
      */
     BonusState getState();
 
     /**
      * Set the state of the bonusmarker
-     * @param state
-     * the new state
+     *
+     * @param state the new state
      */
     void setState(BonusState state);
 
@@ -31,5 +40,10 @@ public interface IBonusMarker {
      */
     void undoAction();
 
-    String getType();
+    /**
+     * Type of bonus marker
+     *
+     * @return the enum that represent the bonus marker
+     */
+    BonusType getType();
 }

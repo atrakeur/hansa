@@ -10,15 +10,11 @@ public class BonusActiones extends AbstractBonus implements IBonusMarker {
     private IHTPlayer player;
 
     public BonusActiones(int v) {
-        super("actiones");
+        super(BonusType.BonusActiones);
         if (v != 3 && v != 4) {
             throw new IllegalArgumentException("Valeur");
         }
         this.value = v;
-    }
-
-    public String getType() {
-        return super.getType()+""+this.value;
     }
 
     @Override
