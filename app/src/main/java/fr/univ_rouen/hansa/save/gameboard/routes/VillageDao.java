@@ -12,9 +12,8 @@ public class VillageDao {
     public VillageDao(IVillage village) {
         this.position = new PositionDao(village.getPosition());
 
-        Pawn villagePawn = village.pullPawn();
-
-        if (villagePawn != null) {
+        if (!village.isEmpty()) {
+            Pawn villagePawn = village.pullPawn();
             this.pawn = new PawnDao(villagePawn);
             village.pushPawn(villagePawn);
         } else {
