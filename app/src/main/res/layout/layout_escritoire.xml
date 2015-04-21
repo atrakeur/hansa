@@ -1,54 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:circleview="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/escritoire_background">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/escritoire_background"
+    android:layout_gravity="center"
+    android:layout_weight="1">
 
+    <TextView
+        android:layout_weight="4.8"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-    <!--**********************PLAYER STOCK******************************-->
-    <GridLayout
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-
-        android:layout_marginLeft="780px"
-        android:layout_marginTop="425px"
-        android:layout_width="220px"
-        android:layout_height="115px"
-
-        android:columnCount="2">
-
-        <TextView
-            android:id="@+id/nb_trader_stock"
-            android:text="10"
-            android:textSize="45px"
-            android:layout_width="110px"
-            android:layout_height="55px"
+    <LinearLayout
+        android:layout_weight="5.2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <fr.univ_rouen.hansa.view.FontFitTextView
+            android:id="@+id/nb_clavis_urbis"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             />
-        <TextView
-            android:id="@+id/nb_merchant_stock"
-            android:text="10"
-            android:textSize="45px"
-            android:layout_width="110px"
-            android:layout_height="55px"
+        <fr.univ_rouen.hansa.view.FontFitTextView
+            android:id="@+id/nb_actiones"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             />
-        <TextView
-            android:id="@+id/nb_trader_supply"
-            android:text="10"
-            android:textSize="45px"
-            android:layout_width="110px"
-            android:layout_height="60px"
+        <fr.univ_rouen.hansa.view.FontFitTextView
+            android:id="@+id/nb_liber_sophia"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             />
-        <TextView
-            android:id="@+id/nb_merchant_supply"
-            android:text="10"
-            android:textSize="45px"
-            android:layout_width="110px"
-            android:layout_height="60px"
+        <fr.univ_rouen.hansa.view.FontFitTextView
+            android:id="@+id/nb_bursa"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             />
+        </LinearLayout>
 
-    </GridLayout>
+    <LinearLayout
+        android:layout_weight="2.6"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_weight="0.56"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+           <!-- TODO tamere -->
+        </LinearLayout>
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+            <TextView
+                android:layout_weight="0.55"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <fr.univ_rouen.hansa.view.FontFitTextView
+                android:id="@+id/nb_trader_stock"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <fr.univ_rouen.hansa.view.FontFitTextView
+                android:id="@+id/nb_merchant_stock"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView
+                android:layout_weight="1.04"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+            <TextView
+                android:layout_weight="0.55"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <fr.univ_rouen.hansa.view.FontFitTextView
+                android:id="@+id/nb_trader_supply"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <fr.univ_rouen.hansa.view.FontFitTextView
+                android:id="@+id/nb_merchant_supply"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView
+                android:layout_weight="1.04"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+    </LinearLayout>
 
     <!--**********************PLAYER COMPETENCES******************************-->
 
@@ -152,4 +217,4 @@
         style="@style/HorizontalLine"
         android:layout_below="@id/txt_liber_sophia" />-->
 
-</RelativeLayout>
+</LinearLayout>
