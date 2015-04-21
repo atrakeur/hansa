@@ -1,5 +1,9 @@
 package fr.univ_rouen.hansa.gameboard.routes;
 
+import com.google.common.collect.Lists;
+
+import java.util.List;
+
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.view.IPosition;
@@ -65,4 +69,8 @@ public interface IVillage extends IClickable {
      */
     Pawn pullPawn();
 
+    /**
+     * give the one (if next to a city) or two village wich are next to this
+     */
+    public List<IVillage> getNeighbours(IVillage village);
 }

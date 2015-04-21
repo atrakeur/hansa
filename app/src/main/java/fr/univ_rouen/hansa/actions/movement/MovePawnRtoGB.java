@@ -21,6 +21,9 @@ public class MovePawnRtoGB implements IMovement {
     private final IVillage village;
     private final Class<? extends Pawn> type;
 
+    private boolean replaced;
+    private int traderToReplace = 0;
+    private int merchantToReplace = 0;
     private boolean actionDone;
 
     private Pawn pawnToReplace;
@@ -31,6 +34,7 @@ public class MovePawnRtoGB implements IMovement {
         this.type = type;
 
         actionDone = false;
+        replaced = false;
     }
 
     @Override
@@ -58,52 +62,82 @@ public class MovePawnRtoGB implements IMovement {
             Pawn p = village.pullPawn();
             // Si le pion est un trader
             if (p.getClass() == Trader.class) {
-                pawnToReplace = p;
                 // On verifie les ressources
                 if (player.getEscritoire().getSupply().enoughPawns(0, 2)) {
                     player.getEscritoire().moveSupplyToStock(0, 2);
+                    traderToReplace = 2;
+                    merchantToReplace = 0;
                 } else if (player.getEscritoire().getSupply().enoughPawns(1, 1)) {
                     player.getEscritoire().moveSupplyToStock(1, 1);
+                    traderToReplace = 1;
+                    merchantToReplace = 1;
                 } else if (player.getEscritoire().getSupply().enoughPawns(2, 0)) {
                     player.getEscritoire().moveSupplyToStock(2, 0);
+                    traderToReplace = 0;
+                    merchantToReplace = 2;
                 } else {
-                    pawnToReplace = null;
                     throw new NotAvailableActionException();
                 }
             } else {
-                pawnToReplace = p;
                 // On verifie que le joueur a 3 ressources au moins
                 if (player.getEscritoire().getSupply().enoughPawns(0, 3)) {
                     player.getEscritoire().moveSupplyToStock(0, 3);
+                    traderToReplace = 3;
+                    merchantToReplace = 0;
                 } else if (player.getEscritoire().getSupply().enoughPawns(1, 2)) {
                     player.getEscritoire().moveSupplyToStock(1, 2);
+                    traderToReplace = 2;
+                    merchantToReplace = 1;
                 } else if (player.getEscritoire().getSupply().enoughPawns(2, 1)) {
                     player.getEscritoire().moveSupplyToStock(2, 1);
+                    traderToReplace = 1;
+                    merchantToReplace = 2;
                 } else  if(player.getEscritoire().getSupply().enoughPawns(3,0)) {
                     player.getEscritoire().moveSupplyToStock(3, 0);
+                    traderToReplace = 0;
+                    merchantToReplace = 3;
                 } else {
-                    pawnToReplace = null;
                     throw new NotAvailableActionException();
                 }
 
             }
+            pawnToReplace = p;
+            replaced = true;
 
+            /**
+             * Une fois les ressources payé on place le pion
+             */
+            Pawn pawn;
+
+            if (type.equals(Trader.class)) {
+                pawn = player.getEscritoire().popFromSupply(0, 1).get(0);
+            } else {
+                pawn = player.getEscritoire().popFromSupply(1, 0).get(0);
+            }
+
+            village.pushPawn(pawn);
+
+            actionDone = true;
             // Ici on as fait la partie remplacement. Il faut donc que le jeu rende la main a l'autre joueur.
             // Celui qui possède pawnToReplace
             // Voir les autres comment on peux faire ça. Si c'est la bonne solution
-        }
-
-        Pawn pawn;
-
-        if (type.equals(Trader.class)) {
-            pawn = player.getEscritoire().popFromSupply(0, 1).get(0);
         } else {
-            pawn = player.getEscritoire().popFromSupply(1, 0).get(0);
+
+            Pawn pawn;
+
+            if (type.equals(Trader.class)) {
+                pawn = player.getEscritoire().popFromSupply(0, 1).get(0);
+            } else {
+                pawn = player.getEscritoire().popFromSupply(1, 0).get(0);
+            }
+
+            village.pushPawn(pawn);
+
+            actionDone = true;
+
         }
 
-        village.pushPawn(pawn);
 
-        actionDone = true;
     }
 
     @Override
@@ -117,6 +151,11 @@ public class MovePawnRtoGB implements IMovement {
         }
 
         player.getEscritoire().addToSupply(Lists.newArrayList(village.pullPawn()));
+
+        if (replaced) {
+            player.getEscritoire().moveStockToSupply(merchantToReplace, traderToReplace);
+            replaced = false;
+        }
 
         actionDone = false;
     }
@@ -133,14 +172,28 @@ public class MovePawnRtoGB implements IMovement {
     }
 
     /**
-     * A proposer aux autres
-     * @param replace
+     * replace pawns from pawns into villages in v
+     * i.e. v(0) <- pawns(0)
+     * @pre v must be "adjacent villages" from villages replaced
+     * @pre pawns.size() == v.size()
+     * @param pawns
      * @param v
      */
-    public void replacePawn(IPawnList replace,List<Village> v ) {
-        List<Trader> t = replace.getTraders();
-        List<Merchant> m = replace.getMerchants();
-        int trad = t.size();
+    public void replacePawn(List<Pawn> pawns,List<Village> v ) {
+        if (pawns == null || v == null){
+            throw new NullPointerException();
+        }
+        if(pawns.size() != v.size()){
+            throw new IllegalArgumentException();
+        }
+        /**
+         *
+
+        if (isAdajacent(village, v)){
+
+        }
+
+        //int trad = t.size();
         for (int i = 0; i < v.size(); i++) {
             if (trad != 0) {
                 v.get(i).pushPawn(t.get(i));
@@ -149,5 +202,10 @@ public class MovePawnRtoGB implements IMovement {
                 v.get(i).pushPawn(m.get(i));
             }
         }
+         */
+    }
+    private boolean isAdajacent(IVillage v1, List<IVillage> villages){
+        //TODO
+        return true;
     }
 }

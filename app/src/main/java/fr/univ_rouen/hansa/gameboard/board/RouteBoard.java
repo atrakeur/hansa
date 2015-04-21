@@ -5,8 +5,11 @@ import com.google.common.collect.Lists;
 import java.util.Collections;
 import java.util.List;
 
+import javax.crypto.spec.IvParameterSpec;
+
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
+import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 
 public abstract class RouteBoard extends CitiesBoard {
 
@@ -49,4 +52,21 @@ public abstract class RouteBoard extends CitiesBoard {
         return null;
     }
 
+    /**
+     *
+     * @param v
+     * @return
+     */
+    public List<IVillage> getAdjacentVillages(IVillage village){
+        List<IVillage> adj = Lists.newArrayList();
+        List<IVillage> visited = Lists.newArrayList();
+        List<IVillage> next = Lists.newArrayList();
+        next.add(village);
+        visited.add(village);
+        while (!next.isEmpty()){
+            //TODO create IVillage.getNeighbours
+        }
+
+        return adj;
+    }
 }
