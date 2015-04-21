@@ -2,12 +2,15 @@ package fr.univ_rouen.hansa.save.dao.gameboard.cities;
 
 import fr.univ_rouen.hansa.gameboard.Privillegium;
 import fr.univ_rouen.hansa.gameboard.cities.IKontor;
+import fr.univ_rouen.hansa.gameboard.cities.Kontor;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
+import fr.univ_rouen.hansa.save.dao.Dao;
 import fr.univ_rouen.hansa.save.dao.gameboard.PawnDao;
 import fr.univ_rouen.hansa.save.dao.gameboard.PawnType;
 
-public class KontorDao {
+public class KontorDao implements Dao<IKontor> {
 
     private PawnType pawnType;
     private boolean victoryPoint;
@@ -35,6 +38,23 @@ public class KontorDao {
         } else {
             this.pawn = null;
         }
+    }
+
+    @Override
+    public IKontor daoToEntity() {
+        IKontor kontor = null;
+
+        if (pawnType == PawnType.Trader) {
+            kontor = new Kontor(Trader.class, victoryPoint, privillegium);
+        } else {
+            kontor = new Kontor(Merchant.class, victoryPoint, privillegium);
+        }
+
+        if (pawn != null) {
+            kontor.pushPawn(pawn.daoToEntity());
+        }
+
+        return kontor;
     }
 
     public PawnType getPawnType() {

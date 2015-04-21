@@ -12,8 +12,7 @@ public interface IBonusMarker {
         BonusEscritoire,
         BonusKontor,
         BonusPermutation,
-        BonusRemovePawns,
-        BonusState
+        BonusRemovePawns
     }
 
     /**

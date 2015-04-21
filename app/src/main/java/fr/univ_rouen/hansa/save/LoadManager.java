@@ -16,4 +16,8 @@ public class LoadManager {
     }
 
     //TODO loading of a save
+
+    // Important for loading :
+    //   1. Load all players in the turnManager
+    //   2. Make the gameBoard (need to create new methodes)
 }
