@@ -18,7 +18,6 @@ public class LiberSophia implements IMovement {
         this.player = player;
         this.source = source;
         this.destination = destination;
-        nbOfPawns = player.getEscritoire().liberSophiaLevel();
 
         actionDone = false;
     }
