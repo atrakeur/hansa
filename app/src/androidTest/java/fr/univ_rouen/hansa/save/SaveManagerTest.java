@@ -27,12 +27,7 @@ public class SaveManagerTest extends TestCase {
         TurnManager.getInstance().addPlayers(players);
     }
 
-    public void testQuickSave() throws Exception {
-        //TODO
-    }
-
     public void testSave() throws Exception {
-        boolean saveWork = saveManager.save(gameBoard, "test");
-        //TODO
+        assertTrue(saveManager.save(gameBoard));
     }
 }
