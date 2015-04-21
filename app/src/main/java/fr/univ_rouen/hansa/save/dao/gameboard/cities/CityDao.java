@@ -16,6 +16,9 @@ public class CityDao {
     private Power power;
     private PositionDao position;
 
+    public CityDao() {
+    }
+
     public CityDao(ICity city) {
         this.kontors = Lists.newArrayList();
         this.additionalKontors = Lists.newArrayList();
@@ -30,5 +33,37 @@ public class CityDao {
 
         this.power = city.getPower();
         this.position = new PositionDao(city.getPosition());
+    }
+
+    public List<KontorDao> getKontors() {
+        return kontors;
+    }
+
+    public void setKontors(List<KontorDao> kontors) {
+        this.kontors = kontors;
+    }
+
+    public List<KontorDao> getAdditionalKontors() {
+        return additionalKontors;
+    }
+
+    public void setAdditionalKontors(List<KontorDao> additionalKontors) {
+        this.additionalKontors = additionalKontors;
+    }
+
+    public Power getPower() {
+        return power;
+    }
+
+    public void setPower(Power power) {
+        this.power = power;
+    }
+
+    public PositionDao getPosition() {
+        return position;
+    }
+
+    public void setPosition(PositionDao position) {
+        this.position = position;
     }
 }

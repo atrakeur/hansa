@@ -16,6 +16,9 @@ public class RouteDao {
     private PositionDao tavernPosition;
     private BonusMarkerDao bonusMarker;
 
+    public RouteDao() {
+    }
+
     public RouteDao(IRoute route) {
         this.villages = Lists.newArrayList();
 
@@ -37,4 +40,37 @@ public class RouteDao {
             this.bonusMarker = null;
         }
     }
+
+    public List<VillageDao> getVillages() {
+        return villages;
+    }
+
+    public void setVillages(List<VillageDao> villages) {
+        this.villages = villages;
+    }
+
+    public PositionDao[] getCities() {
+        return cities;
+    }
+
+    public void setCities(PositionDao[] cities) {
+        this.cities = cities;
+    }
+
+    public PositionDao getTavernPosition() {
+        return tavernPosition;
+    }
+
+    public void setTavernPosition(PositionDao tavernPosition) {
+        this.tavernPosition = tavernPosition;
+    }
+
+    public BonusMarkerDao getBonusMarker() {
+        return bonusMarker;
+    }
+
+    public void setBonusMarker(BonusMarkerDao bonusMarker) {
+        this.bonusMarker = bonusMarker;
+    }
+
 }

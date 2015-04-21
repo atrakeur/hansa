@@ -21,6 +21,9 @@ public class EscritoireDao {
     private PawnListDao stock;
     private PawnListDao supply;
 
+    public EscritoireDao() {
+    }
+
     public EscritoireDao(IEscritoire escritoire) {
         clavisUrbis = Lists.newArrayList();
         actiones = Lists.newArrayList();
@@ -52,5 +55,77 @@ public class EscritoireDao {
 
         stock = new PawnListDao(escritoire.getStock());
         supply = new PawnListDao(escritoire.getSupply());
+    }
+
+    public List<PawnDao> getClavisUrbis() {
+        return clavisUrbis;
+    }
+
+    public void setClavisUrbis(List<PawnDao> clavisUrbis) {
+        this.clavisUrbis = clavisUrbis;
+    }
+
+    public List<PawnDao> getActiones() {
+        return actiones;
+    }
+
+    public void setActiones(List<PawnDao> actiones) {
+        this.actiones = actiones;
+    }
+
+    public List<PawnDao> getPrivilegium() {
+        return privilegium;
+    }
+
+    public void setPrivilegium(List<PawnDao> privilegium) {
+        this.privilegium = privilegium;
+    }
+
+    public List<PawnDao> getLiberSophiae() {
+        return liberSophiae;
+    }
+
+    public void setLiberSophiae(List<PawnDao> liberSophiae) {
+        this.liberSophiae = liberSophiae;
+    }
+
+    public List<PawnDao> getBursa() {
+        return bursa;
+    }
+
+    public void setBursa(List<PawnDao> bursa) {
+        this.bursa = bursa;
+    }
+
+    public List<BonusMarkerDao> getTinPlate() {
+        return tinPlate;
+    }
+
+    public void setTinPlate(List<BonusMarkerDao> tinPlate) {
+        this.tinPlate = tinPlate;
+    }
+
+    public List<BonusMarkerDao> getBonusMarkers() {
+        return bonusMarkers;
+    }
+
+    public void setBonusMarkers(List<BonusMarkerDao> bonusMarkers) {
+        this.bonusMarkers = bonusMarkers;
+    }
+
+    public PawnListDao getStock() {
+        return stock;
+    }
+
+    public void setStock(PawnListDao stock) {
+        this.stock = stock;
+    }
+
+    public PawnListDao getSupply() {
+        return supply;
+    }
+
+    public void setSupply(PawnListDao supply) {
+        this.supply = supply;
     }
 }

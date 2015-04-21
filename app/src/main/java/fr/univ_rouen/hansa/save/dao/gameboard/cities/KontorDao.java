@@ -14,6 +14,9 @@ public class KontorDao {
     private PawnDao pawn;
     private Privillegium privillegium;
 
+    public KontorDao() {
+    }
+
     public KontorDao(IKontor<Pawn> kontor) {
         if (kontor.getPawnClass().equals(Trader.class)) {
             this.pawnType = PawnType.Trader;
@@ -32,5 +35,37 @@ public class KontorDao {
         } else {
             this.pawn = null;
         }
+    }
+
+    public PawnType getPawnType() {
+        return pawnType;
+    }
+
+    public void setPawnType(PawnType pawnType) {
+        this.pawnType = pawnType;
+    }
+
+    public boolean isVictoryPoint() {
+        return victoryPoint;
+    }
+
+    public void setVictoryPoint(boolean victoryPoint) {
+        this.victoryPoint = victoryPoint;
+    }
+
+    public PawnDao getPawn() {
+        return pawn;
+    }
+
+    public void setPawn(PawnDao pawn) {
+        this.pawn = pawn;
+    }
+
+    public Privillegium getPrivillegium() {
+        return privillegium;
+    }
+
+    public void setPrivillegium(Privillegium privillegium) {
+        this.privillegium = privillegium;
     }
 }

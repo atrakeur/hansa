@@ -15,6 +15,9 @@ public class HansaDao {
     private int currentPlayer;
     private List<PlayerDao> players;
 
+    public HansaDao() {
+    }
+
     public HansaDao(GameBoard gameBoard) {
         this.gameBoard = new GameBoardDao(gameBoard);
         this.currentPlayer = TurnManager.getInstance().getPosition();
@@ -23,5 +26,29 @@ public class HansaDao {
         for (IHTPlayer player : TurnManager.getInstance().getPlayers()) {
             players.add(new PlayerDao(player));
         }
+    }
+
+    public GameBoardDao getGameBoard() {
+        return gameBoard;
+    }
+
+    public void setGameBoard(GameBoardDao gameBoard) {
+        this.gameBoard = gameBoard;
+    }
+
+    public int getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(int currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
+    public List<PlayerDao> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<PlayerDao> players) {
+        this.players = players;
     }
 }

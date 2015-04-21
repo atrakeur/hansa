@@ -15,6 +15,9 @@ public class GameBoardDao {
     private List<CityDao> cities;
     private List<RouteDao> routes;
 
+    public GameBoardDao() {
+    }
+
     public GameBoardDao(GameBoard gameBoard) {
         cities = Lists.newArrayList();
         routes = Lists.newArrayList();
@@ -26,5 +29,21 @@ public class GameBoardDao {
         for (IRoute route : gameBoard.getRoutes()) {
             routes.add(new RouteDao(route));
         }
+    }
+
+    public List<CityDao> getCities() {
+        return cities;
+    }
+
+    public void setCities(List<CityDao> cities) {
+        this.cities = cities;
+    }
+
+    public List<RouteDao> getRoutes() {
+        return routes;
+    }
+
+    public void setRoutes(List<RouteDao> routes) {
+        this.routes = routes;
     }
 }

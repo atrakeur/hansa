@@ -9,6 +9,9 @@ public class PawnDao {
     private PlayerColor playerColor;
     private PawnType pawnType;
 
+    public PawnDao() {
+    }
+
     public PawnDao(Pawn pawn) {
         this.playerColor = pawn.getPlayer().getPlayerColor();
 
@@ -17,5 +20,21 @@ public class PawnDao {
         } else {
             this.pawnType = PawnType.Merchant;
         }
+    }
+
+    public PlayerColor getPlayerColor() {
+        return playerColor;
+    }
+
+    public void setPlayerColor(PlayerColor playerColor) {
+        this.playerColor = playerColor;
+    }
+
+    public PawnType getPawnType() {
+        return pawnType;
+    }
+
+    public void setPawnType(PawnType pawnType) {
+        this.pawnType = pawnType;
     }
 }

@@ -9,6 +9,9 @@ public class VillageDao {
     private PositionDao position;
     private PawnDao pawn;
 
+    public VillageDao() {
+    }
+
     public VillageDao(IVillage village) {
         this.position = new PositionDao(village.getPosition());
 
@@ -19,5 +22,21 @@ public class VillageDao {
         } else {
             this.pawn = null;
         }
+    }
+
+    public PositionDao getPosition() {
+        return position;
+    }
+
+    public void setPosition(PositionDao position) {
+        this.position = position;
+    }
+
+    public PawnDao getPawn() {
+        return pawn;
+    }
+
+    public void setPawn(PawnDao pawn) {
+        this.pawn = pawn;
     }
 }
