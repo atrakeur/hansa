@@ -336,4 +336,17 @@ public class Escritoire implements IEscritoire {
     public IPawnList getSupply() {
         return supply;
     }
+
+    @Override
+    public List<List<Pawn>> savePowers() {
+        List<List<? extends Pawn>> saveList = Lists.newArrayList();
+
+        saveList.add(Lists.newArrayList(clavisUrbis));
+        saveList.add(Lists.newArrayList(actiones));
+        saveList.add(Lists.newArrayList(privilegium));
+        saveList.add(Lists.newArrayList(liberSophiae));
+        saveList.add(Lists.newArrayList(bursa));
+
+        return savePowers();
+    }
 }

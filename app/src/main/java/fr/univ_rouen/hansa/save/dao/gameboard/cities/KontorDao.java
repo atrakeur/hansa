@@ -1,11 +1,11 @@
-package fr.univ_rouen.hansa.save.gameboard.cities;
+package fr.univ_rouen.hansa.save.dao.gameboard.cities;
 
 import fr.univ_rouen.hansa.gameboard.Privillegium;
 import fr.univ_rouen.hansa.gameboard.cities.IKontor;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
-import fr.univ_rouen.hansa.save.gameboard.PawnDao;
-import fr.univ_rouen.hansa.save.gameboard.PawnType;
+import fr.univ_rouen.hansa.save.dao.gameboard.PawnDao;
+import fr.univ_rouen.hansa.save.dao.gameboard.PawnType;
 
 public class KontorDao {
 

@@ -1,9 +1,9 @@
-package fr.univ_rouen.hansa.save.gameboard.routes;
+package fr.univ_rouen.hansa.save.dao.gameboard.routes;
 
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
-import fr.univ_rouen.hansa.save.gameboard.PawnDao;
-import fr.univ_rouen.hansa.save.gameboard.PositionDao;
+import fr.univ_rouen.hansa.save.dao.gameboard.PawnDao;
+import fr.univ_rouen.hansa.save.dao.gameboard.PositionDao;
 
 public class VillageDao {
     private PositionDao position;

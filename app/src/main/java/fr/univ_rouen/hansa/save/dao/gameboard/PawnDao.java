@@ -1,4 +1,4 @@
-package fr.univ_rouen.hansa.save.gameboard;
+package fr.univ_rouen.hansa.save.dao.gameboard;
 
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;

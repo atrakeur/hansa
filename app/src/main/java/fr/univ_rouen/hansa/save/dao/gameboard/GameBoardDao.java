@@ -1,4 +1,4 @@
-package fr.univ_rouen.hansa.save.gameboard;
+package fr.univ_rouen.hansa.save.dao.gameboard;
 
 import com.google.common.collect.Lists;
 
@@ -7,8 +7,8 @@ import java.util.List;
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
-import fr.univ_rouen.hansa.save.gameboard.cities.CityDao;
-import fr.univ_rouen.hansa.save.gameboard.routes.RouteDao;
+import fr.univ_rouen.hansa.save.dao.gameboard.cities.CityDao;
+import fr.univ_rouen.hansa.save.dao.gameboard.routes.RouteDao;
 
 public class GameBoardDao {
 

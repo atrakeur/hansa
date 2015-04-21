@@ -1,4 +1,4 @@
-package fr.univ_rouen.hansa.save.gameboard.cities;
+package fr.univ_rouen.hansa.save.dao.gameboard.cities;
 
 import com.google.common.collect.Lists;
 
@@ -7,7 +7,7 @@ import java.util.List;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.IKontor;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
-import fr.univ_rouen.hansa.save.gameboard.PositionDao;
+import fr.univ_rouen.hansa.save.dao.gameboard.PositionDao;
 
 public class CityDao {
 
