@@ -31,26 +31,26 @@ public class EscritoireDao {
         liberSophiae = Lists.newArrayList();
         bursa = Lists.newArrayList();
 
-        List<List<Pawn>> saveList = escritoire.savePowers();
+        List<List<? extends Pawn>> saveList = escritoire.savePowers();
 
         for (Pawn pawn : saveList.get(0)) {
             clavisUrbis.add(new PawnDao(pawn));
         }
 
         for (Pawn pawn : saveList.get(1)) {
-            clavisUrbis.add(new PawnDao(pawn));
+            actiones.add(new PawnDao(pawn));
         }
 
         for (Pawn pawn : saveList.get(2)) {
-            clavisUrbis.add(new PawnDao(pawn));
+            privilegium.add(new PawnDao(pawn));
         }
 
         for (Pawn pawn : saveList.get(3)) {
-            clavisUrbis.add(new PawnDao(pawn));
+            liberSophiae.add(new PawnDao(pawn));
         }
 
         for (Pawn pawn : saveList.get(4)) {
-            clavisUrbis.add(new PawnDao(pawn));
+            bursa.add(new PawnDao(pawn));
         }
 
         stock = new PawnListDao(escritoire.getStock());

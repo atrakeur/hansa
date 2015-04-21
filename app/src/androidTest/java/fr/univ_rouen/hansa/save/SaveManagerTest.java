@@ -1,11 +1,15 @@
 package fr.univ_rouen.hansa.save;
 
-import android.util.Log;
+import com.google.common.collect.Lists;
 
 import junit.framework.TestCase;
 
+import java.util.List;
+
+import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
 import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
+import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 
 public class SaveManagerTest extends TestCase {
     private SaveManager saveManager;
@@ -17,6 +21,10 @@ public class SaveManagerTest extends TestCase {
 
         saveManager = SaveManager.getInstance();
         gameBoard = GameBoardFactory.getInstance().createGameBoard(1);
+
+        List<PlayerColor> players = Lists.newArrayList(PlayerColor.green, PlayerColor.red);
+
+        TurnManager.getInstance().addPlayers(players);
     }
 
     public void testQuickSave() throws Exception {

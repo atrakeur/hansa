@@ -338,7 +338,7 @@ public class Escritoire implements IEscritoire {
     }
 
     @Override
-    public List<List<Pawn>> savePowers() {
+    public List<List<? extends Pawn>> savePowers() {
         List<List<? extends Pawn>> saveList = Lists.newArrayList();
 
         saveList.add(Lists.newArrayList(clavisUrbis));
@@ -347,6 +347,6 @@ public class Escritoire implements IEscritoire {
         saveList.add(Lists.newArrayList(liberSophiae));
         saveList.add(Lists.newArrayList(bursa));
 
-        return savePowers();
+        return saveList;
     }
 }

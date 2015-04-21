@@ -188,6 +188,6 @@ public interface IEscritoire {
      *
      * @return the List that contains all powers level
      */
-    public List<List<Pawn>> savePowers();
+    public List<List<? extends Pawn>> savePowers();
 
 }
