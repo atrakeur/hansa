@@ -11,7 +11,6 @@ public class LiberSophia implements IMovement {
     private final IHTPlayer player;
     private final IVillage source;
     private final IVillage destination;
-    private int nbOfPawns;
 
     private boolean actionDone;
 
@@ -49,10 +48,6 @@ public class LiberSophia implements IMovement {
         }
 
         destination.pushPawn(source.pullPawn());
-        if (nbOfPawns != 0) {
-            actionDone = false;
-            setNbOfPawns(getNbOfPawns() - 1);
-        }
         actionDone = true;
     }
 
@@ -67,7 +62,6 @@ public class LiberSophia implements IMovement {
         }
 
         source.pushPawn(destination.pullPawn());
-        setNbOfPawns(getNbOfPawns() + 1);
         actionDone = false;
     }
 
@@ -81,7 +75,4 @@ public class LiberSophia implements IMovement {
         return this.player.getEscritoire().liberSophiaLevel();
     }
 
-    public int getNbOfPawns() {return nbOfPawns;}
-
-    public void setNbOfPawns(int i) {nbOfPawns = i;}
 }
