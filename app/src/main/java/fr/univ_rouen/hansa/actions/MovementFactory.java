@@ -6,16 +6,15 @@ import fr.univ_rouen.hansa.actions.movement.IncreasePower;
 import fr.univ_rouen.hansa.actions.movement.KeepKontor;
 import fr.univ_rouen.hansa.actions.movement.KeepRoute;
 import fr.univ_rouen.hansa.actions.movement.MovePawnRtoGB;
+import fr.univ_rouen.hansa.actions.movement.PlayBonus;
 import fr.univ_rouen.hansa.actions.movement.ReplaceMovedPawn;
 import fr.univ_rouen.hansa.actions.movement.ValidateMovedPawn;
-import fr.univ_rouen.hansa.actions.movement.PlayBonus;
 import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.exceptions.PopupException;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
-import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
@@ -77,7 +76,16 @@ public class MovementFactory {
             //TODO Fin de partie
             throw new UnsupportedOperationException();
         } else if (source.getType() == IClickableArea.Type.village && destination == null ) {
-            return new KeepRoute(player, ((IVillage) source.getSubject()).getRoute());
+
+            //Si le village est vide, on le prend, sinon c'est une prise de comptoir
+            IVillage village = (IVillage) source.getSubject();
+
+            if (village.isEmpty()) {
+                return new MovePawnRtoGB(player, village, pawnType);
+            } else {
+                return new KeepRoute(player, village.getRoute());
+            }
+
         } else if (source.getType() == IClickableArea.Type.village && destination.getType() == IClickableArea.Type.city) {
             return new KeepKontor(player, (ICity) destination.getSubject(), (IVillage) source.getSubject());
         } else if (source.getType() == IClickableArea.Type.village && destination.getType() == IClickableArea.Type.power) {
@@ -86,12 +94,14 @@ public class MovementFactory {
         } else if (source.getType() == IClickableArea.Type.bonus && destination == null) {
             return new PlayBonus(((IBonusMarker) source.getSubject()));
         } else if (source.getType() == IClickableArea.Type.supply && destination.getType() == IClickableArea.Type.village) {
+
             //Si le type de pion est null on demande l'affiche d'une popup
             if (pawnType == null) {
                 throw new PopupException(PopupException.PopupType.movementPawnRtoGB);
             } else {
                 return new MovePawnRtoGB(player, (IVillage) destination.getSubject(), pawnType);
             }
+
         }
 
         throw new GameException("Invalid movement");

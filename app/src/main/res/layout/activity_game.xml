@@ -72,7 +72,7 @@
                 android:id="@+id/button_pause"
                 android:src="@drawable/pause"
                 android:contentDescription="@string/button_pause"
-                android:onClick="toasty"/>
+                android:onClick="pauseGame"/>
 
         </LinearLayout>
 
