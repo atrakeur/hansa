@@ -2,38 +2,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bk_menu"
+    android:background="@drawable/fond"
     android:gravity="center_vertical|center_horizontal"
     android:orientation="vertical"
     tools:context="fr.univ_rouen.hansa.activity.MainMenuActivity">
 
-    <Button
+    <ImageView
+        android:layout_width="600dp"
+        android:layout_height="200dp"
+        android:src="@drawable/titre"/>
+
+    <ImageButton
         android:id="@+id/new_game"
-        style="@style/MyStyleMenu"
-        android:layout_marginTop="80dp"
-        android:onClick="newGame"
-        android:text="@string/new_game"/>
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:background="@null"
+        android:src="@drawable/newgame"
+        android:onClick="newGame"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/load_game"
-        style="@style/MyStyleMenu"
-        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:background="@null"
+        android:src="@drawable/loadgame"
         android:onClick="loadGame"
-        android:text="@string/load_game" />
-
-    <Button
-        android:id="@+id/options_game"
-        style="@style/MyStyleMenu"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="10dp"/>
+    <ImageButton
+        android:id="@+id/option_game"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:background="@null"
+        android:src="@drawable/option"
         android:onClick="optionsGame"
-        android:text="@string/options_game" />
+        android:layout_marginTop="10dp"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/exit_game"
-        style="@style/MyStyleMenu"
-        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:background="@null"
+        android:src="@drawable/leave"
         android:onClick="exitGame"
-        android:text="@string/exit_game" />
-
+        android:layout_marginTop="10dp"/>
 
 </LinearLayout>

@@ -1,6 +1,7 @@
 package fr.univ_rouen.hansa.view.display;
 
 import android.graphics.Canvas;
+import android.view.View;
 
 import java.util.List;
 
@@ -54,5 +55,8 @@ public class HansaGameBoardDrawer implements IDrawer {
         for (IRoute route : routes) {
             route.getDrawer().draw(resources, canvas);
         }
+
+
+
     }
 }
