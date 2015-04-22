@@ -4,12 +4,16 @@ import com.google.common.collect.Lists;
 
 import java.util.List;
 
+import fr.univ_rouen.hansa.gameboard.cities.City;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.IKontor;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
+import fr.univ_rouen.hansa.save.dao.Dao;
 import fr.univ_rouen.hansa.save.dao.gameboard.PositionDao;
+import fr.univ_rouen.hansa.view.IPosition;
 
-public class CityDao {
+public class CityDao implements Dao<ICity> {
 
     private List<KontorDao> kontors;
     private List<KontorDao> additionalKontors;
@@ -33,6 +37,25 @@ public class CityDao {
 
         this.power = city.getPower();
         this.position = new PositionDao(city.getPosition());
+    }
+
+    @Override
+    public ICity daoToEntity() {
+        ICity cityEntity;
+        IPosition positionEntity = position.daoToEntity();
+        List<IKontor<? extends Pawn>> kontorsEntities = Lists.newArrayList();
+
+        for (KontorDao kontorDao : kontors) {
+            kontorsEntities.add(kontorDao.daoToEntity());
+        }
+
+        cityEntity = new City(positionEntity, power, kontorsEntities);
+
+        for (KontorDao kontorDao : additionalKontors) {
+            cityEntity.pushAdditionalKontors(kontorDao.daoToEntity());
+        }
+
+        return cityEntity;
     }
 
     public List<KontorDao> getKontors() {
