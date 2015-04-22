@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 
 import java.util.List;
 
+import fr.univ_rouen.hansa.R;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 import fr.univ_rouen.hansa.view.display.HansaGameBoardDrawer;
@@ -17,8 +18,14 @@ public class GameBoard extends RouteBoard implements IDrawable {
 
     private final IDrawer drawer;
 
-    GameBoard() {
+    public GameBoard(int map) {
         super();
+
+        if (map == 1) {
+            this.setBackground(R.drawable.plateau23);
+        } else {
+            this.setBackground(R.drawable.plateau45);
+        }
 
         drawer = new HansaGameBoardDrawer(this);
     }
