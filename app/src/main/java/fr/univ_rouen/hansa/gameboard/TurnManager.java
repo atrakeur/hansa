@@ -7,11 +7,13 @@ import java.util.List;
 import fr.univ_rouen.hansa.actions.MovementFactory;
 import fr.univ_rouen.hansa.actions.MovementManager;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
+import fr.univ_rouen.hansa.activity.GameActivity;
 import fr.univ_rouen.hansa.exceptions.UnfinishedRoundException;
+import fr.univ_rouen.hansa.gameboard.player.HTComputer;
 import fr.univ_rouen.hansa.gameboard.player.HTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
-import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.player.strategies.RandomStrategy;
 
 public class TurnManager {
     public enum nextTurnRequire {
@@ -34,16 +36,37 @@ public class TurnManager {
     }
 
     public void addPlayers(List<PlayerColor> playersColors) {
+        List<Object> playersDefs = Lists.newArrayList();
+
+        for(PlayerColor color: playersColors) {
+            playersDefs.add("Player");
+        }
+
+        this.addPlayers(playersDefs, playersColors);
+    }
+
+    public void addPlayers(List<Object> playersDefs, List<PlayerColor> playersColors) {
+        if (playersColors.size() != playersDefs.size()) {
+            throw new IllegalArgumentException("PlayerDef and players colors must be of the same size");
+        }
+
         if (players.size() > 0) {
             players.clear();
         }
 
         position = 0;
 
-        int i = 0;
+        for (int i = 0; i < playersDefs.size(); i++) {
+            PlayerColor color = playersColors.get(i);
+            Object playerDef = playersDefs.get(i);
 
-        for (PlayerColor color : playersColors) {
-            players.add(new HTPlayer(color, ++i));
+            IHTPlayer player = null;
+            if (playerDef.equals("Player")) {
+                player = new HTPlayer(color, i + 1);
+            } else {
+                player = new HTComputer(color, i + 1, new RandomStrategy());
+            }
+            players.add(player);
         }
     }
 
@@ -76,6 +99,7 @@ public class TurnManager {
 
             getCurrentPlayer().newTurn();
             MovementManager.getInstance().nextTurn();
+            GameActivity.getInstance().onResume();
         }
     }
 
