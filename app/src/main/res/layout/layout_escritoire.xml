@@ -17,6 +17,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <TextView
+            android:layout_weight="1.25"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
         <fr.univ_rouen.hansa.view.FontFitTextView
             android:id="@+id/nb_clavis_urbis"
             android:layout_weight="1"
@@ -41,6 +45,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
+        <TextView
+            android:layout_weight="1.25"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
         </LinearLayout>
 
     <LinearLayout
@@ -48,14 +56,76 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <LinearLayout
-            android:layout_weight="0.56"
+        <TextView
+            android:layout_weight="1.1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-           <!-- TODO tamere -->
+            android:layout_height="match_parent" />
+        <LinearLayout
+            android:layout_weight="0.61"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_weight="0.5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <LinearLayout
+                android:layout_weight="0.7"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_weight="1.4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/privillegium_white"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                    <TextView
+                        android:id="@+id/privillegium_orange"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                    <TextView
+                        android:id="@+id/privillegium_pink"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                    <TextView
+                        android:id="@+id/privillegium_black"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                    </LinearLayout>
+                <TextView
+                    android:layout_weight="2.1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+            <TextView
+                android:layout_weight="0.5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
         </LinearLayout>
         <TextView
-            android:layout_weight="1"
+            android:layout_weight="0.95"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
         <LinearLayout
@@ -112,7 +182,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
-
+        <TextView
+            android:layout_weight="1.05"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
 
     <!--**********************PLAYER COMPETENCES******************************-->

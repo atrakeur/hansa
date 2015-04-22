@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import fr.univ_rouen.hansa.R;
+import fr.univ_rouen.hansa.gameboard.Privillegium;
 
 /**
  * Display Content of the Content of a Player's Escritoire
@@ -44,9 +45,26 @@ public class EscritoireFragment extends Fragment {
 
         //Info about the Player's Competence.
         ((TextView) rootView.findViewById(R.id.nb_clavis_urbis)).setText("" + args.getInt(CLAVIS_URBIS));
-        //rootView.findViewById(R.id.color_privilegium).setBackgroundColor(args.getInt(PRIVILEGIUM));
         ((TextView) rootView.findViewById(R.id.nb_liber_sophia)).setText("" + args.getInt(LIBER_SOPHIA));
         ((TextView) rootView.findViewById(R.id.nb_actiones)).setText("" + args.getInt(ACTIONES));
+
+        /*
+         * Privillegium
+         */
+        int privillegiumOrdinal = args.getInt(PRIVILEGIUM);
+        Privillegium privillegium = Privillegium.values()[privillegiumOrdinal];
+        if (privillegium == Privillegium.White || privillegium.isBetterThan(Privillegium.White)) {
+            rootView.findViewById(R.id.privillegium_white).setBackgroundColor(Privillegium.White.getColor());
+        }
+        if (privillegium == Privillegium.Orange || privillegium.isBetterThan(Privillegium.Orange)) {
+            rootView.findViewById(R.id.privillegium_orange).setBackgroundColor(Privillegium.Orange.getColor());
+        }
+        if (privillegium == Privillegium.Pink || privillegium.isBetterThan(Privillegium.Pink)) {
+            rootView.findViewById(R.id.privillegium_pink).setBackgroundColor(Privillegium.Pink.getColor());
+        }
+        if (privillegium == Privillegium.Black || privillegium.isBetterThan(Privillegium.Black)) {
+            rootView.findViewById(R.id.privillegium_black).setBackgroundColor(Privillegium.Black.getColor());
+        }
 
         /*
             Special Case : Bursa Level.
