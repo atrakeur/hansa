@@ -93,4 +93,9 @@ public class BonusRemovePawns extends AbstractBonus implements IBonusMarker {
             v.get(i).pushPawn(p.get(i));
         }
     }
+
+    @Override
+    public void accept(IVisitorBonusMarker visitorBonusMarker) {
+        visitorBonusMarker.visit(this);
+    }
 }

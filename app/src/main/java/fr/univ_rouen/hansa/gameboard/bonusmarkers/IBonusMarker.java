@@ -32,4 +32,13 @@ public interface IBonusMarker {
     void undoAction();
 
     String getType();
+
+    /**
+     * It just call the method IVisitorBonusMarker.visit
+     *
+     * This method is used for the pattern Visitor
+     * It aims at finding the class that implements the IBonusMarker
+     * @param visitorBonusMarker the object that wants to inspect the current implementation of the interface
+     */
+    void accept(IVisitorBonusMarker visitorBonusMarker);
 }

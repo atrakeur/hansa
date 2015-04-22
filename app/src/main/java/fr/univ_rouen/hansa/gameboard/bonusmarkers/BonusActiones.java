@@ -22,6 +22,11 @@ public class BonusActiones extends AbstractBonus implements IBonusMarker {
     }
 
     @Override
+    public void accept(IVisitorBonusMarker visitorBonusMarker) {
+        visitorBonusMarker.visit(this);
+    }
+
+    @Override
     public void doAction() {
         super.doAction();
         player.setActionNumber(getValue());

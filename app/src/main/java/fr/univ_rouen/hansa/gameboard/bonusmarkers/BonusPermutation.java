@@ -75,6 +75,11 @@ public class BonusPermutation extends AbstractBonus implements IBonusMarker {
         k2.pushPawn(p1);
     }
 
+    @Override
+    public void accept(IVisitorBonusMarker visitorBonusMarker) {
+        visitorBonusMarker.visit(this);
+    }
+
     public void setKontor1(IKontor<Pawn> k) {
         if (k == null) {
             throw new NullPointerException();

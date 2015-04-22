@@ -30,6 +30,11 @@ public class BonusEscritoire extends AbstractBonus implements IBonusMarker {
         escritoire.decreasePower(getPower());
     }
 
+    @Override
+    public void accept(IVisitorBonusMarker visitorBonusMarker) {
+        visitorBonusMarker.visit(this);
+    }
+
     public Power getPower() {
         return power;
     }
