@@ -5,10 +5,13 @@ import com.google.common.collect.Lists;
 import java.util.List;
 
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
+import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
+import fr.univ_rouen.hansa.gameboard.routes.Route;
 import fr.univ_rouen.hansa.save.dao.gameboard.BonusMarkerDao;
 import fr.univ_rouen.hansa.save.dao.gameboard.PositionDao;
+import fr.univ_rouen.hansa.view.IPosition;
 
 public class RouteDao {
     private List<VillageDao> villages;
@@ -39,6 +42,29 @@ public class RouteDao {
         } else {
             this.bonusMarker = null;
         }
+    }
+
+    public IRoute daoToEntity(List<ICity> citiesEntitiesList) {
+        List<IVillage> villagesEntitites = Lists.newArrayList();
+        ICity[] citiesEntities = new ICity[2];
+        IPosition tavernEntity = tavernPosition.daoToEntity();
+        IBonusMarker bonusEntity = bonusMarker.daoToEntity();
+
+        for (VillageDao village : villages) {
+            villagesEntitites.add(village.daoToEntity());
+        }
+
+        for (ICity city : citiesEntitiesList) {
+            if (city.getPosition().getX() == cities[0].getX()
+                    && city.getPosition().getY() == cities[0].getY()) {
+                citiesEntities[0] = city;
+            } else if (city.getPosition().getX() == cities[1].getX()
+                    && city.getPosition().getY() == cities[1].getY()) {
+                citiesEntities[1] = city;
+            }
+        }
+
+        return new Route(villagesEntitites, citiesEntities, tavernEntity, bonusEntity);
     }
 
     public List<VillageDao> getVillages() {

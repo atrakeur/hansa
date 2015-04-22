@@ -31,12 +31,16 @@ import fr.univ_rouen.hansa.view.IPosition;
 
 public class GameBoardFactory {
     private static GameBoardFactory ourInstance = new GameBoardFactory();
+
     public static GameBoardFactory getInstance() {
         return ourInstance;
     }
 
     private static GameBoard gameBoard;
-    public static GameBoard getGameBoard() {return gameBoard; }
+
+    public static GameBoard getGameBoard() {
+        return gameBoard;
+    }
 
     private GameBoardFactory() {
     }
@@ -53,8 +57,6 @@ public class GameBoardFactory {
         List<IVillage> villages;
         ICity[] cities;
         IPosition tavernPosition;
-
-        gameBoard.setBackground(R.drawable.plateau23);
 
 
         // ------------------------------------ //
@@ -676,6 +678,7 @@ public class GameBoardFactory {
 
         gameBoard.setBonusStack(bonusMarkers);
 
+        gameBoard.setBackground(R.drawable.plateau23);
         GameBoardFactory.gameBoard = gameBoard;
 
         return gameBoard;
