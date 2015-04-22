@@ -1,8 +1,10 @@
 package fr.univ_rouen.hansa.save.dao.gameboard;
 
+import fr.univ_rouen.hansa.save.dao.Dao;
 import fr.univ_rouen.hansa.view.IPosition;
+import fr.univ_rouen.hansa.view.Position;
 
-public class PositionDao {
+public class PositionDao implements Dao<IPosition> {
     private float x;
     private float y;
 
@@ -12,6 +14,11 @@ public class PositionDao {
     public PositionDao(IPosition position) {
         this.x = position.getX();
         this.y = position.getY();
+    }
+
+    @Override
+    public IPosition daoToEntity() {
+        return new Position(x, y);
     }
 
     public float getX() {
