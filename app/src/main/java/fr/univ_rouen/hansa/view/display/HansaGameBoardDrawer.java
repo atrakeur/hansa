@@ -1,7 +1,6 @@
 package fr.univ_rouen.hansa.view.display;
 
 import android.graphics.Canvas;
-import android.view.View;
 
 import java.util.List;
 
@@ -43,7 +42,7 @@ public class HansaGameBoardDrawer implements IDrawer {
         canvas.drawBitmap(resources.getScaledResource("background"), 0, 0, null);
 
         if (debug) {
-            for (IClickable clickable: board.getClickables()) {
+            for (IClickable clickable : board.getClickables()) {
                 clickable.getClickableArea().drawDebug(resources, canvas);
             }
         }
@@ -55,8 +54,6 @@ public class HansaGameBoardDrawer implements IDrawer {
         for (IRoute route : routes) {
             route.getDrawer().draw(resources, canvas);
         }
-
-
 
     }
 }

@@ -10,7 +10,7 @@
     <ImageView
         android:layout_width="600dp"
         android:layout_height="200dp"
-        android:src="@drawable/titre"/>
+        android:src="@drawable/titre" />
 
     <ImageButton
         android:id="@+id/new_game"
@@ -18,7 +18,7 @@
         android:layout_height="80dp"
         android:background="@null"
         android:src="@drawable/newgame"
-        android:onClick="newGame"/>
+        android:onClick="newGame" />
 
     <ImageButton
         android:id="@+id/load_game"
@@ -27,7 +27,8 @@
         android:background="@null"
         android:src="@drawable/loadgame"
         android:onClick="loadGame"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp" />
+
     <ImageButton
         android:id="@+id/option_game"
         android:layout_width="wrap_content"
@@ -35,7 +36,7 @@
         android:background="@null"
         android:src="@drawable/option"
         android:onClick="optionsGame"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp" />
 
     <ImageButton
         android:id="@+id/exit_game"
@@ -44,6 +45,6 @@
         android:background="@null"
         android:src="@drawable/leave"
         android:onClick="exitGame"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp" />
 
 </LinearLayout>
