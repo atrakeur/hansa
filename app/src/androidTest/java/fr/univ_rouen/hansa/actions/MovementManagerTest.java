@@ -15,8 +15,10 @@ import fr.univ_rouen.hansa.gameboard.cities.City;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.IKontor;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
+import fr.univ_rouen.hansa.gameboard.cities.VictoryCoellen;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 
 public class MovementManagerTest extends TestCase {
 
@@ -159,8 +161,6 @@ public class MovementManagerTest extends TestCase {
         assertEquals(21 + 16, playerTest.getScore());
         playerTest.setScore(0);
 
-        //TODO Test Coellen
-
         ////////////////////////
         //test network + owner//
         ////////////////////////
@@ -194,5 +194,15 @@ public class MovementManagerTest extends TestCase {
         assertEquals(2 * 1 + 2 * playerTest.getEscritoire().clavisUrbisLevel() + 21 + 16 , playerTest.getScore());
         playerTest.setScore(0);
 
+        ////////////////
+        //test COELLEN//
+        ////////////////
+
+        VictoryCoellen.getInstance().setMerchant((Merchant) playerTest.getEscritoire().popFromSupply(1,0).get(0),Privillegium.Black);
+
+        MovementManager.getInstance().addEndGamePoints();
+        //add 11 from Black on Coellen
+        assertEquals(11 + 2 * 1 + 2 * playerTest.getEscritoire().clavisUrbisLevel() + 21 + 16 , playerTest.getScore());
+        playerTest.setScore(0);
     }
 }

@@ -14,8 +14,8 @@ import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
 import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
 import fr.univ_rouen.hansa.gameboard.cities.City;
-import fr.univ_rouen.hansa.gameboard.cities.Coellen;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
+import fr.univ_rouen.hansa.gameboard.cities.VictoryCoellen;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
@@ -120,7 +120,12 @@ public class MovementManager {
                     break;
             }
 
-            //TODO : Coellen
+            VictoryCoellen coellen = VictoryCoellen.getInstance();
+            for(Privillegium privillegium : Privillegium.values()){
+                if(coellen.getPawn(privillegium) != null && coellen.getPawn(privillegium).getPlayer() == player){
+                    player.setScore(player.getScore() + coellen.getValue(privillegium));
+                }
+            }
 
             //used for biggest network
             Map<ICity, Boolean> visited = Maps.newHashMap();
