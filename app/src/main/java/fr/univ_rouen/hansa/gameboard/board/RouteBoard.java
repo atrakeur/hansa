@@ -5,17 +5,20 @@ import com.google.common.collect.Lists;
 import java.util.Collections;
 import java.util.List;
 
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 
 public abstract class RouteBoard extends CitiesBoard {
 
     private List<IRoute> routes;
+    private List<IBonusMarker> bonusStack;
 
     public RouteBoard() {
         super();
 
         routes = Lists.newArrayList();
+        bonusStack = Lists.newArrayList();
     }
 
     protected void addRoute(IRoute route)
@@ -49,4 +52,11 @@ public abstract class RouteBoard extends CitiesBoard {
         return null;
     }
 
+    public List<IBonusMarker> getBonusStack() {
+        return bonusStack;
+    }
+
+    public void setBonusStack(List<IBonusMarker> bonusStack) {
+        this.bonusStack = bonusStack;
+    }
 }
