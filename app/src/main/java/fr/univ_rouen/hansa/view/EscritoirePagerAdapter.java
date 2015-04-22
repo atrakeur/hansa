@@ -32,7 +32,7 @@ public class EscritoirePagerAdapter extends FragmentStatePagerAdapter {
         args.putInt(EscritoireFragment.SUPPLY_MERCHANT, esc.getSupply().getMerchantCount());
         args.putInt(EscritoireFragment.SUPPLY_TRADER, esc.getSupply().getTraderCount());
         args.putInt(EscritoireFragment.CLAVIS_URBIS, esc.clavisUrbisLevel());
-        args.putInt(EscritoireFragment.PRIVILEGIUM, esc.privilegiumLevel().getColor());
+        args.putInt(EscritoireFragment.PRIVILEGIUM, esc.privilegiumLevel().ordinal());
         args.putInt(EscritoireFragment.LIBER_SOPHIA, esc.liberSophiaLevel());
         args.putInt(EscritoireFragment.ACTIONES, esc.actionesLevel());
         args.putInt(EscritoireFragment.BURSA, esc.bursaLevel());

@@ -33,6 +33,13 @@
     <string name="start_new_game">Commencer une nouvelle partie</string>
     <string name="player">Joueur</string>
 
+    <!--DIALOG PAUSE-->
+    <string name="pause_title">Pause</string>
+    <string name="pause_continue">Continuer</string>
+    <string name="pause_save">Sauvegarder</string>
+    <string name="pause_rules">Règles</string>
+    <string name="pause_main_menu">Retour au Menu Principal</string>
+
     <string name="color_already_use">Une couleur ne peut pas être utilisé pour deux joueur</string>
     <string name="not_enough_player">Veuillez séléctionner au moins trois joueur pour démarrer la partie</string>
 
@@ -67,5 +74,7 @@
     <string name="load_game">Charger une partie</string>
     <string name="options_game">Options</string>
     <string name="exit_game">Quitter</string>
+    <string name="rulesFile">/sdcard/rulesfr.pdf</string>
+    <string name="noApplicationPDF">Aucune application disponible pour visionner du pdf</string>
 
 </resources>
