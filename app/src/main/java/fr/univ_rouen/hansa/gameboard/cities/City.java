@@ -14,13 +14,15 @@ import fr.univ_rouen.hansa.view.IPosition;
 import fr.univ_rouen.hansa.view.display.HansaCityDrawer;
 import fr.univ_rouen.hansa.view.display.IDrawer;
 import fr.univ_rouen.hansa.view.interactions.HansaCityClickableArea;
+import fr.univ_rouen.hansa.view.interactions.HansaPowerClickableArea;
+import fr.univ_rouen.hansa.view.interactions.IClickable;
 import fr.univ_rouen.hansa.view.interactions.IClickableArea;
 
 public class City implements ICity {
 
     private final IDrawer drawer;
-    private final IClickableArea clickableArea;
-
+    private final IClickableArea cityClickableArea;
+    private final IClickableArea powerClickableArea;
     private final IPosition position;
     private final Power power;
     private final List<IKontor<? extends Pawn>> kontors;
@@ -31,17 +33,22 @@ public class City implements ICity {
         if (kontors == null) {
             throw new IllegalArgumentException();
         }
-        
         this.additionalKontors = Lists.newArrayList();
 
         this.drawer = new HansaCityDrawer(this);
-        this.clickableArea = new HansaCityClickableArea(this);
+
+        this.cityClickableArea = new HansaCityClickableArea(this);
 
         this.position = position;
         this.power = power;
         this.kontors = kontors;
 
         this.routes = Lists.newArrayList();
+        if (power != Power.Null) {
+            this.powerClickableArea = new HansaPowerClickableArea(this.getPower());
+        } else {
+            this.powerClickableArea = null;
+        }
     }
 
     @Override
@@ -122,8 +129,10 @@ public class City implements ICity {
 
     @Override
     public IClickableArea getClickableArea() {
-        return this.clickableArea;
+        return this.cityClickableArea;
     }
+
+    public IClickableArea getPowerClickableArea() {return this.powerClickableArea;}
 
     @Override
     public IHTPlayer getOwner(){

@@ -30,8 +30,8 @@ public class HansaCityDrawer implements IDrawer {
     public final float KONTOR_TRADER_SIZE_Y = 0.018f;
     public final float KONTOR_SPACING_X = 0.00925f;
 
-    public final float POWER_SIZE_X = 0.04f;
-    public final float POWER_SIZE_Y = 0.04f;
+    public final float POWER_SIZE_X = 0.055f;
+    public final float POWER_SIZE_Y = 0.055f;
 
     private final ICity city;
 
@@ -114,18 +114,19 @@ public class HansaCityDrawer implements IDrawer {
         lp.add(PowerPositions.CLAVISURBIS);
         lp.add(PowerPositions.PRIVILEGIUM);
         if (debug == true) {
-            if (city.getPower() != Power.Null) {
-                for (IPosition p : lp) {
-
+            drawPosX = 0;
+                if (city.getPower() != Power.Null) {
+                    Position pos = city.getPower().getPosition();
+                    drawPosX += pos.getX();
+                    //canvas.drawOval(new RectF(left, top, right, bottom));
                     paint.setColor(Color.BLUE);
                     canvas.drawOval(
                             new RectF(resources.getPercentToScreenWidth(drawPosX),
-                                    resources.getPercentToScreenHeight(p.getY() - POWER_SIZE_Y / 2),
+                                    resources.getPercentToScreenHeight(pos.getY() - POWER_SIZE_Y / 2),
                                     resources.getPercentToScreenWidth(drawPosX + POWER_SIZE_X),
-                                    resources.getPercentToScreenHeight(p.getY() + POWER_SIZE_Y / 2)),
+                                    resources.getPercentToScreenHeight(pos.getY() + POWER_SIZE_Y / 2)),
                             paint
                     );
-                }
             }
         }
     }
