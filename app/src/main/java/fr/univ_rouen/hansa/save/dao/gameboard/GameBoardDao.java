@@ -25,6 +25,7 @@ public class GameBoardDao implements Dao<GameBoard> {
     public GameBoardDao(GameBoard gameBoard) {
         cities = Lists.newArrayList();
         routes = Lists.newArrayList();
+        bonusMarkers = Lists.newArrayList();
 
         for (ICity city : gameBoard.getCities()) {
             cities.add(new CityDao(city));
