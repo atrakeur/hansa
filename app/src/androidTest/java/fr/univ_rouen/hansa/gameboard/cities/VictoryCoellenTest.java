@@ -12,11 +12,11 @@ public class VictoryCoellenTest extends TestCase {
 
     public void testSetMerchantAndGetPawn() throws Exception {
         //getPawn return null on empty
-        assertEquals(null,VictoryCoellen.getInstance().getPawn(Privillegium.White));
+        assertEquals(null, VictoryCoellen.getInstance().getPawn(Privillegium.White));
 
         //getPawn return the previously setted pawn if not empty
-        Merchant m = new Merchant(new HTPlayer(PlayerColor.purple,1));
-        VictoryCoellen.getInstance().setMerchant(m,Privillegium.White);
-        assertEquals(m,VictoryCoellen.getInstance().getPawn(Privillegium.White));
+        Merchant m = new Merchant(new HTPlayer(PlayerColor.purple, 1));
+        VictoryCoellen.getInstance().setMerchant(m, Privillegium.White);
+        assertEquals(m, VictoryCoellen.getInstance().getPawn(Privillegium.White));
     }
 }

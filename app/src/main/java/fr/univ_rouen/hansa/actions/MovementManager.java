@@ -79,40 +79,43 @@ public class MovementManager {
     }
 
 
-
-    public void addEndGamePoints(){
-        for(IHTPlayer player : TurnManager.getInstance().getPlayers()){
+    public void addEndGamePoints() {
+        for (IHTPlayer player : TurnManager.getInstance().getPlayers()) {
             //skill upgrade to max : +4 point (not for clavis urbis)
-            if(player.getEscritoire().actionesLevel() == 5){
+            if (player.getEscritoire().actionesLevel() == 5) {
                 player.setScore(player.getScore() + 4);
             }
-            if(player.getEscritoire().bursaLevel() == Integer.MAX_VALUE){
+            if (player.getEscritoire().bursaLevel() == Integer.MAX_VALUE) {
                 player.setScore(player.getScore() + 4);
             }
-            if(player.getEscritoire().liberSophiaLevel() == 5){
+            if (player.getEscritoire().liberSophiaLevel() == 5) {
                 player.setScore(player.getScore() + 4);
             }
-            if(player.getEscritoire().privilegiumLevel() == Privillegium.Black){
+            if (player.getEscritoire().privilegiumLevel() == Privillegium.Black) {
                 player.setScore(player.getScore() + 4);
             }
 
             //points allowed for bonus markers
-            switch (player.getEscritoire().getBonusMarker().size()){
+            switch (player.getEscritoire().getBonusMarker().size()) {
                 case 0:
                     break;
                 case 1:
                     player.setScore(player.getScore() + 1);
                     break;
-                case 2: case 3:
+                case 2:
+                case 3:
                     player.setScore(player.getScore() + 3);
                     break;
-                case 4: case 5:
+                case 4:
+                case 5:
                     player.setScore(player.getScore() + 6);
                     break;
-                case 6: case 7:
+                case 6:
+                case 7:
                     player.setScore(player.getScore() + 10);
                     break;
-                case 8: case 9:
+                case 8:
+                case 9:
                     player.setScore(player.getScore() + 15);
                     break;
                 default:  // <= 10
@@ -121,8 +124,8 @@ public class MovementManager {
             }
 
             VictoryCoellen coellen = VictoryCoellen.getInstance();
-            for(Privillegium privillegium : Privillegium.values()){
-                if(coellen.getPawn(privillegium) != null && coellen.getPawn(privillegium).getPlayer() == player){
+            for (Privillegium privillegium : Privillegium.values()) {
+                if (coellen.getPawn(privillegium) != null && coellen.getPawn(privillegium).getPlayer() == player) {
                     player.setScore(player.getScore() + coellen.getValue(privillegium));
                 }
             }
@@ -131,35 +134,35 @@ public class MovementManager {
             Map<ICity, Boolean> visited = Maps.newHashMap();
 
             //for each city the owner gain 2 points + init visited
-            for (ICity city : GameBoardFactory.getGameBoard().getCities()){
-                if (city.getOwner() == player){
+            for (ICity city : GameBoardFactory.getGameBoard().getCities()) {
+                if (city.getOwner() == player) {
                     player.setScore(player.getScore() + 2);
                 }
-                visited.put(city,false);
+                visited.put(city, false);
             }
 
             //add highestNetwork size * clavis urbis
             int highestNetworkSize = 0;
-            for (ICity city : GameBoardFactory.getGameBoard().getCities()){
-                if (!visited.get(city) && city.numberOfKontorsOwned(player) != 0){
+            for (ICity city : GameBoardFactory.getGameBoard().getCities()) {
+                if (!visited.get(city) && city.numberOfKontorsOwned(player) != 0) {
                     LinkedList<ICity> network = Lists.newLinkedList();
                     int networkSize = 0;
                     network.add(city);
 
-                    while(!network.isEmpty()){
+                    while (!network.isEmpty()) {
                         ICity tmpCity = network.getFirst();
                         network.removeFirst();
                         networkSize += tmpCity.numberOfKontorsOwned(player);
-                        visited.put(tmpCity,true);
-                        for(IRoute route : tmpCity.getRoutes()){
-                            for (ICity crossRoad : route.getCities()){
-                                if (crossRoad != tmpCity && !visited.get(crossRoad) && crossRoad.numberOfKontorsOwned(player) != 0){
+                        visited.put(tmpCity, true);
+                        for (IRoute route : tmpCity.getRoutes()) {
+                            for (ICity crossRoad : route.getCities()) {
+                                if (crossRoad != tmpCity && !visited.get(crossRoad) && crossRoad.numberOfKontorsOwned(player) != 0) {
                                     network.add(crossRoad);
                                 }
                             }
                         }
                     }
-                    if (highestNetworkSize < networkSize){
+                    if (highestNetworkSize < networkSize) {
                         highestNetworkSize = networkSize;
                     }
                 }

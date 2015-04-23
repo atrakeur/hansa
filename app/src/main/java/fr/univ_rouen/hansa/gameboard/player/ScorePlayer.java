@@ -14,7 +14,9 @@ public class ScorePlayer implements IScorePlayer {
     }
 
     @Override
-    public void decreaseScore() { score--; }
+    public void decreaseScore() {
+        score--;
+    }
 
     @Override
     public int getScore() {

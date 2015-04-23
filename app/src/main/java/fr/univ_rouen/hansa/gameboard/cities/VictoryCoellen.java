@@ -14,7 +14,8 @@ import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 public class VictoryCoellen {
 
     private static final Map<Privillegium, Integer> POINTS_FROM_PRIVILLEGIUM;
-    static{
+
+    static {
         Map<Privillegium, Integer> map = new HashMap<Privillegium, Integer>();
         map.put(Privillegium.White, 7);
         map.put(Privillegium.Orange, 8);
@@ -22,27 +23,30 @@ public class VictoryCoellen {
         map.put(Privillegium.Black, 11);
         POINTS_FROM_PRIVILLEGIUM = map;
     }
+
     private Map<Privillegium, Pawn> pawnsFromPrivillegium;
 
     private static VictoryCoellen INSTANCE = new VictoryCoellen();
+
     private VictoryCoellen() {
         pawnsFromPrivillegium = new HashMap<Privillegium, Pawn>();
     }
 
-    public static VictoryCoellen getInstance(){
+    public static VictoryCoellen getInstance() {
         return INSTANCE;
     }
 
     /**
      * Associate Merchant with the privillegium
+     *
      * @param merchant
      * @param privillegium
      */
     public void setMerchant(Merchant merchant, Privillegium privillegium) {
-        if(!isAvailable(privillegium)){
+        if (!isAvailable(privillegium)) {
             throw new IllegalStateException("A pawns is already placed here");
         }
-        pawnsFromPrivillegium.put(privillegium,merchant);
+        pawnsFromPrivillegium.put(privillegium, merchant);
     }
 
     /**
@@ -65,7 +69,7 @@ public class VictoryCoellen {
      * @param privillegium
      * @return the pawn associate with the privillegium or null if there is not
      */
-    public Pawn getPawn(Privillegium privillegium){
+    public Pawn getPawn(Privillegium privillegium) {
         return pawnsFromPrivillegium.get(privillegium);
     }
 }
