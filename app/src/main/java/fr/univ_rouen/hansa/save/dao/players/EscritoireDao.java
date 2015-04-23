@@ -4,12 +4,18 @@ import com.google.common.collect.Lists;
 
 import java.util.List;
 
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
+import fr.univ_rouen.hansa.gameboard.player.escritoire.Escritoire;
 import fr.univ_rouen.hansa.gameboard.player.escritoire.IEscritoire;
+import fr.univ_rouen.hansa.gameboard.player.escritoire.IPawnList;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
+import fr.univ_rouen.hansa.save.dao.Dao;
 import fr.univ_rouen.hansa.save.dao.gameboard.BonusMarkerDao;
 import fr.univ_rouen.hansa.save.dao.gameboard.PawnDao;
 
-public class EscritoireDao {
+public class EscritoireDao implements Dao<IEscritoire> {
     private List<PawnDao> clavisUrbis;
     private List<PawnDao> actiones;
     private List<PawnDao> privilegium;
@@ -55,6 +61,56 @@ public class EscritoireDao {
 
         stock = new PawnListDao(escritoire.getStock());
         supply = new PawnListDao(escritoire.getSupply());
+    }
+
+    @Override
+    public IEscritoire daoToEntity() {
+        List<List<? extends Pawn>> saveList = Lists.newArrayList();
+
+        List<Trader> clavisUrbisEntity = Lists.newArrayList();
+        for (PawnDao pawnDao : clavisUrbis) {
+            clavisUrbisEntity.add((Trader) pawnDao.daoToEntity());
+        }
+        saveList.add(clavisUrbisEntity);
+
+        List<Trader> actionesEntity = Lists.newArrayList();
+        for (PawnDao pawnDao : actiones) {
+            actionesEntity.add((Trader) pawnDao.daoToEntity());
+        }
+        saveList.add(actionesEntity);
+
+        List<Trader> privilegiumEntity = Lists.newArrayList();
+        for (PawnDao pawnDao : privilegium) {
+            privilegiumEntity.add((Trader) pawnDao.daoToEntity());
+        }
+        saveList.add(privilegiumEntity);
+
+        List<Merchant> liberSophiaeEntity = Lists.newArrayList();
+        for (PawnDao pawnDao : liberSophiae) {
+            liberSophiaeEntity.add((Merchant) pawnDao.daoToEntity());
+        }
+        saveList.add(liberSophiaeEntity);
+
+        List<Trader> bursaEntity = Lists.newArrayList();
+        for (PawnDao pawnDao : bursa) {
+            bursaEntity.add((Trader) pawnDao.daoToEntity());
+        }
+        saveList.add(bursaEntity);
+
+        IPawnList stockEntity = stock.daoToEntity();
+        IPawnList supplyEntity = supply.daoToEntity();
+
+        List<IBonusMarker> tinPlateEntities = Lists.newArrayList();
+        for (BonusMarkerDao bonusMarker : tinPlate) {
+            tinPlateEntities.add(bonusMarker.daoToEntity());
+        }
+
+        List<IBonusMarker> bonusMarkersEntities = Lists.newArrayList();
+        for (BonusMarkerDao bonusMarker : bonusMarkers) {
+            bonusMarkersEntities.add(bonusMarker.daoToEntity());
+        }
+
+        return new Escritoire(saveList, stockEntity, supplyEntity, tinPlateEntities, bonusMarkersEntities);
     }
 
     public List<PawnDao> getClavisUrbis() {
