@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.view.View;
 
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusState;
-import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 
 public class BonusMarkerInPlateAdapter extends BonusMarkerAdapter {
@@ -14,8 +13,8 @@ public class BonusMarkerInPlateAdapter extends BonusMarkerAdapter {
     }
 
     @Override
-    public void onClick(View v) {
-        IBonusMarker bonusMarker = (IBonusMarker) v.getTag();
-        //TODO place selected bonus marker to an empty road
+    public View.OnClickListener bonusClickHandler() {
+        //TODO a faire
+        return null;
     }
 }

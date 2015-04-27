@@ -25,6 +25,7 @@ import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusKontor;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusPermutation;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusRemovePawns;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusState;
+import fr.univ_rouen.hansa.gameboard.cities.Power;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
@@ -80,11 +81,12 @@ public class GameActivity extends Activity {
 
         //TODO removes these ... seriously eurk :s
         BonusActiones act = new BonusActiones(3);
-        act.setState(BonusState.used);
+        act.setState(BonusState.onHand);
+        act.setPlayer(player);
         player.getEscritoire().addBonusMarker(act);
 
         BonusRemovePawns rem = new BonusRemovePawns();
-        rem.setState(BonusState.inPlate);
+        rem.setState(BonusState.onHand);
         player.getEscritoire().addBonusMarker(rem);
 
         BonusPermutation perm = new BonusPermutation();
@@ -92,15 +94,17 @@ public class GameActivity extends Activity {
         player.getEscritoire().addBonusMarker(perm);
 
         BonusActiones act1 = new BonusActiones(4);
-        act1.setState(BonusState.inPlate);
+        act1.setState(BonusState.onHand);
         player.getEscritoire().addBonusMarker(act1);
 
         BonusKontor kon = new BonusKontor();
-        kon.setState(BonusState.used);
+        kon.setState(BonusState.onHand);
         player.getEscritoire().addBonusMarker(kon);
 
         BonusEscritoire esc = new BonusEscritoire();
         esc.setState(BonusState.onHand);
+        esc.setPlayer(player);
+        esc.setPower(Power.Bursa);
         player.getEscritoire().addBonusMarker(esc);
 
     }

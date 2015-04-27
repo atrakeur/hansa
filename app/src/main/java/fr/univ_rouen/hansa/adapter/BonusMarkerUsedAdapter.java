@@ -13,7 +13,7 @@ public class BonusMarkerUsedAdapter extends BonusMarkerAdapter {
     }
 
     @Override
-    public void onClick(View v) {
-
+    public View.OnClickListener bonusClickHandler() {
+        return null;
     }
 }

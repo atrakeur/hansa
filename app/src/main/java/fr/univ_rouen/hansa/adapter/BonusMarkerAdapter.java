@@ -26,11 +26,12 @@ import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 /**
  * This class adapts an object BonusMarker into an ImageView.
  */
-public abstract class BonusMarkerAdapter extends BaseAdapter implements IVisitorBonusMarker, View.OnClickListener {
+public abstract class BonusMarkerAdapter extends BaseAdapter implements IVisitorBonusMarker {
 
     private Activity activity;
     private List<IBonusMarker> listBonusMarker;
     private int resBonusMarker;
+    private IHTPlayer player;
 
     public BonusMarkerAdapter(Activity a, IHTPlayer player, BonusState state) {
         if (a == null || player == null || state == null) {
@@ -39,6 +40,7 @@ public abstract class BonusMarkerAdapter extends BaseAdapter implements IVisitor
 
         activity = a;
         listBonusMarker = Lists.newArrayList();
+        this.player=player;
 
         //Get all the used bonus marker
         for (IBonusMarker bonusMarker : player.getEscritoire().getBonusMarker()) {
@@ -72,18 +74,18 @@ public abstract class BonusMarkerAdapter extends BaseAdapter implements IVisitor
         }
 
         ImageView imageView = (ImageView) convertView.findViewById(R.id.image_bonus_marker);
-        imageView.setOnClickListener(this);
+        imageView.setOnClickListener(bonusClickHandler());
         imageView.setTag(listBonusMarker.get(position));
 
         //visitor pattern, kind of disgusting but it works ....
         listBonusMarker.get(position).accept(this);
 
-
         imageView.setImageResource(this.resBonusMarker);
-
 
         return convertView;
     }
+
+    public abstract View.OnClickListener bonusClickHandler();
 
     @Override
     public final void visit(IBonusMarker marker) {
@@ -126,5 +128,9 @@ public abstract class BonusMarkerAdapter extends BaseAdapter implements IVisitor
 
     public Activity getActivity() {
         return activity;
+    }
+
+    public IHTPlayer getPlayer() {
+        return player;
     }
 }
