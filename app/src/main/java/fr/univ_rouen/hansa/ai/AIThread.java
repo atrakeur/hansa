@@ -88,6 +88,12 @@ public class AIThread extends Thread{
             }
             if (TurnManager.getInstance().isNextTurnAvailable() == TurnManager.nextTurnRequire.none) {
                 //Got no more actiones? ready to move your fucking ass out of the way
+                //With a little delay to be more sexy of course
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 GameActivity.getInstance().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
