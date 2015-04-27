@@ -28,6 +28,20 @@ public class HansaDao {
         }
     }
 
+    public GameBoard getGameBoardEntity() {
+        return gameBoard.daoToEntity();
+    }
+
+    public List<IHTPlayer> getPlayersEntities() {
+        List<IHTPlayer> playersEntities= Lists.newArrayList();
+
+        for (PlayerDao playerDao : players) {
+            playersEntities.add(playerDao.daoToEntity());
+        }
+
+        return playersEntities;
+    }
+
     public GameBoardDao getGameBoard() {
         return gameBoard;
     }

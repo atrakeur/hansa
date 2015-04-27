@@ -1,6 +1,5 @@
 package fr.univ_rouen.hansa.gameboard.player.strategies;
 
-import fr.univ_rouen.hansa.actions.MovementFactory;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
 import fr.univ_rouen.hansa.actions.movement.MovePawnRtoGB;
 import fr.univ_rouen.hansa.actions.movement.MovePawnRtoS;
@@ -14,6 +13,11 @@ import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 public class RandomStrategy implements ComputerStrategy {
 
     private IHTPlayer player;
+    private Strategy strategy;
+
+    public RandomStrategy() {
+        strategy = Strategy.RandomStrategy;
+    }
 
     @Override
     public IMovement[] compute(GameBoard board) {
@@ -35,11 +39,18 @@ public class RandomStrategy implements ComputerStrategy {
         }
     }
 
+    @Override
     public IHTPlayer getPlayer() {
         return player;
     }
 
+    @Override
     public void setPlayer(IHTPlayer player) {
         this.player = player;
+    }
+
+    @Override
+    public Strategy getStrategy() {
+        return strategy;
     }
 }

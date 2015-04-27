@@ -9,6 +9,27 @@ public class HTPlayer extends ScorePlayer implements IHTPlayer {
 
     private int action;
 
+    /**
+     * Init player from a saveguard
+     *
+     * @param color the color of the player
+     * @param escritoire of the player
+     * @param action number of action the player can make
+     */
+    public HTPlayer(PlayerColor color, IEscritoire escritoire, int action) {
+        super();
+
+        this.color = color;
+        this.escritoire = escritoire;
+        this.action = action;
+    }
+
+    /**
+     * Init a player for a new game
+     *
+     * @param color the color of the player
+     * @param startingPlace the place of the player at the begining of the party (1 to x)
+     */
     public HTPlayer(PlayerColor color, int startingPlace) {
         super();
 
