@@ -1,6 +1,7 @@
 package fr.univ_rouen.hansa.gameboard.player;
 
 public class ScorePlayer implements IScorePlayer {
+
     private int score;
 
     public ScorePlayer() {
@@ -13,11 +14,18 @@ public class ScorePlayer implements IScorePlayer {
     }
 
     @Override
-    public void decreaseScore() { score--; }
+    public void decreaseScore() {
+        score--;
+    }
 
     @Override
     public int getScore() {
         return score;
+    }
+
+    @Override
+    public void setScore(int score) {
+        this.score = score;
     }
 
     @Override

@@ -22,6 +22,7 @@ import fr.univ_rouen.hansa.view.interactions.IClickableArea;
 
 public class MovementFactory {
     private static MovementFactory ourInstance = new MovementFactory();
+
     public static MovementFactory getInstance() {
         return ourInstance;
     }
@@ -62,8 +63,7 @@ public class MovementFactory {
     private IMovement makeReplaceMove(IClickableArea source, IClickableArea destination, IHTPlayer player) {
         if (source == null && destination == null) {
             return new ValidateMovedPawn();
-        }
-        else if (source.getType() == IClickableArea.Type.supply && destination.getType() == IClickableArea.Type.village ) {
+        } else if (source.getType() == IClickableArea.Type.supply && destination.getType() == IClickableArea.Type.village) {
             //TODO enlever trader en dur
             return new ReplaceMovedPawn(player, (IVillage) destination.getSubject(), Trader.class);
         }
@@ -75,7 +75,7 @@ public class MovementFactory {
         if (source == null && destination == null) {
             //TODO Fin de partie
             throw new UnsupportedOperationException();
-        } else if (source.getType() == IClickableArea.Type.village && destination == null ) {
+        } else if (source.getType() == IClickableArea.Type.village && destination == null) {
 
             //Si le village est vide, on le prend, sinon c'est une prise de comptoir
             IVillage village = (IVillage) source.getSubject();

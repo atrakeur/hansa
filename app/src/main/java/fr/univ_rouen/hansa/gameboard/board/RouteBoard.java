@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import java.util.Collections;
 import java.util.List;
 
+import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
@@ -52,11 +53,23 @@ public abstract class RouteBoard extends CitiesBoard {
         return null;
     }
 
-    public List<IBonusMarker> getBonusStack() {
-        return bonusStack;
+    /**
+     * Take the last bonus marker from the stack
+     *
+     * @return the selected bonus marker
+     */
+    public IBonusMarker drawBonusMarker() {
+        if (bonusStack.size() <= 0) {
+            throw new GameException("Error, no bonus marker");
+        }
+
+        return bonusStack.remove(bonusStack.size() - 1);
     }
 
     public void setBonusStack(List<IBonusMarker> bonusStack) {
-        this.bonusStack = bonusStack;
+        List<IBonusMarker> bonusMarkers = Lists.newArrayList(bonusStack);
+        Collections.shuffle(bonusMarkers);
+
+        this.bonusStack = bonusMarkers;
     }
 }
