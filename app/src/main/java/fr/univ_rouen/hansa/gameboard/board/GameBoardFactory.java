@@ -683,4 +683,7 @@ public class GameBoardFactory {
     }
 
 
+    public void createGameBoardFromSave(GameBoard gameBoard) {
+        GameBoardFactory.gameBoard = gameBoard;
+    }
 }
