@@ -4,15 +4,15 @@ package fr.univ_rouen.hansa.gameboard.bonusmarkers;
  * abstract Bonus which handle states
  */
 public abstract class AbstractBonus implements IBonusMarker {
-    private final String type;
+    private final BonusType type;
     private BonusState state;
 
-    public AbstractBonus(String type) {
+    public AbstractBonus(BonusType type) {
         this.type = type;
         this.state = BonusState.unused;
     }
 
-    public String getType() {
+    public BonusType getType() {
         return this.type;
     }
 

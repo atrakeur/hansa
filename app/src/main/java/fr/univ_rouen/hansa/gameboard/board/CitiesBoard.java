@@ -17,7 +17,7 @@ public abstract class CitiesBoard extends BasicBoard {
         cities = Lists.newArrayList();
     }
 
-    protected void addCity(ICity city)
+    public void addCity(ICity city)
     {
         cities.add(city);
     }

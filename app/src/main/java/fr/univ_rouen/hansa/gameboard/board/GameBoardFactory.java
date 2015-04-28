@@ -5,7 +5,6 @@ import com.google.common.collect.Lists;
 import java.util.Collections;
 import java.util.List;
 
-import fr.univ_rouen.hansa.R;
 import fr.univ_rouen.hansa.gameboard.Privillegium;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusActiones;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusEscritoire;
@@ -31,12 +30,16 @@ import fr.univ_rouen.hansa.view.IPosition;
 
 public class GameBoardFactory {
     private static GameBoardFactory ourInstance = new GameBoardFactory();
+
     public static GameBoardFactory getInstance() {
         return ourInstance;
     }
 
     private static GameBoard gameBoard;
-    public static GameBoard getGameBoard() {return gameBoard; }
+
+    public static GameBoard getGameBoard() {
+        return gameBoard;
+    }
 
     private GameBoardFactory() {
     }
@@ -48,13 +51,11 @@ public class GameBoardFactory {
      * @return the gameboard initialized
      */
     public GameBoard createGameBoard(int map) {
-        GameBoard gameBoard = new GameBoard();
+        GameBoard gameBoard = new GameBoard(map);
         List<IKontor<? extends Pawn>> kontors;
         List<IVillage> villages;
         ICity[] cities;
         IPosition tavernPosition;
-
-        gameBoard.setBackground(R.drawable.plateau23);
 
 
         // ------------------------------------ //
@@ -679,5 +680,10 @@ public class GameBoardFactory {
         GameBoardFactory.gameBoard = gameBoard;
 
         return gameBoard;
+    }
+
+
+    public void createGameBoardFromSave(GameBoard gameBoard) {
+        GameBoardFactory.gameBoard = gameBoard;
     }
 }
