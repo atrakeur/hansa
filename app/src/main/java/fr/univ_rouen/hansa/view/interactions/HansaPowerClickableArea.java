@@ -10,24 +10,25 @@ import fr.univ_rouen.hansa.actions.MovementFactory;
 import fr.univ_rouen.hansa.actions.MovementManager;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
 import fr.univ_rouen.hansa.exceptions.GameException;
+import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
 import fr.univ_rouen.hansa.view.utils.ResourceRepository;
 
 public class HansaPowerClickableArea extends ClickableArea {
 
     private float selectionDistance = 0.055f;
-    private Power power;
-    public HansaPowerClickableArea(Power p) {
-        super(Type.power);
-        this.power = p;
+    private ICity city;
+    public HansaPowerClickableArea(ICity c) {
+        super(Type.city);
+        this.city = c;
     }
 
     @Override
     public boolean isClicked(float x, float y) {
         double distance = Math.sqrt(
-                Math.pow(x - power.getPosition().getX(), 2)
+                Math.pow(x - city.getPower().getPosition().getX(), 2)
                         +
-                        Math.pow(y - power.getPosition().getY(), 2)
+                        Math.pow(y - city.getPower().getPosition().getY(), 2)
         );
 
         return distance < selectionDistance;
@@ -72,8 +73,8 @@ public class HansaPowerClickableArea extends ClickableArea {
         p.setColor(Color.GREEN);
         p.setStyle(Paint.Style.FILL);
         canvas.drawCircle(
-                resources.getPercentToScreenWidth(power.getPosition().getX()),
-                resources.getPercentToScreenHeight(power.getPosition().getY()),
+                resources.getPercentToScreenWidth(city.getPower().getPosition().getX()),
+                resources.getPercentToScreenHeight(city.getPower().getPosition().getY()),
                 radius,
                 p
         );
@@ -81,6 +82,6 @@ public class HansaPowerClickableArea extends ClickableArea {
 
     @Override
     public Object getSubject() {
-        return this.power;
+        return this.city.getPower();
     }
 }

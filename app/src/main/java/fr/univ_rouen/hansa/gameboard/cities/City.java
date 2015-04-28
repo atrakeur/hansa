@@ -22,7 +22,6 @@ public class City implements ICity {
 
     private final IDrawer drawer;
     private final IClickableArea cityClickableArea;
-    private final IClickableArea powerClickableArea;
     private final IPosition position;
     private final Power power;
     private final List<IKontor<? extends Pawn>> kontors;
@@ -44,11 +43,7 @@ public class City implements ICity {
         this.kontors = kontors;
 
         this.routes = Lists.newArrayList();
-        if (power != Power.Null) {
-            this.powerClickableArea = new HansaPowerClickableArea(this.getPower());
-        } else {
-            this.powerClickableArea = null;
-        }
+
     }
 
     @Override
@@ -132,7 +127,6 @@ public class City implements ICity {
         return this.cityClickableArea;
     }
 
-    public IClickableArea getPowerClickableArea() {return this.powerClickableArea;}
 
     @Override
     public IHTPlayer getOwner(){
