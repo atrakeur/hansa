@@ -7,10 +7,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import fr.univ_rouen.hansa.R;
 import fr.univ_rouen.hansa.actions.MovementManager;
 import fr.univ_rouen.hansa.actions.movement.PlayBonus;
+import fr.univ_rouen.hansa.exceptions.NotEnoughSupplyException;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusActiones;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusEscritoire;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusKontor;
@@ -63,25 +65,30 @@ public class BonusMarkerOnHandAdapter extends BonusMarkerAdapter {
             alertDialog.setView(spi);
 
             alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Oui",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            String power = (String) spi.getSelectedItem();
-                            if (power.equalsIgnoreCase("Actiones")) marker.setPower(Power.Actiones);
-                            else if (power.equalsIgnoreCase("Bursa")) marker.setPower(Power.Bursa);
-                            else if (power.equalsIgnoreCase("Clavis Urbis"))
-                                marker.setPower(Power.ClavisUrbis);
-                            else if (power.equalsIgnoreCase("Liber Sophia"))
-                                marker.setPower(Power.LiberSophiae);
-                            else if (power.equalsIgnoreCase("Privilegium"))
-                                marker.setPower(Power.Privillegium);
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String power = (String) spi.getSelectedItem();
+                        if (power.equalsIgnoreCase("Actiones")) marker.setPower(Power.Actiones);
+                        else if (power.equalsIgnoreCase("Bursa")) marker.setPower(Power.Bursa);
+                        else if (power.equalsIgnoreCase("Clavis Urbis"))
+                            marker.setPower(Power.ClavisUrbis);
+                        else if (power.equalsIgnoreCase("Liber Sophia"))
+                            marker.setPower(Power.LiberSophiae);
+                        else if (power.equalsIgnoreCase("Privilegium"))
+                            marker.setPower(Power.Privillegium);
 
-                            marker.setPlayer(getPlayer());
-                            //TODO gestion des exception : pouvoir augmenté au maximum
+                        marker.setPlayer(getPlayer());
+
+                        try{
                             MovementManager.getInstance().doMove(new PlayBonus(marker));
                             dialog.dismiss();
                             getActivity().finish();
+                        } catch(NotEnoughSupplyException ex){
+                            dialog.dismiss();
+                            Toast.makeText(getActivity(), "Cette competence est augmentee a son maximum", Toast.LENGTH_SHORT).show();
                         }
-                    });
+                    }
+                });
             alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Non",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
@@ -93,16 +100,62 @@ public class BonusMarkerOnHandAdapter extends BonusMarkerAdapter {
 
         @Override
         public void visit(BonusKontor marker) {
+            marker.setPlayer(getPlayer());
+
+            //TODO handle BonusKontor movement
+
+            //close the activity
+            getActivity().finish();
+
+            //set the marker to the gameboard
+
+            //ask the player to choose a city with, at least (check this), one kontor taken
+
+            //set all parameters to the marker
+
+            //do the movement
 
         }
 
         @Override
         public void visit(BonusPermutation marker) {
+            //TODO Handle the BonusPermutation movement
+
+            //close the activity
+            getActivity().finish();
+
+            //set the marker to the gameboard
+
+            //ask the player to choose one kontor
+
+            //ask the player to choose another kontor
+
+            //Check they both are in the same city
+
+            //Check they are both not empty
+
+            //set both of the city to the bonusMarker
+
+            //do movement
 
         }
 
         @Override
         public void visit(BonusRemovePawns marker) {
+            //TODO handle the BonusRemovePawns movement
+
+            //close the activity
+            getActivity().finish();
+
+            //set the marker to the gameboard
+
+            //ask the player to choose 3 village that contains pawns
+
+            //Check the village choosen have pawns
+
+            //set the good parameters to the bonusMarker
+
+            //do the movement
 
         }
 
