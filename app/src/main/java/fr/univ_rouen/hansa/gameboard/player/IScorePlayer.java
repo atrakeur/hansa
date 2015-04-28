@@ -22,6 +22,11 @@ public interface IScorePlayer {
     int getScore();
 
     /**
+     * set score
+     */
+    void setScore(int score);
+
+    /**
      * Return the final score after the end of the game, with all the calculs
      *
      * @return the final score
