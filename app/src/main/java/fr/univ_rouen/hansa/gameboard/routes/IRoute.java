@@ -70,6 +70,20 @@ public interface IRoute extends IDrawable{
     public IBonusMarker getBonusMarker();
 
     /**
+     * return the bonus marker in the tavern of the road and remove it from the road
+     *
+     * @return the bonus marker, null if the road don't have any bonus marker
+     */
+    public IBonusMarker popBonusMarker();
+
+    /**
+     * push bonusMarker on the Road
+     * @throws java.lang.IllegalStateException if this.getBonusMarker != null
+     * @param bonusMarker
+     */
+    public void pushBonusMarker(IBonusMarker bonusMarker);
+
+    /**
      * Allow to know if the city is concomitant to the road
      *
      * @param city the ICity you want to check
