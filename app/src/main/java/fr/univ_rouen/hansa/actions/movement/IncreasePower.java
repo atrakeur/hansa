@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import java.util.List;
 
 import fr.univ_rouen.hansa.actions.Actions;
+import fr.univ_rouen.hansa.exceptions.EndOfGameException;
 import fr.univ_rouen.hansa.exceptions.NotAvailableActionException;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
@@ -71,7 +72,18 @@ public class IncreasePower implements IMovement {
                 city.getOwner().increaseScore();
             }
         }
+
+        //TODO Bonus Marker add to players & if no more bonus marker -> end game
+
         actionDone = true;
+
+        for (ICity city : route.getCities()) {
+            if(city.getOwner() != null) {
+                if(city.getOwner().getScore() <= 20){
+                    throw  new EndOfGameException();
+                }
+            }
+        }
     }
 
     @Override

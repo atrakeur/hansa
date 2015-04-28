@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import java.util.Iterator;
 import java.util.List;
 
+import fr.univ_rouen.hansa.exceptions.EndOfGameException;
 import fr.univ_rouen.hansa.gameboard.Privillegium;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.IKontor;
@@ -87,7 +88,9 @@ public class BonusKontor extends AbstractBonus implements IBonusMarker {
         }
 
         for (ICity city : village.getRoute().getCities()) {
-            city.getOwner().increaseScore();
+            if(city.getOwner() != null) {
+                city.getOwner().increaseScore();
+            }
         }
         IKontor<Pawn> k = new Kontor(village.getPawnType(), false, Privillegium.White);
         kontor = k;
@@ -106,6 +109,15 @@ public class BonusKontor extends AbstractBonus implements IBonusMarker {
         player.getEscritoire().getStock().addPawns(ps);
         player.setActionNumber(-1);
 
+        //TODO Bonus Marker add to players & if no more bonus marker -> end game
+
+        for (ICity city : village.getRoute().getCities()) {
+            if(city.getOwner() != null) {
+                if(city.getOwner().getScore() <= 20){
+                    throw  new EndOfGameException();
+                }
+            }
+        }
     }
 
     public void undoAction() {
