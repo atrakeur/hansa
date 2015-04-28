@@ -22,7 +22,7 @@ import fr.univ_rouen.hansa.view.utils.ResourceRepository;
 
 public class HansaCityDrawer implements IDrawer {
 
-    private boolean debug = true;
+    private boolean debug = false;
 
     public final float KONTOR_MERCHANT_SIZE_X = 0.021f;
     public final float KONTOR_MERCHANT_SIZE_Y = 0.0275f;
