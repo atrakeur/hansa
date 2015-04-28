@@ -36,7 +36,7 @@ public class HansaTavernClickableArea extends ClickableArea {
 
     @Override
     public void onClick() {
-        Log.w("Power", "onClick");
+        Log.w("Tavern", "onClick");
 
         try {
             IMovement m = MovementFactory.getInstance().makeMovement(this, null);
@@ -49,12 +49,12 @@ public class HansaTavernClickableArea extends ClickableArea {
 
     @Override
     public void onDragTo(IClickableArea to) {
-        Log.w("Power", "onDragTo " + to);
+        Log.w("Tavern", "onDragTo " + to);
     }
 
     @Override
     public void onDragFrom(IClickableArea from) {
-        Log.w("Power", "onDragFrom" + from);
+        Log.w("Tavern", "onDragFrom" + from);
 
         try {
             IMovement m = MovementFactory.getInstance().makeMovement(from, this);

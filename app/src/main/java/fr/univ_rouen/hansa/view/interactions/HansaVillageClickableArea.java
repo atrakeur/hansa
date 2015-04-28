@@ -22,9 +22,7 @@ public class HansaVillageClickableArea extends ClickableArea {
         super(Type.village);
 
         this.village = village;
-        if (village.getRoute().getBonusMarker() != null) {
             tavernArea = new HansaTavernClickableArea(village);
-        }
     }
 
     public boolean isClicked(float x, float y) {
