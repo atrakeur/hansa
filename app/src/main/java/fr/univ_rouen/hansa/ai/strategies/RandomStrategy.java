@@ -1,11 +1,10 @@
-package fr.univ_rouen.hansa.gameboard.player.strategies;
+package fr.univ_rouen.hansa.ai.strategies;
 
-import fr.univ_rouen.hansa.actions.MovementFactory;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
 import fr.univ_rouen.hansa.actions.movement.MovePawnRtoGB;
 import fr.univ_rouen.hansa.actions.movement.MovePawnRtoS;
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
-import fr.univ_rouen.hansa.gameboard.player.ComputerStrategy;
+import fr.univ_rouen.hansa.ai.ComputerStrategy;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;

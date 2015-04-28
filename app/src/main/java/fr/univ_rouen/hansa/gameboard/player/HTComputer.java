@@ -1,11 +1,6 @@
 package fr.univ_rouen.hansa.gameboard.player;
 
-import fr.univ_rouen.hansa.actions.MovementManager;
-import fr.univ_rouen.hansa.actions.movement.IMovement;
-import fr.univ_rouen.hansa.activity.GameActivity;
-import fr.univ_rouen.hansa.gameboard.TurnManager;
-import fr.univ_rouen.hansa.gameboard.board.GameBoard;
-import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
+import fr.univ_rouen.hansa.ai.ComputerStrategy;
 
 public class HTComputer extends HTPlayer {
 

@@ -13,7 +13,7 @@ import fr.univ_rouen.hansa.gameboard.player.HTComputer;
 import fr.univ_rouen.hansa.gameboard.player.HTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
-import fr.univ_rouen.hansa.gameboard.player.strategies.RandomStrategy;
+import fr.univ_rouen.hansa.ai.strategies.RandomStrategy;
 
 public class TurnManager {
     public enum nextTurnRequire {
