@@ -118,7 +118,7 @@ public class TurnManager {
      *
      * @return int represent the number of action left
      */
-    private int actionLeft() {
+    public int actionLeft() {
         return getCurrentPlayer().getActionNumber() - MovementManager.getInstance().actionCounter();
     }
 
