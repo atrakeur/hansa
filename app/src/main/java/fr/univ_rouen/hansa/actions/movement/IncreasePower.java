@@ -7,6 +7,8 @@ import java.util.List;
 import fr.univ_rouen.hansa.actions.Actions;
 import fr.univ_rouen.hansa.exceptions.EndOfGameException;
 import fr.univ_rouen.hansa.exceptions.NotAvailableActionException;
+import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
@@ -73,13 +75,17 @@ public class IncreasePower implements IMovement {
             }
         }
 
-        //TODO Bonus Marker add to players & if no more bonus marker -> end game
 
+        IBonusMarker bonusMarker = route.popBonusMarker();
+        if(bonusMarker != null){
+            player.getEscritoire().getBonusMarker().add(bonusMarker);
+            player.getEscritoire().getTinPlateContent().add(GameBoardFactory.getGameBoard().drawBonusMarker());
+        }
         actionDone = true;
 
         for (ICity city : route.getCities()) {
             if(city.getOwner() != null) {
-                if(city.getOwner().getScore() <= 20){
+                if(city.getOwner().getScore() >= 20){
                     throw  new EndOfGameException();
                 }
             }

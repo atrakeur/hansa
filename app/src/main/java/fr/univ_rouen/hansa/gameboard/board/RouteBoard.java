@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import java.util.Collections;
 import java.util.List;
 
+import fr.univ_rouen.hansa.exceptions.EndOfGameException;
 import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
@@ -60,7 +61,7 @@ public abstract class RouteBoard extends CitiesBoard {
      */
     public IBonusMarker drawBonusMarker() {
         if (bonusStack.size() <= 0) {
-            throw new GameException("Error, no bonus marker");
+            throw new EndOfGameException();
         }
 
         return bonusStack.remove(bonusStack.size() - 1);

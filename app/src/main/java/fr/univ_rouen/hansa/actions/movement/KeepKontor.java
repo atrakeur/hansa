@@ -11,6 +11,7 @@ import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.exceptions.NoPlaceException;
 import fr.univ_rouen.hansa.gameboard.Privillegium;
 import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.City;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.IKontor;
@@ -100,13 +101,17 @@ public class KeepKontor implements IMovement {
 
         for (ICity city : village.getRoute().getCities()) {
             if(city.getOwner() != null) {
-                if(city.getOwner().getScore() <= 20){
+                if(city.getOwner().getScore() >= 20){
                     throw  new EndOfGameException();
                 }
             }
         }
 
-        //TODO Bonus Marker add to players & if no more bonus marker -> end game
+        IBonusMarker bonusMarker = village.getRoute().popBonusMarker();
+        if(bonusMarker != null){
+            player.getEscritoire().getBonusMarker().add(bonusMarker);
+            player.getEscritoire().getTinPlateContent().add(GameBoardFactory.getGameBoard().drawBonusMarker());
+        }
 
         if(city.isCompletedCity()){
             GameBoardFactory.getGameBoard().increaseCityCompleted();
