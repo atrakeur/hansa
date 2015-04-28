@@ -183,4 +183,11 @@ public interface IEscritoire {
      */
     public IPawnList getSupply();
 
+    /**
+     * Return the state of all power for the save
+     *
+     * @return the List that contains all powers level
+     */
+    public List<List<? extends Pawn>> savePowers();
+
 }

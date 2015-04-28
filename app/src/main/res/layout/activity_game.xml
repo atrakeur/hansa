@@ -2,19 +2,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fr.univ_rouen.hansa.activity.GameActivity" >
+    tools:context="fr.univ_rouen.hansa.activity.GameActivity">
 
     <LinearLayout
         android:id="@+id/main_layout"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <fr.univ_rouen.hansa.view.GameBoardView
             android:id="@+id/dynamic_ui"
             android:layout_weight="8"
             android:layout_width="0dp"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
         <LinearLayout
             android:id="@+id/side_menu"
@@ -29,20 +29,20 @@
                 android:id="@+id/button_cancel"
                 android:src="@drawable/annuler"
                 android:contentDescription="@string/button_cancel"
-                android:onClick="rollbackAction"/>
+                android:onClick="rollbackAction" />
 
             <ImageButton
                 style="@style/MenuButton"
                 android:id="@+id/button_pawntype"
                 android:onClick="changePawnType"
-                android:contentDescription="@string/button_escritoire"/>
+                android:contentDescription="@string/button_escritoire" />
 
             <ImageButton
                 style="@style/MenuButton"
                 android:id="@+id/button_escritoire"
                 android:onClick="displayEscritoire"
                 android:src="@drawable/escritoire"
-                android:contentDescription="@string/button_escritoire"/>
+                android:contentDescription="@string/button_escritoire" />
 
             <ImageButton
                 style="@style/MenuButton"
@@ -56,14 +56,14 @@
                 android:id="@+id/button_bonus_marker"
                 android:src="@drawable/jb"
                 android:contentDescription="@string/button_bonus_marker"
-                android:onClick="toasty"/>
+                android:onClick="toasty" />
 
             <ImageButton
                 style="@style/MenuButton"
                 android:id="@+id/button_submit"
                 android:src="@drawable/valider"
                 android:contentDescription="@string/button_submit"
-                android:onClick="submitAction"/>
+                android:onClick="submitAction" />
 
             <ImageButton
                 style="@style/MenuButton"
@@ -76,4 +76,10 @@
 
     </LinearLayout>
 
+    <View
+        android:id="@+id/comptoir"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </FrameLayout>
