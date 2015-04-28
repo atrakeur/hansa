@@ -81,7 +81,7 @@ public class GameActivity extends Activity {
 
         //TODO removes these ... seriously eurk :s
         BonusActiones act = new BonusActiones(3);
-        act.setState(BonusState.onHand);
+        act.setState(BonusState.inPlate);
         act.setPlayer(player);
         player.getEscritoire().addBonusMarker(act);
 

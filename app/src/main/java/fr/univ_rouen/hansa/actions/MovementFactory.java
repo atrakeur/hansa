@@ -6,6 +6,7 @@ import fr.univ_rouen.hansa.actions.movement.IncreasePower;
 import fr.univ_rouen.hansa.actions.movement.KeepKontor;
 import fr.univ_rouen.hansa.actions.movement.KeepRoute;
 import fr.univ_rouen.hansa.actions.movement.MovePawnRtoGB;
+import fr.univ_rouen.hansa.actions.movement.PlaceBonusMarker;
 import fr.univ_rouen.hansa.actions.movement.PlayBonus;
 import fr.univ_rouen.hansa.actions.movement.ReplaceMovedPawn;
 import fr.univ_rouen.hansa.actions.movement.ValidateMovedPawn;
@@ -18,9 +19,40 @@ import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
+import fr.univ_rouen.hansa.gameboard.routes.Village;
 import fr.univ_rouen.hansa.view.interactions.IClickableArea;
 
 public class MovementFactory {
+
+    public enum State{
+        DEFAULT,
+        BM_PLATE
+    }
+
+    public State state;
+
+    private IBonusMarker bonusMarker;
+
+
+    public void setBonusMarker(IBonusMarker bonusMarker) {
+        this.bonusMarker = bonusMarker;
+    }
+
+    public IMovement makePlaceBonusMarkerMovement(IClickableArea source){
+        IMovement mov;
+        if(source.getType() == IClickableArea.Type.village ){
+            Village v = (Village) source.getSubject();
+            mov = new PlaceBonusMarker(bonusMarker, v.getRoute());
+            bonusMarker = null;
+        } else {
+            //TODO revoir sa
+            throw new GameException();
+        }
+
+        return mov;
+    }
+
+
     private static MovementFactory ourInstance = new MovementFactory();
     public static MovementFactory getInstance() {
         return ourInstance;
