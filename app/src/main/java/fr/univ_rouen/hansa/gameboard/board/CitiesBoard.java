@@ -19,19 +19,18 @@ public abstract class CitiesBoard extends BasicBoard {
         cities = Lists.newArrayList();
     }
 
-    protected void addCity(ICity city)
-    {
+    protected void addCity(ICity city) {
         cities.add(city);
     }
 
-    public void increaseCityCompleted(){
+    public void increaseCityCompleted() {
         citiesCompleted++;
-        if (citiesCompleted <= 10){
+        if (citiesCompleted <= 10) {
             throw new EndOfGameException();
         }
     }
 
-    public int getCityCompleted(){
+    public int getCityCompleted() {
         return citiesCompleted;
     }
 

@@ -69,7 +69,7 @@ public class IncreasePower implements IMovement {
         player.getEscritoire().addToStock(pawns);
 
         player.getEscritoire().increasePower(power);
-        for(ICity city : route.getCities()){
+        for (ICity city : route.getCities()) {
             if (city.getOwner() != null) {
                 city.getOwner().increaseScore();
             }
@@ -77,16 +77,16 @@ public class IncreasePower implements IMovement {
 
 
         IBonusMarker bonusMarker = route.popBonusMarker();
-        if(bonusMarker != null){
+        if (bonusMarker != null) {
             player.getEscritoire().getBonusMarker().add(bonusMarker);
             player.getEscritoire().getTinPlateContent().add(GameBoardFactory.getGameBoard().drawBonusMarker());
         }
         actionDone = true;
 
         for (ICity city : route.getCities()) {
-            if(city.getOwner() != null) {
-                if(city.getOwner().getScore() >= 20){
-                    throw  new EndOfGameException();
+            if (city.getOwner() != null) {
+                if (city.getOwner().getScore() >= 20) {
+                    throw new EndOfGameException();
                 }
             }
         }
@@ -111,7 +111,7 @@ public class IncreasePower implements IMovement {
         } catch (Exception e) {
             throw new NotAvailableActionException();
         }
-        for(ICity city : route.getCities()){
+        for (ICity city : route.getCities()) {
             if (city.getOwner() != null) {
                 city.getOwner().decreaseScore();
             }

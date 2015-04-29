@@ -23,11 +23,9 @@ public abstract class RouteBoard extends CitiesBoard {
         bonusStack = Lists.newArrayList();
     }
 
-    protected void addRoute(IRoute route)
-    {
+    protected void addRoute(IRoute route) {
         ICity[] cities = route.getCities();
-        if (cities.length != 2 || getRoute(cities[0], cities[1]) != null)
-        {
+        if (cities.length != 2 || getRoute(cities[0], cities[1]) != null) {
             throw new IllegalArgumentException("addRoute need a route that link two cities together.");
         }
 
@@ -39,7 +37,7 @@ public abstract class RouteBoard extends CitiesBoard {
     }
 
     public IRoute getRoute(ICity city1, ICity city2) {
-        for(IRoute route: routes) {
+        for (IRoute route : routes) {
             ICity[] cities = route.getCities();
 
             if (cities[0] == city1 && cities[1] == city2) {

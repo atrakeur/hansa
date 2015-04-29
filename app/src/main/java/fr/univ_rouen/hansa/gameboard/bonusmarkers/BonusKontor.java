@@ -89,7 +89,7 @@ public class BonusKontor extends AbstractBonus implements IBonusMarker {
         }
 
         for (ICity city : village.getRoute().getCities()) {
-            if(city.getOwner() != null) {
+            if (city.getOwner() != null) {
                 city.getOwner().increaseScore();
             }
         }
@@ -112,15 +112,15 @@ public class BonusKontor extends AbstractBonus implements IBonusMarker {
 
 
         IBonusMarker bonusMarker = village.getRoute().popBonusMarker();
-        if(bonusMarker != null){
+        if (bonusMarker != null) {
             player.getEscritoire().getBonusMarker().add(bonusMarker);
             player.getEscritoire().getTinPlateContent().add(GameBoardFactory.getGameBoard().drawBonusMarker());
         }
 
         for (ICity city : village.getRoute().getCities()) {
-            if(city.getOwner() != null) {
-                if(city.getOwner().getScore() >= 20){
-                    throw  new EndOfGameException();
+            if (city.getOwner() != null) {
+                if (city.getOwner().getScore() >= 20) {
+                    throw new EndOfGameException();
                 }
             }
         }
