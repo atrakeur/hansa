@@ -71,4 +71,8 @@ public abstract class RouteBoard extends CitiesBoard {
 
         this.bonusStack = bonusMarkers;
     }
+
+    public List<IBonusMarker> getBonusStack() {
+        return bonusStack;
+    }
 }

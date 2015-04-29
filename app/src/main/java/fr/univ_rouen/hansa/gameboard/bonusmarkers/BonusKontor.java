@@ -13,7 +13,6 @@ import fr.univ_rouen.hansa.gameboard.cities.IKontor;
 import fr.univ_rouen.hansa.gameboard.cities.Kontor;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
-import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 
 
@@ -29,7 +28,7 @@ public class BonusKontor extends AbstractBonus implements IBonusMarker {
     private List<Pawn> pawns;
 
     public BonusKontor() {
-        super("kontor");
+        super(BonusType.BonusKontor);
     }
 
     /**
@@ -159,5 +158,25 @@ public class BonusKontor extends AbstractBonus implements IBonusMarker {
             cities.getOwner().decreaseScore();
         }
         player.setActionNumber(1);
+    }
+
+    public ICity getCity() {
+        return city;
+    }
+
+    public IVillage getVillage() {
+        return village;
+    }
+
+    public Pawn getPawn() {
+        return pawn;
+    }
+
+    public IKontor getKontor() {
+        return kontor;
+    }
+
+    public List<Pawn> getPawns() {
+        return Lists.newArrayList(pawns);
     }
 }
