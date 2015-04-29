@@ -7,9 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import fr.univ_rouen.hansa.gameboard.Privillegium;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
+import fr.univ_rouen.hansa.util.CityPositions;
+import fr.univ_rouen.hansa.util.CoellenPositions;
 import fr.univ_rouen.hansa.view.IPosition;
 import fr.univ_rouen.hansa.view.display.HansaCityDrawer;
 import fr.univ_rouen.hansa.view.display.IDrawer;
@@ -23,6 +26,7 @@ public class City implements ICity {
 
     private final IPosition position;
     private final Power power;
+    private VictoryCoellen vc;
     private final List<IKontor<? extends Pawn>> kontors;
     private final List<IKontor<? extends Pawn>> additionalKontors;
     private final List<IRoute> routes;
@@ -42,6 +46,24 @@ public class City implements ICity {
         this.kontors = kontors;
 
         this.routes = Lists.newArrayList();
+        if (this.getPosition() == CityPositions.COELLEN) {
+            List<IPosition> p = Lists.newArrayList();
+            p.add(CoellenPositions.SEVENPOINTS);
+            p.add(CoellenPositions.EIGHTPOINTS);
+            p.add(CoellenPositions.NINEPOINTS);
+            p.add(CoellenPositions.ELEVENPOINTS);
+            List<Privillegium> priv = Lists.newArrayList();
+            priv.add(Privillegium.White);
+            priv.add(Privillegium.Orange);
+            priv.add(Privillegium.Pink);
+            priv.add(Privillegium.Black);
+            List<Integer> i = Lists.newArrayList();
+            i.add(7);
+            i.add(8);
+            i.add(9);
+            i.add(11);
+            vc = new VictoryCoellen(this,p,priv,i);
+        }
     }
 
     @Override
@@ -183,4 +205,6 @@ public class City implements ICity {
         }
         return total;
     }
+    @Override
+    public VictoryCoellen getVc() {return vc;}
 }

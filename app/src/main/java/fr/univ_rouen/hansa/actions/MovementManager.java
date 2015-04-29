@@ -122,13 +122,14 @@ public class MovementManager {
                     player.setScore(player.getScore() + 21);
                     break;
             }
-
+            /**
             VictoryCoellen coellen = VictoryCoellen.getInstance();
             for (Privillegium privillegium : Privillegium.values()) {
                 if (coellen.getPawn(privillegium) != null && coellen.getPawn(privillegium).getPlayer() == player) {
                     player.setScore(player.getScore() + coellen.getValue(privillegium));
                 }
             }
+             */
 
             //used for biggest network
             Map<ICity, Boolean> visited = Maps.newHashMap();

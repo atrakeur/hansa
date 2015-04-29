@@ -190,6 +190,7 @@ public class GameBoardFactory {
         ICity coellen = new City(CityPositions.COELLEN, Power.Null, kontors);
         gameBoard.addCity(coellen);
 
+
         //QUEDLINBURG
         kontors = Lists.newArrayList();
         kontors.add(new Kontor(Merchant.class, false, Privillegium.Orange));
