@@ -2,7 +2,10 @@ package fr.univ_rouen.hansa.gameboard.cities;
 
 
 
+import com.google.common.collect.Lists;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import fr.univ_rouen.hansa.gameboard.Privillegium;
@@ -21,21 +24,21 @@ import fr.univ_rouen.hansa.view.interactions.IClickableArea;
 public class VictoryCoellen {
 
     private ICity city;
-    private IPosition position;
+    private List<IPosition> position;
     private IDrawer drawer;
     private IClickableArea clickableArea;
-    private Privillegium privillegium;
+    private List<Privillegium> privillegium;
     private Merchant merchant;
     private boolean isAvailable;
-    private int value;
+    private List<Integer> value;
 
-    public VictoryCoellen(ICity c, IPosition p, Privillegium priv, int val) {
+    public VictoryCoellen(ICity c, List<IPosition> p, List<Privillegium> priv, List<Integer> val) {
         this.city = c;
         this.position = p;
         this.privillegium = priv;
         //drawer = new HansaCoellenDrawer(this);
         isAvailable = true;
-        //clickableArea = new HansaCoellenClickableArea(city); //voir de this
+        clickableArea = new HansaCoellenClickableArea(city.getVc()); //voir de this
         value = val;
 
     }
@@ -44,8 +47,8 @@ public class VictoryCoellen {
         return city;
     }
 
-    public IPosition getPosition() {
-        return position;
+    public List<IPosition> getPosition() {
+        return Lists.newArrayList(position);
     }
 
     public IDrawer getDrawer() {
@@ -55,8 +58,8 @@ public class VictoryCoellen {
     public IClickableArea getClickableArea() {
         return clickableArea;
     }
-    public Privillegium getPrivillegium() {
-        return privillegium;
+    public List<Privillegium> getPrivillegium() {
+        return Lists.newArrayList(privillegium);
     }
 
     public Merchant getMerchant() {
@@ -74,7 +77,7 @@ public class VictoryCoellen {
         return isAvailable;
     }
 
-    public int getValue() {return value;}
+    public List<Integer> getValue() {return Lists.newArrayList(value);}
 
     /**
      * La classe de départ

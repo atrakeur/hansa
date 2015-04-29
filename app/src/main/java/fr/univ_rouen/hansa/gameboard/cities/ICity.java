@@ -95,4 +95,6 @@ public interface ICity extends IDrawable, IClickable {
      * @return how many kontor the player got in this city
      */
     int numberOfKontorsOwned(IHTPlayer player);
+
+    public VictoryCoellen getVc();
 }

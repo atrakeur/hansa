@@ -25,17 +25,16 @@ public class HansaCityClickableArea extends ClickableArea {
         super(Type.city);
 
         this.city = city;
-        /**
         if (city.getPosition() == CityPositions.COELLEN) {
-            coellen = new HansaCoellenClickableArea(city);
-        }*/
+            coellen = new HansaCoellenClickableArea(city.getVc());
+        }
 
     }
 
     public boolean isClicked(float x, float y) {
-        //if (city.getPosition() == CityPositions.COELLEN) {
-          //  return coellen.isClicked(x,y);
-        //} else {
+        if (city.getPosition() == CityPositions.COELLEN) {
+            return coellen.isClicked(x,y);
+        } else {
             double distance = Math.sqrt(
                     Math.pow(x - city.getPosition().getX(), 2)
                             +
@@ -43,7 +42,7 @@ public class HansaCityClickableArea extends ClickableArea {
             );
 
             return distance < selectionDistance;
-        //}
+        }
     }
 
     @Override

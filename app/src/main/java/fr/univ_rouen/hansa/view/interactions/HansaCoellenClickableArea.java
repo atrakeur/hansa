@@ -24,9 +24,9 @@ public class HansaCoellenClickableArea extends ClickableArea {
 
     public boolean isClicked(float x, float y) {
         double distance = Math.sqrt(
-                Math.pow(x - victoryCoellen.getPosition().getX(), 2)
+                Math.pow(x - victoryCoellen.getPosition().get(0).getX(), 2)
                         +
-                        Math.pow(y - victoryCoellen.getPosition().getY(), 2)
+                        Math.pow(y - victoryCoellen.getPosition().get(0).getY(), 2)
         );
 
         return distance < selectionDistance;
@@ -72,8 +72,8 @@ public class HansaCoellenClickableArea extends ClickableArea {
         p.setColor(Color.GREEN);
         p.setStyle(Paint.Style.FILL);
         canvas.drawCircle(
-                resources.getPercentToScreenWidth(victoryCoellen.getPosition().getX()),
-                resources.getPercentToScreenHeight(victoryCoellen.getPosition().getY()),
+                resources.getPercentToScreenWidth(victoryCoellen.getPosition().get(0).getX()),
+                resources.getPercentToScreenHeight(victoryCoellen.getPosition().get(0).getY()),
                 radius,
                 p
         );

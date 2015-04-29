@@ -16,6 +16,7 @@ import fr.univ_rouen.hansa.util.CityPositions;
 import fr.univ_rouen.hansa.util.CoellenPositions;
 
 public class HansaCoellenClickable {
+    /**
 
     private final HansaCoellenClickableArea sevenclickable;
     private final HansaCoellenClickableArea eightclickable;
@@ -26,6 +27,7 @@ public class HansaCoellenClickable {
         List<IKontor<? extends Pawn>> kontors = Lists.newArrayList();
         kontors.add(new Kontor(Trader.class, true, Privillegium.White));
         kontors.add(new Kontor(Trader.class, false, Privillegium.Pink));
+        /*
         this.sevenclickable = new HansaCoellenClickableArea(new VictoryCoellen(
                 new City(CityPositions.COELLEN,null,kontors), CoellenPositions.SEVENPOINTS,Privillegium.White,7));
         this.eightclickable = new HansaCoellenClickableArea(new VictoryCoellen(
@@ -34,12 +36,14 @@ public class HansaCoellenClickable {
                 new City(CityPositions.COELLEN,null,kontors), CoellenPositions.NINEPOINTS,Privillegium.Pink,9));
         this.elevenclickable = new HansaCoellenClickableArea(new VictoryCoellen(
                 new City(CityPositions.COELLEN,null,kontors), CoellenPositions.ELEVENPOINTS,Privillegium.Black,11));
-    }
-
+                */
+    //}
+    /**
     public HansaCoellenClickableArea getSevenclickable() {return sevenclickable;}
     public HansaCoellenClickableArea getEightclickable() {return eightclickable;}
 
     public HansaCoellenClickableArea getNineclickable() {return nineclickable;}
 
     public HansaCoellenClickableArea getElevenclickable() {return elevenclickable;}
+    */
 }
