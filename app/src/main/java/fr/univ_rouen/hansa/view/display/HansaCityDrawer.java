@@ -1,21 +1,30 @@
 package fr.univ_rouen.hansa.view.display;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.util.Log;
+
+import com.google.common.collect.Lists;
 
 import java.util.List;
 
+import fr.univ_rouen.hansa.gameboard.Privillegium;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.IKontor;
+import fr.univ_rouen.hansa.gameboard.cities.VictoryCoellen;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
+import fr.univ_rouen.hansa.util.CityPositions;
+import fr.univ_rouen.hansa.util.CoellenPositions;
+import fr.univ_rouen.hansa.view.IPosition;
 import fr.univ_rouen.hansa.view.utils.ResourceRepository;
 
 public class HansaCityDrawer implements IDrawer {
 
-    private boolean debug = false;
+    private boolean debug = true;
 
     public final float KONTOR_MERCHANT_SIZE_X = 0.021f;
     public final float KONTOR_MERCHANT_SIZE_Y = 0.0275f;
@@ -37,6 +46,13 @@ public class HansaCityDrawer implements IDrawer {
     @Override
     public void draw(ResourceRepository resources, Canvas canvas) {
         List<IKontor<? extends Pawn>> kontors = city.getKontors();
+
+
+        List<IPosition> list = Lists.newArrayList();
+        list.add(CoellenPositions.SEVENPOINTS);
+        list.add(CoellenPositions.EIGHTPOINTS);
+        list.add(CoellenPositions.NINEPOINTS);
+        list.add(CoellenPositions.ELEVENPOINTS);
 
         //Calculate full city size
         float citySizeX = 0.0f;
@@ -63,7 +79,7 @@ public class HansaCityDrawer implements IDrawer {
                     int color = kontor.getOwner().getPlayerColor().getColor();
                     paint.setColor(color);
                 }
-                /**
+
                 canvas.drawRect(
                         resources.getPercentToScreenWidth(drawPosX),
                         resources.getPercentToScreenHeight(city.getPosition().getY() - KONTOR_TRADER_SIZE_Y / 2),
@@ -71,7 +87,7 @@ public class HansaCityDrawer implements IDrawer {
                         resources.getPercentToScreenHeight(city.getPosition().getY() + KONTOR_TRADER_SIZE_Y / 2),
                         paint
                 );
-                */
+
                 drawPosX += KONTOR_TRADER_SIZE_X + KONTOR_SPACING_X;
             }
 
@@ -95,6 +111,21 @@ public class HansaCityDrawer implements IDrawer {
 
                 drawPosX += KONTOR_MERCHANT_SIZE_X + KONTOR_SPACING_X;
             }
+
+            if (city.getPosition() == CityPositions.COELLEN && debug) {
+                paint.setColor(Color.BLUE);
+                for (IPosition pos : list) {
+                    canvas.drawOval(
+                            new RectF(resources.getPercentToScreenWidth(pos.getX()),
+                                    resources.getPercentToScreenHeight(pos.getY() - KONTOR_MERCHANT_SIZE_Y / 2),
+                                    resources.getPercentToScreenWidth(pos.getX() + KONTOR_MERCHANT_SIZE_X),
+                                    resources.getPercentToScreenHeight(pos.getY() + KONTOR_MERCHANT_SIZE_Y / 2)),
+                            paint
+                    );
+                    //drawPosX += KONTOR_MERCHANT_SIZE_X + KONTOR_SPACING_X;
+                }
+            }
+
         }
     }
 }

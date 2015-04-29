@@ -12,6 +12,7 @@ public interface IClickableArea {
         power,
         stock,
         supply,
+        victoryCoellen,
         bonus
     }
 
