@@ -99,4 +99,14 @@ public class PawnList implements IPawnList {
     public int getMerchantCount() {
         return merchants.size();
     }
+
+    @Override
+    public List<Trader> getTraders() {
+        return Lists.newArrayList(traders);
+    }
+
+    @Override
+    public List<Merchant> getMerchants() {
+        return Lists.newArrayList(merchants);
+    }
 }
