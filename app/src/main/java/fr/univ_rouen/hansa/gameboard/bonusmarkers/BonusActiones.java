@@ -44,4 +44,9 @@ public class BonusActiones extends AbstractBonus implements IBonusMarker {
         }
         player = p;
     }
+
+    @Override
+    public String getImage() {
+        return this.getType().toString()+this.value;
+    }
 }

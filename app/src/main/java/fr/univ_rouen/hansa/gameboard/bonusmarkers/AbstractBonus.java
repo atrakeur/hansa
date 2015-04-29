@@ -16,8 +16,9 @@ public abstract class AbstractBonus implements IBonusMarker {
         return this.type;
     }
 
+    @Override
     public String getImage() {
-        return "bonus"+this.getType();
+        return this.getType().toString();
     }
 
     @Override

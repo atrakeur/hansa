@@ -7,6 +7,7 @@ package fr.univ_rouen.hansa.gameboard.bonusmarkers;
  * the bonus Pawn
  */
 public interface IBonusMarker {
+
     public enum BonusType {
         BonusActiones,
         BonusEscritoire,
@@ -45,4 +46,9 @@ public interface IBonusMarker {
      * @return the enum that represent the bonus marker
      */
     BonusType getType();
+
+    /**
+     * @return the image id
+     */
+    public String getImage();
 }
