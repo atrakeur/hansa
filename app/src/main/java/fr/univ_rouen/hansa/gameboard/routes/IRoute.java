@@ -9,7 +9,7 @@ import fr.univ_rouen.hansa.view.IPosition;
 import fr.univ_rouen.hansa.view.display.IDrawable;
 import fr.univ_rouen.hansa.view.display.IDrawer;
 
-public interface IRoute extends IDrawable{
+public interface IRoute extends IDrawable {
 
     /**
      * getter on the position of the tavern in the road
@@ -68,6 +68,21 @@ public interface IRoute extends IDrawable{
      * @return the bonus marker, null if the road don't have any bonus marker
      */
     public IBonusMarker getBonusMarker();
+
+    /**
+     * return the bonus marker in the tavern of the road and remove it from the road
+     *
+     * @return the bonus marker, null if the road don't have any bonus marker
+     */
+    public IBonusMarker popBonusMarker();
+
+    /**
+     * push bonusMarker on the Road
+     *
+     * @param bonusMarker
+     * @throws java.lang.IllegalStateException if this.getBonusMarker != null
+     */
+    public void pushBonusMarker(IBonusMarker bonusMarker);
 
     /**
      * Allow to know if the city is concomitant to the road

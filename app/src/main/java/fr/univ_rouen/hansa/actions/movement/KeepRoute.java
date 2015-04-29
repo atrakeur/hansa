@@ -6,7 +6,10 @@ import java.util.Iterator;
 import java.util.List;
 
 import fr.univ_rouen.hansa.actions.Actions;
+import fr.univ_rouen.hansa.exceptions.EndOfGameException;
 import fr.univ_rouen.hansa.exceptions.GameException;
+import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
@@ -49,7 +52,7 @@ public class KeepRoute implements IMovement {
             throw new GameException("Action not available, the root didn't own by the player");
         }
 
-        for(ICity city : route.getCities()){
+        for (ICity city : route.getCities()) {
             if (city.getOwner() != null) {
                 city.getOwner().increaseScore();
             }
@@ -60,7 +63,22 @@ public class KeepRoute implements IMovement {
 
         player.getEscritoire().getStock().addPawns(pawns);
 
+
+        IBonusMarker bonusMarker = route.popBonusMarker();
+        if (bonusMarker != null) {
+            player.getEscritoire().getBonusMarker().add(bonusMarker);
+            player.getEscritoire().getTinPlateContent().add(GameBoardFactory.getGameBoard().drawBonusMarker());
+        }
+
         actionDone = true;
+
+        for (ICity city : route.getCities()) {
+            if (city.getOwner() != null) {
+                if (city.getOwner().getScore() >= 20) {
+                    throw new EndOfGameException();
+                }
+            }
+        }
     }
 
     @Override
@@ -78,7 +96,7 @@ public class KeepRoute implements IMovement {
         }
 
         pawns.clear();
-        for(ICity city : route.getCities()){
+        for (ICity city : route.getCities()) {
             if (city.getOwner() != null) {
                 city.getOwner().decreaseScore();
             }
