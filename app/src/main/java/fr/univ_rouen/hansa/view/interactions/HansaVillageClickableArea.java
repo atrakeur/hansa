@@ -4,12 +4,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
-import android.widget.Toast;
 
 import fr.univ_rouen.hansa.actions.MovementFactory;
 import fr.univ_rouen.hansa.actions.MovementManager;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
-import fr.univ_rouen.hansa.activity.GameActivity;
 import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 import fr.univ_rouen.hansa.view.utils.ResourceRepository;
@@ -39,16 +37,28 @@ public class HansaVillageClickableArea extends ClickableArea {
     public void onClick() {
         Log.w("Village", "onClick");
 
-        if(MovementFactory.getInstance().state == MovementFactory.State.DEFAULT){
+        if(MovementFactory.getInstance().getBonusMarker() == null){
             try {
                 IMovement m = MovementFactory.getInstance().makeMovement(this, null);
                 MovementManager.getInstance().doMove(m);
             } catch(GameException e) {
                 e.printStackTrace();
             }
-        } else if(MovementFactory.getInstance().state == MovementFactory.State.BM_PLATE){
+        } else {
+            try {
+                IMovement m = MovementFactory.getInstance().makeMovement(this, null);
+                if(m != null){
+                    MovementManager.getInstance().doMove(m);
+                    MovementFactory.getInstance().setBonusMarker(null);
+                }
+            } catch(GameException e) {
+                e.printStackTrace();
+            }
+        }
+
+        /*else if(MovementFactory.getInstance().state == MovementFactory.State.BM_PLATE){
             try{
-                IMovement m = MovementFactory.getInstance().makePlaceBonusMarkerMovement(this);
+                IMovement m = MovementFactory.getInstance().makeMovement(this, null);
                 MovementManager.getInstance().doMove(m);
                 MovementFactory.getInstance().setBonusMarker(null);
                 MovementFactory.getInstance().state = MovementFactory.State.DEFAULT;
@@ -59,7 +69,23 @@ public class HansaVillageClickableArea extends ClickableArea {
             }  catch(GameException e){
                 Toast.makeText(GameActivity.getInstance().getApplicationContext(), "Veuillez cliquer sur un village", Toast.LENGTH_SHORT).show();
             }
-        }
+        } else if(MovementFactory.getInstance().state == MovementFactory.State.BM_REMOVE){
+            try{
+                IMovement m = MovementFactory.getInstance().makeRemovePawnMovement(this);
+                Toast.makeText(GameActivity.getInstance().getApplicationContext(), "Pion séléctionné", Toast.LENGTH_SHORT).show();
+                if(m != null){
+                    MovementManager.getInstance().doMove(m);
+                    MovementFactory.getInstance().setBonusMarker(null);
+                    MovementFactory.getInstance().state = MovementFactory.State.DEFAULT;
+                }
+            } catch(IllegalArgumentException e){
+                Toast.makeText(GameActivity.getInstance().getApplicationContext(), "Le village séléctionné doit avoir un pion", Toast.LENGTH_SHORT).show();
+            } catch(IllegalStateException e){
+                Toast.makeText(GameActivity.getInstance().getApplicationContext(), "Le village séléctionné doit avoir un pion", Toast.LENGTH_SHORT).show();
+            }  catch(GameException e){
+                Toast.makeText(GameActivity.getInstance().getApplicationContext(), "Veuillez cliquer sur un village", Toast.LENGTH_SHORT).show();
+            }
+        }*/
     }
 
     @Override

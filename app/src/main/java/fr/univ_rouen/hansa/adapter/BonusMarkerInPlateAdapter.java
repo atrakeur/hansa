@@ -22,9 +22,8 @@ public class BonusMarkerInPlateAdapter extends BonusMarkerAdapter {
             public void onClick(View v) {
                 //Bonus Marker selected by the player
                 IBonusMarker bonusMarker = (IBonusMarker) v.getTag();
-
-                MovementFactory.getInstance().state = MovementFactory.State.BM_PLATE;
                 MovementFactory.getInstance().setBonusMarker(bonusMarker);
+                MovementFactory.getInstance().setBonusHasToBeReplaced(true);
 
                 //Close the dialog activity that display the BonusMarker
                 getActivity().finish();

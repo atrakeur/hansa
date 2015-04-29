@@ -1,5 +1,9 @@
 package fr.univ_rouen.hansa.actions;
 
+import com.google.common.collect.Lists;
+
+import java.util.List;
+
 import fr.univ_rouen.hansa.actions.movement.Bursa;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
 import fr.univ_rouen.hansa.actions.movement.IncreasePower;
@@ -13,8 +17,15 @@ import fr.univ_rouen.hansa.actions.movement.ValidateMovedPawn;
 import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.exceptions.PopupException;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusActiones;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusEscritoire;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusKontor;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusPermutation;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusRemovePawns;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.IVisitorBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
+import fr.univ_rouen.hansa.gameboard.cities.IKontor;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
@@ -24,19 +35,149 @@ import fr.univ_rouen.hansa.view.interactions.IClickableArea;
 
 public class MovementFactory {
 
-    public enum State{
-        DEFAULT,
-        BM_PLATE
-    }
-
-    public State state;
-
     private IBonusMarker bonusMarker;
+    private boolean bonusHasToBeReplaced;
 
+    private BonusMove bm;
+
+    public IBonusMarker getBonusMarker() {
+        return bonusMarker;
+    }
 
     public void setBonusMarker(IBonusMarker bonusMarker) {
         this.bonusMarker = bonusMarker;
     }
+
+    public void setBonusHasToBeReplaced(boolean b){
+        this.bonusHasToBeReplaced = b;
+    }
+
+    private class BonusMove implements IVisitorBonusMarker {
+
+        public IMovement movement;
+
+        /*Use for BonusRemovePawns
+        * Store the list of pawns to remove from game board*/
+        private List<IVillage> villages;
+
+
+        private ICity city;
+
+        /*Use for BonusKontor*/
+        private IVillage village;
+
+        /*Use for BonusPermutation*/
+        private IKontor<Pawn> k1;
+        private IKontor<Pawn> k2;
+
+        private IClickableArea source;
+
+        public BonusMove(){
+            villages = Lists.newArrayList();
+
+            city = null;
+            village = null;
+            k1 = null;
+            k2 = null;
+        }
+
+        public IMovement createMovement(IClickableArea source){
+            this.source = source;
+            bonusMarker.accept(this);
+            return movement;
+        }
+
+        @Override
+        public void visit(IBonusMarker marker) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void visit(BonusActiones marker) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void visit(BonusEscritoire marker) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void visit(BonusKontor marker) {
+            if(source.getType() == IClickableArea.Type.village){
+                village = (IVillage) source.getSubject();
+            } else if(source.getType() == IClickableArea.Type.city){
+                city = (ICity) source.getSubject();
+            }
+
+            if(village != null && city != null){
+                marker.setCity(city);
+                marker.setVillage(village);
+                movement = new PlayBonus(marker);
+                city = null;
+                village = null;
+            }
+        }
+
+        @Override
+        public void visit(BonusPermutation marker) {
+            //TODO a faire une fois que les kontor seront mieux implémenté
+            if(source.getType() == IClickableArea.Type.city){
+                city = (ICity) source.getSubject();
+            }
+
+            if(city != null && k1 != null && k2 != null){
+                marker.setCity(city);
+                marker.setKontor1(k1);
+                marker.setKontor2(k2);
+                movement = new PlayBonus(marker);
+                city = null;
+                k1 = null;
+                k2 = null;
+            }
+        }
+
+        @Override
+        public void visit(BonusRemovePawns marker) {
+            if(source.getType() == IClickableArea.Type.village){
+                IVillage village = (IVillage) source.getSubject();
+                if(!village.isEmpty()){
+                    villages.add(village);
+                    if(villages.size() == 3){
+                        marker.setVillage(villages);
+                        movement = new PlayBonus(marker);
+                        villages.clear();
+                    }
+
+                }
+            }
+        }
+    }
+
+    public IMovement makeBonusMove(IClickableArea source){
+        return bm.createMovement(source);
+    }
+
+    /*public IMovement makeRemovePawnMovement(IClickableArea source){
+        IMovement mov = null;
+
+        if(source.getType() == IClickableArea.Type.village){
+            IVillage village = (IVillage) source.getSubject();
+            if(village.isEmpty()){
+                throw new IllegalArgumentException();
+            }
+
+            villages.add(village);
+            if(villages.size() == 3){
+                BonusRemovePawns bonusMarker = (BonusRemovePawns)this.bonusMarker;
+                bonusMarker.setVillage(villages);
+                mov = new PlayBonus(bonusMarker);
+                villages.clear();
+            }
+        }
+        return mov;
+    }
+*/
 
     public IMovement makePlaceBonusMarkerMovement(IClickableArea source){
         IMovement mov;
@@ -60,6 +201,7 @@ public class MovementFactory {
 
     private MovementFactory() {
         pawnType = Trader.class;
+        bm= new BonusMove();
     }
 
     public void setPawnType(Class<? extends Pawn> pawnType) {
@@ -83,7 +225,13 @@ public class MovementFactory {
 
         //Sépare le cas ou on joue normal du cas ou on joue pas normal
         if (TurnManager.getInstance().getCurrentPlayingPlayer() == TurnManager.getInstance().getCurrentPlayer()) {
-            return makeNormalMove(source, destination, player);
+            if(bonusMarker == null){
+                return makeNormalMove(source, destination, player);
+            } else if(bonusHasToBeReplaced){
+                return makePlaceBonusMarkerMovement(source);
+            } else {
+                return makeBonusMove(source);
+            }
         } else {
             return makeReplaceMove(source, destination, player);
         }

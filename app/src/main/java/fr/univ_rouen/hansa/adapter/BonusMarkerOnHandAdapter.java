@@ -10,6 +10,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import fr.univ_rouen.hansa.R;
+import fr.univ_rouen.hansa.actions.MovementFactory;
 import fr.univ_rouen.hansa.actions.MovementManager;
 import fr.univ_rouen.hansa.actions.movement.PlayBonus;
 import fr.univ_rouen.hansa.exceptions.NotEnoughSupplyException;
@@ -104,6 +105,9 @@ public class BonusMarkerOnHandAdapter extends BonusMarkerAdapter {
 
             //TODO handle BonusKontor movement
 
+            MovementFactory.getInstance().setBonusMarker(marker);
+            MovementFactory.getInstance().setBonusHasToBeReplaced(false);
+
             //close the activity
             getActivity().finish();
 
@@ -120,6 +124,9 @@ public class BonusMarkerOnHandAdapter extends BonusMarkerAdapter {
         @Override
         public void visit(BonusPermutation marker) {
             //TODO Handle the BonusPermutation movement
+
+            MovementFactory.getInstance().setBonusMarker(marker);
+            MovementFactory.getInstance().setBonusHasToBeReplaced(false);
 
             //close the activity
             getActivity().finish();
@@ -143,6 +150,8 @@ public class BonusMarkerOnHandAdapter extends BonusMarkerAdapter {
         @Override
         public void visit(BonusRemovePawns marker) {
             //TODO handle the BonusRemovePawns movement
+            MovementFactory.getInstance().setBonusMarker(marker);
+            MovementFactory.getInstance().setBonusHasToBeReplaced(false);
 
             //close the activity
             getActivity().finish();
