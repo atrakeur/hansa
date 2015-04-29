@@ -34,6 +34,9 @@ public class MovementFactory {
     }
 
     public void setPawnType(Class<? extends Pawn> pawnType) {
+        if (pawnType == null) {
+            throw new IllegalArgumentException("Pawn type can't be null");
+        }
         this.pawnType = pawnType;
     }
 
@@ -63,9 +66,9 @@ public class MovementFactory {
     private IMovement makeReplaceMove(IClickableArea source, IClickableArea destination, IHTPlayer player) {
         if (source == null && destination == null) {
             return new ValidateMovedPawn();
-        } else if (source.getType() == IClickableArea.Type.supply && destination.getType() == IClickableArea.Type.village) {
-            //TODO enlever trader en dur
-            return new ReplaceMovedPawn(player, (IVillage) destination.getSubject(), Trader.class);
+        }
+        else if (source.getType() == IClickableArea.Type.supply && destination.getType() == IClickableArea.Type.village ) {
+            return new ReplaceMovedPawn(player, (IVillage) destination.getSubject(), pawnType);
         }
 
         throw new GameException("Invalid movement");
@@ -75,17 +78,22 @@ public class MovementFactory {
         if (source == null && destination == null) {
             //TODO Fin de partie
             throw new UnsupportedOperationException();
-        } else if (source.getType() == IClickableArea.Type.village && destination == null) {
-
+        } else if (source.getType() == IClickableArea.Type.village && destination == null ) {
             //Si le village est vide, on le prend, sinon c'est une prise de comptoir
             IVillage village = (IVillage) source.getSubject();
 
-            if (village.isEmpty()) {
+            if (village.getRoute().isTradeRoute(player)) {
+                //Si la route est pleine, c'est une prise de route
+                return new KeepRoute(player, village.getRoute());
+            } else if (village.isEmpty() || (village.getOwner() != null && village.getOwner() != player)) {
+                //Si le village est vide
+                //Si le village est occupé par un joueur, mais qui n'est pas le joueur courrant
+                //C'est une prise de village
                 return new MovePawnRtoGB(player, village, pawnType);
             } else {
-                return new KeepRoute(player, village.getRoute());
+                //Tous les autres cas on sort
+                throw new GameException("Invalid movement");
             }
-
         } else if (source.getType() == IClickableArea.Type.village && destination.getType() == IClickableArea.Type.city) {
             return new KeepKontor(player, (ICity) destination.getSubject(), (IVillage) source.getSubject());
         } else if (source.getType() == IClickableArea.Type.village && destination.getType() == IClickableArea.Type.power) {
@@ -94,14 +102,7 @@ public class MovementFactory {
         } else if (source.getType() == IClickableArea.Type.bonus && destination == null) {
             return new PlayBonus(((IBonusMarker) source.getSubject()));
         } else if (source.getType() == IClickableArea.Type.supply && destination.getType() == IClickableArea.Type.village) {
-
-            //Si le type de pion est null on demande l'affiche d'une popup
-            if (pawnType == null) {
-                throw new PopupException(PopupException.PopupType.movementPawnRtoGB);
-            } else {
-                return new MovePawnRtoGB(player, (IVillage) destination.getSubject(), pawnType);
-            }
-
+            return new MovePawnRtoGB(player, (IVillage) destination.getSubject(), pawnType);
         }
 
         throw new GameException("Invalid movement");
