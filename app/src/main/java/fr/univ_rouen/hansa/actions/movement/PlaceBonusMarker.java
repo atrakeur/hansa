@@ -44,6 +44,7 @@ public class PlaceBonusMarker implements IMovement {
         }
 
         route.setBonusMarker(bonusMarker);
+        bonusMarker.setState(BonusState.onBoard);
 
         actionDone = true;
     }
@@ -59,6 +60,7 @@ public class PlaceBonusMarker implements IMovement {
         }
 
         route.setBonusMarker(null);
+        bonusMarker.setState(BonusState.inPlate);
         actionDone = false;
     }
 

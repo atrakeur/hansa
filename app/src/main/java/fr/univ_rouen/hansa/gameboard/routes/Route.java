@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 
 import java.util.List;
 
-import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusState;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
@@ -121,7 +120,6 @@ public class Route implements IRoute {
     @Override
     public void setBonusMarker(IBonusMarker bonusMarker) {
         this.bonusMarker = bonusMarker;
-        this.bonusMarker.setState(BonusState.onBoard);
     }
 
     @Override

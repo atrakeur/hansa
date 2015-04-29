@@ -43,9 +43,7 @@ public class MovementFactory {
         if(source.getType() == IClickableArea.Type.village ){
             Village v = (Village) source.getSubject();
             mov = new PlaceBonusMarker(bonusMarker, v.getRoute());
-            bonusMarker = null;
         } else {
-            //TODO revoir sa
             throw new GameException();
         }
 

@@ -4,10 +4,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
+import android.widget.Toast;
 
 import fr.univ_rouen.hansa.actions.MovementFactory;
 import fr.univ_rouen.hansa.actions.MovementManager;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
+import fr.univ_rouen.hansa.activity.GameActivity;
 import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 import fr.univ_rouen.hansa.view.utils.ResourceRepository;
@@ -48,8 +50,14 @@ public class HansaVillageClickableArea extends ClickableArea {
             try{
                 IMovement m = MovementFactory.getInstance().makePlaceBonusMarkerMovement(this);
                 MovementManager.getInstance().doMove(m);
-            } catch(GameException e){
-                e.printStackTrace();
+                MovementFactory.getInstance().setBonusMarker(null);
+                MovementFactory.getInstance().state = MovementFactory.State.DEFAULT;
+            } catch(IllegalArgumentException e){
+                Toast.makeText(GameActivity.getInstance().getApplicationContext(), "La Route n'est pas vide", Toast.LENGTH_SHORT).show();
+            } catch(IllegalStateException e){
+                Toast.makeText(GameActivity.getInstance().getApplicationContext(), "La Route n'est pas vide", Toast.LENGTH_SHORT).show();
+            }  catch(GameException e){
+                Toast.makeText(GameActivity.getInstance().getApplicationContext(), "Veuillez cliquer sur un village", Toast.LENGTH_SHORT).show();
             }
         }
     }
