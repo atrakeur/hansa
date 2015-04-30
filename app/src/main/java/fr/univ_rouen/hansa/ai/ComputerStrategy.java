@@ -9,6 +9,9 @@ public interface ComputerStrategy {
     public IMovement[] compute(GameBoard board);
 
     public IHTPlayer getPlayer();
+
     public void setPlayer(IHTPlayer player);
+
+    public StrategyType getStrategyType();
 
 }

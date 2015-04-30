@@ -1,5 +1,9 @@
 package fr.univ_rouen.hansa.save.dao.players;
 
+import android.util.Log;
+
+import fr.univ_rouen.hansa.ai.ComputerStrategy;
+import fr.univ_rouen.hansa.ai.StrategyType;
 import fr.univ_rouen.hansa.gameboard.player.HTComputer;
 import fr.univ_rouen.hansa.gameboard.player.HTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
@@ -11,8 +15,7 @@ public class PlayerDao implements Dao<IHTPlayer> {
     private PlayerColor color;
     private EscritoireDao escritoire;
     private int action;
-    //TODO fix that
-    //private Strategy computerStrategy;
+    private StrategyType computerStrategy;
 
     public PlayerDao() {
     }
@@ -23,22 +26,32 @@ public class PlayerDao implements Dao<IHTPlayer> {
         this.action = player.getActionNumber();
 
         if (player instanceof HTComputer) {
-            //TODO fix that
-            //computerStrategy = ((HTComputer) player).getStrategy();
+            for (StrategyType strategyType : StrategyType.values()) {
+                ComputerStrategy strategy = ((HTComputer) player).getStrategy();
+
+                if (strategyType.getInstance().equals(strategy.getClass())) {
+                    computerStrategy = strategyType;
+                    break;
+                }
+            }
+
+            if (computerStrategy == null) {
+                Log.d("Error in Save", "No strategy found for AI, replace by random strategy");
+                computerStrategy = StrategyType.randomStrategy;
+            }
         }
     }
 
     @Override
     public IHTPlayer daoToEntity() {
-        //TODO fix that
-        /*if (computerStrategy != null) {
+        if (computerStrategy != null) {
             return new HTComputer(
                     color,
                     escritoire.daoToEntity(),
                     action,
-                    computerStrategy.getComputerStrategy()
+                    computerStrategy
             );
-        }*/
+        }
 
         return new HTPlayer(color, escritoire.daoToEntity(), action);
     }
@@ -67,12 +80,11 @@ public class PlayerDao implements Dao<IHTPlayer> {
         this.action = action;
     }
 
-    //TODO fix that
-    /*public Strategy getComputerStrategy() {
+    public StrategyType getComputerStrategy() {
         return computerStrategy;
     }
 
-    public void setComputerStrategy(Strategy computerStrategy) {
+    public void setComputerStrategy(StrategyType computerStrategy) {
         this.computerStrategy = computerStrategy;
-    }*/
+    }
 }

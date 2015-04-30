@@ -1,6 +1,7 @@
 package fr.univ_rouen.hansa.gameboard.player;
 
 import fr.univ_rouen.hansa.ai.ComputerStrategy;
+import fr.univ_rouen.hansa.ai.StrategyType;
 import fr.univ_rouen.hansa.gameboard.player.escritoire.IEscritoire;
 
 public class HTComputer extends HTPlayer {
@@ -15,10 +16,14 @@ public class HTComputer extends HTPlayer {
      * @param action number of action playable of the AI
      * @param strategy of the AI
      */
-    public HTComputer(PlayerColor color, IEscritoire escritoire, int action, ComputerStrategy strategy) {
+    public HTComputer(PlayerColor color,
+                      IEscritoire escritoire,
+                      int action,
+                      StrategyType strategy) {
+
         super(color, escritoire, action);
 
-        this.strategy = strategy;
+        this.strategy = strategy.getInstance();
         this.strategy.setPlayer(this);
     }
 
