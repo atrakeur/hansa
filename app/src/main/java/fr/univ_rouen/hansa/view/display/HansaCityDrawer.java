@@ -63,7 +63,7 @@ public class HansaCityDrawer implements IDrawer {
                     int color = kontor.getOwner().getPlayerColor().getColor();
                     paint.setColor(color);
                 }
-                /**
+
                 canvas.drawRect(
                         resources.getPercentToScreenWidth(drawPosX),
                         resources.getPercentToScreenHeight(city.getPosition().getY() - KONTOR_TRADER_SIZE_Y / 2),
@@ -71,7 +71,7 @@ public class HansaCityDrawer implements IDrawer {
                         resources.getPercentToScreenHeight(city.getPosition().getY() + KONTOR_TRADER_SIZE_Y / 2),
                         paint
                 );
-                */
+
                 drawPosX += KONTOR_TRADER_SIZE_X + KONTOR_SPACING_X;
             }
 

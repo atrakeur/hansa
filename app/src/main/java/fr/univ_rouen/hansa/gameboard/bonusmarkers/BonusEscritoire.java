@@ -13,7 +13,7 @@ public class BonusEscritoire extends AbstractBonus implements IBonusMarker {
     private IHTPlayer player;
 
     public BonusEscritoire() {
-        super("escritoire");
+        super(BonusType.BonusEscritoire);
     }
 
     @Override

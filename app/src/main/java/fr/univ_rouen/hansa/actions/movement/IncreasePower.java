@@ -5,7 +5,10 @@ import com.google.common.collect.Lists;
 import java.util.List;
 
 import fr.univ_rouen.hansa.actions.Actions;
+import fr.univ_rouen.hansa.exceptions.EndOfGameException;
 import fr.univ_rouen.hansa.exceptions.NotAvailableActionException;
+import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.Power;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
@@ -66,12 +69,27 @@ public class IncreasePower implements IMovement {
         player.getEscritoire().addToStock(pawns);
 
         player.getEscritoire().increasePower(power);
-        for(ICity city : route.getCities()){
+        for (ICity city : route.getCities()) {
             if (city.getOwner() != null) {
                 city.getOwner().increaseScore();
             }
         }
+
+
+        IBonusMarker bonusMarker = route.popBonusMarker();
+        if (bonusMarker != null) {
+            player.getEscritoire().getBonusMarker().add(bonusMarker);
+            player.getEscritoire().getTinPlateContent().add(GameBoardFactory.getGameBoard().drawBonusMarker());
+        }
         actionDone = true;
+
+        for (ICity city : route.getCities()) {
+            if (city.getOwner() != null) {
+                if (city.getOwner().getScore() >= 20) {
+                    throw new EndOfGameException();
+                }
+            }
+        }
     }
 
     @Override
@@ -93,7 +111,7 @@ public class IncreasePower implements IMovement {
         } catch (Exception e) {
             throw new NotAvailableActionException();
         }
-        for(ICity city : route.getCities()){
+        for (ICity city : route.getCities()) {
             if (city.getOwner() != null) {
                 city.getOwner().decreaseScore();
             }

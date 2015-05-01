@@ -4,7 +4,7 @@ public abstract class BasicBoard {
 
     private int background;
 
-    protected void setBackground(int image)
+    public void setBackground(int image)
     {
         this.background = image;
     }

@@ -5,7 +5,9 @@ import com.google.common.collect.Lists;
 import java.util.Iterator;
 import java.util.List;
 
+import fr.univ_rouen.hansa.exceptions.EndOfGameException;
 import fr.univ_rouen.hansa.gameboard.Privillegium;
+import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.IKontor;
 import fr.univ_rouen.hansa.gameboard.cities.Kontor;
@@ -26,7 +28,7 @@ public class BonusKontor extends AbstractBonus implements IBonusMarker {
     private List<Pawn> pawns;
 
     public BonusKontor() {
-        super("kontor");
+        super(BonusType.BonusKontor);
     }
 
     /**
@@ -86,7 +88,9 @@ public class BonusKontor extends AbstractBonus implements IBonusMarker {
         }
 
         for (ICity city : village.getRoute().getCities()) {
-            city.getOwner().increaseScore();
+            if (city.getOwner() != null) {
+                city.getOwner().increaseScore();
+            }
         }
         IKontor<Pawn> k = new Kontor(village.getPawnType(), false, Privillegium.White);
         kontor = k;
@@ -105,6 +109,20 @@ public class BonusKontor extends AbstractBonus implements IBonusMarker {
         player.getEscritoire().getStock().addPawns(ps);
         player.setActionNumber(-1);
 
+
+        IBonusMarker bonusMarker = village.getRoute().popBonusMarker();
+        if (bonusMarker != null) {
+            player.getEscritoire().getBonusMarker().add(bonusMarker);
+            player.getEscritoire().getTinPlateContent().add(GameBoardFactory.getGameBoard().drawBonusMarker());
+        }
+
+        for (ICity city : village.getRoute().getCities()) {
+            if (city.getOwner() != null) {
+                if (city.getOwner().getScore() >= 20) {
+                    throw new EndOfGameException();
+                }
+            }
+        }
     }
 
     public void undoAction() {
@@ -140,6 +158,26 @@ public class BonusKontor extends AbstractBonus implements IBonusMarker {
             cities.getOwner().decreaseScore();
         }
         player.setActionNumber(1);
+    }
+
+    public ICity getCity() {
+        return city;
+    }
+
+    public IVillage getVillage() {
+        return village;
+    }
+
+    public Pawn getPawn() {
+        return pawn;
+    }
+
+    public IKontor getKontor() {
+        return kontor;
+    }
+
+    public List<Pawn> getPawns() {
+        return Lists.newArrayList(pawns);
     }
 
     @Override

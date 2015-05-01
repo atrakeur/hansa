@@ -31,7 +31,7 @@ public class City implements ICity {
         if (kontors == null) {
             throw new IllegalArgumentException();
         }
-        
+
         this.additionalKontors = Lists.newArrayList();
 
         this.drawer = new HansaCityDrawer(this);
@@ -126,30 +126,30 @@ public class City implements ICity {
     }
 
     @Override
-    public IHTPlayer getOwner(){
-        if (this.getKontors().size() == 0){
+    public IHTPlayer getOwner() {
+        if (this.getKontors().size() == 0) {
             return null;
         }
         IHTPlayer cityOwner = null;
         int kontorsOwnedMax = 0;
-        Map<IHTPlayer,Integer> score = Maps.newHashMap();
-        for (IKontor<? extends Pawn> kontor : getAdditionalKontors()){
+        Map<IHTPlayer, Integer> score = Maps.newHashMap();
+        for (IKontor<? extends Pawn> kontor : getAdditionalKontors()) {
             IHTPlayer kontorOwner = kontor.getOwner();
             Integer kontorsOwned = score.get(kontorOwner);
-            if (kontorsOwned == null){
+            if (kontorsOwned == null) {
                 kontorsOwned = 1;
-                score.put(kontorOwner,kontorsOwned);
+                score.put(kontorOwner, kontorsOwned);
             } else {
                 kontorsOwned++;
             }
-            score.put(kontorOwner,kontorsOwned);
-            if(kontorsOwned >= kontorsOwnedMax){
+            score.put(kontorOwner, kontorsOwned);
+            if (kontorsOwned >= kontorsOwnedMax) {
                 cityOwner = kontorOwner;
                 kontorsOwnedMax = kontorsOwned;
             }
         }
-        for (IKontor<? extends Pawn> kontor : getKontors()){
-            if(!kontor.isEmpty()) {
+        for (IKontor<? extends Pawn> kontor : getKontors()) {
+            if (!kontor.isEmpty()) {
                 IHTPlayer kontorOwner = kontor.getOwner();
                 Integer kontorsOwned = score.get(kontorOwner);
                 if (kontorsOwned == null) {
@@ -166,5 +166,21 @@ public class City implements ICity {
             }
         }
         return cityOwner;
+    }
+
+    @Override
+    public int numberOfKontorsOwned(IHTPlayer player) {
+        int total = 0;
+        for (IKontor kontor : kontors) {
+            if (kontor.getOwner() == player) {
+                total++;
+            }
+        }
+        for (IKontor kontor : additionalKontors) {
+            if (kontor.getOwner() == player) {
+                total++;
+            }
+        }
+        return total;
     }
 }

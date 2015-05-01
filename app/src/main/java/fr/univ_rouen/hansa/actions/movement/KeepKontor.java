@@ -6,9 +6,12 @@ import java.util.Iterator;
 import java.util.List;
 
 import fr.univ_rouen.hansa.actions.Actions;
+import fr.univ_rouen.hansa.exceptions.EndOfGameException;
 import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.exceptions.NoPlaceException;
 import fr.univ_rouen.hansa.gameboard.Privillegium;
+import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.City;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.IKontor;
@@ -21,6 +24,7 @@ public class KeepKontor implements IMovement {
     private final IVillage village;
     private final IKontor kontor;
     private final List<Pawn> pawns;
+    private final ICity city;
 
     private boolean actionDone;
 
@@ -39,6 +43,7 @@ public class KeepKontor implements IMovement {
         this.kontor = city.getNextKontor();
 
         pawns = Lists.newArrayList();
+        this.city = city;
     }
 
     @Override
@@ -78,7 +83,7 @@ public class KeepKontor implements IMovement {
         if (kontor.hasVictoryPoint()) {
             player.increaseScore();
         }
-        for(ICity city : village.getRoute().getCities()){
+        for (ICity city : village.getRoute().getCities()) {
             if (city.getOwner() != null) {
                 city.getOwner().increaseScore();
             }
@@ -93,6 +98,25 @@ public class KeepKontor implements IMovement {
         player.getEscritoire().getStock().addPawns(pawns);
 
         actionDone = true;
+
+        for (ICity city : village.getRoute().getCities()) {
+            if (city.getOwner() != null) {
+                if (city.getOwner().getScore() >= 20) {
+                    throw new EndOfGameException();
+                }
+            }
+        }
+
+        IBonusMarker bonusMarker = village.getRoute().popBonusMarker();
+        if (bonusMarker != null) {
+            player.getEscritoire().getBonusMarker().add(bonusMarker);
+            player.getEscritoire().getTinPlateContent().add(GameBoardFactory.getGameBoard().drawBonusMarker());
+        }
+
+        if (city.isCompletedCity()) {
+            GameBoardFactory.getGameBoard().increaseCityCompleted();
+        }
+
     }
 
     @Override
@@ -117,7 +141,7 @@ public class KeepKontor implements IMovement {
         }
 
         pawns.clear();
-        for(ICity city : village.getRoute().getCities()){
+        for (ICity city : village.getRoute().getCities()) {
             if (city.getOwner() != null) {
                 city.getOwner().decreaseScore();
             }

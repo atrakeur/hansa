@@ -118,7 +118,17 @@ public class Route implements IRoute {
     }
 
     @Override
-    public void setBonusMarker(IBonusMarker bonusMarker) {
+    public IBonusMarker popBonusMarker() {
+        IBonusMarker tmp = bonusMarker;
+        bonusMarker = null;
+        return tmp;
+    }
+
+    @Override
+    public void pushBonusMarker(IBonusMarker bonusMarker) {
+        if (getBonusMarker() != null) {
+            throw new IllegalStateException();
+        }
         this.bonusMarker = bonusMarker;
     }
 
@@ -130,7 +140,7 @@ public class Route implements IRoute {
 
         return cities[0].equals(city) || cities[1].equals(city);
     }
-    
+
     public List<Pawn> getPawns() {
         List<Pawn> l = Lists.newArrayList();
         for (IVillage v : villages) {

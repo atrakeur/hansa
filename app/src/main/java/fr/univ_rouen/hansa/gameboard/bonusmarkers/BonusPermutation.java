@@ -16,7 +16,7 @@ public class BonusPermutation extends AbstractBonus implements IBonusMarker {
     private ICity city;
 
     public BonusPermutation() {
-        super("permutation");
+        super(BonusType.BonusPermutation);
     }
 
     @Override

@@ -33,7 +33,12 @@ public class PlayBonusTest extends TestCase {
         }
 
         @Override
-        public String getType() {
+        public BonusType getType() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public String getImage() {
             throw new UnsupportedOperationException();
         }
 
