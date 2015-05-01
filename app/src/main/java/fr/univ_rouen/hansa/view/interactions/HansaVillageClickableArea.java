@@ -49,43 +49,13 @@ public class HansaVillageClickableArea extends ClickableArea {
                 IMovement m = MovementFactory.getInstance().makeMovement(this, null);
                 if(m != null){
                     MovementManager.getInstance().doMove(m);
-                    MovementFactory.getInstance().setBonusMarker(null);
+                    MovementFactory.getInstance().clearBonusMove();
+
                 }
             } catch(GameException e) {
                 e.printStackTrace();
             }
         }
-
-        /*else if(MovementFactory.getInstance().state == MovementFactory.State.BM_PLATE){
-            try{
-                IMovement m = MovementFactory.getInstance().makeMovement(this, null);
-                MovementManager.getInstance().doMove(m);
-                MovementFactory.getInstance().setBonusMarker(null);
-                MovementFactory.getInstance().state = MovementFactory.State.DEFAULT;
-            } catch(IllegalArgumentException e){
-                Toast.makeText(GameActivity.getInstance().getApplicationContext(), "La Route n'est pas vide", Toast.LENGTH_SHORT).show();
-            } catch(IllegalStateException e){
-                Toast.makeText(GameActivity.getInstance().getApplicationContext(), "La Route n'est pas vide", Toast.LENGTH_SHORT).show();
-            }  catch(GameException e){
-                Toast.makeText(GameActivity.getInstance().getApplicationContext(), "Veuillez cliquer sur un village", Toast.LENGTH_SHORT).show();
-            }
-        } else if(MovementFactory.getInstance().state == MovementFactory.State.BM_REMOVE){
-            try{
-                IMovement m = MovementFactory.getInstance().makeRemovePawnMovement(this);
-                Toast.makeText(GameActivity.getInstance().getApplicationContext(), "Pion séléctionné", Toast.LENGTH_SHORT).show();
-                if(m != null){
-                    MovementManager.getInstance().doMove(m);
-                    MovementFactory.getInstance().setBonusMarker(null);
-                    MovementFactory.getInstance().state = MovementFactory.State.DEFAULT;
-                }
-            } catch(IllegalArgumentException e){
-                Toast.makeText(GameActivity.getInstance().getApplicationContext(), "Le village séléctionné doit avoir un pion", Toast.LENGTH_SHORT).show();
-            } catch(IllegalStateException e){
-                Toast.makeText(GameActivity.getInstance().getApplicationContext(), "Le village séléctionné doit avoir un pion", Toast.LENGTH_SHORT).show();
-            }  catch(GameException e){
-                Toast.makeText(GameActivity.getInstance().getApplicationContext(), "Veuillez cliquer sur un village", Toast.LENGTH_SHORT).show();
-            }
-        }*/
     }
 
     @Override

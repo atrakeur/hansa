@@ -43,7 +43,7 @@ public class PlaceBonusMarker implements IMovement {
             throw new IllegalStateException("Invalid bonus state");
         }
 
-        route.setBonusMarker(bonusMarker);
+        route.pushBonusMarker(bonusMarker);
         bonusMarker.setState(BonusState.onBoard);
 
         actionDone = true;
@@ -59,7 +59,7 @@ public class PlaceBonusMarker implements IMovement {
             throw new IllegalStateException("Invalid bonus state");
         }
 
-        route.setBonusMarker(null);
+        route.popBonusMarker();
         bonusMarker.setState(BonusState.inPlate);
         actionDone = false;
     }

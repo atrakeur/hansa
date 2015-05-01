@@ -1,5 +1,7 @@
 package fr.univ_rouen.hansa.actions;
 
+import android.widget.Toast;
+
 import com.google.common.collect.Lists;
 
 import java.util.List;
@@ -14,6 +16,7 @@ import fr.univ_rouen.hansa.actions.movement.PlaceBonusMarker;
 import fr.univ_rouen.hansa.actions.movement.PlayBonus;
 import fr.univ_rouen.hansa.actions.movement.ReplaceMovedPawn;
 import fr.univ_rouen.hansa.actions.movement.ValidateMovedPawn;
+import fr.univ_rouen.hansa.activity.GameActivity;
 import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.exceptions.PopupException;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
@@ -50,6 +53,11 @@ public class MovementFactory {
 
     public void setBonusHasToBeReplaced(boolean b){
         this.bonusHasToBeReplaced = b;
+    }
+
+    public void clearBonusMove(){
+        this.bonusMarker = null;
+        bm.movement = null;
     }
 
     private class BonusMove implements IVisitorBonusMarker {
@@ -143,6 +151,10 @@ public class MovementFactory {
                 IVillage village = (IVillage) source.getSubject();
                 if(!village.isEmpty()){
                     villages.add(village);
+
+                    Toast.makeText(GameActivity.getInstance().getApplicationContext(),
+                            "Village Séléctionné", Toast.LENGTH_SHORT).show();
+
                     if(villages.size() == 3){
                         marker.setVillage(villages);
                         movement = new PlayBonus(marker);
@@ -157,27 +169,6 @@ public class MovementFactory {
     public IMovement makeBonusMove(IClickableArea source){
         return bm.createMovement(source);
     }
-
-    /*public IMovement makeRemovePawnMovement(IClickableArea source){
-        IMovement mov = null;
-
-        if(source.getType() == IClickableArea.Type.village){
-            IVillage village = (IVillage) source.getSubject();
-            if(village.isEmpty()){
-                throw new IllegalArgumentException();
-            }
-
-            villages.add(village);
-            if(villages.size() == 3){
-                BonusRemovePawns bonusMarker = (BonusRemovePawns)this.bonusMarker;
-                bonusMarker.setVillage(villages);
-                mov = new PlayBonus(bonusMarker);
-                villages.clear();
-            }
-        }
-        return mov;
-    }
-*/
 
     public IMovement makePlaceBonusMarkerMovement(IClickableArea source){
         IMovement mov;

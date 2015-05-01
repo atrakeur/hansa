@@ -68,11 +68,6 @@ public interface IRoute extends IDrawable {
      */
     IBonusMarker getBonusMarker();
 
-    /**
-     * Set the bonus marker of the road by the one in parameter
-     * @param bonusMarker the new bonus marker of the route
-     */
-    void setBonusMarker(IBonusMarker bonusMarker);
 
     /**
      * return the bonus marker in the tavern of the road and remove it from the road
