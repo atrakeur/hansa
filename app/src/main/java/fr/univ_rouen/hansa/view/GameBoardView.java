@@ -18,6 +18,8 @@ import fr.univ_rouen.hansa.view.utils.ResourceRepository;
 
 public class GameBoardView extends SurfaceView {
 
+    private static GameBoardView instance;
+
     private DrawingThread thread;
     //TODO don't belong here, but it's more fancy if AI play only when we can see it playing!
     private AIThread aiThread;
@@ -42,6 +44,13 @@ public class GameBoardView extends SurfaceView {
 
         thread = new DrawingThread(this, getHolder());
         aiThread = new AIThread(this, getHolder());
+
+        instance = this;
+    }
+
+    public static GameBoardView getInstance() {
+        //TODO remove that
+        return instance;
     }
 
     public void setBoard(GameBoard board) {
