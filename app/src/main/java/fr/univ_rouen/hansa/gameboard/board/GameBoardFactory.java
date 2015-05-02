@@ -26,6 +26,7 @@ import fr.univ_rouen.hansa.gameboard.routes.Village;
 import fr.univ_rouen.hansa.util.CityPositions;
 import fr.univ_rouen.hansa.util.TavernPositions;
 import fr.univ_rouen.hansa.util.VillagePositions;
+import fr.univ_rouen.hansa.view.GameBoardView;
 import fr.univ_rouen.hansa.view.IPosition;
 
 public class GameBoardFactory {
@@ -685,5 +686,7 @@ public class GameBoardFactory {
 
     public void createGameBoardFromSave(GameBoard gameBoard) {
         GameBoardFactory.gameBoard = gameBoard;
+
+        GameBoardView.getInstance().setBoard(gameBoard);
     }
 }
