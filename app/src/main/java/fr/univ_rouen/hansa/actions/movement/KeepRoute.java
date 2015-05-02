@@ -9,6 +9,7 @@ import fr.univ_rouen.hansa.actions.Actions;
 import fr.univ_rouen.hansa.exceptions.EndOfGameException;
 import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusState;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
@@ -21,6 +22,8 @@ public class KeepRoute implements IMovement {
     private final IRoute route;
     private final List<Pawn> pawns;
 
+    private IBonusMarker bonusMarker;
+    private IBonusMarker tinPlate;
     private boolean actionDone;
 
     public KeepRoute(IHTPlayer player, IRoute route) {
@@ -64,10 +67,13 @@ public class KeepRoute implements IMovement {
         player.getEscritoire().getStock().addPawns(pawns);
 
 
-        IBonusMarker bonusMarker = route.popBonusMarker();
+        bonusMarker = route.popBonusMarker();
         if (bonusMarker != null) {
-            player.getEscritoire().getBonusMarker().add(bonusMarker);
-            player.getEscritoire().getTinPlateContent().add(GameBoardFactory.getGameBoard().drawBonusMarker());
+            bonusMarker.setState(BonusState.onHand);
+            player.getEscritoire().addBonusMarker(bonusMarker);
+            tinPlate = GameBoardFactory.getGameBoard().drawBonusMarker();
+            tinPlate.setState(BonusState.inPlate);
+            player.getEscritoire().addTinPlate(tinPlate);
         }
 
         actionDone = true;
@@ -101,6 +107,18 @@ public class KeepRoute implements IMovement {
                 city.getOwner().decreaseScore();
             }
         }
+
+        if(bonusMarker != null){
+            bonusMarker.setState(BonusState.onBoard);
+            player.getEscritoire().removeBonusMarker(bonusMarker);
+            route.pushBonusMarker(bonusMarker);
+
+            player.getEscritoire().removeTinPlate(tinPlate);
+            tinPlate.setState(BonusState.unused);
+            GameBoardFactory.getGameBoard().putBackBonusMarker(tinPlate);
+        }
+
+
         actionDone = false;
     }
 

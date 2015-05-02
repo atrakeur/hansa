@@ -37,11 +37,24 @@ public class HansaVillageClickableArea extends ClickableArea {
     public void onClick() {
         Log.w("Village", "onClick");
 
-        try {
-            IMovement m = MovementFactory.getInstance().makeMovement(this, null);
-            MovementManager.getInstance().doMove(m);
-        } catch(GameException e) {
-            e.printStackTrace();
+        if(MovementFactory.getInstance().getBonusMarker() == null){
+            try {
+                IMovement m = MovementFactory.getInstance().makeMovement(this, null);
+                MovementManager.getInstance().doMove(m);
+            } catch(GameException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                IMovement m = MovementFactory.getInstance().makeMovement(this, null);
+                if(m != null){
+                    MovementManager.getInstance().doMove(m);
+                    MovementFactory.getInstance().clearBonusMove();
+
+                }
+            } catch(GameException e) {
+                e.printStackTrace();
+            }
         }
     }
 

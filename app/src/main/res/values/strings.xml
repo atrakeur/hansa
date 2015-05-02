@@ -77,4 +77,18 @@
     <string name="rulesFile">/sdcard/rulesfr.pdf</string>
     <string name="noApplicationPDF">Aucune application disponible pour visionner du pdf</string>
 
+    <!--Bonus Marker Strings-->
+    <string name="bonus_marker_on_hand">Jetons En Main</string>
+    <string name="bonus_marker_in_plate">Jetons à Replacer</string>
+    <string name="bonus_marker_used">Jeton Utilisés</string>
+
+    <string-array name="powers">
+        <item>Actiones</item>
+        <item>Bursa</item>
+        <item>Clavis Urbis</item>
+        <item>Liber Sophia</item>
+        <item>Privilegium</item>
+    </string-array>
+
+
 </resources>

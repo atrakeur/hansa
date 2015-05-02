@@ -35,7 +35,7 @@
                 style="@style/MenuButton"
                 android:id="@+id/button_pawntype"
                 android:onClick="changePawnType"
-                android:contentDescription="@string/button_escritoire" />
+                android:contentDescription="@string/button_pawntype"/>
 
             <ImageButton
                 style="@style/MenuButton"
@@ -56,7 +56,7 @@
                 android:id="@+id/button_bonus_marker"
                 android:src="@drawable/jb"
                 android:contentDescription="@string/button_bonus_marker"
-                android:onClick="toasty" />
+                android:onClick="bonusMarkerAction"/>
 
             <ImageButton
                 style="@style/MenuButton"

@@ -71,7 +71,6 @@ public class BonusKontor extends AbstractBonus implements IBonusMarker {
 
     @Override
     public void doAction() {
-        super.doAction();
 
         if (city == null) {
             throw new IllegalStateException("a city must have been set");
@@ -123,6 +122,7 @@ public class BonusKontor extends AbstractBonus implements IBonusMarker {
                 }
             }
         }
+        super.doAction();
     }
 
     public void undoAction() {
@@ -178,5 +178,10 @@ public class BonusKontor extends AbstractBonus implements IBonusMarker {
 
     public List<Pawn> getPawns() {
         return Lists.newArrayList(pawns);
+    }
+
+    @Override
+    public void accept(IVisitorBonusMarker visitorBonusMarker) {
+        visitorBonusMarker.visit(this);
     }
 }

@@ -20,17 +20,16 @@ import fr.univ_rouen.hansa.actions.movement.IMovement;
 import fr.univ_rouen.hansa.exceptions.UnfinishedRoundException;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
-import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
-import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
-import fr.univ_rouen.hansa.view.DialogPause;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
+import fr.univ_rouen.hansa.view.DialogPause;
 import fr.univ_rouen.hansa.view.interactions.AlertDialogBursa;
 
 public class GameActivity extends Activity {
 
     //TODO remove singleton (c'est degeu!)
     private static GameActivity instance;
+
     public static GameActivity getInstance() {
         return instance;
     }
@@ -68,9 +67,9 @@ public class GameActivity extends Activity {
         }
 
         if (MovementFactory.getInstance().getPawnType() == Trader.class) {
-            ((ImageButton)findViewById(R.id.button_pawntype)).setImageResource(R.drawable.trader);
+            ((ImageButton) findViewById(R.id.button_pawntype)).setImageResource(R.drawable.trader);
         } else {
-            ((ImageButton)findViewById(R.id.button_pawntype)).setImageResource(R.drawable.merchant);
+            ((ImageButton) findViewById(R.id.button_pawntype)).setImageResource(R.drawable.merchant);
         }
     }
 
@@ -156,7 +155,7 @@ public class GameActivity extends Activity {
         this.onResume();
     }
 
-    public void submitAction(View v){
+    public void submitAction(View v) {
         try {
             TurnManager.getInstance().nextPlayer(false);
             this.onResume();
@@ -198,6 +197,17 @@ public class GameActivity extends Activity {
     public void pauseGame(View view) {
         Dialog pause = new DialogPause(context);
         pause.show();
+    }
+
+    /**
+     * This method is invoked when the player press the bonus marker button
+     * It calls the BonusMarkerActivity
+     *
+     * @param view the view that calls this method
+     */
+    public void bonusMarkerAction(View view) {
+        Intent intent = new Intent(this, BonusMarkerActivity.class);
+        startActivity(intent);
     }
 }
 

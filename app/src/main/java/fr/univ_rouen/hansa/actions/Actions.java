@@ -9,6 +9,7 @@ public enum Actions {
     movePawnRtoS,     //Move Supply (accessible) to Stock (unaccessible)
     endRound,         //End the turn
     playBonus,        //Play a bonus jeton
+    placeBonusMarker, //Place a bonus marker on an empty road
     keepRoute,        //Take a route from a route
     replaceMovedPawn, //Replace a pawn that has been moved from another player
     validateMovedPawn //Validate that all pawn has been replaced
