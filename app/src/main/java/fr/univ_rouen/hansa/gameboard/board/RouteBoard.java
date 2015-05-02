@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.List;
 
 import fr.univ_rouen.hansa.exceptions.EndOfGameException;
-import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
@@ -63,6 +62,10 @@ public abstract class RouteBoard extends CitiesBoard {
         }
 
         return bonusStack.remove(bonusStack.size() - 1);
+    }
+
+    public void putBackBonusMarker(IBonusMarker bonusMarker){
+        bonusStack.add(bonusMarker);
     }
 
     public void setBonusStack(List<IBonusMarker> bonusStack) {

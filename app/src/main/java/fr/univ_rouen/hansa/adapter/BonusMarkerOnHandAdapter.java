@@ -3,11 +3,14 @@ package fr.univ_rouen.hansa.adapter;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.google.common.collect.Lists;
+
+import java.util.List;
 
 import fr.univ_rouen.hansa.R;
 import fr.univ_rouen.hansa.actions.MovementFactory;
@@ -27,8 +30,21 @@ import fr.univ_rouen.hansa.gameboard.cities.Power;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 
 public class BonusMarkerOnHandAdapter extends BonusMarkerAdapter {
+    @Override
+    public List<IBonusMarker> getListBonusMarker() {
+        List<IBonusMarker> bonusMarkers = Lists.newArrayList();
+
+        for(IBonusMarker bonusMarker : getPlayer().getEscritoire().getBonusMarker()){
+            if(bonusMarker.getState() == BonusState.onHand){
+                bonusMarkers.add(bonusMarker);
+            }
+        }
+
+        return bonusMarkers;
+    }
+
     public BonusMarkerOnHandAdapter(Activity a, IHTPlayer player) {
-        super(a, player, BonusState.onHand);
+        super(a, player);
     }
 
     private class BonusClickHandler implements IVisitorBonusMarker, View.OnClickListener {
@@ -48,8 +64,6 @@ public class BonusMarkerOnHandAdapter extends BonusMarkerAdapter {
         public void visit(BonusActiones marker) {
             marker.setPlayer(getPlayer());
             MovementManager.getInstance().doMove(new PlayBonus(marker));
-            //TODO a retirer
-            Log.w("Player Actiones", "" + getPlayer().getActionNumber());
             getActivity().finish();
         }
 

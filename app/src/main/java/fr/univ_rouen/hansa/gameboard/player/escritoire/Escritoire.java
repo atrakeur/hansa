@@ -149,6 +149,24 @@ public class Escritoire implements IEscritoire {
     }
 
     @Override
+    public void removeBonusMarker(IBonusMarker marker){
+        bonusMarkers.remove(marker);
+    }
+
+    @Override
+    public void removeTinPlate(IBonusMarker bonusMarker){
+        tinPlate.remove(bonusMarker);
+    }
+
+    @Override
+    public void addTinPlate(IBonusMarker bonusMarker){
+        if (bonusMarker == null && bonusMarker.getState() != BonusState.inPlate) {
+            throw new IllegalArgumentException();
+        }
+        tinPlate.add(bonusMarker);
+    }
+
+    @Override
     public int bonusMarkerCount() {
         return getBonusMarker().size();
     }

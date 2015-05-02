@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
-import com.google.common.collect.Lists;
-
 import java.util.List;
 
 import fr.univ_rouen.hansa.R;
@@ -18,7 +16,6 @@ import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusEscritoire;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusKontor;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusPermutation;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusRemovePawns;
-import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusState;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IVisitorBonusMarker;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
@@ -33,21 +30,18 @@ public abstract class BonusMarkerAdapter extends BaseAdapter implements IVisitor
     private int resBonusMarker;
     private IHTPlayer player;
 
-    public BonusMarkerAdapter(Activity a, IHTPlayer player, BonusState state) {
-        if (a == null || player == null || state == null) {
+    public abstract List<IBonusMarker> getListBonusMarker();
+
+    public BonusMarkerAdapter(Activity a, IHTPlayer player) {
+        if (a == null || player == null) {
             throw new IllegalArgumentException();
         }
 
         activity = a;
-        listBonusMarker = Lists.newArrayList();
         this.player=player;
+        listBonusMarker = getListBonusMarker();
 
-        //Get all the used bonus marker
-        for (IBonusMarker bonusMarker : player.getEscritoire().getBonusMarker()) {
-            if (bonusMarker.getState() == state) {
-                listBonusMarker.add(bonusMarker);
-            }
-        }
+
     }
 
     @Override

@@ -11,8 +11,8 @@ import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.exceptions.NoPlaceException;
 import fr.univ_rouen.hansa.gameboard.Privillegium;
 import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusState;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
-import fr.univ_rouen.hansa.gameboard.cities.City;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.IKontor;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
@@ -26,6 +26,8 @@ public class KeepKontor implements IMovement {
     private final List<Pawn> pawns;
     private final ICity city;
 
+    private IBonusMarker bonusMarker;
+    private IBonusMarker tinPlate;
     private boolean actionDone;
 
     public KeepKontor(IHTPlayer player, ICity city, IVillage village) {
@@ -107,10 +109,14 @@ public class KeepKontor implements IMovement {
             }
         }
 
-        IBonusMarker bonusMarker = village.getRoute().popBonusMarker();
+        bonusMarker = village.getRoute().popBonusMarker();
         if (bonusMarker != null) {
-            player.getEscritoire().getBonusMarker().add(bonusMarker);
-            player.getEscritoire().getTinPlateContent().add(GameBoardFactory.getGameBoard().drawBonusMarker());
+            bonusMarker.setState(BonusState.onHand);
+            player.getEscritoire().addBonusMarker(bonusMarker);
+
+            tinPlate = GameBoardFactory.getGameBoard().drawBonusMarker();
+            tinPlate.setState(BonusState.inPlate);
+            player.getEscritoire().addTinPlate(tinPlate);
         }
 
         if (city.isCompletedCity()) {
@@ -146,6 +152,18 @@ public class KeepKontor implements IMovement {
                 city.getOwner().decreaseScore();
             }
         }
+
+
+        if(bonusMarker != null){
+            bonusMarker.setState(BonusState.onBoard);
+            player.getEscritoire().removeBonusMarker(bonusMarker);
+            village.getRoute().pushBonusMarker(bonusMarker);
+
+            player.getEscritoire().removeTinPlate(tinPlate);
+            tinPlate.setState(BonusState.unused);
+            GameBoardFactory.getGameBoard().putBackBonusMarker(tinPlate);
+        }
+
         actionDone = false;
     }
 

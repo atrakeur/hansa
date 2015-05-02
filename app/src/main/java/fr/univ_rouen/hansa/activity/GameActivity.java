@@ -19,13 +19,6 @@ import fr.univ_rouen.hansa.actions.MovementManager;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
 import fr.univ_rouen.hansa.exceptions.UnfinishedRoundException;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
-import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusActiones;
-import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusEscritoire;
-import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusKontor;
-import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusPermutation;
-import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusRemovePawns;
-import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusState;
-import fr.univ_rouen.hansa.gameboard.cities.Power;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
@@ -78,35 +71,6 @@ public class GameActivity extends Activity {
         } else {
             ((ImageButton) findViewById(R.id.button_pawntype)).setImageResource(R.drawable.merchant);
         }
-
-        //TODO removes these ... seriously eurk :s
-        BonusActiones act = new BonusActiones(3);
-        act.setState(BonusState.inPlate);
-        act.setPlayer(player);
-        player.getEscritoire().addBonusMarker(act);
-
-        BonusRemovePawns rem = new BonusRemovePawns();
-        rem.setState(BonusState.onHand);
-        player.getEscritoire().addBonusMarker(rem);
-
-        BonusPermutation perm = new BonusPermutation();
-        perm.setState(BonusState.onHand);
-        player.getEscritoire().addBonusMarker(perm);
-
-        BonusActiones act1 = new BonusActiones(4);
-        act1.setState(BonusState.onHand);
-        player.getEscritoire().addBonusMarker(act1);
-
-        BonusKontor kon = new BonusKontor();
-        kon.setState(BonusState.onHand);
-        player.getEscritoire().addBonusMarker(kon);
-
-        BonusEscritoire esc = new BonusEscritoire();
-        esc.setState(BonusState.onHand);
-        esc.setPlayer(player);
-        esc.setPower(Power.Bursa);
-        player.getEscritoire().addBonusMarker(esc);
-
     }
 
     public void toasty(View v) {
