@@ -29,21 +29,20 @@ public class HansaCityClickableArea extends ClickableArea {
 
     public boolean isClicked(float x, float y) {
         if (city.getPower() != Power.Null) {
-            return hansapower.isClicked(x,y);
-        } else {
+            hansapower.isClicked(x,y);
+        }
             double distance = Math.sqrt(
                     Math.pow(x - city.getPosition().getX(), 2)
                             +
                             Math.pow(y - city.getPosition().getY(), 2)
             );
-
+            //Log.w("Value city pos : " + city.getPosition().getX() + " ", val + "");
             return distance < selectionDistance;
-        }
     }
 
     @Override
     public void onClick() {
-        if (city.getPower() != Power.Null ) {
+        if (city.getPower() != Power.Null) {
             hansapower.onClick();
         } else {
             Log.w("Ville", "onClick");
@@ -106,7 +105,7 @@ public class HansaCityClickableArea extends ClickableArea {
     @Override
     public Object getSubject() {
         if (city.getPower() != Power.Null) {
-            return hansapower.getSubject();
+            hansapower.getSubject();
         }
         return this.city;
     }

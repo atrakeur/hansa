@@ -30,7 +30,6 @@ public class HansaPowerClickableArea extends ClickableArea {
                         +
                         Math.pow(y - city.getPower().getPosition().getY(), 2)
         );
-
         return distance < selectionDistance;
     }
 
