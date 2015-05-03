@@ -21,6 +21,7 @@ public class Route implements IRoute {
     private final ICity[] cities;
     private final IPosition tavernPosition;
 
+
     private IBonusMarker bonusMarker;
 
     public Route(List<IVillage> villages, ICity[] cities, IPosition tavernPosition) {
