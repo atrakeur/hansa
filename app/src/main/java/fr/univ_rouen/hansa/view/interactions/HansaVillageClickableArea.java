@@ -6,7 +6,6 @@ import android.graphics.Paint;
 import android.util.Log;
 
 import fr.univ_rouen.hansa.actions.MovementFactory;
-import fr.univ_rouen.hansa.actions.MovementManager;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
 import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
@@ -40,7 +39,7 @@ public class HansaVillageClickableArea extends ClickableArea {
         if(MovementFactory.getInstance().getBonusMarker() == null){
             try {
                 IMovement m = MovementFactory.getInstance().makeMovement(this, null);
-                MovementManager.getInstance().doMove(m);
+                doMove(m);
             } catch(GameException e) {
                 e.printStackTrace();
             }
@@ -48,7 +47,7 @@ public class HansaVillageClickableArea extends ClickableArea {
             try {
                 IMovement m = MovementFactory.getInstance().makeMovement(this, null);
                 if(m != null){
-                    MovementManager.getInstance().doMove(m);
+                    doMove(m);
                     MovementFactory.getInstance().clearBonusMove();
 
                 }
@@ -74,7 +73,7 @@ public class HansaVillageClickableArea extends ClickableArea {
             Log.w("Important!", ""+ village.isEmpty());
             Log.w("Important!", ""+ village.getPawnType());
 
-            MovementManager.getInstance().doMove(m);
+            doMove(m);
 
             Log.w("Important!", ""+ village.isEmpty());
             Log.w("Important!", ""+ village.getPawnType());

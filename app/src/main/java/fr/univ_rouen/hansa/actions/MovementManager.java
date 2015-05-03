@@ -4,16 +4,14 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 import fr.univ_rouen.hansa.actions.actions.ActionFactory;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
+import fr.univ_rouen.hansa.exceptions.FinishedRoundException;
 import fr.univ_rouen.hansa.gameboard.Privillegium;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
-import fr.univ_rouen.hansa.gameboard.board.GameBoard;
 import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
-import fr.univ_rouen.hansa.gameboard.cities.City;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.VictoryCoellen;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
@@ -42,8 +40,15 @@ public class MovementManager {
             throw new IllegalStateException("Can't do the same Movement twice");
         }
 
-        m.doMovement();
-        stack.push(m);
+        int playerAction = TurnManager.getInstance().getCurrentPlayer().getActionNumber();
+        int actionsDone = this.actionCounter();
+
+        if (actionsDone < playerAction) {
+            m.doMovement();
+            stack.push(m);
+        } else {
+            throw new FinishedRoundException();
+        }
     }
 
     public IMovement rollbackMove() {
