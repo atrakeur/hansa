@@ -5,6 +5,7 @@ import junit.framework.TestCase;
 import fr.univ_rouen.hansa.actions.Actions;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusState;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.IVisitorBonusMarker;
 
 public class PlayBonusTest extends TestCase {
 
@@ -40,6 +41,12 @@ public class PlayBonusTest extends TestCase {
         public String getImage() {
             throw new UnsupportedOperationException();
         }
+
+        @Override
+        public void accept(IVisitorBonusMarker visitorBonusMarker) {
+            throw new UnsupportedOperationException();
+        }
+
     }
 
     public void testConstructorWithValidParameter() throws Exception {

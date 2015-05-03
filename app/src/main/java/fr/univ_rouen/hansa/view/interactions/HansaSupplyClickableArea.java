@@ -6,7 +6,6 @@ import android.graphics.Paint;
 import android.util.Log;
 
 import fr.univ_rouen.hansa.actions.MovementFactory;
-import fr.univ_rouen.hansa.actions.MovementManager;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
 import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.view.utils.ResourceRepository;
@@ -32,7 +31,7 @@ public class HansaSupplyClickableArea extends ClickableArea {
 
         try {
             IMovement m = MovementFactory.getInstance().makeMovement(this, null);
-            MovementManager.getInstance().doMove(m);
+            doMove(m);
         } catch(GameException e) {
             e.printStackTrace();
         }
@@ -49,7 +48,7 @@ public class HansaSupplyClickableArea extends ClickableArea {
 
         try {
             IMovement m = MovementFactory.getInstance().makeMovement(from, this);
-            MovementManager.getInstance().doMove(m);
+            doMove(m);
         } catch(GameException e) {
             e.printStackTrace();
         }

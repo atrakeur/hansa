@@ -52,6 +52,9 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".activity.BonusMarkerActivity"
+            android:excludeFromRecents="true"
+            android:theme="@android:style/Theme.DeviceDefault.Dialog.NoActionBar" />
 
     </application>
 

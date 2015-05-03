@@ -18,16 +18,21 @@ public class BonusEscritoire extends AbstractBonus implements IBonusMarker {
 
     @Override
     public void doAction() {
-        super.doAction();
         IEscritoire escritoire = getPlayer().getEscritoire();
         escritoire.increasePower(getPower());
+        super.doAction();
     }
 
     @Override
     public void undoAction() {
-        super.undoAction();
         IEscritoire escritoire = getPlayer().getEscritoire();
         escritoire.decreasePower(getPower());
+        super.undoAction();
+    }
+
+    @Override
+    public void accept(IVisitorBonusMarker visitorBonusMarker) {
+        visitorBonusMarker.visit(this);
     }
 
     public Power getPower() {

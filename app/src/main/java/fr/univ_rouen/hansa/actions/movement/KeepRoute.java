@@ -6,7 +6,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import fr.univ_rouen.hansa.actions.Actions;
+import fr.univ_rouen.hansa.exceptions.EndOfGameException;
 import fr.univ_rouen.hansa.exceptions.GameException;
+import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusState;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
@@ -18,6 +22,8 @@ public class KeepRoute implements IMovement {
     private final IRoute route;
     private final List<Pawn> pawns;
 
+    private IBonusMarker bonusMarker;
+    private IBonusMarker tinPlate;
     private boolean actionDone;
 
     public KeepRoute(IHTPlayer player, IRoute route) {
@@ -49,7 +55,7 @@ public class KeepRoute implements IMovement {
             throw new GameException("Action not available, the root didn't own by the player");
         }
 
-        for(ICity city : route.getCities()){
+        for (ICity city : route.getCities()) {
             if (city.getOwner() != null) {
                 city.getOwner().increaseScore();
             }
@@ -60,7 +66,25 @@ public class KeepRoute implements IMovement {
 
         player.getEscritoire().getStock().addPawns(pawns);
 
+
+        bonusMarker = route.popBonusMarker();
+        if (bonusMarker != null) {
+            bonusMarker.setState(BonusState.onHand);
+            player.getEscritoire().addBonusMarker(bonusMarker);
+            tinPlate = GameBoardFactory.getGameBoard().drawBonusMarker();
+            tinPlate.setState(BonusState.inPlate);
+            player.getEscritoire().addTinPlate(tinPlate);
+        }
+
         actionDone = true;
+
+        for (ICity city : route.getCities()) {
+            if (city.getOwner() != null) {
+                if (city.getOwner().getScore() >= 20) {
+                    throw new EndOfGameException();
+                }
+            }
+        }
     }
 
     @Override
@@ -78,11 +102,23 @@ public class KeepRoute implements IMovement {
         }
 
         pawns.clear();
-        for(ICity city : route.getCities()){
+        for (ICity city : route.getCities()) {
             if (city.getOwner() != null) {
                 city.getOwner().decreaseScore();
             }
         }
+
+        if(bonusMarker != null){
+            bonusMarker.setState(BonusState.onBoard);
+            player.getEscritoire().removeBonusMarker(bonusMarker);
+            route.pushBonusMarker(bonusMarker);
+
+            player.getEscritoire().removeTinPlate(tinPlate);
+            tinPlate.setState(BonusState.unused);
+            GameBoardFactory.getGameBoard().putBackBonusMarker(tinPlate);
+        }
+
+
         actionDone = false;
     }
 

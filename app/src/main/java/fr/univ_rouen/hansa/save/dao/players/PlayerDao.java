@@ -1,10 +1,13 @@
 package fr.univ_rouen.hansa.save.dao.players;
 
+import android.util.Log;
+
+import fr.univ_rouen.hansa.ai.ComputerStrategy;
+import fr.univ_rouen.hansa.ai.StrategyType;
 import fr.univ_rouen.hansa.gameboard.player.HTComputer;
 import fr.univ_rouen.hansa.gameboard.player.HTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
-import fr.univ_rouen.hansa.gameboard.player.strategies.Strategy;
 import fr.univ_rouen.hansa.save.dao.Dao;
 
 public class PlayerDao implements Dao<IHTPlayer> {
@@ -12,7 +15,7 @@ public class PlayerDao implements Dao<IHTPlayer> {
     private PlayerColor color;
     private EscritoireDao escritoire;
     private int action;
-    private Strategy computerStrategy;
+    private StrategyType computerStrategy;
 
     public PlayerDao() {
     }
@@ -23,7 +26,19 @@ public class PlayerDao implements Dao<IHTPlayer> {
         this.action = player.getActionNumber();
 
         if (player instanceof HTComputer) {
-            computerStrategy = ((HTComputer) player).getStrategy();
+            for (StrategyType strategyType : StrategyType.values()) {
+                ComputerStrategy strategy = ((HTComputer) player).getStrategy();
+
+                if (strategyType.getInstance().equals(strategy.getClass())) {
+                    computerStrategy = strategyType;
+                    break;
+                }
+            }
+
+            if (computerStrategy == null) {
+                Log.d("Error in Save", "No strategy found for AI, replace by random strategy");
+                computerStrategy = StrategyType.randomStrategy;
+            }
         }
     }
 
@@ -34,7 +49,7 @@ public class PlayerDao implements Dao<IHTPlayer> {
                     color,
                     escritoire.daoToEntity(),
                     action,
-                    computerStrategy.getComputerStrategy()
+                    computerStrategy
             );
         }
 
@@ -65,11 +80,11 @@ public class PlayerDao implements Dao<IHTPlayer> {
         this.action = action;
     }
 
-    public Strategy getComputerStrategy() {
+    public StrategyType getComputerStrategy() {
         return computerStrategy;
     }
 
-    public void setComputerStrategy(Strategy computerStrategy) {
+    public void setComputerStrategy(StrategyType computerStrategy) {
         this.computerStrategy = computerStrategy;
     }
 }
