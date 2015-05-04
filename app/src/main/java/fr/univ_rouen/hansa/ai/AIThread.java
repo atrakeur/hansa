@@ -69,6 +69,9 @@ public class AIThread extends Thread{
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                if (!this.running) {
+                    return;
+                }
             } while(!(TurnManager.getInstance().getCurrentPlayingPlayer() instanceof HTComputer));
 
             HTComputer player = (HTComputer) TurnManager.getInstance().getCurrentPlayingPlayer();
