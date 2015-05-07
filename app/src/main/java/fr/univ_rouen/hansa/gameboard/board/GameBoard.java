@@ -2,10 +2,12 @@ package fr.univ_rouen.hansa.gameboard.board;
 
 import com.google.common.collect.Lists;
 
+import java.util.EnumSet;
 import java.util.List;
 
 import fr.univ_rouen.hansa.R;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
+import fr.univ_rouen.hansa.gameboard.cities.Power;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 import fr.univ_rouen.hansa.view.display.HansaGameBoardDrawer;
 import fr.univ_rouen.hansa.view.display.IDrawable;
@@ -46,7 +48,7 @@ public class GameBoard extends RouteBoard implements IDrawable {
         for (ICity city : getCities()) {
             cliquables.add(city);
 
-            if (city.getPower() != null) {
+            if (city.getPower() != Power.Null) {
                 cliquables.add(new HansaPowerClickableArea(city.getPower()));
             }
         }

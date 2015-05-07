@@ -12,7 +12,7 @@ import fr.univ_rouen.hansa.view.utils.ResourceRepository;
 
 public class HansaGameBoardDrawer implements IDrawer {
 
-    private boolean debug = false;
+    private boolean debug = true;
 
     GameBoard board;
     List<ICity> cities;

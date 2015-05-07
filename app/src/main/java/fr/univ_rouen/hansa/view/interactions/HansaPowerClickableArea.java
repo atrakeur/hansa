@@ -91,7 +91,7 @@ public class HansaPowerClickableArea extends ClickableArea implements IClickable
                 resources.getPercentToScreenHeight(this.selectionDistance)
         );
         Paint p = new Paint();
-        p.setColor(Color.CYAN);
+        p.setColor(Color.RED);
         p.setStyle(Paint.Style.FILL);
         canvas.drawCircle(
                 resources.getPercentToScreenWidth(position.getX()),
