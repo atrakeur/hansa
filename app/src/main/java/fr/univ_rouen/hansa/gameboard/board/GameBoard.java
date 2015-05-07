@@ -2,14 +2,18 @@ package fr.univ_rouen.hansa.gameboard.board;
 
 import com.google.common.collect.Lists;
 
+import java.util.EnumMap;
+import java.util.EnumSet;
 import java.util.List;
 
 import fr.univ_rouen.hansa.R;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
+import fr.univ_rouen.hansa.gameboard.cities.Power;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 import fr.univ_rouen.hansa.view.display.HansaGameBoardDrawer;
 import fr.univ_rouen.hansa.view.display.IDrawable;
 import fr.univ_rouen.hansa.view.display.IDrawer;
+import fr.univ_rouen.hansa.view.interactions.HansaPowerClickableArea;
 import fr.univ_rouen.hansa.view.interactions.HansaSupplyClickableArea;
 import fr.univ_rouen.hansa.view.interactions.IClickable;
 import fr.univ_rouen.hansa.view.interactions.IClickableArea;
@@ -17,6 +21,7 @@ import fr.univ_rouen.hansa.view.interactions.IClickableArea;
 public class GameBoard extends RouteBoard implements IDrawable {
 
     private final IDrawer drawer;
+    private final EnumMap<Power, HansaPowerClickableArea> powerClickables;
 
     public GameBoard(int map) {
         super();
@@ -28,6 +33,7 @@ public class GameBoard extends RouteBoard implements IDrawable {
         }
 
         drawer = new HansaGameBoardDrawer(this);
+        powerClickables = new EnumMap<Power, HansaPowerClickableArea>(Power.class);
     }
 
     @Override
@@ -44,7 +50,13 @@ public class GameBoard extends RouteBoard implements IDrawable {
 
         for (ICity city : getCities()) {
             cliquables.add(city);
-            //TODO add power cliquable area
+
+            if (city.getPower() != Power.Null) {
+                if (!powerClickables.containsKey(city.getPower())) {
+                    powerClickables.put(city.getPower(), new HansaPowerClickableArea(city.getPower()));
+                }
+                cliquables.add(powerClickables.get(city.getPower()));
+            }
         }
 
         //TODO remove that shit
