@@ -70,9 +70,10 @@ public class ActionFactory {
         for (int i = 0; i < movements.size(); i++) {
             IMovement movement = movements.get(i);
 
-            //On calcule si on peux merger avec le mouvement précédent
+
+            //Sinon, on regarde si on peux pas merger avec le mouvement précédent (action différentes)
             if (lastMergeAction != movement.getActionDone()) {
-                //Actions différente, on merge l'action dans tous les cas
+                //Actions différente, on merge l'action precendente dans tous les cas
                 if (mergeableMoves.size() > 0) {
                     actions.add(createAction(lastMergeAction, mergeableMoves));
                     mergeableMoves.clear();
@@ -97,6 +98,7 @@ public class ActionFactory {
 
             //Ensuite, on regarde si on a un pion a replacer
             if (movement.getPawnToReplace() != null) {
+                //Si oui, on va merger tous les mouvement de remplacement et de validation ensemble
                 pawnToReplace = movement.getPawnToReplace();
                 for (int j = i + 1; j < movements.size(); j++) {
                     //On merge tous les replace qui suivent

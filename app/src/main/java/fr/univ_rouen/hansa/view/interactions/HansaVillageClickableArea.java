@@ -79,6 +79,7 @@ public class HansaVillageClickableArea extends ClickableArea {
             Log.w("Important!", ""+ village.getPawnType());
         } catch(GameException e) {
             e.printStackTrace();
+            throw e;
         }
     }
 

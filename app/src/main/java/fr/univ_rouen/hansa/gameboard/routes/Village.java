@@ -1,5 +1,9 @@
 package fr.univ_rouen.hansa.gameboard.routes;
 
+import com.google.common.collect.Lists;
+
+import java.util.List;
+
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.view.IPosition;
@@ -90,5 +94,19 @@ public class Village implements IVillage {
     @Override
     public IClickableArea getClickableArea() {
         return this.clickableArea;
+    }
+
+    @Override
+    public List<IVillage> getNeighbours(IVillage village){
+        List<IVillage> neighbours = Lists.newArrayList();
+        IRoute route = village.getRoute();
+        int villagePosition = route.getVillages().indexOf(village);
+        if(villagePosition == 0) {
+            neighbours.add(route.getVillage(1));
+        } else if (villagePosition == route.getVillages().size()) {
+            neighbours.add(route.getVillage(route.getVillages().size() - 1));
+        }
+    /*Action*/;
+        return null;
     }
 }
