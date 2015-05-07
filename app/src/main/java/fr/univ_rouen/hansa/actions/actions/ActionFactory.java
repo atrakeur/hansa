@@ -70,9 +70,26 @@ public class ActionFactory {
         for (int i = 0; i < movements.size(); i++) {
             IMovement movement = movements.get(i);
 
-            //On calcule si on peux merger avec le mouvement précédent
-            if (lastMergeAction != movement.getActionDone()) {
-                //Actions différente, on merge l'action dans tous les cas
+            //On regarde si ce mouvement entraine un pion a remplacer
+            if (movement.getPawnToReplace() != null) {
+                //Si oui, on va merger tous les mouvement de remplacement et de validation ensemble
+                pawnToReplace = movement.getPawnToReplace();
+                for (int j = i + 1; j < movements.size(); j++) {
+                    //On merge tous les replace qui suivent
+                    if (movements.get(j).getActionDone() == Actions.replaceMovedPawn) {
+                        mergeableMoves.add(movements.get(j));  //On merge
+                    }
+                    if (movements.get(j).getActionDone() == Actions.validateMovedPawn) {
+                        mergeableMoves.add(movements.get(j));  //On merge
+                        pawnToReplace = null;                  //On considére le pawn comme replacé
+                        i = j;                                 //On skip dans la boucle principale
+                        break;
+                    }
+                }
+            }
+            //Sinon, on regarde si on peux pas merger avec le mouvement précédent (action différentes)
+            else if (lastMergeAction != movement.getActionDone()) {
+                //Actions différente, on merge l'action precendente dans tous les cas
                 if (mergeableMoves.size() > 0) {
                     actions.add(createAction(lastMergeAction, mergeableMoves));
                     mergeableMoves.clear();
@@ -96,21 +113,7 @@ public class ActionFactory {
             }
 
             //Ensuite, on regarde si on a un pion a replacer
-            if (movement.getPawnToReplace() != null) {
-                pawnToReplace = movement.getPawnToReplace();
-                for (int j = i + 1; j < movements.size(); j++) {
-                    //On merge tous les replace qui suivent
-                    if (movements.get(j).getActionDone() == Actions.replaceMovedPawn) {
-                        mergeableMoves.add(movements.get(j));  //On merge
-                    }
-                    if (movements.get(j).getActionDone() == Actions.validateMovedPawn) {
-                        mergeableMoves.add(movements.get(j));  //On merge
-                        pawnToReplace = null;                  //On considére le pawn comme replacé
-                        i = j;                                 //On skip dans la boucle principale
-                        break;
-                    }
-                }
-            }
+
         }
 
         if (!mergeableMoves.isEmpty()) {

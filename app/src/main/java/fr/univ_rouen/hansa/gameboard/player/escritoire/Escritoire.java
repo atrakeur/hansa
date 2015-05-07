@@ -318,6 +318,7 @@ public class Escritoire implements IEscritoire {
             pawns.addAll(supply.popMerchants(merchants));
             pawns.addAll(supply.popTraders(traders));
         } catch (NotEnoughSupplyException e) {
+            //FIXME wtf is that?
             supply.addPawns(pawns);
 
             throw e;

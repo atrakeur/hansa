@@ -7,6 +7,7 @@ import java.util.List;
 import fr.univ_rouen.hansa.actions.Actions;
 import fr.univ_rouen.hansa.exceptions.NoPlaceException;
 import fr.univ_rouen.hansa.exceptions.NotAvailableActionException;
+import fr.univ_rouen.hansa.exceptions.NotEnoughSupplyException;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.escritoire.IPawnList;
 import fr.univ_rouen.hansa.gameboard.player.escritoire.PawnList;
@@ -76,7 +77,8 @@ public class MovePawnRtoGB implements IMovement {
                     traderToReplace = 0;
                     merchantToReplace = 2;
                 } else {
-                    throw new NotAvailableActionException();
+                    village.pushPawn(p); //On replace le pion dans la village avant de sortir en erreur
+                    throw new NotAvailableActionException("Vous n'avez pas assez de ressources pour effectuer un remplacement");
                 }
             } else {
                 // On verifie que le joueur a 3 ressources au moins
@@ -97,7 +99,8 @@ public class MovePawnRtoGB implements IMovement {
                     traderToReplace = 0;
                     merchantToReplace = 3;
                 } else {
-                    throw new NotAvailableActionException();
+                    village.pushPawn(p);    //On replace le pion dans la village avant de sortir en erreur
+                    throw new NotAvailableActionException("Vous n'avez pas assez de ressources pour effectuer un remplacement");
                 }
 
             }
@@ -120,16 +123,24 @@ public class MovePawnRtoGB implements IMovement {
             actionDone = true;
             // Fin de la partie remplacement
         } else {
-            //Le village est vide on place le pon simplement
+            //Le village est vide on place le pawn simplement
             Pawn pawn;
 
             if (type.equals(Trader.class)) {
-                pawn = player.getEscritoire().popFromSupply(0, 1).get(0);
+                if (player.getEscritoire().getSupply().enoughPawns(0, 1)) {
+                    pawn = player.getEscritoire().popFromSupply(0, 1).get(0);
+                    village.pushPawn(pawn);
+                } else {
+                    throw new NotEnoughSupplyException("Pas assez de commerçants");
+                }
             } else {
-                pawn = player.getEscritoire().popFromSupply(1, 0).get(0);
+                if (player.getEscritoire().getSupply().enoughPawns(1, 0)) {
+                    pawn = player.getEscritoire().popFromSupply(1, 0).get(0);
+                    village.pushPawn(pawn);
+                } else {
+                    throw new NotEnoughSupplyException("Pas assez de marchants");
+                }
             }
-
-            village.pushPawn(pawn);
 
             actionDone = true;
 
