@@ -8,6 +8,8 @@ import java.util.Map;
 
 import fr.univ_rouen.hansa.actions.actions.ActionFactory;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
+import fr.univ_rouen.hansa.actions.movement.PlaceBonusMarker;
+import fr.univ_rouen.hansa.actions.movement.PlayBonus;
 import fr.univ_rouen.hansa.exceptions.FinishedRoundException;
 import fr.univ_rouen.hansa.gameboard.Privillegium;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
@@ -43,7 +45,7 @@ public class MovementManager {
         int playerAction = TurnManager.getInstance().getCurrentPlayer().getActionNumber();
         int actionsDone = this.actionCounter();
 
-        if (hasPawnToReplace() || actionsDone < playerAction) {
+        if (hasPawnToReplace() || actionsDone < playerAction || m instanceof PlayBonus || m instanceof PlaceBonusMarker) {
             m.doMovement();
             stack.push(m);
         } else {
