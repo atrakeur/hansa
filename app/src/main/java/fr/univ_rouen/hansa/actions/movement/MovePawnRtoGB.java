@@ -56,7 +56,7 @@ public class MovePawnRtoGB implements IMovement {
         /**
          * Commentaire explicatif. Let's go
          */
-        // si le village est pas ville le mouvement est un remplacement de pion
+        // si le village est pas vide le mouvement est un remplacement de pion
         if (!village.isEmpty()) {
             // On recupere le pion dans le village
             Pawn p = village.pullPawn();
@@ -118,11 +118,9 @@ public class MovePawnRtoGB implements IMovement {
             village.pushPawn(pawn);
 
             actionDone = true;
-            // Ici on as fait la partie remplacement. Il faut donc que le jeu rende la main a l'autre joueur.
-            // Celui qui possède pawnToReplace
-            // Voir les autres comment on peux faire ça. Si c'est la bonne solution
+            // Fin de la partie remplacement
         } else {
-
+            //Le village est vide on place le pon simplement
             Pawn pawn;
 
             if (type.equals(Trader.class)) {
@@ -165,7 +163,6 @@ public class MovePawnRtoGB implements IMovement {
         return pawnToReplace;
     }
 
-    // Todo : Ask what is that
     @Override
     public int getMergeableMove() {
         return 0;
