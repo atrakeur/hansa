@@ -8,8 +8,6 @@ import java.util.List;
 import fr.univ_rouen.hansa.gameboard.Privillegium;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusActiones;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusEscritoire;
-import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusKontor;
-import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusPermutation;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusRemovePawns;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.City;
@@ -333,8 +331,8 @@ public class GameBoardFactory {
         //Initialisation Random des jetons bonus en or
         List<IBonusMarker> goldBonusMarkers = Lists.newArrayList();
         goldBonusMarkers.add(new BonusRemovePawns());
-        goldBonusMarkers.add(new BonusPermutation());
-        goldBonusMarkers.add(new BonusKontor());
+        goldBonusMarkers.add(new BonusEscritoire());
+        goldBonusMarkers.add(new BonusActiones(3));
         Collections.shuffle(goldBonusMarkers);
 
         //GRONINGEN_EMDEN
@@ -654,11 +652,11 @@ public class GameBoardFactory {
 
         //Initialisation de la pile de jeton bonus
         List<IBonusMarker> bonusMarkers = Lists.newArrayList();
-        bonusMarkers.add(new BonusPermutation());
+        //bonusMarkers.add(new BonusPermutation());
 
-        for (int i = 0; i < 4; i++) {
+        /*for (int i = 0; i < 4; i++) {
             bonusMarkers.add(new BonusKontor());
-        }
+        }*/
 
         for (int i = 0; i < 2; i++) {
             bonusMarkers.add(new BonusActiones(3));
