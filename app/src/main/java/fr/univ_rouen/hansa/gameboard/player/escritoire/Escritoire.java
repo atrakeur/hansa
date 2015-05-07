@@ -16,17 +16,48 @@ import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 
 public class Escritoire implements IEscritoire {
-    private List<Trader> clavisUrbis;
-    private List<Trader> actiones;
-    private List<Trader> privilegium;
-    private List<Merchant> liberSophiae;
-    private List<Trader> bursa;
-    private List<IBonusMarker> tinPlate;
-    private List<IBonusMarker> bonusMarkers;
+    private final List<Trader> clavisUrbis;
+    private final List<Trader> actiones;
+    private final List<Trader> privilegium;
+    private final List<Merchant> liberSophiae;
+    private final List<Trader> bursa;
 
-    private IPawnList stock;
-    private IPawnList supply;
+    private final List<IBonusMarker> tinPlate;
+    private final List<IBonusMarker> bonusMarkers;
 
+    private final IPawnList stock;
+    private final IPawnList supply;
+
+    /**
+     * Init Escritoire from a saveguard
+     *
+     * @param saveList the list of power to reload
+     */
+    public Escritoire(List<List<? extends Pawn>> saveList,
+                      IPawnList stock,
+                      IPawnList supply,
+                      List<IBonusMarker> tinPlate,
+                      List<IBonusMarker> bonusMarkers) {
+
+        clavisUrbis = (List<Trader>) saveList.get(0);
+        actiones = (List<Trader>) saveList.get(1);
+        privilegium = (List<Trader>) saveList.get(2);
+        liberSophiae = (List<Merchant>) saveList.get(3);
+        bursa = (List<Trader>) saveList.get(4);
+
+        this.stock = stock;
+        this.supply = supply;
+
+        this.tinPlate = tinPlate;
+        this.bonusMarkers = bonusMarkers;
+    }
+
+    /**
+     * Init Escritoire for a new game
+     *
+     * @param owner         the owner of the escritoire
+     * @param startingPlace the starting place of the player
+     */
     public Escritoire(IHTPlayer owner, int startingPlace) {
         clavisUrbis = Lists.newArrayList();
         actiones = Lists.newArrayList();
@@ -108,13 +139,31 @@ public class Escritoire implements IEscritoire {
         }
         return tmp;
     }
-    
+
     @Override
     public void addBonusMarker(IBonusMarker bonus) {
         if (bonus == null) {
             throw new IllegalArgumentException();
         }
         bonusMarkers.add(bonus);
+    }
+
+    @Override
+    public void removeBonusMarker(IBonusMarker marker){
+        bonusMarkers.remove(marker);
+    }
+
+    @Override
+    public void removeTinPlate(IBonusMarker bonusMarker){
+        tinPlate.remove(bonusMarker);
+    }
+
+    @Override
+    public void addTinPlate(IBonusMarker bonusMarker){
+        if (bonusMarker == null && bonusMarker.getState() != BonusState.inPlate) {
+            throw new IllegalArgumentException();
+        }
+        tinPlate.add(bonusMarker);
     }
 
     @Override
@@ -335,5 +384,18 @@ public class Escritoire implements IEscritoire {
     @Override
     public IPawnList getSupply() {
         return supply;
+    }
+
+    @Override
+    public List<List<? extends Pawn>> savePowers() {
+        List<List<? extends Pawn>> saveList = Lists.newArrayList();
+
+        saveList.add(Lists.newArrayList(clavisUrbis));
+        saveList.add(Lists.newArrayList(actiones));
+        saveList.add(Lists.newArrayList(privilegium));
+        saveList.add(Lists.newArrayList(liberSophiae));
+        saveList.add(Lists.newArrayList(bursa));
+
+        return saveList;
     }
 }

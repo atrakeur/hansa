@@ -106,7 +106,7 @@ public class ActionFactory {
                     if (movements.get(j).getActionDone() == Actions.validateMovedPawn) {
                         mergeableMoves.add(movements.get(j));  //On merge
                         pawnToReplace = null;                  //On considére le pawn comme replacé
-                        i = j + 1;                             //On skip dans la boucle principale
+                        i = j;                                 //On skip dans la boucle principale
                         break;
                     }
                 }

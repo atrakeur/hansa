@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import fr.univ_rouen.hansa.R;
+import fr.univ_rouen.hansa.gameboard.Privillegium;
 
 /**
  * Display Content of the Content of a Player's Escritoire
@@ -34,22 +35,36 @@ public class EscritoireFragment extends Fragment {
         Bundle args = getArguments();
 
         //Info about the Player's Stock.
-        rootView.findViewById(R.id.color_trader_stock).setBackgroundColor(args.getInt(COLOR));
-        ((TextView) rootView.findViewById(R.id.nb_trader_stock)).setText("x" + args.getInt(STOCK_TRADER));
-        ((CircleView) rootView.findViewById(R.id.color_merchant_stock)).setCircleFillColor(args.getInt(COLOR));
-        ((TextView) rootView.findViewById(R.id.nb_merchant_stock)).setText("x" + args.getInt(STOCK_MERCHANT));
+        ((TextView) rootView.findViewById(R.id.nb_trader_stock)).setText("" + args.getInt(STOCK_TRADER));
+        ((TextView) rootView.findViewById(R.id.nb_merchant_stock)).setText("" + args.getInt(STOCK_MERCHANT));
+        System.out.println(args.getInt(STOCK_TRADER));
 
         //Info about the Player's Supply.
-        rootView.findViewById(R.id.color_trader_supply).setBackgroundColor(args.getInt(COLOR));
-        ((TextView) rootView.findViewById(R.id.nb_trader_supply)).setText("x" + args.getInt(SUPPLY_TRADER));
-        ((CircleView) rootView.findViewById(R.id.color_merchant_supply)).setCircleFillColor(args.getInt(COLOR));
-        ((TextView) rootView.findViewById(R.id.nb_merchant_supply)).setText("x" + args.getInt(SUPPLY_MERCHANT));
+        ((TextView) rootView.findViewById(R.id.nb_trader_supply)).setText("" + args.getInt(SUPPLY_TRADER));
+        ((TextView) rootView.findViewById(R.id.nb_merchant_supply)).setText("" + args.getInt(SUPPLY_MERCHANT));
 
         //Info about the Player's Competence.
-        ((TextView) rootView.findViewById(R.id.nb_clavis_urbis)).setText("" + String.format("%2d", args.getInt(CLAVIS_URBIS)));
-        rootView.findViewById(R.id.color_privilegium).setBackgroundColor(args.getInt(PRIVILEGIUM));
+        ((TextView) rootView.findViewById(R.id.nb_clavis_urbis)).setText("" + args.getInt(CLAVIS_URBIS));
         ((TextView) rootView.findViewById(R.id.nb_liber_sophia)).setText("" + args.getInt(LIBER_SOPHIA));
         ((TextView) rootView.findViewById(R.id.nb_actiones)).setText("" + args.getInt(ACTIONES));
+
+        /*
+         * Privillegium
+         */
+        int privillegiumOrdinal = args.getInt(PRIVILEGIUM);
+        Privillegium privillegium = Privillegium.values()[privillegiumOrdinal];
+        if (privillegium == Privillegium.White || privillegium.isBetterThan(Privillegium.White)) {
+            rootView.findViewById(R.id.privillegium_white).setBackgroundColor(Privillegium.White.getColor());
+        }
+        if (privillegium == Privillegium.Orange || privillegium.isBetterThan(Privillegium.Orange)) {
+            rootView.findViewById(R.id.privillegium_orange).setBackgroundColor(Privillegium.Orange.getColor());
+        }
+        if (privillegium == Privillegium.Pink || privillegium.isBetterThan(Privillegium.Pink)) {
+            rootView.findViewById(R.id.privillegium_pink).setBackgroundColor(Privillegium.Pink.getColor());
+        }
+        if (privillegium == Privillegium.Black || privillegium.isBetterThan(Privillegium.Black)) {
+            rootView.findViewById(R.id.privillegium_black).setBackgroundColor(Privillegium.Black.getColor());
+        }
 
         /*
             Special Case : Bursa Level.

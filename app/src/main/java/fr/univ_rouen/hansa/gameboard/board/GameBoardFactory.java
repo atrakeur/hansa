@@ -2,10 +2,16 @@ package fr.univ_rouen.hansa.gameboard.board;
 
 import com.google.common.collect.Lists;
 
+import java.util.Collections;
 import java.util.List;
 
-import fr.univ_rouen.hansa.R;
 import fr.univ_rouen.hansa.gameboard.Privillegium;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusActiones;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusEscritoire;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusKontor;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusPermutation;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusRemovePawns;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.City;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.IKontor;
@@ -20,16 +26,21 @@ import fr.univ_rouen.hansa.gameboard.routes.Village;
 import fr.univ_rouen.hansa.util.CityPositions;
 import fr.univ_rouen.hansa.util.TavernPositions;
 import fr.univ_rouen.hansa.util.VillagePositions;
+import fr.univ_rouen.hansa.view.GameBoardView;
 import fr.univ_rouen.hansa.view.IPosition;
 
 public class GameBoardFactory {
     private static GameBoardFactory ourInstance = new GameBoardFactory();
+
     public static GameBoardFactory getInstance() {
         return ourInstance;
     }
 
     private static GameBoard gameBoard;
-    public static GameBoard getGameBoard() {return gameBoard; }
+
+    public static GameBoard getGameBoard() {
+        return gameBoard;
+    }
 
     private GameBoardFactory() {
     }
@@ -41,13 +52,11 @@ public class GameBoardFactory {
      * @return the gameboard initialized
      */
     public GameBoard createGameBoard(int map) {
-        GameBoard gameBoard = new GameBoard();
+        GameBoard gameBoard = new GameBoard(map);
         List<IKontor<? extends Pawn>> kontors;
         List<IVillage> villages;
         ICity[] cities;
         IPosition tavernPosition;
-
-        gameBoard.setBackground(R.drawable.plateau23);
 
 
         // ------------------------------------ //
@@ -321,6 +330,12 @@ public class GameBoardFactory {
         // -------------- ROUTES -------------- //
         // ------------------------------------ //
 
+        //Initialisation Random des jetons bonus en or
+        List<IBonusMarker> goldBonusMarkers = Lists.newArrayList();
+        goldBonusMarkers.add(new BonusRemovePawns());
+        goldBonusMarkers.add(new BonusPermutation());
+        goldBonusMarkers.add(new BonusKontor());
+        Collections.shuffle(goldBonusMarkers);
 
         //GRONINGEN_EMDEN
         villages = Lists.newArrayList();
@@ -348,7 +363,7 @@ public class GameBoardFactory {
         villages.add(new Village(VillagePositions.OSNABRUCK_BREMEN_3));
         cities = new ICity[]{osnabruck, bremen};
         tavernPosition = TavernPositions.OSNABRUCK_BREMEN;
-        gameBoard.addRoute(new Route(villages, cities, tavernPosition));
+        gameBoard.addRoute(new Route(villages, cities, tavernPosition, goldBonusMarkers.get(0)));
 
         //BREMEN_HAMBURG
         villages = Lists.newArrayList();
@@ -466,7 +481,7 @@ public class GameBoardFactory {
         villages.add(new Village(VillagePositions.LUNEBURG_PERLEBERG_3));
         cities = new ICity[]{luneburg, perlberg};
         tavernPosition = TavernPositions.LUNEBURG_PERLEBERG;
-        gameBoard.addRoute(new Route(villages, cities, tavernPosition));
+        gameBoard.addRoute(new Route(villages, cities, tavernPosition, goldBonusMarkers.get(1)));
 
         //PERLEBERG_STENDAL
         villages = Lists.newArrayList();
@@ -567,7 +582,7 @@ public class GameBoardFactory {
         villages.add(new Village(VillagePositions.HILDESHEIM_GOSLAR_3));
         cities = new ICity[]{hildesheim, goslar};
         tavernPosition = TavernPositions.HILDESHEIM_GOSLAR;
-        gameBoard.addRoute(new Route(villages, cities, tavernPosition));
+        gameBoard.addRoute(new Route(villages, cities, tavernPosition, goldBonusMarkers.get(2)));
 
         //GOSLAR_MAGDEBURG
         villages = Lists.newArrayList();
@@ -637,8 +652,41 @@ public class GameBoardFactory {
             gameBoard.addRoute(new Route(villages, cities, tavernPosition));
         }
 
+        //Initialisation de la pile de jeton bonus
+        List<IBonusMarker> bonusMarkers = Lists.newArrayList();
+        bonusMarkers.add(new BonusPermutation());
+
+        for (int i = 0; i < 4; i++) {
+            bonusMarkers.add(new BonusKontor());
+        }
+
+        for (int i = 0; i < 2; i++) {
+            bonusMarkers.add(new BonusActiones(3));
+        }
+
+        for (int i = 0; i < 2; i++) {
+            bonusMarkers.add(new BonusActiones(4));
+        }
+
+        for (int i = 0; i < 3; i++) {
+            bonusMarkers.add(new BonusEscritoire());
+        }
+
+        for (int i = 0; i < 2; i++) {
+            bonusMarkers.add(new BonusRemovePawns());
+        }
+
+        gameBoard.setBonusStack(bonusMarkers);
+
         GameBoardFactory.gameBoard = gameBoard;
 
         return gameBoard;
+    }
+
+
+    public void createGameBoardFromSave(GameBoard gameBoard) {
+        GameBoardFactory.gameBoard = gameBoard;
+
+        GameBoardView.getInstance().setBoard(gameBoard);
     }
 }

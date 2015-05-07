@@ -18,7 +18,7 @@ public class BonusRemovePawns extends AbstractBonus implements IBonusMarker {
     private List<Pawn> pawn;
 
     public BonusRemovePawns() {
-        super("removepawn");
+        super(BonusType.BonusRemovePawns);
     }
 
     public List<IHTPlayer> getPlayers() {
@@ -37,7 +37,7 @@ public class BonusRemovePawns extends AbstractBonus implements IBonusMarker {
         if (v == null || v.size() > 3) {
             throw new IllegalArgumentException();
         }
-        villages = v;
+        villages = Lists.newArrayList(v);
 
     }
 
@@ -58,7 +58,6 @@ public class BonusRemovePawns extends AbstractBonus implements IBonusMarker {
 
     @Override
     public void doAction() {
-        super.doAction();
         List<IVillage> v = getVillage();
         List<IHTPlayer> player = Lists.newArrayList();
         if (v == null) {
@@ -74,11 +73,11 @@ public class BonusRemovePawns extends AbstractBonus implements IBonusMarker {
         }
         setPlayers(player);
         setPawn(p);
+        super.doAction();
     }
 
     @Override
     public void undoAction() {
-        super.undoAction();
         List<IVillage> v = getVillage();
         if (v == null) {
             throw new IllegalStateException();
@@ -92,5 +91,11 @@ public class BonusRemovePawns extends AbstractBonus implements IBonusMarker {
             player.get(i).getEscritoire().removeFromSupply(Lists.newArrayList(p.get(i)));
             v.get(i).pushPawn(p.get(i));
         }
+        super.undoAction();
+    }
+
+    @Override
+    public void accept(IVisitorBonusMarker visitorBonusMarker) {
+        visitorBonusMarker.visit(this);
     }
 }

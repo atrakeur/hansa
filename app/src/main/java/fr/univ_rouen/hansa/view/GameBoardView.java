@@ -7,25 +7,22 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
-import android.widget.Toast;
-
-import java.util.Collections;
 
 import fr.univ_rouen.hansa.activity.GameActivity;
-import fr.univ_rouen.hansa.exceptions.GameException;
+import fr.univ_rouen.hansa.ai.AIThread;
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
 import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
-import fr.univ_rouen.hansa.view.display.HansaGameBoardDrawer;
 import fr.univ_rouen.hansa.view.interactions.HansaGameBoardEventManager;
-import fr.univ_rouen.hansa.view.utils.DrawingThread;
-import fr.univ_rouen.hansa.view.interactions.IClickable;
-import fr.univ_rouen.hansa.view.interactions.IClickableArea;
 import fr.univ_rouen.hansa.view.utils.DrawingThread;
 import fr.univ_rouen.hansa.view.utils.ResourceRepository;
 
 public class GameBoardView extends SurfaceView {
 
+    private static GameBoardView instance;
+
     private DrawingThread thread;
+    //TODO don't belong here, but it's more fancy if AI play only when we can see it playing!
+    private AIThread aiThread;
 
     private GameBoard board;
     private ResourceRepository resources;
@@ -46,6 +43,14 @@ public class GameBoardView extends SurfaceView {
         eventManager = new HansaGameBoardEventManager(this, board, resources);
 
         thread = new DrawingThread(this, getHolder());
+        aiThread = new AIThread(this, getHolder());
+
+        instance = this;
+    }
+
+    public static GameBoardView getInstance() {
+        //TODO remove that
+        return instance;
     }
 
     public void setBoard(GameBoard board) {

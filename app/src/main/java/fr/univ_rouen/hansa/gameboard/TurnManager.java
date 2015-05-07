@@ -13,7 +13,7 @@ import fr.univ_rouen.hansa.gameboard.player.HTComputer;
 import fr.univ_rouen.hansa.gameboard.player.HTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
-import fr.univ_rouen.hansa.gameboard.player.strategies.RandomStrategy;
+import fr.univ_rouen.hansa.ai.strategies.RandomStrategy;
 
 public class TurnManager {
     public enum nextTurnRequire {
@@ -35,10 +35,17 @@ public class TurnManager {
         players = Lists.newArrayList();
     }
 
+    public void initFromSave(List<IHTPlayer> players, int position) {
+        this.players.clear();
+        this.players.addAll(players);
+
+        this.position = position;
+    }
+
     public void addPlayers(List<PlayerColor> playersColors) {
         List<Object> playersDefs = Lists.newArrayList();
 
-        for(PlayerColor color: playersColors) {
+        for (PlayerColor color : playersColors) {
             playersDefs.add("Player");
         }
 
@@ -118,7 +125,7 @@ public class TurnManager {
      *
      * @return int represent the number of action left
      */
-    private int actionLeft() {
+    public int actionLeft() {
         return getCurrentPlayer().getActionNumber() - MovementManager.getInstance().actionCounter();
     }
 

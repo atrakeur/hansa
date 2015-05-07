@@ -16,7 +16,7 @@ public class BonusPermutation extends AbstractBonus implements IBonusMarker {
     private ICity city;
 
     public BonusPermutation() {
-        super("permutation");
+        super(BonusType.BonusPermutation);
     }
 
     @Override
@@ -73,6 +73,11 @@ public class BonusPermutation extends AbstractBonus implements IBonusMarker {
         }
         k1.pushPawn(p2);
         k2.pushPawn(p1);
+    }
+
+    @Override
+    public void accept(IVisitorBonusMarker visitorBonusMarker) {
+        visitorBonusMarker.visit(this);
     }
 
     public void setKontor1(IKontor<Pawn> k) {
