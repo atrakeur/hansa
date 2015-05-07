@@ -43,7 +43,7 @@ public class MovementManager {
         int playerAction = TurnManager.getInstance().getCurrentPlayer().getActionNumber();
         int actionsDone = this.actionCounter();
 
-        if (actionsDone < playerAction) {
+        if (hasPawnToReplace() || actionsDone < playerAction) {
             m.doMovement();
             stack.push(m);
         } else {
