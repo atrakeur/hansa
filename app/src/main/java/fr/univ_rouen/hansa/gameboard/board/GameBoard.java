@@ -10,6 +10,7 @@ import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 import fr.univ_rouen.hansa.view.display.HansaGameBoardDrawer;
 import fr.univ_rouen.hansa.view.display.IDrawable;
 import fr.univ_rouen.hansa.view.display.IDrawer;
+import fr.univ_rouen.hansa.view.interactions.HansaPowerClickableArea;
 import fr.univ_rouen.hansa.view.interactions.HansaSupplyClickableArea;
 import fr.univ_rouen.hansa.view.interactions.IClickable;
 import fr.univ_rouen.hansa.view.interactions.IClickableArea;
@@ -44,7 +45,10 @@ public class GameBoard extends RouteBoard implements IDrawable {
 
         for (ICity city : getCities()) {
             cliquables.add(city);
-            //TODO add power cliquable area
+
+            if (city.getPower() != null) {
+                cliquables.add(new HansaPowerClickableArea(city.getPower()));
+            }
         }
 
         //TODO remove that shit

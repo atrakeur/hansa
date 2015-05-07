@@ -20,6 +20,8 @@ import fr.univ_rouen.hansa.activity.GameActivity;
 import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.exceptions.PopupException;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
+import fr.univ_rouen.hansa.gameboard.board.GameBoard;
+import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusActiones;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusEscritoire;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusKontor;
@@ -29,6 +31,7 @@ import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IVisitorBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
 import fr.univ_rouen.hansa.gameboard.cities.IKontor;
+import fr.univ_rouen.hansa.gameboard.cities.Power;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
@@ -266,8 +269,10 @@ public class MovementFactory {
         } else if (source.getType() == IClickableArea.Type.village && destination.getType() == IClickableArea.Type.city) {
             return new KeepKontor(player, (ICity) destination.getSubject(), (IVillage) source.getSubject());
         } else if (source.getType() == IClickableArea.Type.village && destination.getType() == IClickableArea.Type.power) {
-            //FIXME (07/04) non testé, destination ne réfère peut être pas à une icity
-            return new IncreasePower(player, ((ICity) destination.getSubject()), ((IVillage) destination.getSubject()).getRoute());
+            Power power = (Power) destination.getSubject();
+            ICity cityDst = GameBoardFactory.getGameBoard().getCityByPower(power);
+            IVillage villageSrc = (IVillage) source.getSubject();
+            return new IncreasePower(player, cityDst, villageSrc.getRoute());
         } else if (source.getType() == IClickableArea.Type.bonus && destination == null) {
             return new PlayBonus(((IBonusMarker) source.getSubject()));
         } else if (source.getType() == IClickableArea.Type.supply && destination.getType() == IClickableArea.Type.village) {
