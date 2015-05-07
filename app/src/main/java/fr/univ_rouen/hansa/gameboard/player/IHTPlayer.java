@@ -36,4 +36,13 @@ public interface IHTPlayer extends IScorePlayer {
      * Reinit actions count for a new turn
      */
     void newTurn();
+
+    /**
+     * Return the final score after the end of the game, with all the calculs
+     *
+     * @return the final score
+     */
+    int getFinalScore();
+
+
 }
