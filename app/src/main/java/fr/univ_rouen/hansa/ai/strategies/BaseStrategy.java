@@ -51,7 +51,7 @@ public abstract class BaseStrategy implements ComputerStrategy {
             throw new IllegalStateException("Strategy user isn't playing now");
         }
 
-        return this.player.getEscritoire().getStock().getTraderCount() >= pawn;
+        return player.getEscritoire().getSupply().enoughPawns(0, pawn);
     }
 
     /**
@@ -65,7 +65,7 @@ public abstract class BaseStrategy implements ComputerStrategy {
             throw new IllegalStateException("Strategy user isn't playing now");
         }
 
-        return this.player.getEscritoire().getStock().getMerchantCount() >= pawn;
+        return player.getEscritoire().getSupply().enoughPawns(pawn, 0);
     }
 
     /**
