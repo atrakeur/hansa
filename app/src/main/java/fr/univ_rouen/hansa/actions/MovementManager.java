@@ -42,9 +42,16 @@ public class MovementManager {
             throw new IllegalStateException("Can't do the same Movement twice");
         }
 
+        //Playing player isn't the current player, early out an autorize the move
+        if (TurnManager.getInstance().getCurrentPlayer() != TurnManager.getInstance().getCurrentPlayingPlayer()) {
+            m.doMovement();
+            stack.push(m);
+            return;
+        }
+
+        //Check if actions are all used, and print a nice message
         int playerAction = TurnManager.getInstance().getCurrentPlayer().getActionNumber();
         int actionsDone = this.actionCounter();
-
         if (hasPawnToReplace() || actionsDone < playerAction || m instanceof PlayBonus || m instanceof PlaceBonusMarker) {
             m.doMovement();
             stack.push(m);

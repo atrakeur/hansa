@@ -5,6 +5,9 @@ import fr.univ_rouen.hansa.actions.movement.IMovement;
 import fr.univ_rouen.hansa.actions.movement.MovePawnRtoS;
 import fr.univ_rouen.hansa.ai.StrategyType;
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
+import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
+import fr.univ_rouen.hansa.gameboard.cities.ICity;
+import fr.univ_rouen.hansa.gameboard.cities.Power;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 
@@ -16,19 +19,6 @@ public class RandomStrategy extends BaseStrategy {
 
     @Override
     public IMovement[] compute(GameBoard board) {
-        int randomRoute = (int)(Math.random() * board.getRoutes().size());
-        IRoute route = board.getRoutes().get(randomRoute);
-
-        int randomVillage = (int)(Math.random() * route.getVillages().size());
-        IVillage village = route.getVillages().get(randomVillage);
-
-        int neededTraders = getNeededTraderCount(village);
-        if (hasEnoughTrader(neededTraders)) {
-            IMovement movement = MovementFactory.getInstance().makeMovement(village.getClickableArea(), null);
-            return new IMovement[] {movement};
-        } else {
-            IMovement movement = new MovePawnRtoS(this.getPlayer(), 0, getPawnThatCanBeMovedToStock());
-            return new IMovement[] {movement};
-        }
+        return takePower(Power.Actiones);
     }
 }

@@ -1,9 +1,19 @@
 package fr.univ_rouen.hansa.ai.strategies;
 
+import fr.univ_rouen.hansa.actions.MovementFactory;
+import fr.univ_rouen.hansa.actions.movement.IMovement;
+import fr.univ_rouen.hansa.actions.movement.IncreasePower;
+import fr.univ_rouen.hansa.actions.movement.MovePawnRtoGB;
+import fr.univ_rouen.hansa.actions.movement.MovePawnRtoS;
 import fr.univ_rouen.hansa.ai.ComputerStrategy;
 import fr.univ_rouen.hansa.ai.StrategyType;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
+import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
+import fr.univ_rouen.hansa.gameboard.cities.ICity;
+import fr.univ_rouen.hansa.gameboard.cities.IKontor;
+import fr.univ_rouen.hansa.gameboard.cities.Power;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
+import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
@@ -41,7 +51,7 @@ public abstract class BaseStrategy implements ComputerStrategy {
             throw new IllegalStateException("Strategy user isn't playing now");
         }
 
-        return this.player.getEscritoire().getSupply().getTraderCount() >= pawn;
+        return this.player.getEscritoire().getStock().getTraderCount() >= pawn;
     }
 
     /**
@@ -55,7 +65,7 @@ public abstract class BaseStrategy implements ComputerStrategy {
             throw new IllegalStateException("Strategy user isn't playing now");
         }
 
-        return this.player.getEscritoire().getSupply().getMerchantCount() >= pawn;
+        return this.player.getEscritoire().getStock().getMerchantCount() >= pawn;
     }
 
     /**
@@ -99,6 +109,83 @@ public abstract class BaseStrategy implements ComputerStrategy {
         }
 
         return 0;
+    }
+
+    /**
+     * Create movements to take a village
+     * @param village
+     * @return one movement to take the village (or null if already taken)
+     */
+    protected IMovement[] takeVillage(IVillage village) {
+        if (village.getOwner() == getPlayer()) {
+            return null;
+        }
+
+        int neededTraders = getNeededTraderCount(village);
+
+        if (hasEnoughTrader(neededTraders)) {
+            IMovement movement = new MovePawnRtoGB(this.getPlayer(), village, Trader.class);
+            return new IMovement[] {movement};
+        } else {
+            IMovement movement = new MovePawnRtoS(this.getPlayer(), 0, getPawnThatCanBeMovedToStock());
+            return new IMovement[] {movement};
+        }
+    }
+
+    /**
+     * Fullfill a route with our pawn
+     * @param route
+     * @return one movement to try to take a route, or null if already full
+     */
+    protected IMovement[] fullfillRoute(IRoute route) {
+        int neededTraders = getNeededTraderCount(route);
+
+        if (hasEnoughTrader(neededTraders)) {
+            for (int i = 0; i < route.getVillages().size(); i++) {
+                if (route.getVillage(i).getOwner() != getPlayer()) {
+                    return this.takeVillage(route.getVillage(i));
+                }
+            }
+            return null;
+        } else {
+            IMovement movement = new MovePawnRtoS(this.getPlayer(), 0, getPawnThatCanBeMovedToStock());
+            return new IMovement[] {movement};
+        }
+    }
+
+    /**
+     * Attemp to take a power
+     * @param power
+     * @return one movement to take power
+     */
+    protected IMovement[] takePower(Power power) {
+        ICity targetCity = GameBoardFactory.getGameBoard().getCityByPower(Power.Actiones);
+
+        //choose the route that cost less to take
+        int lastNeeded = Integer.MAX_VALUE;
+        IRoute targetRoute = null;
+        for (int i = 0; i < targetCity.getRoutes().size(); i++) {
+            int neededTraders = getNeededTraderCount(targetCity.getRoutes().get(i));
+            if (neededTraders < lastNeeded) {
+                targetRoute = targetCity.getRoutes().get(i);
+            }
+        }
+
+        //Attempt to take that route
+        IMovement[] movements = fullfillRoute(targetRoute);
+        if (movements != null) {
+            return movements;
+        }
+
+        //Route is allready taken? take the power
+        IMovement movement = new IncreasePower(getPlayer(), targetCity, targetRoute);
+        return new IMovement[] {movement};
+    }
+
+    protected IMovement[] takeKontor(ICity city, int i) {
+        IKontor kontor = city.getKontors().get(i);
+
+        return null;
     }
 
     /**
