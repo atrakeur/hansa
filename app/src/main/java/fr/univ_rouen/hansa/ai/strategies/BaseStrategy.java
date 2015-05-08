@@ -3,6 +3,7 @@ package fr.univ_rouen.hansa.ai.strategies;
 import fr.univ_rouen.hansa.actions.MovementFactory;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
 import fr.univ_rouen.hansa.actions.movement.IncreasePower;
+import fr.univ_rouen.hansa.actions.movement.KeepKontor;
 import fr.univ_rouen.hansa.actions.movement.MovePawnRtoGB;
 import fr.univ_rouen.hansa.actions.movement.MovePawnRtoS;
 import fr.univ_rouen.hansa.ai.ComputerStrategy;
@@ -153,15 +154,7 @@ public abstract class BaseStrategy implements ComputerStrategy {
         }
     }
 
-    /**
-     * Attemp to take a power
-     * @param power
-     * @return one movement to take power
-     */
-    protected IMovement[] takePower(Power power) {
-        ICity targetCity = GameBoardFactory.getGameBoard().getCityByPower(Power.Actiones);
-
-        //choose the route that cost less to take
+    protected IRoute getLessExpensiveRouteToCity(ICity targetCity) {
         int lastNeeded = Integer.MAX_VALUE;
         IRoute targetRoute = null;
         for (int i = 0; i < targetCity.getRoutes().size(); i++) {
@@ -170,6 +163,20 @@ public abstract class BaseStrategy implements ComputerStrategy {
                 targetRoute = targetCity.getRoutes().get(i);
             }
         }
+
+        return targetRoute;
+    }
+
+    /**
+     * Attempt to take a power
+     * @param power
+     * @return one movement to take power
+     */
+    protected IMovement[] takePower(Power power) {
+        ICity targetCity = GameBoardFactory.getGameBoard().getCityByPower(Power.Actiones);
+
+        //choose the route that cost less to take
+        IRoute targetRoute = getLessExpensiveRouteToCity(targetCity);
 
         //Attempt to take that route
         IMovement[] movements = fullfillRoute(targetRoute);
@@ -182,10 +189,37 @@ public abstract class BaseStrategy implements ComputerStrategy {
         return new IMovement[] {movement};
     }
 
-    protected IMovement[] takeKontor(ICity city, int i) {
-        IKontor kontor = city.getKontors().get(i);
+    protected IMovement[] takeKontor(ICity targetCity) {
+        IKontor kontor = targetCity.getNextKontor();
+        if (!kontor.isEmpty()) {
+            throw new IllegalStateException("Kontor not empty");
+        }
 
-        return null;
+        //Privillegium trop bas? on prend le pouvoir plutot
+        if (!getPlayer().getEscritoire().privilegiumLevel().isBetterThan(kontor.getPrivillegium())) {
+            return this.takePower(Power.Privillegium);
+        }
+
+        //Privillegium okay? on prepare la prise de comptoir
+        //Si le kontoir a besoin d'un Merchant
+        //TODO placer un merchant sur la route
+        //Pour le moment on supporte pas ça!
+        if (kontor.getPawnClass().equals(Merchant.class)) {
+            return null;
+        }
+
+        //choose the route that cost less to take
+        IRoute targetRoute = getLessExpensiveRouteToCity(targetCity);
+
+        //Attempt to take that route
+        IMovement[] movements = fullfillRoute(targetRoute);
+        if (movements != null) {
+            return movements;
+        }
+
+        //Route is allready taken? take the kontor
+        IMovement movement = new KeepKontor(getPlayer(), targetCity, targetRoute.getVillage(0));
+        return new IMovement[] {movement};
     }
 
     /**
