@@ -1,5 +1,7 @@
 package fr.univ_rouen.hansa.save;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -9,6 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import fr.univ_rouen.hansa.activity.GameActivity;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
 import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
@@ -34,7 +37,7 @@ public class SaveManager {
         String save = gson.toJson(hansaDao);
 
         //Si le fichier de sauvegarde existe pas, on le créé
-        File file = new File(FILE_NAME);
+        File file = new File(GameActivity.getInstance().getFilesDir(), FILE_NAME);
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -59,8 +62,8 @@ public class SaveManager {
         return true;
     }
 
-    public boolean load() throws IOException {
-        File file = new File(FILE_NAME);
+    public boolean load(Context context) throws IOException {
+        File file = new File(context.getFilesDir(), FILE_NAME);
 
         if (file.exists()) {
             String json = readFile();
@@ -78,8 +81,10 @@ public class SaveManager {
     }
 
     private String readFile() throws IOException {
+        File file = new File(GameActivity.getInstance().getFilesDir(), FILE_NAME);
+
         StringBuffer fileData = new StringBuffer();
-        BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME));
+        BufferedReader reader = new BufferedReader(new FileReader(file));
         char[] buf = new char[1024];
         int numRead = 0;
 

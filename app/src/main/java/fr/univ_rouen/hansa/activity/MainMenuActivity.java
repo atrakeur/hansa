@@ -22,7 +22,7 @@ public class MainMenuActivity extends Activity {
     }
 
     public void loadGame(View view) {
-
+        //TODO loading (new SaveManager().load())
         // loadActivity
                 /*Intent intent = new Intent(MainMenuActivity.this, LoadActivity.class);
                 Toast.makeText(getApplicationContext(), "Chargement en cours...", Toast.LENGTH_SHORT).show();
