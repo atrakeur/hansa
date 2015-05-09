@@ -1,7 +1,5 @@
 package fr.univ_rouen.hansa.save;
 
-import android.content.Context;
-
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -62,8 +60,8 @@ public class SaveManager {
         return true;
     }
 
-    public boolean load(Context context) throws IOException {
-        File file = new File(context.getFilesDir(), FILE_NAME);
+    public boolean load() throws IOException {
+        File file = new File(GameActivity.getInstance().getFilesDir(), FILE_NAME);
 
         if (file.exists()) {
             String json = readFile();

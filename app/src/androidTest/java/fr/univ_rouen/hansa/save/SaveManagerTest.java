@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 
 import junit.framework.TestCase;
 
-import java.io.IOException;
 import java.util.List;
 
 import fr.univ_rouen.hansa.gameboard.TurnManager;
@@ -30,9 +29,5 @@ public class SaveManagerTest extends TestCase {
 
     public void testSave() throws Exception {
         assertTrue(saveManager.save(gameBoard));
-    }
-
-    public void testLoad() throws IOException {
-        assertTrue(saveManager.load());
     }
 }
