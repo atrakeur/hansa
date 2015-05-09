@@ -5,6 +5,7 @@ import java.util.List;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
+import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 import fr.univ_rouen.hansa.view.IPosition;
 import fr.univ_rouen.hansa.view.display.IDrawable;
 import fr.univ_rouen.hansa.view.interactions.IClickable;
@@ -95,4 +96,10 @@ public interface ICity extends IDrawable, IClickable {
      * @return how many kontor the player got in this city
      */
     int numberOfKontorsOwned(IHTPlayer player);
+
+
+    /**
+     * @return lists of the nearest village on each route of getRoutes()
+     */
+    public List<IVillage> getNearestVillages();
 }

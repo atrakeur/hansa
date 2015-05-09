@@ -3,6 +3,7 @@ package fr.univ_rouen.hansa.gameboard.cities;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import java.util.Map;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
+import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 import fr.univ_rouen.hansa.view.IPosition;
 import fr.univ_rouen.hansa.view.display.HansaCityDrawer;
 import fr.univ_rouen.hansa.view.display.IDrawer;
@@ -182,5 +184,39 @@ public class City implements ICity {
             }
         }
         return total;
+    }
+
+
+
+    @Override
+    public List<IVillage> getNearestVillages() {
+        List<IVillage> nearestVillages = new ArrayList<IVillage>();
+
+        for (IRoute route : getRoutes()) {
+
+            float posX = getPosition().getX();
+            float posY = getPosition().getY();
+
+            IVillage v0 = route.getVillage(0);
+            IVillage v1 = route.getVillage(route.getVillages().size() - 1);
+
+
+            float pos0X = v0.getPosition().getX();
+            float pos0Y = v0.getPosition().getY();
+
+            float pos1X = v1.getPosition().getX();
+            float pos1Y = v1.getPosition().getY();
+
+            double d0 = Math.sqrt((posX - pos0X) * (posX - pos0X) + (posY - pos0Y) * (posY - pos0Y));
+            double d1 = Math.sqrt((posX - pos1X) * (posX - pos1X) + (posY - pos1Y) * (posY - pos1Y));
+
+            if (d0 < d1) {
+                nearestVillages.add(v0);
+            } else {
+                nearestVillages.add(v1);
+            }
+        }
+
+        return nearestVillages;
     }
 }
