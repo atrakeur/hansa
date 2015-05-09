@@ -19,21 +19,21 @@ public class MovePawnRtoSTest extends TestCase {
     }
 
     public void testMovement() throws Exception {
-        int sMerchantCount = player.getEscritoire().getStock().getMerchantCount();
-        int sTraderCount = player.getEscritoire().getStock().getTraderCount();
+        int sMerchantCount = player.getEscritoire().getSupply().getMerchantCount();
+        int sTraderCount = player.getEscritoire().getSupply().getTraderCount();
 
-        int rMerchantCount = player.getEscritoire().getSupply().getMerchantCount();
-        int rTraderCount = player.getEscritoire().getSupply().getTraderCount();
+        int rMerchantCount = player.getEscritoire().getStock().getMerchantCount();
+        int rTraderCount = player.getEscritoire().getStock().getTraderCount();
 
         MovePawnRtoS action = new MovePawnRtoS(player, rMerchantCount, rTraderCount);
 
         action.doMovement();
 
-        assertTrue(player.getEscritoire().getStock().getMerchantCount() == sMerchantCount + rMerchantCount);
-        assertTrue(player.getEscritoire().getStock().getTraderCount() == sTraderCount + rTraderCount);
+        assertTrue(player.getEscritoire().getSupply().getMerchantCount() == sMerchantCount + rMerchantCount);
+        assertTrue(player.getEscritoire().getSupply().getTraderCount() == sTraderCount + rTraderCount);
 
-        assertTrue(player.getEscritoire().getSupply().getMerchantCount() == 0);
-        assertTrue(player.getEscritoire().getSupply().getTraderCount() == 0);
+        assertTrue(player.getEscritoire().getStock().getMerchantCount() == 0);
+        assertTrue(player.getEscritoire().getStock().getTraderCount() == 0);
 
         try {
             new MovePawnRtoS(player, 0, 1).doMovement();
@@ -43,10 +43,10 @@ public class MovePawnRtoSTest extends TestCase {
 
         action.doRollback();
 
-        assertTrue(player.getEscritoire().getStock().getMerchantCount() == sMerchantCount);
-        assertTrue(player.getEscritoire().getStock().getTraderCount() == sTraderCount);
+        assertTrue(player.getEscritoire().getSupply().getMerchantCount() == sMerchantCount);
+        assertTrue(player.getEscritoire().getSupply().getTraderCount() == sTraderCount);
 
-        assertTrue(player.getEscritoire().getSupply().getMerchantCount() == rMerchantCount);
-        assertTrue(player.getEscritoire().getSupply().getTraderCount() == rTraderCount);
+        assertTrue(player.getEscritoire().getStock().getMerchantCount() == rMerchantCount);
+        assertTrue(player.getEscritoire().getStock().getTraderCount() == rTraderCount);
     }
 }

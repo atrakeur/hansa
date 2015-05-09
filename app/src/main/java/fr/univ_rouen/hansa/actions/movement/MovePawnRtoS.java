@@ -35,22 +35,22 @@ public class MovePawnRtoS implements IMovement {
 
     @Override
     public void doMovement() {
-        if (!player.getEscritoire().getSupply().enoughPawns(merchantsCount, tradersCount)) {
+        if (!player.getEscritoire().getStock().enoughPawns(merchantsCount, tradersCount)) {
             throw new NotEnoughSupplyException();
         }
 
-        player.getEscritoire().moveSupplyToStock(merchantsCount, tradersCount);
+        player.getEscritoire().moveStockToSupply(merchantsCount, tradersCount);
 
         actionDone = true;
     }
 
     @Override
     public void doRollback() {
-        if (!player.getEscritoire().getStock().enoughPawns(merchantsCount, tradersCount)) {
+        if (!player.getEscritoire().getSupply().enoughPawns(merchantsCount, tradersCount)) {
             throw new NotEnoughSupplyException();
         }
 
-        player.getEscritoire().moveStockToSupply(merchantsCount, tradersCount);
+        player.getEscritoire().moveSupplyToStock(merchantsCount, tradersCount);
 
         actionDone = false;
     }
