@@ -1,5 +1,17 @@
 package fr.univ_rouen.hansa.gameboard.player;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+
+import java.util.LinkedList;
+import java.util.Map;
+
+import fr.univ_rouen.hansa.gameboard.Privillegium;
+import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
+import fr.univ_rouen.hansa.gameboard.cities.ICity;
+import fr.univ_rouen.hansa.gameboard.cities.VictoryCoellen;
+import fr.univ_rouen.hansa.gameboard.routes.IRoute;
+
 public class ScorePlayer implements IScorePlayer {
 
     private int score;
@@ -28,11 +40,4 @@ public class ScorePlayer implements IScorePlayer {
         this.score = score;
     }
 
-    @Override
-    public int getFinalScore() {
-        int finalscore = score;
-
-        //TODO
-        throw new UnsupportedOperationException();
-    }
 }
