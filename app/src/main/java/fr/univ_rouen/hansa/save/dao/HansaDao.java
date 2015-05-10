@@ -33,7 +33,7 @@ public class HansaDao {
     }
 
     public List<IHTPlayer> getPlayersEntities() {
-        List<IHTPlayer> playersEntities= Lists.newArrayList();
+        List<IHTPlayer> playersEntities = Lists.newArrayList();
 
         for (PlayerDao playerDao : players) {
             playersEntities.add(playerDao.daoToEntity());

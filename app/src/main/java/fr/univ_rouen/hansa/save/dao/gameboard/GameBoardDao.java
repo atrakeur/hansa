@@ -48,18 +48,20 @@ public class GameBoardDao implements Dao<GameBoard> {
 
         List<ICity> citiesEntities = Lists.newArrayList();
         for (CityDao city : cities) {
-            citiesEntities.add(city.daoToEntity());
+            ICity entity = city.daoToEntity();
+            gameBoard.addCity(entity);
+            citiesEntities.add(entity);
         }
 
-        List<IRoute> routesEntities = Lists.newArrayList();
         for (RouteDao route : routes) {
-            routesEntities.add(route.daoToEntity(citiesEntities));
+            gameBoard.addRoute(route.daoToEntity(citiesEntities));
         }
 
         List<IBonusMarker> bonusMarkersEntities = Lists.newArrayList();
         for (BonusMarkerDao bonusMarker : bonusMarkers) {
             bonusMarkersEntities.add(bonusMarker.daoToEntity());
         }
+        gameBoard.setBonusStack(bonusMarkersEntities);
 
         return gameBoard;
     }

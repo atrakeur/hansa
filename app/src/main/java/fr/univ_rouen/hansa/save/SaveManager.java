@@ -1,13 +1,14 @@
 package fr.univ_rouen.hansa.save;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.InputStreamReader;
 
 import fr.univ_rouen.hansa.activity.GameActivity;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
@@ -36,32 +37,26 @@ public class SaveManager {
 
         //Si le fichier de sauvegarde existe pas, on le créé
         File file = new File(GameActivity.getInstance().getFilesDir(), FILE_NAME);
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        if (file.exists()) {
+            file.delete();
         }
 
         //On fait la sauvegarde
-        PrintWriter outSave = null;
-
+        FileOutputStream fos = null;
         try {
-            outSave = new PrintWriter(FILE_NAME);
-            outSave.println(save);
-        } catch (FileNotFoundException ignore) {
-        } finally {
-            if (outSave != null) {
-                outSave.close();
-            }
+            fos = GameActivity.getInstance().openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
+            fos.write(save.getBytes());
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return true;
     }
 
-    public boolean load() throws IOException {
+    public GameBoard load() throws IOException {
         File file = new File(GameActivity.getInstance().getFilesDir(), FILE_NAME);
+        GameBoard gameBoard = null;
 
         if (file.exists()) {
             String json = readFile();
@@ -72,27 +67,23 @@ public class SaveManager {
                     hansaDao.getCurrentPlayer()
             );
 
-            GameBoardFactory.getInstance().createGameBoardFromSave(hansaDao.getGameBoardEntity());
+            gameBoard = hansaDao.getGameBoardEntity();
+
+            GameBoardFactory.getInstance().createGameBoardFromSave(gameBoard);
         }
 
-        return true;
+        return gameBoard;
     }
 
     private String readFile() throws IOException {
-        File file = new File(GameActivity.getInstance().getFilesDir(), FILE_NAME);
+        BufferedReader inputReader = new BufferedReader(new InputStreamReader(GameActivity.getInstance().openFileInput(FILE_NAME)));
+        String inputString;
+        StringBuffer stringBuffer = new StringBuffer();
 
-        StringBuffer fileData = new StringBuffer();
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-        char[] buf = new char[1024];
-        int numRead = 0;
-
-        while ((numRead = reader.read(buf)) != -1) {
-            String readData = String.valueOf(buf, 0, numRead);
-            fileData.append(readData);
+        while ((inputString = inputReader.readLine()) != null) {
+            stringBuffer.append(inputString + "\n");
         }
 
-        reader.close();
-
-        return fileData.toString();
+        return stringBuffer.toString();
     }
 }
