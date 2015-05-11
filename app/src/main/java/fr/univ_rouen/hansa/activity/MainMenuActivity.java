@@ -34,12 +34,6 @@ public class MainMenuActivity extends Activity {
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
         finish();
-
-        //TODO loading (new SaveManager().load())
-        // loadActivity
-                /*Intent intent = new Intent(MainMenuActivity.this, LoadActivity.class);
-                Toast.makeText(getApplicationContext(), "Chargement en cours...", Toast.LENGTH_SHORT).show();
-                startActivity(intent);*/
     }
 
     public void optionsGame(View view) {
