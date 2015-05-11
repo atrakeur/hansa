@@ -8,10 +8,13 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 
+import java.io.IOException;
+
 import fr.univ_rouen.hansa.activity.GameActivity;
 import fr.univ_rouen.hansa.ai.AIThread;
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
 import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
+import fr.univ_rouen.hansa.save.SaveManager;
 import fr.univ_rouen.hansa.view.interactions.HansaGameBoardEventManager;
 import fr.univ_rouen.hansa.view.utils.DrawingThread;
 import fr.univ_rouen.hansa.view.utils.ResourceRepository;
@@ -37,8 +40,20 @@ public class GameBoardView extends SurfaceView {
         setFocusable(true);
         setWillNotDraw(false);
 
-        //TODO change that using a cute menu to select map
-        setBoard(GameBoardFactory.getInstance().createGameBoard(1));
+        if (GameBoard.LOAD_FROM_SAVE) {
+            try {
+                GameBoard.LOAD_FROM_SAVE = false;
+
+                GameBoard gameBoard = new SaveManager().load();
+                setBoard(gameBoard);
+            } catch (IOException e) {
+                setBoard(GameBoardFactory.getInstance().createGameBoard(1));
+
+                e.printStackTrace();
+            }
+        } else {
+            setBoard(GameBoardFactory.getInstance().createGameBoard(1));
+        }
 
         eventManager = new HansaGameBoardEventManager(this, board, resources);
 

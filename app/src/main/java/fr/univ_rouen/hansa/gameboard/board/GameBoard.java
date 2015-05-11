@@ -3,7 +3,6 @@ package fr.univ_rouen.hansa.gameboard.board;
 import com.google.common.collect.Lists;
 
 import java.util.EnumMap;
-import java.util.EnumSet;
 import java.util.List;
 
 import fr.univ_rouen.hansa.R;
@@ -19,6 +18,8 @@ import fr.univ_rouen.hansa.view.interactions.IClickable;
 import fr.univ_rouen.hansa.view.interactions.IClickableArea;
 
 public class GameBoard extends RouteBoard implements IDrawable {
+
+    public static boolean LOAD_FROM_SAVE;
 
     private final IDrawer drawer;
     private final EnumMap<Power, HansaPowerClickableArea> powerClickables;

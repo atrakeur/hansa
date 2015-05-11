@@ -5,7 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.google.common.collect.Lists;
+
 import fr.univ_rouen.hansa.R;
+import fr.univ_rouen.hansa.gameboard.TurnManager;
+import fr.univ_rouen.hansa.gameboard.board.GameBoard;
+import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 
 
 public class MainMenuActivity extends Activity {
@@ -22,11 +27,13 @@ public class MainMenuActivity extends Activity {
     }
 
     public void loadGame(View view) {
+        GameBoard.LOAD_FROM_SAVE = true;
 
-        // loadActivity
-                /*Intent intent = new Intent(MainMenuActivity.this, LoadActivity.class);
-                Toast.makeText(getApplicationContext(), "Chargement en cours...", Toast.LENGTH_SHORT).show();
-                startActivity(intent);*/
+        TurnManager.getInstance().addPlayers(Lists.newArrayList(PlayerColor.blue));
+
+        Intent intent = new Intent(this, GameActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void optionsGame(View view) {

@@ -26,7 +26,7 @@ public class BonusMarkerDao implements Dao<IBonusMarker> {
     public IBonusMarker daoToEntity() {
         if (type == IBonusMarker.BonusType.BonusActiones) {
             //FIXME wrong value
-            return new BonusActiones(0);
+            return new BonusActiones(3);
         } else if (type == IBonusMarker.BonusType.BonusEscritoire) {
             return new BonusEscritoire();
         } else if (type == IBonusMarker.BonusType.BonusKontor) {

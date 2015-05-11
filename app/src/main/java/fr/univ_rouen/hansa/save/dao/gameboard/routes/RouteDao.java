@@ -48,7 +48,11 @@ public class RouteDao {
         List<IVillage> villagesEntitites = Lists.newArrayList();
         ICity[] citiesEntities = new ICity[2];
         IPosition tavernEntity = tavernPosition.daoToEntity();
-        IBonusMarker bonusEntity = bonusMarker.daoToEntity();
+        IBonusMarker bonusEntity = null;
+
+        if (bonusMarker != null) {
+            bonusEntity = bonusMarker.daoToEntity();
+        }
 
         for (VillageDao village : villages) {
             villagesEntitites.add(village.daoToEntity());

@@ -1,10 +1,7 @@
 package fr.univ_rouen.hansa.gameboard.cities;
 
-import android.util.Log;
-
 import com.google.common.collect.Lists;
 
-import junit.framework.Assert;
 import junit.framework.TestCase;
 
 import java.util.List;
@@ -102,6 +99,7 @@ public class CityTest extends TestCase {
     }
 
     public void testIsCompletedCity() throws Exception {
+        initialize();
         kontors = Lists.newArrayList();
         kontors.add(new Kontor<Trader>(Trader.class, false, Privillegium.White));
         kontors.add(new Kontor<Trader>(Trader.class, false, Privillegium.Orange));
