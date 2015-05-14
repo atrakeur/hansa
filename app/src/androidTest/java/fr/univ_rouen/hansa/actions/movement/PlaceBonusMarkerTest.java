@@ -12,6 +12,7 @@ import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusState;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.cities.City;
 import fr.univ_rouen.hansa.gameboard.cities.IKontor;
+import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
@@ -38,7 +39,7 @@ public class PlaceBonusMarkerTest extends TestCase {
         //WHEN
         try{
             IMovement mov = new PlaceBonusMarker(b, route);
-            v.pushPawn(new Merchant(null));
+            v.pushPawn(new Merchant(PlayerColor.blue));
             mov.doMovement();
             fail();
         } catch (IllegalStateException ex){

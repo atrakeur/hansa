@@ -17,6 +17,8 @@ import fr.univ_rouen.hansa.R;
 import fr.univ_rouen.hansa.actions.MovementFactory;
 import fr.univ_rouen.hansa.actions.MovementManager;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
+import fr.univ_rouen.hansa.exceptions.FinishedRoundException;
+import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.exceptions.UnfinishedRoundException;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
@@ -98,14 +100,62 @@ public class GameActivity extends Activity {
 
         if (player.getEscritoire().getStock().getMerchantCount() <= 0) {
             IMovement m = MovementFactory.getInstance().makeBursaMovement(0);
-            MovementManager.getInstance().doMove(m);
+            try {
+                MovementManager.getInstance().doMove(m);
+            } catch(FinishedRoundException e) {
+                AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+                alertDialog.setTitle("Tour fini");
+                alertDialog.setMessage("Vous avez joué toutes vos actions, passer au tour suivant ?");
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Oui",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                TurnManager.getInstance().nextPlayer(true);
+                                dialog.dismiss();
+                                onResume();
+                            }
+                        });
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Non",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                onResume();
+                            }
+                        });
+                alertDialog.show();
+            } catch (GameException e) {
+                e.printStackTrace();
+            }
             Toast.makeText(context, "Nombre de trader : " + TurnManager.getInstance().getCurrentPlayer().getEscritoire().getSupply().getTraderCount(), Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (player.getEscritoire().bursaLevel() == Integer.MAX_VALUE) {
             IMovement m = MovementFactory.getInstance().makeBursaMovement();
-            MovementManager.getInstance().doMove(m);
+            try {
+                MovementManager.getInstance().doMove(m);
+            } catch(FinishedRoundException e) {
+                AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+                alertDialog.setTitle("Tour fini");
+                alertDialog.setMessage("Vous avez joué toutes vos actions, passer au tour suivant ?");
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Oui",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                TurnManager.getInstance().nextPlayer(true);
+                                dialog.dismiss();
+                                onResume();
+                            }
+                        });
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Non",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                onResume();
+                            }
+                        });
+                alertDialog.show();
+            } catch (GameException e) {
+                e.printStackTrace();
+            }
             Toast.makeText(context, "Nombre de trader : " + TurnManager.getInstance().getCurrentPlayer().getEscritoire().getSupply().getTraderCount(), Toast.LENGTH_SHORT).show();
             return;
         }

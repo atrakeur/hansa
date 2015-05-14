@@ -7,6 +7,7 @@ import java.util.List;
 
 import fr.univ_rouen.hansa.exceptions.EndOfGameException;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
+import fr.univ_rouen.hansa.gameboard.cities.Power;
 
 public abstract class CitiesBoard extends BasicBoard {
 
@@ -37,6 +38,16 @@ public abstract class CitiesBoard extends BasicBoard {
 
     public List<ICity> getCities() {
         return Collections.unmodifiableList(cities);
+    }
+
+    public ICity getCityByPower(Power power) {
+        for (ICity city: cities) {
+            if (city.getPower() == power) {
+                return city;
+            }
+        }
+
+        throw new RuntimeException("No city found for power "+power);
     }
 
 }

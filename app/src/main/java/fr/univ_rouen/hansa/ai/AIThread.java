@@ -6,6 +6,7 @@ import android.view.SurfaceHolder;
 import fr.univ_rouen.hansa.actions.MovementManager;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
 import fr.univ_rouen.hansa.activity.GameActivity;
+import fr.univ_rouen.hansa.exceptions.FinishedRoundException;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
 import fr.univ_rouen.hansa.gameboard.player.HTComputer;
@@ -81,8 +82,13 @@ public class AIThread extends Thread{
             IMovement[] movements = player.getStrategy().compute(GameBoardFactory.getGameBoard());
             //Use movements (sould be safe cause we are awesome!)
 
-            for (int i = 0; i < movements.length; i++) {
-                MovementManager.getInstance().doMove(movements[i]);
+            try {
+                for (int i = 0; i < movements.length; i++) {
+                    MovementManager.getInstance().doMove(movements[i]);
+                }
+            } catch (FinishedRoundException ex) {
+                ex.printStackTrace();
+                Log.w("AI", "AIThread encountered FinishedRoundException");
             }
 
             if (TurnManager.getInstance().isNextTurnAvailable() == TurnManager.nextTurnRequire.bonusMarkers) {
