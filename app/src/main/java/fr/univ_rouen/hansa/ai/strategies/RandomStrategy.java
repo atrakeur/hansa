@@ -4,6 +4,7 @@ import fr.univ_rouen.hansa.actions.MovementFactory;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
 import fr.univ_rouen.hansa.actions.movement.MovePawnRtoS;
 import fr.univ_rouen.hansa.ai.StrategyType;
+import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
 import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
@@ -31,6 +32,10 @@ public class RandomStrategy extends BaseStrategy {
 
     @Override
     public IMovement[] compute(GameBoard board) {
+        if (TurnManager.getInstance().getCurrentPlayingPlayer() != TurnManager.getInstance().getCurrentPlayer()) {
+            //Cas ou on en remplaces un pion
+        }
+
         if (getPlayer().getActionNumber() == 2) {
             state = State.ACTIONES;
         } else {

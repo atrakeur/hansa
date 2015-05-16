@@ -75,17 +75,29 @@ public class AIThread extends Thread{
                 }
             } while(!(TurnManager.getInstance().getCurrentPlayingPlayer() instanceof HTComputer));
 
-            HTComputer player = (HTComputer) TurnManager.getInstance().getCurrentPlayingPlayer();
+            final HTComputer player = (HTComputer) TurnManager.getInstance().getCurrentPlayingPlayer();
             Log.w("AI", "AIThread picked "+player.getPlayerColor().toString()+" player");
 
             //Get movements from strategy
-            IMovement[] movements = player.getStrategy().compute(GameBoardFactory.getGameBoard());
+            final IMovement[] movements = player.getStrategy().compute(GameBoardFactory.getGameBoard());
             //Use movements (sould be safe cause we are awesome!)
 
             try {
-                for (int i = 0; i < movements.length; i++) {
-                    MovementManager.getInstance().doMove(movements[i]);
-                }
+                GameActivity.getInstance().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                    if (player == TurnManager.getInstance().getCurrentPlayingPlayer()) {
+                        Log.w("AI", "AIThread ready to play all actions");
+                        for (int i = 0; i < movements.length; i++) {
+                            MovementManager.getInstance().doMove(movements[i]);
+                        }
+                        Log.w("AI", "AIThread played all actions");
+                    } else {
+                        Log.w("AI", "AIThread discarded actions");
+                    }
+                    }
+                });
+
             } catch (FinishedRoundException ex) {
                 ex.printStackTrace();
                 Log.w("AI", "AIThread encountered FinishedRoundException");
