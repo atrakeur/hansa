@@ -1,8 +1,5 @@
 package fr.univ_rouen.hansa.save.dao.gameboard;
 
-import fr.univ_rouen.hansa.exceptions.GameException;
-import fr.univ_rouen.hansa.gameboard.TurnManager;
-import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
@@ -29,23 +26,10 @@ public class PawnDao implements Dao<Pawn> {
 
     @Override
     public Pawn daoToEntity() {
-        IHTPlayer player = null;
-
-        for (IHTPlayer ihtPlayer : TurnManager.getInstance().getPlayers()) {
-            if (ihtPlayer.getPlayerColor() == playerColor) {
-                player = ihtPlayer;
-                break;
-            }
-        }
-
-        if (player == null) {
-            throw new GameException("Error during loading : a player is missing");
-        }
-
         if (pawnType == PawnType.Trader) {
-            return new Trader(player);
+            return new Trader(playerColor);
         } else {
-            return new Merchant(player);
+            return new Merchant(playerColor);
         }
     }
 

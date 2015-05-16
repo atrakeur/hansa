@@ -15,6 +15,8 @@ import java.io.InputStream;
 
 import fr.univ_rouen.hansa.R;
 import fr.univ_rouen.hansa.activity.MainMenuActivity;
+import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
+import fr.univ_rouen.hansa.save.SaveManager;
 
 public class DialogPause extends Dialog implements View.OnClickListener {
 
@@ -41,7 +43,8 @@ public class DialogPause extends Dialog implements View.OnClickListener {
                 break;
             }
             case R.id.b_save: {
-                //TODO close this dialog & open save dialog
+                new SaveManager().save(GameBoardFactory.getGameBoard());
+                this.dismiss();
                 break;
             }
             case R.id.b_rules: {
@@ -60,7 +63,7 @@ public class DialogPause extends Dialog implements View.OnClickListener {
 
     }
 
-    public void showPdf(){
+    public void showPdf() {
         File pdfFile = getFilePdf();
         Uri path = Uri.fromFile(pdfFile);
         Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
@@ -71,6 +74,7 @@ public class DialogPause extends Dialog implements View.OnClickListener {
             Toast.makeText(context, context.getString(R.string.noApplicationPDF), Toast.LENGTH_LONG).show();
         }
     }
+
     private File getFilePdf() {
         InputStream in = context.getResources().openRawResource(R.raw.rulesfr);
         FileOutputStream out = null;

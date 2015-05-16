@@ -23,7 +23,7 @@ public abstract class RouteBoard extends CitiesBoard {
         bonusStack = Lists.newArrayList();
     }
 
-    protected void addRoute(IRoute route) {
+    public void addRoute(IRoute route) {
         ICity[] cities = route.getCities();
         if (cities.length != 2 || getRoute(cities[0], cities[1]) != null) {
             throw new IllegalArgumentException("addRoute need a route that link two cities together.");

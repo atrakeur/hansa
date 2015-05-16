@@ -61,6 +61,16 @@ public class EscritoireDao implements Dao<IEscritoire> {
 
         stock = new PawnListDao(escritoire.getStock());
         supply = new PawnListDao(escritoire.getSupply());
+
+        tinPlate = Lists.newArrayList();
+        for (IBonusMarker bonusMarker : escritoire.getTinPlateContent()) {
+            tinPlate.add(new BonusMarkerDao(bonusMarker));
+        }
+
+        bonusMarkers = Lists.newArrayList();
+        for (IBonusMarker bonusMarker : escritoire.getBonusMarker()) {
+            bonusMarkers.add(new BonusMarkerDao(bonusMarker));
+        }
     }
 
     @Override
