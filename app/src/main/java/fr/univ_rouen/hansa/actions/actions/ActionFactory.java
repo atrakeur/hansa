@@ -6,15 +6,18 @@ import java.util.List;
 
 import fr.univ_rouen.hansa.actions.Actions;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
+import fr.univ_rouen.hansa.actions.movement.MovePawnRtoGB;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
+import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 
 public class ActionFactory {
 
     private List<IMovement> movements;
     private List<IAction> actions;
     private Pawn pawnToReplace;
+    private IVillage villageToReplace;
 
     private IAction createAction(Actions type, List<IMovement> movements) {
         return new Action(type, movements);
@@ -64,6 +67,7 @@ public class ActionFactory {
         List<IAction> actions = Lists.newArrayList();
 
         Pawn pawnToReplace = null;
+        IVillage villageToReplace = null;
         Actions lastMergeAction = null;
         List<IMovement> mergeableMoves = Lists.newArrayList();
 
@@ -100,6 +104,7 @@ public class ActionFactory {
             if (movement.getPawnToReplace() != null) {
                 //Si oui, on va merger tous les mouvement de remplacement et de validation ensemble
                 pawnToReplace = movement.getPawnToReplace();
+                villageToReplace = ((MovePawnRtoGB)movement).getReplacedVillage();
                 for (int j = i + 1; j < movements.size(); j++) {
                     //On merge tous les replace qui suivent
                     if (movements.get(j).getActionDone() == Actions.replaceMovedPawn) {
@@ -108,6 +113,7 @@ public class ActionFactory {
                     if (movements.get(j).getActionDone() == Actions.validateMovedPawn) {
                         mergeableMoves.add(movements.get(j));  //On merge
                         pawnToReplace = null;                  //On considére le pawn comme replacé
+                        villageToReplace = null;               //Idem
                         i = j;                                 //On skip dans la boucle principale
                         break;
                     }
@@ -123,6 +129,7 @@ public class ActionFactory {
         this.actions = actions;
         this.movements = movements;
         this.pawnToReplace = pawnToReplace;
+        this.villageToReplace = villageToReplace;
     }
 
 }

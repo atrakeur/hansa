@@ -80,28 +80,30 @@ public class AIThread extends Thread{
 
             //Get movements from strategy
             final IMovement[] movements = player.getStrategy().compute(GameBoardFactory.getGameBoard());
+
             //Use movements (sould be safe cause we are awesome!)
-
-            try {
-                GameActivity.getInstance().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                    if (player == TurnManager.getInstance().getCurrentPlayingPlayer()) {
-                        Log.w("AI", "AIThread ready to play all actions");
-                        for (int i = 0; i < movements.length; i++) {
-                            MovementManager.getInstance().doMove(movements[i]);
+            GameActivity.getInstance().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        if (player == TurnManager.getInstance().getCurrentPlayingPlayer()) {
+                            Log.w("AI", "AIThread ready to play all actions");
+                            for (int i = 0; i < movements.length; i++) {
+                                MovementManager.getInstance().doMove(movements[i]);
+                            }
+                            Log.w("AI", "AIThread played all actions");
+                        } else {
+                            Log.w("AI", "AIThread discarded actions");
                         }
-                        Log.w("AI", "AIThread played all actions");
-                    } else {
-                        Log.w("AI", "AIThread discarded actions");
+                    } catch (FinishedRoundException ex) {
+                        ex.printStackTrace();
+                        Log.w("AI", "AIThread encountered FinishedRoundException");
                     }
-                    }
-                });
+                }
+            });
 
-            } catch (FinishedRoundException ex) {
-                ex.printStackTrace();
-                Log.w("AI", "AIThread encountered FinishedRoundException");
-            }
+
+
 
             if (TurnManager.getInstance().isNextTurnAvailable() == TurnManager.nextTurnRequire.bonusMarkers) {
                 //Got bonus markers to replace

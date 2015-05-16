@@ -239,7 +239,7 @@ public class MovementFactory {
         if (source == null && destination == null) {
             return new ValidateMovedPawn();
         }
-        else if (source.getType() == IClickableArea.Type.supply && destination.getType() == IClickableArea.Type.village ) {
+        else if (destination.getType() == IClickableArea.Type.village) {
             return new ReplaceMovedPawn(player, (IVillage) destination.getSubject(), pawnType);
         }
 

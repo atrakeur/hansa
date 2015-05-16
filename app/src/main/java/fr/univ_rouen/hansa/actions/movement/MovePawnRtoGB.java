@@ -48,6 +48,10 @@ public class MovePawnRtoGB implements IMovement {
         return Actions.movePawnRtoGB;
     }
 
+    public IVillage getReplacedVillage() {
+        return this.village;
+    }
+
     @Override
     public void doMovement() {
         if (actionDone) {
