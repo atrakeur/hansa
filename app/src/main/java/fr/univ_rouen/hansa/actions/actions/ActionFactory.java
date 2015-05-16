@@ -112,7 +112,9 @@ public class ActionFactory {
             if (movement.getPawnToReplace() != null) {
                 //Si oui, on va merger tous les mouvement de remplacement et de validation ensemble
                 pawnToReplace = movement.getPawnToReplace();
-                villageToReplace = ((MovePawnRtoGB)movement).getReplacedVillage();
+                if (movement instanceof MovePawnRtoGB) {
+                    villageToReplace = ((MovePawnRtoGB)movement).getReplacedVillage();
+                }
                 for (int j = i + 1; j < movements.size(); j++) {
                     //On merge tous les replace qui suivent
                     if (movements.get(j).getActionDone() == Actions.replaceMovedPawn) {
