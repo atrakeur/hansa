@@ -1,6 +1,12 @@
 package fr.univ_rouen.hansa.ai.strategies;
 
+import android.util.Log;
+
+import java.util.List;
+
 import fr.univ_rouen.hansa.actions.MovementFactory;
+import fr.univ_rouen.hansa.actions.MovementManager;
+import fr.univ_rouen.hansa.actions.actions.ActionFactory;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
 import fr.univ_rouen.hansa.actions.movement.MovePawnRtoS;
 import fr.univ_rouen.hansa.ai.StrategyType;
@@ -34,6 +40,11 @@ public class RandomStrategy extends BaseStrategy {
     public IMovement[] compute(GameBoard board) {
         if (TurnManager.getInstance().getCurrentPlayingPlayer() != TurnManager.getInstance().getCurrentPlayer()) {
             //Cas ou on en remplaces un pion
+            Log.w("AI", "AIThread must replace pawn");
+            List<IVillage> remplaceVillages = MovementManager.getInstance().getVillageReplace().getAdjacentsVillages();
+
+            int randVillage = (int)(Math.random() * remplaceVillages.size());
+            return takeVillage(remplaceVillages.get(randVillage));
         }
 
         if (getPlayer().getActionNumber() == 2) {

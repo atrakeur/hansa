@@ -19,6 +19,7 @@ import fr.univ_rouen.hansa.gameboard.cities.VictoryCoellen;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
+import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 
 public class MovementManager {
 
@@ -86,6 +87,10 @@ public class MovementManager {
 
     public Pawn getPawnToReplace() {
         return this.actionFactory.getPawnToReplace(stack.getStackContent());
+    }
+
+    public IVillage getVillageReplace() {
+        return this.actionFactory.getVillageToReplace(stack.getStackContent());
     }
 
     public boolean hasPawnToReplace() {

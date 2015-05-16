@@ -66,7 +66,7 @@ public class AIThread extends Thread{
             //Wait for it
             do {
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -113,7 +113,7 @@ public class AIThread extends Thread{
                 //Got no more actiones? ready to move your fucking ass out of the way
                 //With a little delay to be more sexy of course
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

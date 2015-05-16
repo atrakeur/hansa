@@ -39,6 +39,14 @@ public class ActionFactory {
         return pawnToReplace;
     }
 
+    public IVillage getVillageToReplace(List<IMovement> movements) {
+        if (!movements.equals(this.movements)) {
+            this.compileMovements(movements);
+        }
+
+        return villageToReplace;
+    }
+
     public boolean hasPawnToReplace(List<IMovement> movements) {
         if (!movements.equals(this.movements)) {
             this.compileMovements(movements);
