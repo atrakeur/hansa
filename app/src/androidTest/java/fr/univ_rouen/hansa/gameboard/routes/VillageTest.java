@@ -120,8 +120,6 @@ public class VillageTest extends TestCase {
         assertEquals(1, village.getAdjacentsVillages().size());
         assertEquals(VillagePositions.GRONINGEN_EMDEN_2, village.getAdjacentsVillages().get(0).getPosition());
 
-        System.out.println("//////////////////////////////////");
-
         //village == village a gauche de Emden ( direction groningen )
         village = city.getRoutes().get(0).getVillage(2);
         village.pushPawn(new Merchant(player));

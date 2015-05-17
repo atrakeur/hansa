@@ -112,6 +112,7 @@ public class Village implements IVillage {
 
 
         while(!toTravel.isEmpty()){
+            System.out.println("///////////////");
             System.out.println("toTravel");
             IVillage village = toTravel.getFirst();
             if (village.isEmpty()){
@@ -126,13 +127,13 @@ public class Village implements IVillage {
 
                 System.out.println("    index : " + index);
                 //add the one before if village is not at the beginning of the route
-                if (index != 0){
+                if (index != 0 && visited.get(route.getVillage(index-1)) == null){
                     System.out.println("add -1");
                     toTravel.add(route.getVillage(index-1));
                 }
 
                 //add the one after if village is not at the end of the route
-                if (index != route.getVillages().size() -1){
+                if (index != route.getVillages().size() -1 &&  visited.get(route.getVillage(index + 1)) == null){
                     System.out.println("add +1");
                     toTravel.add(route.getVillage(index + 1));
                 }
@@ -145,7 +146,7 @@ public class Village implements IVillage {
                     System.out.println("    nearest city : " + nearestCity.getPosition().getX() + " - " + nearestCity.getPosition().getY());
                     for (IVillage villageNextToCity : nearestCity.getNearestVillages()) {
                         System.out.println("    village next to city ");
-                        if (villageNextToCity != village ){
+                        if (villageNextToCity != village && visited.get(villageNextToCity) == null){
                             System.out.println("    pos : " + villageNextToCity.getPosition().getX() + " - " + villageNextToCity.getPosition().getY());
                             toTravel.add(villageNextToCity);
                         }
@@ -157,7 +158,7 @@ public class Village implements IVillage {
             toTravel.remove(village);
         }
 
-
+        System.out.println("///////////////");
         return adj;
     }
 
