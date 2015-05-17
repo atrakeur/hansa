@@ -12,6 +12,7 @@ import fr.univ_rouen.hansa.actions.movement.IMovement;
 import fr.univ_rouen.hansa.activity.GameActivity;
 import fr.univ_rouen.hansa.ai.ComputerStrategy;
 import fr.univ_rouen.hansa.ai.StrategyType;
+import fr.univ_rouen.hansa.ai.strategies.BonusStrategy;
 import fr.univ_rouen.hansa.exceptions.UnfinishedRoundException;
 import fr.univ_rouen.hansa.gameboard.player.HTComputer;
 import fr.univ_rouen.hansa.gameboard.player.HTPlayer;
@@ -76,7 +77,8 @@ public class TurnManager {
                 player = new HTPlayer(color, i + 1);
             } else {
                 int randStrategy = (int)(Math.random() * StrategyType.values().length);
-                player = new HTComputer(color, i + 1, StrategyType.values()[randStrategy].getInstance());
+                //player = new HTComputer(color, i + 1, StrategyType.values()[randStrategy].getInstance());
+                player = new HTComputer(color, i + 1, new BonusStrategy());
                 Log.w("AI", "AI " + player.getPlayerColor().toString() + " player is of type "+StrategyType.values()[randStrategy].toString());
             }
             players.add(player);

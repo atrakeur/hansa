@@ -20,6 +20,18 @@ import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 
+/**
+ * Random Strategy
+ *
+ * Le but de cette stratégie est de prendre des villes (kontoirs) au hasard
+ * Pour cela l'ordinateur va tenter de prendre:
+ *      - soit des actiones
+ *      - soit des kontoirs
+ *
+ * L'IA prend un comptoir, ou alors des actiones (proba de 0.50)
+ * L'IA prend automatiquement un privliegium si sa cible est d'un privillegium plus important
+ *
+ */
 public class RandomStrategy extends BaseStrategy {
 
     private enum State {
@@ -27,6 +39,7 @@ public class RandomStrategy extends BaseStrategy {
         TAKING_KONTORS
     }
 
+    private int stateRemain = 0;
     private State state = State.ACTIONES;
 
     private ICity targetCity = null;
@@ -47,10 +60,15 @@ public class RandomStrategy extends BaseStrategy {
             return takeVillage(remplaceVillages.get(randVillage));
         }
 
-        if (getPlayer().getActionNumber() == 2) {
-            state = State.ACTIONES;
-        } else {
-            state = State.TAKING_KONTORS;
+        stateRemain--;
+        if (stateRemain <= 0) {
+            if (getPlayer().getActionNumber() >= 4 && Math.random() > 0.50) {
+                state = State.ACTIONES;
+                stateRemain = 3;
+            } else {
+                state = State.TAKING_KONTORS;
+                stateRemain = 6;
+            }
         }
 
 

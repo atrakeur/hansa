@@ -8,6 +8,7 @@ import java.util.List;
 
 import fr.univ_rouen.hansa.actions.MovementManager;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
+import fr.univ_rouen.hansa.actions.movement.KeepKontor;
 import fr.univ_rouen.hansa.actions.movement.KeepRoute;
 import fr.univ_rouen.hansa.actions.movement.MovePawnRtoS;
 import fr.univ_rouen.hansa.ai.StrategyType;
@@ -21,6 +22,22 @@ import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 
+/**
+ * Bonus Strategy
+ *
+ * Le but de cette stratégie est de récolter le maximum de bonus au cours de la partie.
+ * Pour cela l'ordinateur va tenter de prendre:
+ *      - soit des actiones
+ *      - soit des bonus markers
+ *
+ * Lorsque qu'un bonus marker est sur le point d'être pris (route pleine)
+ * L'IA optimise en prennant un comptoir si il est libre et qu'elle a le privillége qu'il faut
+ *
+ * L'IA choisi en random si elle prend une action ou un bonus (proba de 0.75 pour le bonus)
+ * L'IA ne tente plus de prendre des actions si actiones >= 4
+ *
+ * TODO L'IA pourrais essayer de jouer ses jetons bonus (notamment L'actiones + 3 ou + 4
+ */
 public class BonusStrategy extends BaseStrategy {
 
     private enum State {
@@ -28,6 +45,7 @@ public class BonusStrategy extends BaseStrategy {
         TAKING_BONUSES
     }
 
+    private int stateRemain = 0;
     private State state = State.ACTIONES;
 
     private IRoute targetRoute = null;
@@ -47,12 +65,16 @@ public class BonusStrategy extends BaseStrategy {
             return takeVillage(remplaceVillages.get(randVillage));
         }
 
-        if (getPlayer().getActionNumber() == 2 && Math.random() > 0.75) {
-            state = State.ACTIONES;
-        } else {
-            state = State.TAKING_BONUSES;
+        stateRemain--;
+        if (stateRemain <= 0) {
+            if (getPlayer().getActionNumber() >= 4 && Math.random() > 0.75) {
+                state = State.ACTIONES;
+                stateRemain = 2;
+            } else {
+                state = State.TAKING_BONUSES;
+                stateRemain = 4;
+            }
         }
-
 
         if (state == State.ACTIONES) {
             return takePower(Power.Actiones);
@@ -94,7 +116,8 @@ public class BonusStrategy extends BaseStrategy {
             //Take one of the kontor if possible, just take route otherwise
             for (ICity city: targetRoute.getCities()) {
                 if (getPlayer().getEscritoire().privilegiumLevel().isBetterThan(city.getNextKontor().getPrivillegium())) {
-                    return takeKontor(city);
+                    IMovement movement = new KeepKontor(getPlayer(), city, targetRoute.getVillage(0));
+                    return new IMovement[] {movement};
                 }
             }
 

@@ -19,6 +19,11 @@ import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 
+/**
+ * Stratégie de base
+ *
+ * Contient toutes les routines bas niveau utiles pour les différentes stratégies du jeu
+ */
 public abstract class BaseStrategy implements ComputerStrategy {
 
     private final StrategyType strategyType;
@@ -154,6 +159,11 @@ public abstract class BaseStrategy implements ComputerStrategy {
         }
     }
 
+    /**
+     * Retourne la route la moins chére pour aller vers une ville
+     * @param targetCity
+     * @return
+     */
     protected IRoute getLessExpensiveRouteToCity(ICity targetCity) {
         int lastNeeded = Integer.MAX_VALUE;
         IRoute targetRoute = null;
@@ -189,6 +199,14 @@ public abstract class BaseStrategy implements ComputerStrategy {
         return new IMovement[] {movement};
     }
 
+    /**
+     * Tente de prendre un comptoir
+     *
+     * Prend un privillegium si le privillegium de l'IA est trop bas
+     *
+     * @param targetCity
+     * @return
+     */
     protected IMovement[] takeKontor(ICity targetCity) {
         IKontor kontor = targetCity.getNextKontor();
         if (!kontor.isEmpty()) {
