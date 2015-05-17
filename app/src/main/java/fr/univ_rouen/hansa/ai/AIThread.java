@@ -9,6 +9,7 @@ import fr.univ_rouen.hansa.activity.GameActivity;
 import fr.univ_rouen.hansa.exceptions.FinishedRoundException;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
+import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
 import fr.univ_rouen.hansa.gameboard.player.HTComputer;
 import fr.univ_rouen.hansa.view.GameBoardView;
 
@@ -96,19 +97,29 @@ public class AIThread extends Thread{
                             Log.w("AI", "AIThread discarded actions");
                         }
                     } catch (FinishedRoundException ex) {
-                        ex.printStackTrace();
-                        Log.w("AI", "AIThread encountered FinishedRoundException");
+                        Log.w("AI", "AIThread encountered FinishedRoundException, ignoring");
                     }
                 }
             });
 
+            //While we have bonus to place on GameBoard
+            while (TurnManager.getInstance().isNextTurnAvailable() == TurnManager.nextTurnRequire.bonusMarkers) {
+                //Got bonus markers to replace, try to place it while not placed
+                IBonusMarker bonusToPlace = TurnManager.getInstance().getCurrentPlayer().getEscritoire().getTinPlateContent().get(0);
+                do {
+                    int randRoute = (int)(Math.random() * GameBoardFactory.getGameBoard().getRoutes().size());
+                    //BonusMarckers can be placed only on empty routes with no bonus markers
+                    if (
+                            GameBoardFactory.getGameBoard().getRoutes().get(randRoute).getBonusMarker() == null
+                            && GameBoardFactory.getGameBoard().getRoutes().get(randRoute).isEmpty()) {
+                        GameBoardFactory.getGameBoard().getRoutes().get(randRoute).pushBonusMarker(bonusToPlace);
+                        bonusToPlace = null;
+                    }
 
+                } while (bonusToPlace != null);
 
-
-            if (TurnManager.getInstance().isNextTurnAvailable() == TurnManager.nextTurnRequire.bonusMarkers) {
-                //Got bonus markers to replace
-                //TODO replace bonus markers
             }
+
             if (TurnManager.getInstance().isNextTurnAvailable() == TurnManager.nextTurnRequire.none) {
                 //Got no more actiones? ready to move your fucking ass out of the way
                 //With a little delay to be more sexy of course
