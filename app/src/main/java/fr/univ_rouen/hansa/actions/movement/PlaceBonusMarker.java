@@ -3,20 +3,23 @@ package fr.univ_rouen.hansa.actions.movement;
 import fr.univ_rouen.hansa.actions.Actions;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusState;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.IBonusMarker;
+import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.routes.IRoute;
 
 public class PlaceBonusMarker implements IMovement {
 
+    private IHTPlayer player;
     private IBonusMarker bonusMarker;
     private IRoute route;
     private boolean actionDone;
 
-    public PlaceBonusMarker(IBonusMarker bonusMarker, IRoute route) {
+    public PlaceBonusMarker(IHTPlayer player, IBonusMarker bonusMarker, IRoute route) {
         if(bonusMarker == null || route == null || !route.isEmpty() || bonusMarker.getState() != BonusState.inPlate ){
             throw new IllegalArgumentException();
         }
 
+        this.player = player;
         this.bonusMarker = bonusMarker;
         this.route = route;
     }
@@ -42,7 +45,11 @@ public class PlaceBonusMarker implements IMovement {
         if(bonusMarker.getState() != BonusState.inPlate){
             throw new IllegalStateException("Invalid bonus state");
         }
+        if (!player.getEscritoire().getTinPlateContent().contains(bonusMarker)) {
+            throw new IllegalStateException("Player hasn't the bonus he try to play");
+        }
 
+        player.getEscritoire().getTinPlateContent().remove(bonusMarker);
         route.pushBonusMarker(bonusMarker);
         bonusMarker.setState(BonusState.onBoard);
 
@@ -61,6 +68,7 @@ public class PlaceBonusMarker implements IMovement {
 
         route.popBonusMarker();
         bonusMarker.setState(BonusState.inPlate);
+        player.getEscritoire().getTinPlateContent().add(bonusMarker);
         actionDone = false;
     }
 

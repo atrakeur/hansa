@@ -5,6 +5,7 @@ import android.view.SurfaceHolder;
 
 import fr.univ_rouen.hansa.actions.MovementManager;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
+import fr.univ_rouen.hansa.actions.movement.PlaceBonusMarker;
 import fr.univ_rouen.hansa.activity.GameActivity;
 import fr.univ_rouen.hansa.exceptions.FinishedRoundException;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
@@ -105,18 +106,37 @@ public class AIThread extends Thread{
             //While we have bonus to place on GameBoard
             while (TurnManager.getInstance().isNextTurnAvailable() == TurnManager.nextTurnRequire.bonusMarkers) {
                 //Got bonus markers to replace, try to place it while not placed
-                IBonusMarker bonusToPlace = TurnManager.getInstance().getCurrentPlayer().getEscritoire().getTinPlateContent().get(0);
+                boolean placed = false;
+                final IBonusMarker bonusToPlace = TurnManager.getInstance().getCurrentPlayer().getEscritoire().getTinPlateContent().get(0);
+
                 do {
-                    int randRoute = (int)(Math.random() * GameBoardFactory.getGameBoard().getRoutes().size());
+                    final int randRoute = (int)(Math.random() * GameBoardFactory.getGameBoard().getRoutes().size());
+
                     //BonusMarckers can be placed only on empty routes with no bonus markers
                     if (
                             GameBoardFactory.getGameBoard().getRoutes().get(randRoute).getBonusMarker() == null
                             && GameBoardFactory.getGameBoard().getRoutes().get(randRoute).isEmpty()) {
-                        GameBoardFactory.getGameBoard().getRoutes().get(randRoute).pushBonusMarker(bonusToPlace);
-                        bonusToPlace = null;
+                        GameActivity.getInstance().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    IMovement movement = new PlaceBonusMarker(player, bonusToPlace, GameBoardFactory.getGameBoard().getRoutes().get(randRoute));
+                                    MovementManager.getInstance().doMove(movement);
+
+                                } catch (FinishedRoundException ex) {
+                                    Log.w("AI", "AIThread encountered FinishedRoundException, ignoring");
+                                }
+                            }
+                        });
+                        placed = true;
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
 
-                } while (bonusToPlace != null);
+                } while (placed == false);
 
             }
 
@@ -124,7 +144,7 @@ public class AIThread extends Thread{
                 //Got no more actiones? ready to move your fucking ass out of the way
                 //With a little delay to be more sexy of course
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(250);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

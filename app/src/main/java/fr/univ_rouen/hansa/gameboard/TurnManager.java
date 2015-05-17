@@ -73,13 +73,19 @@ public class TurnManager {
             Object playerDef = playersDefs.get(i);
 
             IHTPlayer player = null;
-            if (playerDef.equals("Player")) {
-                player = new HTPlayer(color, i + 1);
-            } else {
+            if (playerDef.toString().contains("Random")) {
                 int randStrategy = (int)(Math.random() * StrategyType.values().length);
                 //player = new HTComputer(color, i + 1, StrategyType.values()[randStrategy].getInstance());
                 player = new HTComputer(color, i + 1, new BonusStrategy());
-                Log.w("AI", "AI " + player.getPlayerColor().toString() + " player is of type "+StrategyType.values()[randStrategy].toString());
+                Log.w("AI", "AI " + player.getPlayerColor().toString() + " player is of type " + StrategyType.values()[randStrategy].toString());
+            }
+            else if (playerDef.toString().contains("Kontoirs")) {
+                player = new HTComputer(color, i + 1, new RandomStrategy());
+            }
+            else if (playerDef.toString().contains("Bonus")) {
+                player = new HTComputer(color, i + 1, new BonusStrategy());
+            } else {
+                player = new HTPlayer(color, i + 1);
             }
             players.add(player);
         }

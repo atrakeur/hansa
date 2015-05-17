@@ -175,9 +175,10 @@ public class MovementFactory {
 
     public IMovement makePlaceBonusMarkerMovement(IClickableArea source){
         IMovement mov;
+        IHTPlayer player = TurnManager.getInstance().getCurrentPlayingPlayer();
         if(source.getType() == IClickableArea.Type.village ){
             Village v = (Village) source.getSubject();
-            mov = new PlaceBonusMarker(bonusMarker, v.getRoute());
+            mov = new PlaceBonusMarker(player, bonusMarker, v.getRoute());
         } else {
             throw new GameException();
         }

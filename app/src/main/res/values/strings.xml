@@ -46,7 +46,9 @@
 
     <string-array name="player">
         <item>Player</item>
-        <item>IA</item>
+        <item>IA Random</item>
+        <item>IA Kontoirs</item>
+        <item>IA Bonus</item>
         <item>Aucun</item>
     </string-array>
     <string-array name="color">

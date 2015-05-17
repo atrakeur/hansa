@@ -23,7 +23,7 @@ import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 /**
  * Random Strategy
  *
- * Le but de cette stratégie est de prendre des villes (kontoirs) au hasard
+ * Le but de cette strategie est de prendre des villes (kontoirs) au hasard
  * Pour cela l'ordinateur va tenter de prendre:
  *      - soit des actiones
  *      - soit des kontoirs

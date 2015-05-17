@@ -25,13 +25,13 @@ import fr.univ_rouen.hansa.gameboard.routes.IVillage;
 /**
  * Bonus Strategy
  *
- * Le but de cette stratégie est de récolter le maximum de bonus au cours de la partie.
+ * Le but de cette strategie est de recolter le maximum de bonus au cours de la partie.
  * Pour cela l'ordinateur va tenter de prendre:
  *      - soit des actiones
  *      - soit des bonus markers
  *
- * Lorsque qu'un bonus marker est sur le point d'être pris (route pleine)
- * L'IA optimise en prennant un comptoir si il est libre et qu'elle a le privillége qu'il faut
+ * Lorsque qu'un bonus marker est sur le point d'etre pris (route pleine)
+ * L'IA optimise en prennant un comptoir si il est libre et qu'elle a le privillege qu'il faut
  *
  * L'IA choisi en random si elle prend une action ou un bonus (proba de 0.75 pour le bonus)
  * L'IA ne tente plus de prendre des actions si actiones >= 4
@@ -115,7 +115,10 @@ public class BonusStrategy extends BaseStrategy {
 
             //Take one of the kontor if possible, just take route otherwise
             for (ICity city: targetRoute.getCities()) {
-                if (getPlayer().getEscritoire().privilegiumLevel().isBetterThan(city.getNextKontor().getPrivillegium())) {
+                if (
+                        getPlayer().getEscritoire().privilegiumLevel().isBetterThan(
+                                city.getNextKontor().getPrivillegium()
+                        ) && city.getNextKontor().getPawnClass() == Trader.class) {
                     IMovement movement = new KeepKontor(getPlayer(), city, targetRoute.getVillage(0));
                     return new IMovement[] {movement};
                 }
