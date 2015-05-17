@@ -1,5 +1,7 @@
 package fr.univ_rouen.hansa.gameboard;
 
+import android.util.Log;
+
 import com.google.common.collect.Lists;
 
 import java.util.List;
@@ -8,6 +10,9 @@ import fr.univ_rouen.hansa.actions.MovementFactory;
 import fr.univ_rouen.hansa.actions.MovementManager;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
 import fr.univ_rouen.hansa.activity.GameActivity;
+import fr.univ_rouen.hansa.ai.ComputerStrategy;
+import fr.univ_rouen.hansa.ai.StrategyType;
+import fr.univ_rouen.hansa.ai.strategies.BonusStrategy;
 import fr.univ_rouen.hansa.exceptions.UnfinishedRoundException;
 import fr.univ_rouen.hansa.gameboard.player.HTComputer;
 import fr.univ_rouen.hansa.gameboard.player.HTPlayer;
@@ -68,10 +73,19 @@ public class TurnManager {
             Object playerDef = playersDefs.get(i);
 
             IHTPlayer player = null;
-            if (playerDef.equals("Player")) {
-                player = new HTPlayer(color, i + 1);
-            } else {
+            if (playerDef.toString().contains("Random")) {
+                int randStrategy = (int)(Math.random() * StrategyType.values().length);
+                //player = new HTComputer(color, i + 1, StrategyType.values()[randStrategy].getInstance());
+                player = new HTComputer(color, i + 1, new BonusStrategy());
+                Log.w("AI", "AI " + player.getPlayerColor().toString() + " player is of type " + StrategyType.values()[randStrategy].toString());
+            }
+            else if (playerDef.toString().contains("Kontoirs")) {
                 player = new HTComputer(color, i + 1, new RandomStrategy());
+            }
+            else if (playerDef.toString().contains("Bonus")) {
+                player = new HTComputer(color, i + 1, new BonusStrategy());
+            } else {
+                player = new HTPlayer(color, i + 1);
             }
             players.add(player);
         }

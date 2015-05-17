@@ -1,10 +1,12 @@
 package fr.univ_rouen.hansa.ai;
 
+import fr.univ_rouen.hansa.ai.strategies.BonusStrategy;
 import fr.univ_rouen.hansa.ai.strategies.RandomStrategy;
 
 public enum StrategyType {
 
-    randomStrategy(RandomStrategy.class);
+    randomStrategy(RandomStrategy.class),
+    bonusStrategy(BonusStrategy.class);
 
     private final Class<? extends ComputerStrategy> strategy;
 

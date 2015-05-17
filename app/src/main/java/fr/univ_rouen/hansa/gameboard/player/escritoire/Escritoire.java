@@ -115,7 +115,7 @@ public class Escritoire implements IEscritoire {
 
     @Override
     public List<IBonusMarker> getTinPlateContent() {
-        return Lists.newArrayList(tinPlate);
+        return tinPlate;
     }
 
     @Override

@@ -175,9 +175,10 @@ public class MovementFactory {
 
     public IMovement makePlaceBonusMarkerMovement(IClickableArea source){
         IMovement mov;
+        IHTPlayer player = TurnManager.getInstance().getCurrentPlayingPlayer();
         if(source.getType() == IClickableArea.Type.village ){
             Village v = (Village) source.getSubject();
-            mov = new PlaceBonusMarker(bonusMarker, v.getRoute());
+            mov = new PlaceBonusMarker(player, bonusMarker, v.getRoute());
         } else {
             throw new GameException();
         }
@@ -239,7 +240,7 @@ public class MovementFactory {
         if (source == null && destination == null) {
             return new ValidateMovedPawn();
         }
-        else if (source.getType() == IClickableArea.Type.supply && destination.getType() == IClickableArea.Type.village ) {
+        else if (source.getType() == IClickableArea.Type.village) {
             return new ReplaceMovedPawn(player, (IVillage) destination.getSubject(), pawnType);
         }
 
