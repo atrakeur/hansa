@@ -15,7 +15,6 @@ import java.util.List;
 import fr.univ_rouen.hansa.R;
 import fr.univ_rouen.hansa.adapter.NewGameAdapter;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
-import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 
 public class NewGameActivity extends ActionBarActivity {
@@ -39,6 +38,7 @@ public class NewGameActivity extends ActionBarActivity {
 
         for (int i = 0; i < PlayerColor.values().length; i++) {
             Spinner sPlayer = (Spinner) list.getChildAt(i).findViewById(R.id.player);
+
 
             if (("" + sPlayer.getSelectedItem()).equals("Aucun")) {
                 continue;

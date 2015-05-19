@@ -2,23 +2,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="5dp">
 
-    <TextView
+   <!-- <TextView
         android:text="@string/player"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content" />-->
 
     <Spinner
         android:id="@+id/color"
         android:layout_weight="1"
         android:layout_width="0dp"
-        android:layout_height="wrap_content" />
+        android:layout_height="60dp"
+        android:background="@drawable/cadre"
+        android:paddingTop="6dp"
+        android:paddingLeft="11dp"
+        android:paddingRight="11dp"
+        android:paddingBottom="6dp"
+        />
 
     <Spinner
         android:id="@+id/player"
         android:layout_weight="1"
         android:entries="@array/player"
         android:layout_width="0dp"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:background="@drawable/fondc"
+        android:paddingLeft="60dp"
+        />
+
 </LinearLayout>
