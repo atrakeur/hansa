@@ -60,14 +60,6 @@ public class GameBoard extends RouteBoard implements IDrawable {
             }
         }
 
-        //TODO remove that shit
-        cliquables.add(new IClickable() {
-            @Override
-            public IClickableArea getClickableArea() {
-                return new HansaSupplyClickableArea();
-            }
-        });
-
         return cliquables.toArray(new IClickable[cliquables.size()]);
     }
 }

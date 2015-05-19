@@ -276,8 +276,6 @@ public class MovementFactory {
             return new IncreasePower(player, cityDst, villageSrc.getRoute());
         } else if (source.getType() == IClickableArea.Type.bonus && destination == null) {
             return new PlayBonus(((IBonusMarker) source.getSubject()));
-        } else if (source.getType() == IClickableArea.Type.supply && destination.getType() == IClickableArea.Type.village) {
-            return new MovePawnRtoGB(player, (IVillage) destination.getSubject(), pawnType);
         }
 
         throw new GameException("Invalid movement");
