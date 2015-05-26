@@ -1,30 +1,17 @@
 package fr.univ_rouen.hansa.gameboard.routes;
 
-import com.google.common.collect.Lists;
-
-import junit.framework.Assert;
 import junit.framework.TestCase;
 
-import java.util.List;
-
-import fr.univ_rouen.hansa.gameboard.Privillegium;
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
 import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
-import fr.univ_rouen.hansa.gameboard.cities.City;
 import fr.univ_rouen.hansa.gameboard.cities.ICity;
-import fr.univ_rouen.hansa.gameboard.cities.IKontor;
-import fr.univ_rouen.hansa.gameboard.cities.Kontor;
-import fr.univ_rouen.hansa.gameboard.cities.Power;
 import fr.univ_rouen.hansa.gameboard.player.HTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
-import fr.univ_rouen.hansa.util.CityPositions;
-import fr.univ_rouen.hansa.util.TavernPositions;
 import fr.univ_rouen.hansa.util.VillagePositions;
-import fr.univ_rouen.hansa.view.IPosition;
 
 
 public class VillageTest extends TestCase {
@@ -100,7 +87,7 @@ public class VillageTest extends TestCase {
 
     }
 
-    public void testGetAdjacent(){
+    public void testGetAdjacent() {
         GameBoard gameBoard = GameBoardFactory.getInstance().createGameBoard(2);
         ICity city = gameBoard.getCities().get(0);
 
@@ -110,12 +97,6 @@ public class VillageTest extends TestCase {
 
         //village == village devant GRONINGEN
         village.pushPawn(new Merchant(player));
-
-        System.out.println("city pos : " + city.getPosition().getX() + " - " + city.getPosition().getY());
-        System.out.println("village pos : " + village.getPosition().getX() + " - " + village.getPosition().getY());
-        for(IVillage v : village.getAdjacentsVillages()) {
-            System.out.println(v.getPosition().getX() + " - " + v.getPosition().getY());
-        }
 
         assertEquals(1, village.getAdjacentsVillages().size());
         assertEquals(VillagePositions.GRONINGEN_EMDEN_2, village.getAdjacentsVillages().get(0).getPosition());
@@ -128,8 +109,6 @@ public class VillageTest extends TestCase {
         assertEquals(VillagePositions.GRONINGEN_EMDEN_2, village.getAdjacentsVillages().get(0).getPosition());
         assertEquals(VillagePositions.EMDEN_OSNABRUCK_1, village.getAdjacentsVillages().get(1).getPosition());
         assertEquals(VillagePositions.EMDEN_STADE_1, village.getAdjacentsVillages().get(2).getPosition());
-
-
 
 
     }
