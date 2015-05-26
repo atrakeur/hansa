@@ -11,6 +11,7 @@ import fr.univ_rouen.hansa.actions.movement.IMovement;
 import fr.univ_rouen.hansa.actions.movement.IncreasePower;
 import fr.univ_rouen.hansa.actions.movement.KeepKontor;
 import fr.univ_rouen.hansa.actions.movement.KeepRoute;
+import fr.univ_rouen.hansa.actions.movement.LiberSophia;
 import fr.univ_rouen.hansa.actions.movement.MovePawnRtoGB;
 import fr.univ_rouen.hansa.actions.movement.PlaceBonusMarker;
 import fr.univ_rouen.hansa.actions.movement.PlayBonus;
@@ -268,6 +269,8 @@ public class MovementFactory {
             }
         } else if (source.getType() == IClickableArea.Type.village && destination.getType() == IClickableArea.Type.city) {
             return new KeepKontor(player, (ICity) destination.getSubject(), (IVillage) source.getSubject());
+        } else if (source.getType() == IClickableArea.Type.village && destination.getType() == IClickableArea.Type.village) {
+            return new LiberSophia(player, (IVillage)source.getSubject(), (IVillage)destination.getSubject());
         } else if (source.getType() == IClickableArea.Type.village && destination.getType() == IClickableArea.Type.power) {
             Power power = (Power) destination.getSubject();
             ICity cityDst = GameBoardFactory.getGameBoard().getCityByPower(power);
