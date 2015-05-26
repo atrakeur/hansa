@@ -27,7 +27,7 @@ public abstract class CitiesBoard extends BasicBoard {
 
     public void increaseCityCompleted() {
         citiesCompleted++;
-        if (citiesCompleted <= 10) {
+        if (citiesCompleted >=   10) {
             throw new EndOfGameException();
         }
     }
