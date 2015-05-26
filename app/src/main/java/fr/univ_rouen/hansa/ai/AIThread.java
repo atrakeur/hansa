@@ -97,7 +97,7 @@ public class AIThread extends Thread{
                         } else {
                             Log.w("AI", "AIThread discarded actions");
                         }
-                    } catch (Exception ex) {
+                    } catch (FinishedRoundException ex) {
                         Log.w("AI", "AIThread encountered FinishedRoundException, ignoring");
                     }
                 }
@@ -123,7 +123,7 @@ public class AIThread extends Thread{
                                     IMovement movement = new PlaceBonusMarker(player, bonusToPlace, GameBoardFactory.getGameBoard().getRoutes().get(randRoute));
                                     MovementManager.getInstance().doMove(movement);
 
-                                } catch (Exception ex) {
+                                } catch (FinishedRoundException ex) {
                                     Log.w("AI", "AIThread encountered FinishedRoundException, ignoring");
                                 }
                             }
