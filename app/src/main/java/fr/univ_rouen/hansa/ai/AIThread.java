@@ -90,10 +90,14 @@ public class AIThread extends Thread{
                     try {
                         if (player == TurnManager.getInstance().getCurrentPlayingPlayer()) {
                             Log.w("AI", "AIThread ready to play all actions");
-                            for (int i = 0; i < movements.length; i++) {
-                                MovementManager.getInstance().doMove(movements[i]);
+                            if (movements != null) {
+                                for (int i = 0; i < movements.length; i++) {
+                                    MovementManager.getInstance().doMove(movements[i]);
+                                }
+                                Log.w("AI", "AIThread played all actions");
+                            } else {
+                                Log.w("AI", "AIThread has nothing to play");
                             }
-                            Log.w("AI", "AIThread played all actions");
                         } else {
                             Log.w("AI", "AIThread discarded actions");
                         }

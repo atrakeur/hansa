@@ -4,6 +4,7 @@ import fr.univ_rouen.hansa.actions.MovementFactory;
 import fr.univ_rouen.hansa.actions.movement.IMovement;
 import fr.univ_rouen.hansa.actions.movement.IncreasePower;
 import fr.univ_rouen.hansa.actions.movement.KeepKontor;
+import fr.univ_rouen.hansa.actions.movement.LiberSophia;
 import fr.univ_rouen.hansa.actions.movement.MovePawnRtoGB;
 import fr.univ_rouen.hansa.actions.movement.MovePawnRtoS;
 import fr.univ_rouen.hansa.ai.ComputerStrategy;
@@ -58,6 +59,19 @@ public abstract class BaseStrategy implements ComputerStrategy {
         }
 
         return player.getEscritoire().getSupply().enoughPawns(0, pawn);
+    }
+
+    /**
+     * Check if we have enought trader that can be potentially usable
+     * @param pawn
+     * @return
+     */
+    protected boolean hasEnoughTraderInStock(int pawn) {
+        if (TurnManager.getInstance().getCurrentPlayingPlayer() != this.player) {
+            throw new IllegalStateException("Strategy user isn't playing now");
+        }
+
+        return player.getEscritoire().getStock().enoughPawns(0, pawn);
     }
 
     /**
@@ -119,6 +133,7 @@ public abstract class BaseStrategy implements ComputerStrategy {
 
     /**
      * Create movements to take a village
+     *
      * @param village
      * @return one movement to take the village (or null if already taken)
      */
@@ -132,9 +147,22 @@ public abstract class BaseStrategy implements ComputerStrategy {
         if (hasEnoughTrader(neededTraders)) {
             IMovement movement = new MovePawnRtoGB(this.getPlayer(), village, Trader.class);
             return new IMovement[] {movement};
-        } else {
+        } else if (hasEnoughTraderInStock(neededTraders)){
             IMovement movement = new MovePawnRtoS(this.getPlayer(), 0, getPawnThatCanBeMovedToStock());
             return new IMovement[] {movement};
+        } else {
+            //Try to move an allready placed pawn
+            for (IRoute route: GameBoardFactory.getGameBoard().getRoutes()) {
+                if (route != village.getRoute()) {
+                    for (IVillage village1: route.getVillages()) {
+                        if (village1.getOwner() == this.getPlayer()) {
+                            IMovement movement = new LiberSophia(getPlayer(), village1, village);
+                            return new IMovement[] {movement};
+                        }
+                    }
+                }
+            }
+            return null;
         }
     }
 
