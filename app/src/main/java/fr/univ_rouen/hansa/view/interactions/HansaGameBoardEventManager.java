@@ -1,6 +1,5 @@
 package fr.univ_rouen.hansa.view.interactions;
 
-import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.Toast;
 
@@ -69,10 +68,10 @@ public class HansaGameBoardEventManager {
             this.showErrorMsg(e.getMessage());
             e.printStackTrace();
         } catch (UnsupportedOperationException e) {
-            this.showErrorMsg("Action not implemented (yet?)");
+            this.showErrorMsg("Action invalid");
             e.printStackTrace();
         } catch (Exception e) {
-            this.showErrorMsg("General exception (should never happen, time to debug)");
+            this.showErrorMsg("Error during execution of the action");
             e.printStackTrace();
         }
 
