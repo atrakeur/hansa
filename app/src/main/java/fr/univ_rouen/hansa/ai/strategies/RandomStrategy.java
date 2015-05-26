@@ -86,7 +86,7 @@ public class RandomStrategy extends BaseStrategy {
                     do {
                         int randomCity = (int)(Math.random() * GameBoardFactory.getGameBoard().getCities().size());
                         city = GameBoardFactory.getGameBoard().getCities().get(randomCity);
-                    } while (city.getNextKontor().getPawnClass() != Trader.class);
+                    } while (city == null || city.getNextKontor() == null | city.getNextKontor().getPawnClass() != Trader.class);
 
                     //Calculate the less expensive path to get that kontor
                     IRoute route = getLessExpensiveRouteToCity(city);
