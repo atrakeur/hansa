@@ -29,7 +29,6 @@ import fr.univ_rouen.hansa.view.interactions.AlertDialogBursa;
 
 public class GameActivity extends Activity {
 
-    //TODO remove singleton (c'est degeu!)
     private static GameActivity instance;
 
     public static GameActivity getInstance() {
@@ -39,14 +38,12 @@ public class GameActivity extends Activity {
     private Context context = this;
 
     public GameActivity() {
-        //TODO remove singleton (c'est degeu!)
         instance = this;
     }
 
     public GameActivity(Context context) {
         this.context = context;
 
-        //TODO remove singleton (c'est degeu!)
         instance = this;
     }
 

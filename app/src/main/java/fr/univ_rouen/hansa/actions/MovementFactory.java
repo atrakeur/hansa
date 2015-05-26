@@ -20,7 +20,6 @@ import fr.univ_rouen.hansa.activity.GameActivity;
 import fr.univ_rouen.hansa.exceptions.GameException;
 import fr.univ_rouen.hansa.exceptions.PopupException;
 import fr.univ_rouen.hansa.gameboard.TurnManager;
-import fr.univ_rouen.hansa.gameboard.board.GameBoard;
 import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusActiones;
 import fr.univ_rouen.hansa.gameboard.bonusmarkers.BonusEscritoire;
@@ -232,16 +231,16 @@ public class MovementFactory {
                 return makeBonusMove(source);
             }
         } else {
-            return makeReplaceMove(source, destination, player);
+            return makeReplaceMove(source, player);
         }
     }
 
-    private IMovement makeReplaceMove(IClickableArea source, IClickableArea destination, IHTPlayer player) {
-        if (source == null && destination == null) {
+    private IMovement makeReplaceMove(IClickableArea source, IHTPlayer player) {
+        if (source == null) {
             return new ValidateMovedPawn();
         }
         else if (source.getType() == IClickableArea.Type.village) {
-            return new ReplaceMovedPawn(player, (IVillage) destination.getSubject(), pawnType);
+            return new ReplaceMovedPawn(player, (IVillage) source.getSubject(), pawnType);
         }
 
         throw new GameException("Invalid movement");
