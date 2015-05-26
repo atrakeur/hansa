@@ -44,7 +44,10 @@ public class Stack<E> {
     }
 
     public List<E> getStackContent() {
-        List<E> list = Lists.newArrayList(stack);
+        List<E> list = Lists.newArrayList();
+        for (int i = 0; i < stack.size(); i++) {
+            list.add(stack.get(i));
+        }
         Collections.reverse(list);
         return list;
     }

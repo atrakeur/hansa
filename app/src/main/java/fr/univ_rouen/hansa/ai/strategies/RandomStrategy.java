@@ -62,7 +62,7 @@ public class RandomStrategy extends BaseStrategy {
 
         stateRemain--;
         if (stateRemain <= 0) {
-            if (getPlayer().getActionNumber() >= 4 && Math.random() > 0.50) {
+            if (getPlayer().getActionNumber() <= 4 && Math.random() > 0.50) {
                 state = State.ACTIONES;
                 stateRemain = 4;
             } else {
@@ -86,7 +86,7 @@ public class RandomStrategy extends BaseStrategy {
                     do {
                         int randomCity = (int)(Math.random() * GameBoardFactory.getGameBoard().getCities().size());
                         city = GameBoardFactory.getGameBoard().getCities().get(randomCity);
-                    } while (city == null || city.getNextKontor() == null | city.getNextKontor().getPawnClass() != Trader.class);
+                    } while (city == null || city.getNextKontor() == null || city.getNextKontor().getPawnClass() != Trader.class);
 
                     //Calculate the less expensive path to get that kontor
                     IRoute route = getLessExpensiveRouteToCity(city);

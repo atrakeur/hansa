@@ -67,7 +67,7 @@ public class BonusStrategy extends BaseStrategy {
 
         stateRemain--;
         if (stateRemain <= 0) {
-            if (getPlayer().getActionNumber() >= 4 && Math.random() > 0.75) {
+            if (getPlayer().getActionNumber() <= 4 && Math.random() > 0.75) {
                 state = State.ACTIONES;
                 stateRemain = 2;
             } else {
