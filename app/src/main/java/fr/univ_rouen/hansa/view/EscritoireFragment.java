@@ -37,7 +37,6 @@ public class EscritoireFragment extends Fragment {
         //Info about the Player's Stock.
         ((TextView) rootView.findViewById(R.id.nb_trader_stock)).setText("" + args.getInt(STOCK_TRADER));
         ((TextView) rootView.findViewById(R.id.nb_merchant_stock)).setText("" + args.getInt(STOCK_MERCHANT));
-        System.out.println(args.getInt(STOCK_TRADER));
 
         //Info about the Player's Supply.
         ((TextView) rootView.findViewById(R.id.nb_trader_supply)).setText("" + args.getInt(SUPPLY_TRADER));

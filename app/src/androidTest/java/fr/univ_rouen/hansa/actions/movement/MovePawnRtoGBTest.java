@@ -1,25 +1,15 @@
 package fr.univ_rouen.hansa.actions.movement;
 
-import android.util.Log;
-
-import com.google.common.collect.Lists;
-
 import junit.framework.TestCase;
 
-import java.util.List;
-
-import fr.univ_rouen.hansa.exceptions.NoPlaceException;
-import fr.univ_rouen.hansa.gameboard.TurnManager;
 import fr.univ_rouen.hansa.gameboard.board.GameBoard;
 import fr.univ_rouen.hansa.gameboard.board.GameBoardFactory;
 import fr.univ_rouen.hansa.gameboard.player.HTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.IHTPlayer;
 import fr.univ_rouen.hansa.gameboard.player.PlayerColor;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Merchant;
-import fr.univ_rouen.hansa.gameboard.player.pawns.Pawn;
 import fr.univ_rouen.hansa.gameboard.player.pawns.Trader;
 import fr.univ_rouen.hansa.gameboard.routes.IVillage;
-import fr.univ_rouen.hansa.gameboard.routes.Village;
 
 public class MovePawnRtoGBTest extends TestCase {
     private GameBoard gameBoard;
@@ -71,8 +61,7 @@ public class MovePawnRtoGBTest extends TestCase {
         v.pushPawn(new Trader(player2));
         assertTrue(!v.isEmpty());
         assertFalse(player1.getEscritoire().getSupply().getTraderCount() == 0);
-        System.out.println(player1.getEscritoire().getSupply().getTraderCount());
-         MovePawnRtoGB mp = new MovePawnRtoGB(player1,v,Trader.class);
+        MovePawnRtoGB mp = new MovePawnRtoGB(player1,v,Trader.class);
         assertEquals(player1.getEscritoire().getSupply().getTraderCount(), 5);
         assertEquals(player1.getEscritoire().getSupply().getMerchantCount(), 1);
         mp.doMovement();
