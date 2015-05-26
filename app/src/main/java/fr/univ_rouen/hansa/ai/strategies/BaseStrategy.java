@@ -147,9 +147,6 @@ public abstract class BaseStrategy implements ComputerStrategy {
         if (hasEnoughTrader(neededTraders)) {
             IMovement movement = new MovePawnRtoGB(this.getPlayer(), village, Trader.class);
             return new IMovement[] {movement};
-        } else if (hasEnoughTraderInStock(neededTraders)){
-            IMovement movement = new MovePawnRtoS(this.getPlayer(), 0, getPawnThatCanBeMovedToStock());
-            return new IMovement[] {movement};
         } else if (village.getOwner() == null){
             //Try to move an allready placed pawn
             for (IRoute route: GameBoardFactory.getGameBoard().getRoutes()) {
@@ -162,6 +159,9 @@ public abstract class BaseStrategy implements ComputerStrategy {
                     }
                 }
             }
+        } else if (hasEnoughTraderInStock(neededTraders)){
+            IMovement movement = new MovePawnRtoS(this.getPlayer(), 0, getPawnThatCanBeMovedToStock());
+            return new IMovement[] {movement};
         }
 
         return null;
