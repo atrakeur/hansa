@@ -45,9 +45,11 @@ public class PlaceBonusMarker implements IMovement {
         if(bonusMarker.getState() != BonusState.inPlate){
             throw new IllegalStateException("Invalid bonus state");
         }
+        /*
         if (!player.getEscritoire().getTinPlateContent().contains(bonusMarker)) {
             throw new IllegalStateException("Player hasn't the bonus he try to play");
         }
+        */
 
         player.getEscritoire().getTinPlateContent().remove(bonusMarker);
         route.pushBonusMarker(bonusMarker);
