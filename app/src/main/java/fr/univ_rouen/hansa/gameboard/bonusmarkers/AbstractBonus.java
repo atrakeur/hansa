@@ -22,12 +22,12 @@ public abstract class AbstractBonus implements IBonusMarker {
     }
 
     @Override
-    public BonusState getState() {
+    public final BonusState getState() {
         return state;
     }
 
     @Override
-    public void setState(BonusState state) {
+    public final void setState(BonusState state) {
         if (state == null) {
             throw new NullPointerException();
         }

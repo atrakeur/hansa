@@ -15,7 +15,7 @@ public class PlaceBonusMarker implements IMovement {
     private boolean actionDone;
 
     public PlaceBonusMarker(IHTPlayer player, IBonusMarker bonusMarker, IRoute route) {
-        if(bonusMarker == null || route == null || !route.isEmpty() || bonusMarker.getState() != BonusState.inPlate ){
+        if(bonusMarker == null || route == null || !route.isEmpty()){
             throw new IllegalArgumentException();
         }
 
@@ -42,9 +42,9 @@ public class PlaceBonusMarker implements IMovement {
         if(!route.isEmpty() || route.getBonusMarker() != null){
             throw new IllegalStateException("Route not empty");
         }
-        if(bonusMarker.getState() != BonusState.inPlate){
+        /*if(bonusMarker.getState() != BonusState.inPlate){
             throw new IllegalStateException("Invalid bonus state");
-        }
+        }*/
         /*
         if (!player.getEscritoire().getTinPlateContent().contains(bonusMarker)) {
             throw new IllegalStateException("Player hasn't the bonus he try to play");
