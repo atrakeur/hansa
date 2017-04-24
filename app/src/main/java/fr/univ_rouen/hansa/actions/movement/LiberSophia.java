@@ -47,7 +47,6 @@ public class LiberSophia implements IMovement {
         }
 
         destination.pushPawn(source.pullPawn());
-
         actionDone = true;
     }
 
@@ -62,7 +61,6 @@ public class LiberSophia implements IMovement {
         }
 
         source.pushPawn(destination.pullPawn());
-
         actionDone = false;
     }
 
@@ -75,4 +73,5 @@ public class LiberSophia implements IMovement {
     public int getMergeableMove() {
         return this.player.getEscritoire().liberSophiaLevel();
     }
+
 }
